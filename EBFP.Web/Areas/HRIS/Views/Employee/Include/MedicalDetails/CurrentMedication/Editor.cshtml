@@ -1,0 +1,36 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.HumanResources.CurrentMedicationModel
+@using EBFP.BL.Helper;
+
+@using (Html.BeginCollectionItem("CurrentMedication"))
+{
+    string formID = "HRISEB_" + Guid.NewGuid().ToString().Replace("-", "");
+    <div class="divTableRow" id="@formID">
+        @Html.HiddenFor(m => @Model.Med_Id, new { @class = "form-control" })
+        <div class="divTableCell"> 
+            @Html.TextBoxFor(model => Model.Med_MedicineName, new { @class = "form-control" } )
+        </div>
+       
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.Med_HowTaken, new { @class = "form-control" })</div>
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.Med_WhoPrescribes, new {@class = "form-control"})
+        </div>
+        <div class="divTableCell">
+            @Html.RadioButtonFor(e => e.Med_NeedRx, true, new { id = "Med_NeedRx-true" })
+            @Html.Label("Med_NeedRx-true", "Yes")
+            @Html.RadioButtonFor(e => e.Med_NeedRx, false, new { id = "Med_NeedRx-false" })
+            @Html.Label("Med_NeedRx-false", "No")
+        </div>
+        <div class="divTableCell">
+            <button type="button" class="btn btn-danger removeItem btn-circle MedicalAccess" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+        });
+    </script>
+}

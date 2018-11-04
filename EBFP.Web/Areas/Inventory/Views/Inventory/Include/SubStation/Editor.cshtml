@@ -1,0 +1,54 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.Inventory.SubStationEmployeeModel
+@using EBFP.BL.Helper
+@using (Html.BeginCollectionItem("SubStationEmployees"))
+{
+    string formID = "SSEmp_" + Guid.NewGuid().ToString().Replace("-", "");
+    @Html.HiddenFor(model => model.toDelete, new {@id= @formID + "ToDelete" });
+    <div class="divTableRow" id="@formID">
+        @Html.HiddenFor(m => @Model.SubStation_Id, new { @class = "form-control" })
+        @Html.HiddenFor(m => @Model.Unit_Id, new { @class = "form-control" })
+        <div class="divTableCell">
+            @Html.DropDownListFor(model => Model.Emp_Id, Selections.EmployeeByUnitIdList(Model.Unit_Id, true).ToList(), new { @class = "form-control select2" } ) 
+        </div>
+        <div class="divTableCell">
+            <button type="button" class="btn btn-danger removeItem btn-circle UserAccessCanEdit" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button>
+        </div>
+    </div>
+
+    string Employees = Newtonsoft.Json.JsonConvert.SerializeObject(Selections.EmployeeByUnitIdList(Model.Unit_Id, true).Select(a => a.Text).ToList());
+    Employees = Employees.Replace("\"", "'");
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).hide();
+
+                var id = '@formID' + 'ToDelete';
+                var e = $('#' + id).val('True');
+            });
+        });
+
+        var Employeess = '@Employees'.replace(/\&#39;/g, "\"");
+        var UserInRole = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: JSON.parse(Employeess)
+        });
+
+        $('#@formID .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 0
+        },
+        {
+            name: 'UserInRole',
+            source: UserInRole
+        });
+
+    </script>
+}
+
+

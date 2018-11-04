@@ -1,0 +1,1066 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.CIS.InventoryReportModel
+@{
+    ViewBag.Title = "REPORTS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_InventoryReport_CanViewAll)))
+      {
+          @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+      }
+}
+<style>
+  .employeeSelection, .mydatepicker, .igSelection {
+    display: block;
+  }
+</style>
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        I. REPORT ON THE PHYSICAL COUNT OF PROPERTY, PLANT AND EQUIPMENT
+
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="PhysicalInventoryReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group" style="margin-left: 10px">
+              <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                  <label class="control-label">Type</label>
+                  @Html.DropDownList("PhysicalInventoryType", PhysicalInventoryReportType.PAR.ToSelectList(), new { id = "ddlType", @class = "form-control select2" })
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-2" style="margin-left:15px !important">
+                <div class="form-group">
+                  <label class="control-label">Report End Date</label>
+                  @Html.TextBox("EndDate", "", "{0:MM/dd/yyyy}", new { id = "dpEndDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy" })
+                </div>
+              </div>
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GeneratePhysicalInventoryReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Inventory Group</label>
+                <select class="form-control igSelection" id="ddlIG">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Accountable Officer</label>
+                <select class="form-control employeeSelection" id="ddlEmployee">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Date of Assumption</label>
+                @Html.TextBox("AssumptionDate", "", "{0:MM/dd/yyyy}", new { id = "dpAssumptionDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy" })
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        II. INVENTORY AND INSPECTION REPORT OF UNSERVICEABLE PROPERTY (IIRUP)
+
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="IIRUPReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Start month</label>
+                  @Html.DropDownList("StartMonth", Selections.Months, " --- Please Select---", new {@class = "form-control", @id = "ddlStartMonth"})
+                </div>
+              </div>
+
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">End month</label>
+                  @Html.DropDownList("EndMonth", Selections.Months, " --- Please Select---", new {@class = "form-control", @id = "ddlEndMonth"})
+                </div>
+              </div>
+
+
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Year</label>
+                  @Html.DropDownList("Year", Selections.GetDropDownListForYears, " --- Please Select---", new {@class = "form-control", @id = "ddlYear"})
+                </div>
+
+              </div>
+
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GenerateIIRUPReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Accountable Officer</label>
+                <select class="form-control employeeSelection" id="ddlIIRUPEmployee">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Date of Assumption</label>
+                @Html.TextBox("AssumptionDate", "", "{0:MM/dd/yyyy}", new {id = "dpIIRUPAssumptionDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy"})
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        III. SUMMARY REPORT ON THE PHYSICAL COUNT OF PROPERTY, PLANT AND EQUIPMENT Based on PAR
+
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="SummaryPARReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Report End Date</label>
+                  @Html.TextBox("EndDate", "", "{0:MM/dd/yyyy}", new {id = "dpSummaryEndDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy"})
+                </div>
+              </div>
+
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GenerateSummaryPARReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        IV. SUMMARY REPORT ON THE PHYSICAL COUNT OF PROPERTY, PLANT AND EQUIPMENT Based on ICS
+
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="SummaryICSReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Report End Date</label>
+                  @Html.TextBox("ICSEndDate", "", "{0:MM/dd/yyyy}", new {id = "dpSummaryICSEndDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy"})
+                </div>
+              </div>
+
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GenerateSummaryICSReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        V. REPORT ON THE PHYSICAL COUNT OF INVENTORIES OF SUPPLIES
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="InventorySuppliesReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Report End Date</label>
+                  @Html.TextBox("EndDate", "", "{0:MM/dd/yyyy}", new {id = "dpISEndDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy"})
+                </div>
+              </div>
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GenerateInventorySuppliesReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Accountable Officer</label>
+                <select class="form-control employeeSelection" id="ddlSIEmployee">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Date of Assumption</label>
+                @Html.TextBox("AssumptionDate", "", "{0:MM/dd/yyyy}", new {id = "dpSIAssumptionDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy"})
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        VI. INVENTORY OF SELF-CONTAINED BREATHING APPARATUS (SCBA) REQUIREMENT DATA RECAPITULATION (NATIONWIDE)
+
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="SCBANationwideReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GenerateSCBANationwideReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Prepared by</label>
+                <select class="form-control employeeSelection" id="ddlSCBANationwidePreparedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Noted by</label>
+                <select class="form-control employeeSelection" id="ddlSCBANationwideNotedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        VII. INVENTORY OF SELF-CONTAINED BREATHING APPARATUS (SCBA) REQUIREMENT DATA RECAPITULATION (REGION - PROVINCE)
+
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="SCBAByRegionReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Region</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                      @Html.DropDownList("Region", Selections.SearchRegion, new { id = "ddlRegion", @class = "form-control", @disabled = "disabled" })
+                  }
+                  else
+                  {
+                      @Html.DropDownList("Region", Selections.SearchRegion, " --- Please Select---", new { id = "ddlRegion", @class = "form-control",})
+
+                  }
+                </div>
+              </div>
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GenerateSCBAByRegionReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Prepared by</label>
+                <select class="form-control employeeSelection" id="ddlSCBAPerRegPreparedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Certified by</label>
+                <select class="form-control employeeSelection" id="ddlSCBAPerRegCertifiedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Noted by</label>
+                <select class="form-control employeeSelection" id="ddlSCBAPerRegNotedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        VIII. INVENTORY OF SELF-CONTAINED BREATHING APPARATUS (SCBA) REQUIREMENT DATA RECAPITULATION (PROVINCE - MUNICIPALITY)
+
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="SCBAByProvinceReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Region</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                    @Html.DropDownList("Region", Selections.SearchRegion, new {id = "ddlSCBAByProvRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)", @disabled = "disabled"})
+                  }
+                  else
+                  {
+                    @Html.DropDownList("Region", Selections.SearchRegion, " --- Please Select---", new {id = "ddlSCBAByProvRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)"})
+
+                  }
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Province</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                    @Html.DropDownListFor(model => Model.ProvinceId, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new {id = "ddlProvince", @class = "form-control", @disabled = "disabled"})
+                  }
+                  else
+                  {
+                    @Html.DropDownList("Province", new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new {id = "ddlProvince", @class = "form-control"})
+
+                  }
+                </div>
+              </div>
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GenerateSCBAByProvinceReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Prepared by</label>
+                <select class="form-control employeeSelection" id="ddlSCBAByProvPreparedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Certified by</label>
+                <select class="form-control employeeSelection" id="ddlSCBAByProvCertifiedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Noted by</label>
+                <select class="form-control employeeSelection" id="ddlSCBAByProvNotedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+@*<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        IX. INVENTORY OF SELF-CONTAINED BREATHING APPARATUS (SCBA) REQUIREMENT DATA RECAPITULATION (MUNICIPALITY - STATION / SUBSTATION)
+
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="SCBAByMunicipalityReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Region</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                    @Html.DropDownList("Region", Selections.SearchRegion, new {id = "ddlSCBAByMunicipalityRegion", @class = "form-control", onchange = "ddlSCBAByMunicipalityRegionValueChanged(this.value)", @disabled = "disabled"})
+                  }
+                  else
+                  {
+                    @Html.DropDownList("Region", Selections.SearchRegion, " --- Please Select---", new {id = "ddlSCBAByMunicipalityRegion", @class = "form-control", onchange = "ddlSCBAByMunicipalityRegionValueChanged(this.value)"})
+
+                  }
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Province</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                    @Html.DropDownListFor(model => Model.ProvinceId, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new {id = "ddlSCBAByMunicipalityProvince", @class = "form-control", onchange = "ddlProvinceValueChanged(this.value)", @disabled = "disabled"})
+                  }
+                  else
+                  {
+                    @Html.DropDownList("Province", new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new {id = "ddlSCBAByMunicipalityProvince", @class = "form-control", onchange = "ddlProvinceValueChanged(this.value)"})
+
+                  }
+                </div>
+              </div>
+
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Municipality</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                    @Html.DropDownListFor(model => Model.Municipality_Id, new SelectList(Enumerable.Empty<SelectListItem>(), "MunicipalityId_Id", "MunicipalityId_Name"), " --- Please Select---", new {id = "ddlMunicipality", @class = "form-control", onchange = "ddlMunicipalityValueChanged(this.value)", @disabled = "disabled"})
+                  }
+                  else
+                  {
+                    @Html.DropDownList("MunicipalityId", new SelectList(Enumerable.Empty<SelectListItem>(), "MunicipalityId_Id", "MunicipalityId_Name"), " --- Please Select---", new {id = "ddlMunicipality", @class = "form-control", onchange = "ddlMunicipalityValueChanged(this.value)"})
+
+                  }
+                </div>
+              </div>
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GenerateSCBAByMunicipalityReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Prepared by</label>
+                <select class="form-control employeeSelection" id="ddlSCBAByMunicipalityPreparedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Certified by</label>
+                <select class="form-control employeeSelection" id="ddlSCBAByMunicipalityCertifiedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Noted by</label>
+                <select class="form-control employeeSelection" id="ddlSCBAByMunicipalityNotedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>*@
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        IX. INVENTORY OF PERSONNEL PROTECTIVE EQUIPMENT (PPE) (NATIONWIDE)
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="PPENationwideReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GeneratePPENationwideReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Prepared by</label>
+                <select class="form-control employeeSelection" id="ddlPPENationwidePreparedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Noted by</label>
+                <select class="form-control employeeSelection" id="ddlPPENationwideNotedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        X. INVENTORY OF FIREFIGHTING EQUIPMENT (HOSE AND NOZZLE) (NATIONWIDE)
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="EquipmentNationwideReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GenerateEquipmentNationwideReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Prepared by</label>
+                <select class="form-control employeeSelection" id="ddlEquipmentNationwidePreparedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Noted by</label>
+                <select class="form-control employeeSelection" id="ddlEquipmentNationwideNotedBy">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- Typehead CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<!-- Typehead Plugin JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+<script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    InitSelection();
+    InitIGSelection();
+    ddlRegionValueChanged($('#ddlSCBAByProvRegion').val(),@Model.ProvinceId);
+
+
+
+    ddlSCBAByMunicipalityRegionValueChanged($('#ddlSCBAByMunicipalityRegion').val(),@Model.ProvinceId);
+    ddlProvinceValueChanged(@Model.ProvinceId,@Model.Municipality_Id);
+  });
+  var oSelectionDS = new SelectionDS();
+  var restrictToProvince = '@PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince)';
+  var restrictToStation = '@PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation)';
+  function ddlRegionValueChanged(regionId, provinceId) {
+    var province = provinceId;
+    if (regionId === "" || (restrictToProvince === 'False' && restrictToStation === 'False'))
+      oSelectionDS.ProvinceByRegion("ddlProvince", regionId);
+    else
+      oSelectionDS.ProvinceByRegion("ddlProvince", regionId, province);
+  }
+
+
+  function ddlSCBAByMunicipalityRegionValueChanged(regionId, provinceId) {
+    var province = provinceId;
+    if (regionId === "" || (restrictToProvince === 'False' && restrictToStation === 'False'))
+      oSelectionDS.ProvinceByRegion("ddlSCBAByMunicipalityProvince", regionId);
+    else
+      oSelectionDS.ProvinceByRegion("ddlSCBAByMunicipalityProvince", regionId, province);
+
+    oSelectionDS.ClearDropdown("ddlMunicipality");
+  }
+
+  function ddlProvinceValueChanged(provinceId, municipalityId) {
+    var municipality = municipalityId;
+    if (provinceId === "" || restrictToStation === 'False') {
+      if (restrictToProvince === 'False' && restrictToStation === 'False')
+        provinceId = $('#ddlSCBAByMunicipalityProvince').val();
+      oSelectionDS.MunicipalityByProvince("ddlMunicipality", provinceId);
+    }
+    else
+      oSelectionDS.MunicipalityByProvince("ddlMunicipality", provinceId, municipality);
+  }
+
+  function InitIGSelection() {
+    $(".igSelection").select2({
+      ajax: {
+        url: '/InventoryGroups/SelectionAutoComplete',
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            search: params.term // search term
+          };
+        },
+        processResults: function (data) {
+          return {
+            results: data.data
+          };
+        },
+        cache: true
+      },
+      minimumInputLength: 2
+    });
+  }
+
+  function InitSelection() {
+    $(".employeeSelection").select2({
+      ajax: {
+        url: '/Employee/SelectionAutoComplete',
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            search: params.term // search term
+          };
+        },
+        processResults: function (data) {
+          return {
+            results: data.data
+          };
+        },
+        cache: true
+
+      },
+      minimumInputLength: 3
+    });
+  }
+
+  function BlockUI(area) {
+    $('#' + area).block({
+      message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait , do not close or refresh the page...</h3>'
+        , css: {
+          border: '1px solid #fff !important'
+        }
+    });
+  }
+
+  function UnblockUI(area) {
+    $('#' + area).unblock();
+  }
+
+  function SwalAlert(msg) {
+    swal("Ooops..", msg, "error");
+  }
+  function GeneratePhysicalInventoryReport() {
+    if (($('#ddlEmployee').val() == null || $('#ddlEmployee').val() === '') ||
+        ($('#ddlIG').val() == null || $('#ddlIG').val() === '') ||
+        ($('#dpEndDate').val() == null || $('#dpEndDate').val() === '') ||
+        ($('#dpAssumptionDate').val() == null || $('#dpAssumptionDate').val() === '') ||
+        ($('#ddlType').val() == null || $('#ddlType').val() === '')) {
+      SwalAlert("All fields are required for generating report!");
+    } else {
+      BlockUI("PhysicalInventoryReport");
+      $.post("/InventoryReports/GeneratePhysicalInventoryReport?employee=" +
+                $('#ddlEmployee').val() +
+                "&group=" +
+                $('#ddlIG').val() +
+                "&endDate=" +
+                $('#dpEndDate').val() +
+                "&assumptionDate=" +
+                $('#dpAssumptionDate').val() +
+                "&type=" +
+                $("#ddlType").val())
+            .success(function (response) {
+              if (response && response !== "No excel file generated.") {
+                window.location.href = '/InventoryReports/Download?file=' + response;
+              } else {
+                SwalAlert("No excel file generated.");
+              }
+
+              UnblockUI("PhysicalInventoryReport");
+            });
+    }
+  }
+  function GenerateIIRUPReport() {
+    if (($('#ddlStartMonth').val() == null || $('#ddlStartMonth').val() === '') ||
+        ($('#ddlEndMonth').val() == null || $('#ddlEndMonth').val() === '') ||
+        ($('#dpIIRUPAssumptionDate').val() == null || $('#dpIIRUPAssumptionDate').val() === '') ||
+        ($('#ddlYear').val() == null || $('#ddlYear').val() === '') ||
+        ($('#ddlIIRUPEmployee').val() == null || $('#ddlIIRUPEmployee').val() === '')) {
+      SwalAlert("All fields are required for generating report!");
+    } else {
+      BlockUI("IIRUPReport");
+      $.post("/InventoryReports/GenerateUnserviceableReport?employee=" +
+              $('#ddlIIRUPEmployee').val() +
+              "&startMonth=" +
+              $('#ddlStartMonth').val() +
+              "&assumptionDate=" +
+              $('#dpIIRUPAssumptionDate').val() +
+              "&endMonth=" +
+              $("#ddlEndMonth").val() +
+               "&year=" +
+              $("#ddlYear").val())
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+
+            UnblockUI("IIRUPReport");
+          });
+    }
+  }
+  function GenerateSummaryPARReport() {
+    if (($('#dpSummaryEndDate').val() == null || $('#dpSummaryEndDate').val() === '')) {
+      SwalAlert("End Date is required for generating report!");
+    } else {
+      BlockUI("SummaryPARReport");
+      $.post("/InventoryReports/GenerateSummaryPARReport?endDate=" +
+              $("#dpSummaryEndDate").val())
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+            UnblockUI("SummaryPARReport");
+          });
+    }
+  }
+  function GenerateSummaryICSReport() {
+    if (($('#dpSummaryICSEndDate').val() == null || $('#dpSummaryICSEndDate').val() === '')) {
+      SwalAlert("End Date is required for generating report!");
+    } else {
+      BlockUI("SummaryICSReport");
+      $.post("/InventoryReports/GenerateSummaryICSReport?endDate=" +
+              $("#dpSummaryICSEndDate").val())
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+            UnblockUI("SummaryICSReport");
+          });
+    }
+  }
+  function GenerateInventorySuppliesReport() {
+    if (($('#ddlSIEmployee').val() == null || $('#ddlSIEmployee').val() === '') ||
+        ($('#dpSIAssumptionDate').val() == null || $('#dpSIAssumptionDate').val() === '') ||
+        ($('#dpISEndDate').val() == null || $('#dpISEndDate').val() === '')) {
+      SwalAlert("All fields are required for generating report!");
+    } else {
+      BlockUI("InventorySuppliesReport");
+      $.post("/InventoryReports/GenerateInventorySuppliesReport?employee=" +
+              $('#ddlSIEmployee').val() +
+              "&assumptionDate=" +
+              $('#dpSIAssumptionDate').val() +
+               "&endDate=" +
+              $("#dpISEndDate").val())
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+
+            UnblockUI("InventorySuppliesReport");
+          });
+    }
+  }
+
+  function GenerateSCBANationwideReport() {
+    if (($('#ddlSCBANationwidePreparedBy').val() == null || $('#ddlSCBANationwidePreparedBy').val() === '')
+      || ($('#ddlSCBANationwideNotedBy').val() == null || $('#ddlSCBANationwideNotedBy').val() === '')
+      ) {
+      SwalAlert("All fields are required for generating report!");
+    } else {
+      BlockUI("SCBANationwideReport");
+      $.post("/InventoryReports/GenerateSCBANationwideReport?preparedBy=" +
+                $('#ddlSCBANationwidePreparedBy').val() +
+                "&notedBy=" +
+                $('#ddlSCBANationwideNotedBy').val())
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+            UnblockUI("SCBANationwideReport");
+          });
+    }
+  }
+
+
+  function GenerateSCBAByRegionReport() {
+    if (($('#ddlSCBAPerRegPreparedBy').val() == null || $('#ddlSCBAPerRegPreparedBy').val() === '')
+      || ($('#ddlSCBAPerRegNotedBy').val() == null || $('#ddlSCBAPerRegNotedBy').val() === '')
+       || ($('#ddlSCBAPerRegCertifiedBy').val() == null || $('#ddlSCBAPerRegCertifiedBy').val() === '')
+         || ($('#ddlRegion').val() == null || $('#ddlRegion').val() === '')) {
+      SwalAlert("All fields are required for generating report!");
+    } else {
+      BlockUI("SCBAByRegionReport");
+      $.post("/InventoryReports/GenerateSCBAByRegionReport?preparedBy=" +
+                $('#ddlSCBAPerRegPreparedBy').val() +
+                  "&certifiedBy=" +
+                $('#ddlSCBAPerRegCertifiedBy').val() +
+                "&notedBy=" +
+                $('#ddlSCBAPerRegNotedBy').val()+
+                 "&region=" +
+                $('#ddlRegion').val())
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+            UnblockUI("SCBAByRegionReport");
+          });
+    }
+  }
+
+  function GenerateSCBAByProvinceReport() {
+    if (($('#ddlSCBAByProvPreparedBy').val() == null || $('#ddlSCBAByProvPreparedBy').val() === '')
+      || ($('#ddlSCBAByProvNotedBy').val() == null || $('#ddlSCBAByProvNotedBy').val() === '')
+      || ($('#ddlSCBAByProvCertifiedBy').val() == null || $('#ddlSCBAByProvCertifiedBy').val() === '')
+      || ($('#ddlSCBAByProvRegion').val() == null || $('#ddlSCBAByProvRegion').val() === '')
+      || ($('#ddlProvince').val() == null || $('#ddlProvince').val() === '')) {
+      SwalAlert("All fields are required for generating report!");
+    } else {
+      var provinceSelectedId = restrictToProvince === 'True' || restrictToStation === 'True' ? '@Model.ProvinceId' : $("#ddlProvince").val() === "" ? 0 : $("#ddlProvince").val();
+  
+      BlockUI("SCBAByProvinceReport");
+      $.post("/InventoryReports/GenerateSCBAByProvinceReport?preparedBy=" +
+                $('#ddlSCBAByProvPreparedBy').val() +
+                  "&certifiedBy=" +
+                $('#ddlSCBAByProvCertifiedBy').val() +
+                "&notedBy=" +
+                $('#ddlSCBAByProvNotedBy').val() +
+                "&provinceId=" +
+               provinceSelectedId
+                )
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+            UnblockUI("SCBAByProvinceReport");
+          });
+    }
+  }
+
+
+  function GenerateSCBAByMunicipalityReport() {
+    if (($('#ddlSCBAByMunicipalityPreparedBy').val() == null || $('#ddlSCBAByMunicipalityPreparedBy').val() === '')
+      || ($('#ddlSCBAByMunicipalityNotedBy').val() == null || $('#ddlSCBAByMunicipalityNotedBy').val() === '')
+      || ($('#ddlSCBAByMunicipalityCertifiedBy').val() == null || $('#ddlSCBAByMunicipalityCertifiedBy').val() === '')
+      || ($('#ddlSCBAByMunicipalityRegion').val() == null || $('#ddlSCBAByMunicipalityRegion').val() === '')
+      || ($('#ddlSCBAByMunicipalityProvince').val() == null || $('#ddlSCBAByMunicipalityProvince').val() === '')) {
+      SwalAlert("All fields are required for generating report!");
+    } else {
+      var municipalitySelectedId = restrictToStation === 'True' ? '@Model.Municipality_Id' : $("#ddlMunicipality").val() === "" ? 0 : $("#ddlMunicipality").val();
+      BlockUI("SCBAByMunicipalityReport");
+      $.post("/InventoryReports/GenerateSCBAByMunicipalityReport?preparedBy=" +
+                $('#ddlSCBAByMunicipalityPreparedBy').val() +
+                  "&certifiedBy=" +
+                $('#ddlSCBAByMunicipalityCertifiedBy').val() +
+                "&notedBy=" +
+                $('#ddlSCBAByMunicipalityNotedBy').val() +
+                 "&municipalityId=" +
+                municipalitySelectedId
+                )
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+            UnblockUI("SCBAByMunicipalityReport");
+          });
+    }
+  }
+
+  function GeneratePPENationwideReport() {
+    if (($('#ddlPPENationwidePreparedBy').val() == null || $('#ddlPPENationwidePreparedBy').val() === '')
+      || ($('#ddlPPENationwideNotedBy').val() == null || $('#ddlPPENationwideNotedBy').val() === '')
+      ) {
+      SwalAlert("All fields are required for generating report!");
+    } else {
+      BlockUI("PPENationwideReport");
+      $.post("/InventoryReports/GeneratePPENationwideReport?preparedBy=" +
+                $('#ddlPPENationwidePreparedBy').val() +
+                "&notedBy=" +
+                $('#ddlPPENationwideNotedBy').val())
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+            UnblockUI("PPENationwideReport");
+          });
+    }
+  }
+
+  function GenerateEquipmentNationwideReport() {
+    if (($('#ddlEquipmentNationwidePreparedBy').val() == null || $('#ddlEquipmentNationwidePreparedBy').val() === '')
+      || ($('#ddlEquipmentNationwideNotedBy').val() == null || $('#ddlEquipmentNationwideNotedBy').val() === '')
+      ) {
+      SwalAlert("All fields are required for generating report!");
+    } else {
+      BlockUI("EquipmentNationwideReport");
+      $.post("/InventoryReports/GenerateEquipmentNationwideReport?preparedBy=" +
+                $('#ddlEquipmentNationwidePreparedBy').val() +
+                "&notedBy=" +
+                $('#ddlEquipmentNationwideNotedBy').val())
+          .success(function (response) {
+            if (response && response !== "No excel file generated.") {
+              window.location.href = '/InventoryReports/Download?file=' + response;
+            } else {
+              SwalAlert("No excel file generated.");
+            }
+            UnblockUI("EquipmentNationwideReport");
+          });
+    }
+  }
+</script>

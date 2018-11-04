@@ -1,0 +1,294 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                Fire Incidents
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+
+                    <div style="font-weight: bold; font-size: 15px; text-align: center">
+                        <div> 5-YEAR FIRE INCIDENCE STATISTICS</div>
+                        <div>{{CYYear}}</div>
+                    </div>
+
+                    <br/><br/>
+                    <div>
+                        <table cellpadding="1" class="tbl-Dashboard">
+                            <tr>
+                                <th>Year</th>
+                                <th>No. of Fire Incidents</th>
+                                <th>Estimated Amount of Property Damage (In Billion Pesos)</th>
+                                <th>Deaths</th>
+                                <th>Injuries</th>
+                            </tr>
+                            <tr ng-repeat="item in FireIncidentStatistics">
+                                <td class="tbl-RowTitle">{{item.Year}}</td>
+                                <td>{{item.FireIncidents}}</td>
+                                <td>{{item.DamageInBillions}}</td>
+                                <td>{{item.Deaths}}</td>
+                                <td>{{item.Injuries}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tbl-RowTitle">TOTAL</td>
+                                <td>{{FireIncidentStatistics | sumByKey:'FireIncidents' | number}}</td>
+                                <td>{{FireIncidentStatistics | sumByKey:'DamageInBillions' | number}}</td>
+                                <td>{{FireIncidentStatistics | sumByKey:'Deaths' | number}}</td>
+                                <td>{{FireIncidentStatistics | sumByKey:'Injuries' | number}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tbl-RowTitle">AVERAGE</td>
+                                <td>{{FireIncidentStatistics | avgIncidentByKey:'FireIncidents' | number}} </td>
+                                <td>{{FireIncidentStatistics | avgIncidentByKey:'DamageInBillions' | number}}</td>
+                                <td>{{FireIncidentStatistics | avgIncidentByKey:'Deaths' | number:0}}</td>
+                                <td>{{FireIncidentStatistics | avgIncidentByKey:'Injuries' | number:0}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+              <div class="white-box">
+                <div style="font-weight: bold; font-size: 15px; text-align: center">
+                  <div> NUMBER OF FIRE INCIDENTS RESPONDED TO</div>
+                </div>
+
+                <br/><br/>
+                <div>
+                  <table cellpadding="1" class="tbl-Dashboard">
+                    <tr>
+                      @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                      {
+                          <th>Province</th>
+                      }
+                      else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                      {
+                          <th>Station</th>
+                      }
+                      else
+                      {
+                          <th>Region</th>
+                      }
+                      <th>{{FireIncidentRespondedYears[0]}}</th>
+                      <th>{{FireIncidentRespondedYears[1]}}</th>
+                      <th>{{FireIncidentRespondedYears[2]}}</th>
+                      <th>{{FireIncidentRespondedYears[3]}}</th>
+                      <th>{{FireIncidentRespondedYears[4]}}</th>
+                      <th>5 YEAR AVERAGE</th>
+                    </tr>
+                    <tr ng-repeat="item in FireIncidentRespondedTo">
+                    @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                    {
+                        <td class="tbl-RowTitle">{{item.ProvinceName}}</td>
+                    }
+                    else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                    {
+                        <td class="tbl-RowTitle">{{item.UnitName}}</td>
+                    }
+                    else
+                    {
+                        <td class="tbl-RowTitle">{{item.RegionName}}</td>
+                    }
+                      <td>{{item.Year1 | number:0}}</td>
+                      <td>{{item.Year2 | number:0}}</td>
+                      <td>{{item.Year3 | number:0}}</td>
+                      <td>{{item.Year4 | number:0}}</td>
+                      <td>{{item.Year5 | number:0}}</td>
+                      <td>{{item.Average | number:0}}</td>
+                    </tr>
+                    <tr>
+                      <th>TOTAL</th>
+                      <th>{{FireIncidentRespondedTo | sumByKey:'Year1' | number:0}}</th>
+                      <th>{{FireIncidentRespondedTo | sumByKey:'Year2' | number:0}}</th>
+                      <th>{{FireIncidentRespondedTo | sumByKey:'Year3' | number:0}}</th>
+                      <th>{{FireIncidentRespondedTo | sumByKey:'Year4' | number:0}}</th>
+                      <th>{{FireIncidentRespondedTo | sumByKey:'Year5' | number:0}}</th>
+                      <th>{{FireIncidentRespondedTo | sumByKey:'Average' | number:0}}</th>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+                  <div style="font-weight: bold; font-size: 15px; text-align: center">
+                    <div> NUMBER OF INJURED DURING FIRE OPERATIONS</div>
+                  </div>
+                  <br /><br />
+                  <div>
+                    <table cellpadding="1" class="tbl-Dashboard">
+                      <tr>
+                        @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                        {
+                            <th>Province</th>
+                        }
+                        else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                        {
+                            <th>Station</th>
+                        }
+                        else
+                        {
+                            <th>Region</th>
+                        }
+                        <th>{{FireIncidentRespondedYears[0]}}</th>
+                        <th>{{FireIncidentRespondedYears[1]}}</th>
+                        <th>{{FireIncidentRespondedYears[2]}}</th>
+                        <th>{{FireIncidentRespondedYears[3]}}</th>
+                        <th>{{FireIncidentRespondedYears[4]}}</th>
+                        <th>5 YEAR AVERAGE</th>
+                      </tr>
+                      <tr ng-repeat="item in FireIncidentInjured">
+                        @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                        {
+                            <td class="tbl-RowTitle">{{item.ProvinceName}}</td>
+                        }
+                        else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                        {
+                            <td class="tbl-RowTitle">{{item.UnitName}}</td>
+                        }
+                        else
+                        {
+                            <td class="tbl-RowTitle">{{item.RegionName}}</td>
+                        }
+                        <td>{{item.Year1 | number:0}}</td>
+                        <td>{{item.Year2 | number:0}}</td>
+                        <td>{{item.Year3 | number:0}}</td>
+                        <td>{{item.Year4 | number:0}}</td>
+                        <td>{{item.Year5 | number:0}}</td>
+                        <td>{{item.Average | number:0}}</td>
+                      </tr>
+                      <tr>
+                        <th>TOTAL</th>
+                        <th>{{FireIncidentInjured | sumByKey:'Year1' | number:0}}</th>
+                        <th>{{FireIncidentInjured | sumByKey:'Year2' | number:0}}</th>
+                        <th>{{FireIncidentInjured | sumByKey:'Year3' | number:0}}</th>
+                        <th>{{FireIncidentInjured | sumByKey:'Year4' | number:0}}</th>
+                        <th>{{FireIncidentInjured | sumByKey:'Year5' | number:0}}</th>
+                        <th>{{FireIncidentInjured | sumByKey:'Average' | number:0}}</th>
+                      </tr>
+                    </table>
+                  </div>
+              <div class="white-box">
+                <div style="font-weight: bold; font-size: 15px; text-align: center">
+                  <div> NUMBER OF CASUALTIES DURING FIRE OPERATIONS</div>
+                </div>
+                <br /><br />
+                <div>
+                  <table cellpadding="1" class="tbl-Dashboard">
+                    <tr>
+                      @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                      {
+                          <th>Province</th>
+                      }
+                      else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                      {
+                          <th>Station</th>
+                      }
+                      else
+                      {
+                          <th>Region</th>
+                      }
+                      <th>{{FireIncidentRespondedYears[0]}}</th>
+                      <th>{{FireIncidentRespondedYears[1]}}</th>
+                      <th>{{FireIncidentRespondedYears[2]}}</th>
+                      <th>{{FireIncidentRespondedYears[3]}}</th>
+                      <th>{{FireIncidentRespondedYears[4]}}</th>
+                      <th>5 YEAR AVERAGE</th>
+                    </tr>
+                    <tr ng-repeat="item in FireIncidentDeaths">
+                      @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                      {
+                          <td class="tbl-RowTitle">{{item.ProvinceName}}</td>
+                      }
+                      else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                      {
+                          <td class="tbl-RowTitle">{{item.UnitName}}</td>
+                      }
+                      else
+                      {
+                          <td class="tbl-RowTitle">{{item.RegionName}}</td>
+                      }
+                      <td>{{item.Year1 | number:0}}</td>
+                      <td>{{item.Year2 | number:0}}</td>
+                      <td>{{item.Year3 | number:0}}</td>
+                      <td>{{item.Year4 | number:0}}</td>
+                      <td>{{item.Year5 | number:0}}</td>
+                      <td>{{item.Average | number:0}}</td>
+                    </tr>
+                    <tr>
+                      <th>TOTAL</th>
+                      <th>{{FireIncidentDeaths | sumByKey:'Year1' | number:0}}</th>
+                      <th>{{FireIncidentDeaths | sumByKey:'Year2' | number:0}}</th>
+                      <th>{{FireIncidentDeaths | sumByKey:'Year3' | number:0}}</th>
+                      <th>{{FireIncidentDeaths | sumByKey:'Year4' | number:0}}</th>
+                      <th>{{FireIncidentDeaths | sumByKey:'Year5' | number:0}}</th>
+                      <th>{{FireIncidentDeaths | sumByKey:'Average' | number:0}}</th>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+                  <div style="font-weight: bold; font-size: 15px; text-align: center">
+                    <div> ESTIMATED AMOUNT OF DAMAGES</div>
+                    <div>in Million Pesos</div>
+                  </div>
+                  <br /><br />
+                  <div>
+                    <table cellpadding="1" class="tbl-Dashboard">
+                      <tr>
+                        @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                        {
+                            <th>Province</th>
+                        }
+                        else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                        {
+                            <th>Station</th>
+                        }
+                        else
+                        {
+                            <th>Region</th>
+                        }
+                        <th>{{FireIncidentRespondedYears[0]}}</th>
+                        <th>{{FireIncidentRespondedYears[1]}}</th>
+                        <th>{{FireIncidentRespondedYears[2]}}</th>
+                        <th>{{FireIncidentRespondedYears[3]}}</th>
+                        <th>{{FireIncidentRespondedYears[4]}}</th>
+                        <th>5 YEAR AVERAGE</th>
+                      </tr>
+                      <tr ng-repeat="item in FireIncidentDamages">
+                        @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                        {
+                            <td class="tbl-RowTitle">{{item.ProvinceName}}</td>
+                        }
+                        else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                        {
+                            <td class="tbl-RowTitle">{{item.UnitName}}</td>
+                        }
+                        else
+                        {
+                            <td class="tbl-RowTitle">{{item.RegionName}}</td>
+                        }
+                        <td>{{item.Year1 | number:2}}</td>
+                        <td>{{item.Year2 | number:2}}</td>
+                        <td>{{item.Year3 | number:2}}</td>
+                        <td>{{item.Year4 | number:2}}</td>
+                        <td>{{item.Year5 | number:2}}</td>
+                        <td>{{item.Average | number:2}}</td>
+                      </tr>
+                      <tr>
+                        <th>TOTAL</th>
+                        <th>{{FireIncidentDamages | sumByKey:'Year1' | number:2}}</th>
+                        <th>{{FireIncidentDamages | sumByKey:'Year2' | number:2}}</th>
+                        <th>{{FireIncidentDamages | sumByKey:'Year3' | number:2}}</th>
+                        <th>{{FireIncidentDamages | sumByKey:'Year4' | number:2}}</th>
+                        <th>{{FireIncidentDamages | sumByKey:'Year5' | number:2}}</th>
+                        <th>{{FireIncidentDamages | sumByKey:'Average' | number:2}}</th>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+        </div>
+    </div>
+</div>

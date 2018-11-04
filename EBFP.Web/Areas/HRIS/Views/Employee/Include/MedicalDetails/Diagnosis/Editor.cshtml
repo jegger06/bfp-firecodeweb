@@ -1,0 +1,45 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.HumanResources.PhysicalExamDiagnosisModel
+@using EBFP.BL.Helper;
+
+@using (Html.BeginCollectionItem("DiagnosisList"))
+{
+    string formID = "HRISEB_" + Guid.NewGuid().ToString().Replace("-", "");
+    <div class="divTableRow" id="@formID">
+        @Html.HiddenFor(m => @Model.PE_Diagnosis_Id, new { @class = "form-control" })
+        <div class="divTableCell">
+           @Html.TextBoxFor(m => @Model.PE_Diagnosis_Desc, new { @class = "form-control" })
+        </div>
+
+        <div class="divTableCell">
+            @foreach (var item in Selections.DiagnosisStatus)
+            {
+                <div class="col-sm-4" style="padding-left: 0 !important">
+                    <div class="radio radio-list">
+                        @Html.RadioButtonFor(a => a.PE_Diagnosis_Status, item.Value, new {id = "PE_Diagnosis_Status_" + item.Value })
+                        <label style="font-weight: 100 !important">@item.Text</label>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="divTableCell">
+            <span>Plan of Care: </span>
+            @Html.TextBoxFor(m => @Model.PE_Diagnosis_Plan_Care, new {@class = "form-control"})
+            <span>Current Rx: </span>
+            @Html.TextBoxFor(m => @Model.PE_Diagnosis_Plan_Care, new { @class = "form-control" })
+        </div>
+        <div class="divTableCell">
+            <button type="button" class="btn btn-danger removeItem btn-circle MedicalAccess" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+        });
+    </script>
+}
+

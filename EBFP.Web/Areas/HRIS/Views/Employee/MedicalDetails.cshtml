@@ -1,0 +1,93 @@
+﻿@using EBFP.Helper
+@model EBFP.BL.HumanResources.EmployeeMedicalModel
+@using EBFP.BL.Helper
+@{
+    string accessType = Convert.ToString(Request["AccessType"]).Decrypt();
+    bool Viewing = SiteAccess.Viewing(accessType);
+}
+@{
+    ViewBag.Title = "Medical Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical) || PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+}))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(a => Model.MedicalEmployeeInfo.Emp_Id)
+    <style>
+        .ti-minus, .ti-plus {
+            font-weight: bold !important;
+            font-size: 20px !important;
+            color: white !important;
+        }
+
+            .ti-plus:before {
+                content: "\e65f" !important;
+            }
+
+            .ti-minus:before {
+                content: "\e65c";
+            }
+
+        .form-horizontal .control-label {
+            text-align: left !important;
+        }
+
+        .affix {
+            top: 10px;
+            width: 100%;
+            z-index: 9999 !important;
+        }
+
+        .navbar {
+            margin-bottom: 0px;
+        }
+
+        .affix ~ .container-fluid {
+            padding-top: 10px !important;
+            position: relative;
+            top: 50px !important;
+        }
+    </style>
+
+    <div class="row">
+        @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical_Modify) && !Viewing)
+        {
+            <div class="col-sm-12 " data-spy="affix" data-offset-top="197">
+
+                <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-check"></i> Submit</button>
+
+                <br /><br /><br />
+            </div>
+        }
+    </div>
+    <div class="row">
+        <fieldset id="EmployeeMedicalDetails">
+            @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PersonalInformation/Main.cshtml")
+            @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/CurrentMedication/Main.cshtml")
+            @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PrevHealthCareProvider/Main.cshtml")
+            @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/AllergicReaction/Main.cshtml")
+            @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/AdditionalInformation/Main.cshtml")
+            @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/MedicalHistory/Main.cshtml")
+            @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/HealthRecord/Main.cshtml")
+            @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PastSurgicalHistory/Main.cshtml")
+        </fieldset>
+        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Main.cshtml", @Model.MedicalEmployeeInfo.Emp_Id.ToString().Encrypt())
+
+    </div>
+}
+
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")
+
+

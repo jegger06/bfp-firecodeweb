@@ -1,0 +1,79 @@
+﻿@model EBFP.BL.Inventory.StationDetailsSearchModel
+@using EBFP.Helper;
+@using EBFP.BL.Helper;
+
+@{
+    ViewBag.Title = "Station's Other Vehcle";
+    Layout = "";
+}
+<style>
+    .tbl-Dashboard th, .tbl-Dashboard td {
+        border: 1px solid gray;
+        padding: 5px 10px 5px 10px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .tbl-Dashboard th {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .tbl-Dashboard {
+        width: 100%;
+    }
+</style>
+
+<div class="col-sm-12">
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            Other Vehicle Details
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+        <div class="col-sm-12">
+            <span id="totalRecords">&nbsp;</span>
+            <div class="block" style="position: static; zoom: 1;">
+
+                <div class="table-responsive">
+                    <table id="tblOtherVehicle" class="table table-striped table-bordered nowrap">
+                        <thead>
+                        <tr>
+                            <th class="all">Vehicle Id</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Owner</th>
+                            <th>Plate Number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+            <script>
+                var unitId =  @Html.Raw(Json.Encode((Model.Station_Id)));
+                var subStationId =  @Html.Raw(Json.Encode((Model.SubStation_Id ?? 0)));
+            </script>
+            <!--alerts CSS -->
+            <link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+            <script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+            <script src="@Url.Content("~/Scripts/Areas/Inventory/otherVehicleStation.js")"></script>
+            @Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")

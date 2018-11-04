@@ -1,0 +1,80 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+@using EBFP.BL.Helper
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                VII. LEARNING AND DEVELOPMENT (L&D) INTERVENTIONS/TRAINING PROGRAMS ATTENDED <br/>
+                   (Start from the most recent L&D/training program and include only the relevant L&D/training taken <br/>
+                   for the last five (5) years for Division Chief/Executive/Managerial positions)
+                <div class="pull-left">
+                   <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+          <div style="overflow: hidden !important; padding: 10px !important">
+            <button type="button" id="NewTrainingProgram" name="NewTrainingProgram" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit UserViewing"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+          <fieldset>
+          <div class="divTable">
+            <div class="divTableHeading">
+                <div class="divTableRow">
+                    <div class="divTableHead text-center">
+                        TITLE OF SEMINAR/CONFERENCE/WORKSHOP/SHORT COURSES<br />(Write in full)
+                    </div>
+                    <div class="divTableHead text-center">
+                        INCLUSIVE DATES (mm/dd/yyyy)
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="font-weight: 200 !important; color: white !important; width: 50%">From</td>
+                                <td style="font-weight: 200 !important; color: white !important; width: 50%">To</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="divTableHead text-center">NUMBER OF HOURS</div>
+                    <div class="divTableHead text-center">TYPE of LD <br />(Managerial / Supervisory / etc) </div>
+                    <div class="divTableHead text-center">
+                        CONDUCTED/ SPONSORED BY<br />(Write in full)
+                    </div>
+                    <div class="divTableHead text-center">Remarks  </div>
+
+                    <div class="divTableHead text-center">&nbsp;</div>
+                </div>
+            </div>
+            <div class="divTableBody" id="TrainingPrograms">
+              @if (@Model.TrainingPrograms != null)
+              {
+                for (int i = 0; i < @Model.TrainingPrograms.Count(); i++)
+                {
+                  @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/TrainingPrograms/Editor.cshtml", @Model.TrainingPrograms[i])
+                }
+              }
+            </div>
+
+          </div>
+          </fieldset>
+            <div style="overflow:hidden !important; padding:10px !important">
+                &nbsp;
+            </div>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var formCtr = 1;
+                    $('.mydatepicker, #datepicker').datepicker();
+                    $("#NewTrainingProgram").click(function () {
+                        $.ajax({
+                            async: false,
+                            url: '/HRIS/Employee/TrainingProgramsEditor'
+                        }).success(function (partialView) {
+                            $(partialView).appendTo("#TrainingPrograms");
+                            $('.mydatepicker, #datepicker').datepicker();
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+</div> 

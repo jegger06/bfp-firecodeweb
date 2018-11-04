@@ -1,0 +1,413 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+
+@{
+    ViewBag.Title = "Unserviceable";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_CanViewAll) || PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+<style>
+  td.details-control {
+    background: url('../../../../Content/images/datatable/details_open.png') no-repeat center center;
+    cursor: pointer;
+  }
+
+  tr.shown td.details-control {
+    background: url('../../../../Content/images/datatable/details_close.png') no-repeat center center;
+  }
+</style>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          Search Filter (Click to expand)
+          <div class="pull-left">
+            <i class="ti-minus"></i>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body">
+          <div role="form" class="row">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Office</label>
+                <input type="text" id="txtOffice" name="txtDescription" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">WMR</label>
+                <input type="text" id="txtWMR" name="txtDescription" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-1">
+              <div class="form-group">
+                <label class="control-label">&nbsp;</label>
+                <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      @if (PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_Modify))
+        {
+      <p>
+        <a href="@Url.Action("UnserviceableDetails", "Unserviceable", new {sId = 0.ToString().Encrypt()})" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+          <i class="fa fa-plus-circle"></i> Create New
+        </a>
+      </p>
+      }
+
+      <span id="totalRecords">&nbsp;</span>
+      <div class="block1" style="position: static; zoom: 1;">
+
+        <div class="table-responsive">
+          <table id="myTable" class="table table-striped table-bordered nowrap">
+            <thead>
+              <tr>
+                <th class="all"></th>
+                <th>WMR</th>
+                <th>Reporting Office</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="details-control"></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+<script>
+  var isSearch = false;
+  var myTable = null;
+  var myChildTable = null;
+  $(document).ready(function () {
+    LoadTable();
+  });
+
+  function LoadTable() {
+    $('div.block1').block({
+      message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+, css: {
+  border: '1px solid #fff !important'
+}
+    });
+
+    myTable = $('#myTable').DataTable({
+      order: [[0, "asc"]],
+      serverSide: true,
+      deferRender: true,
+      pageLength: 50,
+      processing: true,
+      responsive: true,
+      searching: false,
+      ajax: {
+        url: '@Url.Action("GetUnserviceableList", "Unserviceable")',
+        type: 'POST',
+        data: function (d) {
+          d.gridInfo = SetDatatableParams()
+        }
+      }, "initComplete": function (settings, json) {
+      },
+      "columns": [
+          {
+            "class": "details-control",
+            "name": "UPI_WMR",
+            "searchable": false,
+            "sortable": false,
+            "width": "15px",
+            "render": function (data, type, full, meta) {
+              return "";
+            }
+          },
+                 {
+                   "name": "UPI_WMR",
+                   "searchable": true,
+                   "sortable": true,
+                   "render": function (data, type, full, meta) {
+                     return full.UPI_WMR;
+                   }
+                 },
+             {
+               "name": "UPI_ReportingOffice",
+               "searchable": true,
+               "sortable": true,
+               "render": function (data, type, full, meta) {
+                 return full.UPI_ReportingOffice;
+               }
+             },
+{
+  "name": "Action",
+  "searchable": false,
+  "sortable": false,
+  "width": "200px",
+  "render": function (data, type, full, meta) {
+    return GetActionTemplate(full.sUPI_Id);
+  }
+
+}
+      ]
+    })
+     .on('preXhr.dt', function () {
+       $('div.block1').block({
+         message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+         , css: {
+           border: '1px solid #fff !important'
+         }
+       });
+     })
+     .on('xhr.dt', function (data, settings) {
+       console.log(data);
+       $('div.block1').unblock();
+       $("#myTable_length #totalGridResult").remove();
+       if (settings.json && settings.json.recordsFiltered >= 0) {
+         $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+       }
+     });
+
+
+    // Add event listener for opening and closing details
+    $('#myTable tbody').on('click', 'td.details-control', function () {
+
+      var tr = $(this).closest('tr');
+      var row = myTable.row(tr);
+
+      if (row.child.isShown()) {
+        // This row is already open - close it
+        row.child.hide();
+        tr.removeClass('shown');
+      }
+      else {
+        //Close open row
+        var openTr = $('.shown');
+        var openRow = myTable.row(openTr);
+        if (openRow.child.isShown()) {
+          openRow.child.hide();
+          openTr.removeClass('shown');
+        }
+
+        // Open this row
+        row.child(format()).show();
+        tr.addClass('shown');
+
+        formatChild(row.data().UPI_Id);
+      }
+
+
+    });
+  }
+  function SetDatatableParams() {
+    var datatable = $('#myTable').DataTable();
+    var datatableInfo = datatable.page.info();
+    var columns = datatable.settings().init().columns;
+    var order = datatable.order();
+    var sortIndex = order[0][0];
+    var sortOrder = order[0][1];
+    datatableInfo.sortOrder = sortOrder;
+    datatableInfo.sortColumnName = columns[sortIndex].name;
+
+    var searchUnserviceable = {
+      UPI_ReportingOffice: $("#txtOffice").val(),
+      UPI_WMR: $("#txtWMR").val(),
+      IsSearch: isSearch
+    };
+
+    datatableInfo.searchUnserviceable = searchUnserviceable;
+    return datatableInfo;
+  }
+
+  function DeleteEmployeeConfirm(event) {
+    @if (PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_Modify)) {
+           <text>
+    swal({
+      title: "Are you sure?",
+      text: "You will not be able to recover deleted item!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel plx!",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    }, function (isConfirm) {
+      if (isConfirm) {
+        swal("Deleted!", "Item has been deleted.", "success");
+        $.get(event, function (data, status) {
+          myTable.ajax.reload();
+        });
+      } else {
+        swal("Cancelled", "Item delete has been cancelled", "error");
+      }
+    });
+    </text>
+       }
+       else
+       {
+           <text>
+                  swal("Unauthorized", "You are not allowed to do this action.", "error");
+           </text>
+       }
+  }
+
+  function GetActionTemplate(unserviceableId) {
+    var concat = "";
+    @if (PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_Modify))
+    {
+        <text>
+      concat += '<a href="#" onclick="return DeleteEmployeeConfirm(\'@Url.Action("Delete", "Unserviceable")?sId=' + unserviceableId + '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+      concat += ' Delete';
+      concat += '</a>';
+      </text>
+  }
+        @if (PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_Modify) || PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_CanViewAll))
+        {
+            <text>
+      concat += '<a href="@Url.Action("UnserviceableDetails", "Unserviceable")?sId=' + unserviceableId + '" class="btn btn-success m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil">';
+      concat += ' Details';
+      concat += '</a>';
+      </text>
+    }
+    return concat;
+  }
+
+  function FilterSearch() {
+    isSearch = true;
+    myTable.ajax.reload();
+  }
+
+
+  function format() {
+    var childTable =
+      '<table id="myChildTable" class="table table-striped table-bordered nowrap">' +
+        '<thead>' +
+        '<tr>' +
+        '<th>Description</th>' +
+        '<th>Unit Cost</th>' +
+        '<th>Date Acquisition</th>' +
+        '<th>Property Number</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td></td>' +
+        '</tbody>' +
+        '</table>';
+    return childTable;
+
+  };
+
+
+  function formatChild(id) {
+    myChildTable = $('#myChildTable').DataTable({
+        order: [[0, "asc"]],
+        serverSide: true,
+        deferRender: true,
+        pageLength: 50,
+        processing: true,
+        responsive: true,
+        searching: false,
+        ajax: {
+          url: '@Url.Action("GetUnserviceablePI", "Unserviceable")',
+        type: 'POST',
+        data: function (d) {
+          d.gridInfo = SetChildDatatableParams(id);
+        }
+      }, "initComplete": function (settings, json) {
+      },
+      "columns": [
+             {
+               "name": "PI_Description",
+               "searchable": true,
+               "sortable": true,
+               "render": function (data, type, full, meta) {
+                 return full.PI_Description;
+               }
+             },
+                 {
+                   "name": "PI_UnitValue ",
+                   "searchable": true,
+                   "sortable": true,
+                   "render": function (data, type, full, meta) {
+                     return full.PI_UnitValue;
+                   }
+                 },
+          {
+            "name": "PI_DateAcquired",
+            "searchable": true,
+            "sortable": true,
+            "render": function (data, type, full, meta) {
+              return formatDate(full.PI_DateAcquired);
+            }
+          }
+           ,
+
+          {
+            "name": "PI_PropertyNumber",
+            "searchable": true,
+            "sortable": true,
+            "render": function (data, type, full, meta) {
+              return full.PI_PropertyNumber;
+            }
+          }
+      ]
+    })
+.on('preXhr.dt', function () {
+  $('div.block1').block({
+    message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+    , css: {
+      border: '1px solid #fff !important'
+    }
+  });
+})
+.on('xhr.dt', function (data, settings) {
+  console.log(data);
+  $('div.block1').unblock();
+});
+
+  }
+
+
+
+
+
+  function SetChildDatatableParams(id) {
+    var datatable = $('#myChildTable').DataTable();
+    var datatableInfo = datatable.page.info();
+    var columns = datatable.settings().init().columns;
+    var order = datatable.order();
+    var sortIndex = order[0][0];
+    var sortOrder = order[0][1];
+    datatableInfo.sortOrder = sortOrder;
+    datatableInfo.sortColumnName = columns[sortIndex].name;
+    datatableInfo.idValue = Number(id);
+    return datatableInfo;
+  }
+</script>
+
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")

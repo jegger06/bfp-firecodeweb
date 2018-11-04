@@ -1,0 +1,217 @@
+﻿@using EBFP.Helper;
+@using EBFP.BL.Helper;
+
+@{
+    ViewBag.Title = "Other Vehicles";
+    Layout = "";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_OtherVehicle_CanViewAll)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+@{
+    var sMunicipalityId = string.IsNullOrWhiteSpace(Request.QueryString["sMunicipalityId"]) ? "0" : Request.QueryString["sMunicipalityId"].Decrypt();
+    var encryptedMunicipalityId = string.IsNullOrWhiteSpace(sMunicipalityId) ? "0".Encrypt() : sMunicipalityId.Encrypt();
+}
+
+
+<style>
+    .tbl-Dashboard th, .tbl-Dashboard td {
+        border: 1px solid gray;
+        padding: 5px 10px 5px 10px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .tbl-Dashboard th {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .tbl-Dashboard {
+        width: 100%;
+    }
+</style>
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                DASHBOARD
+                <div class="pull-left">
+                    <i class="ti-minus"></i>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper expand collapse in" aria-expanded="true">
+            <div class="panel-body">
+                @*DASHBOARD*@
+                <div id="UserWrap" ng-controller="VehicleDashCtrl" ng-init="LoadData()">
+                    <div>
+                        <table cellpadding="1" class="tbl-Dashboard">
+                            <tr>
+                                <th colspan="2">{{VehicleSummaryDetails[0].TypeName}}</th>
+                                <th colspan="2">{{VehicleSummaryDetails[1].TypeName}}</th>
+                                <th colspan="2">{{VehicleSummaryDetails[2].TypeName}}</th>
+                                <th colspan="2">{{VehicleSummaryDetails[3].TypeName}}</th>
+                            </tr>
+                            <tr>
+                                <td>{{VehicleSummaryDetails[0].BFPOwnedCount}}</td>
+                                <td>{{VehicleSummaryDetails[0].LGUOwnedCount}}</td>
+                                <td>{{VehicleSummaryDetails[1].BFPOwnedCount}}</td>
+                                <td>{{VehicleSummaryDetails[1].LGUOwnedCount}}</td>
+                                <td>{{VehicleSummaryDetails[2].BFPOwnedCount}}</td>
+                                <td>{{VehicleSummaryDetails[2].LGUOwnedCount}}</td>
+                                <td>{{VehicleSummaryDetails[3].BFPOwnedCount}}</td>
+                                <td>{{VehicleSummaryDetails[3].LGUOwnedCount}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">{{VehicleSummaryDetails[0].BFPOwnedCount + VehicleSummaryDetails[0].LGUOwnedCount}}</td>
+                                <td colspan="2">{{VehicleSummaryDetails[1].BFPOwnedCount + VehicleSummaryDetails[1].LGUOwnedCount}}</td>
+                                <td colspan="2">{{VehicleSummaryDetails[2].BFPOwnedCount + VehicleSummaryDetails[2].LGUOwnedCount}}</td>
+                                <td colspan="2">{{VehicleSummaryDetails[3].BFPOwnedCount + VehicleSummaryDetails[3].LGUOwnedCount}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                Vehicle List
+                <div class="pull-left">
+                    <i class="ti-minus"></i>
+                </div>
+            </div>
+        </a>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel-body">
+                    <div role="form" class="row">
+
+                        <div class="col-sm-4 col-md-2" style="display: none">
+                            <div class="form-group">
+                                <label class="control-label">Vehicle Id</label>
+                                <input type="text" id="txtVehicleId" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Station Name</label>
+                                @Html.DropDownList("StationName", Selections.SearchStationName, " --- Please Select---", new { @id = "ddlVehicleStationName", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Type</label>
+                                @Html.DropDownList("VehicleType", VehicleType.AMBULANCE.ToSelectList(), " --- Please Select---", new { @id = "ddlVehicleType", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Status</label>
+                                @Html.DropDownList("VehicleStatus", Truck_Status.BeyondEconomicRepair.ToSelectList(), " --- Please Select---", new { @id = "ddlVehicleStatus", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Owner</label>
+                                @Html.DropDownList("VehicleOwner", VehicleOwner.BFP.ToSelectList(), " --- Please Select---", new { @id = "ddlVehicleOwner", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div role="form" class="row">
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Plate Number</label>
+                                <input type="text" id="txVehiclePlatenumber" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">&nbsp;</label>
+                                <button type="button" onclick="FilterVehicleSearch()" id="btnVehicleSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="white-box">
+                                <p>
+                                    @if (PageSecurity.HasAccess(PageArea.Inventory_OtherVehicle_Modify))
+                                    {
+                                        if (sMunicipalityId == "0")
+                                        {
+                                            <a style="color: White" href="@Url.Action("OtherVehicleDetails", "Inventory", new {sId = 0.ToString().Encrypt()})" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+                                                <i class="fa fa-plus-circle"></i> Create New
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a style="color: White" href="@Url.Action("OtherVehicleDetails", "Inventory", new {sId = 0.ToString().Encrypt(), sMunicipalityId = sMunicipalityId.Encrypt()})" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+                                                <i class="fa fa-plus-circle"></i> Create New
+                                            </a>
+                                        }
+                                    }
+                                </p>
+
+                                <span id="totalRecords">&nbsp;</span>
+                                <div class="block" style="position: static; zoom: 1;">
+
+                                    <div class="table-responsive">
+                                        <table id="tblOtherVehicle" class="table table-striped table-bordered nowrap">
+                                            <thead>
+                                                <tr>
+                                                    @*<th class="all">Vehicle Id</th>*@
+                                                    <th class="all">Station Name</th>
+                                                    <th>Type</th>
+                                                    <th>Status</th>
+                                                    <th>Owner</th>
+                                                    <th>Plate Number</th>
+                                                    <th class="all">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    @*<td></td>*@
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+<script>
+    var decryptedMunicipalityId =  @Html.Raw(Json.Encode(sMunicipalityId));
+            var paramMunicipalityId =  @Html.Raw(Json.Encode(encryptedMunicipalityId));
+            var hasAccessToModify = @Html.Raw(Json.Encode(PageSecurity.HasAccess(PageArea.Inventory_OtherVehicle_Modify)));
+            var hasAccessToViewDetails = @Html.Raw(Json.Encode(PageSecurity.HasAccess(PageArea.Inventory_OtherVehicle_ViewDetails)));
+</script>
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+<script src="@Url.Content("~/Scripts/Areas/Inventory/otherVehicleMain.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+<script src="~/Scripts/Areas/Inventory/Dashboard/ctrldashboardVehicle.js"></script>

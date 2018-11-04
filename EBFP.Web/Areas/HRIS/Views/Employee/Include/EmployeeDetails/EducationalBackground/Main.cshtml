@@ -1,0 +1,95 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                III. Educational Background
+                <div class="pull-left">
+                   <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+
+          <div style="overflow: hidden !important; padding: 10px !important">
+            <button type="button" id="AddNewEducBackground" name="AddNewEducBackground" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit UserViewing"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+           <fieldset>
+           <div class="divTable">
+             <div class="divTableHeading">
+               <div class="divTableRow">
+                 <div class="divTableHead  text-center">LEVEL</div>
+                 <div class="divTableHead text-center">NAME OF SCHOOL<br/>(Write in full)
+                 </div>
+                 <div class="divTableHead text-center">DEGREE COURSE<br/>(Write in full)
+                 </div>
+                 <div class="divTableHead text-center">YEAR GRADUATED<br/>(if graduated)
+                 </div>
+                 <div class="divTableHead text-center">HIGHEST GRADE/ LEVEL/UNITS EARNED<br/>(if not graduated)
+                 </div>
+                 <div class="divTableHead text-center">
+                   INCLUSIVE DATES OF ATTENDANCE
+                   <table style="width: 100%;">
+                     <tr>
+                       <td style="font-weight: 200 !important; color: white !important; width: 50%">From</td>
+                       <td style="font-weight: 200 !important; color: white !important; width: 50%">To</td>
+                     </tr>
+                   </table>
+                 </div>
+                 <div class="divTableHead text-center">SCHOLARSHIP/ ACADEMIC HONORS RECEIVED</div>
+                 <div class="divTableHead text-center">&nbsp;</div>
+               </div>
+             </div>
+             <div class="divTableBody" id="NewEmployeeEducBackground">
+               @if (@Model.EducationalBackgrounds != null)
+               {
+                 for (int i = 0; i < @Model.EducationalBackgrounds.Count(); i++)
+                 {
+                   @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/EducationalBackground/Editor.cshtml", @Model.EducationalBackgrounds[i])
+                 }
+               }
+             </div>
+
+           </div>
+            </fieldset>
+  <div style="overflow:hidden !important; padding:10px !important">
+    &nbsp;
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var formCtr = 1;
+      $('.mydatepicker, #datepicker').datepicker();
+      $("#AddNewEducBackground").click(function () {
+        $.ajax({
+          async: false,
+          url: '/HRIS/Employee/EducBackgrounditor'
+        }).success(function (partialView) {
+          $(partialView).appendTo("#NewEmployeeEducBackground");
+          $('.mydatepicker, #datepicker').datepicker();
+        });
+      });
+    });
+
+    function CourseSelections(sender, formID) {
+      var selectval = $(sender).val();
+      $(".DCSelect" + formID).val("");
+      $(".DCInput" + formID).val("");
+
+      if (selectval == 4 || selectval == 5) {
+        $(".DCSelect" + formID + ":first").show();
+        $(".DCInput" + formID).hide();
+        $(".DCSelect" + formID).prop('disabled', false);
+        $(".DCInput" + formID).prop('disabled', true);
+      } else {
+        $(".DCSelect" + formID + ":first").hide();
+        $(".DCInput" + formID).show();
+        $(".DCSelect" + formID).prop('disabled', true);
+        $(".DCInput" + formID).prop('disabled', false);
+      }
+    }
+  </script>
+</div>
+    </div>
+</div>
+

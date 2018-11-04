@@ -1,0 +1,508 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+
+@{
+    ViewBag.Title = "Physical Inventory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_PhysicalInventory_CanViewAll) || PageSecurity.HasAccess(PageArea.Inventory_PhysicalInventory_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+<style>
+  .employeeSelection, .mydatepicker {
+    display: block;
+  }
+</style>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          Search Filter (Click to expand)
+          <div class="pull-left">
+            <i class="ti-minus"></i>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body">
+          <div role="form" class="row">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Description</label>
+                <input type="text" id="txtDescription" name="txtDescription" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Property Number</label>
+                <input type="text" id="txtPropertyNumber" name="txtDescription" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Office</label>
+                <input type="text" id="txtOffice" name="txtDescription" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Unit Of Measure</label>
+                <input type="text" id="txtUnitOfMeasure" name="txtDescription" class="form-control" />
+              </div>
+            </div><div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Directorates</label>
+                @*@Html.DropDownList("InventoryArticle", Selections.Directorates, " --- Please Select---", new { id = "ddlArt", @class = "form-control" })*@
+
+                <select class="form-control" id="ddlDir">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Group</label>
+                @*@Html.DropDownList("InventoryArticle", Selections.InventoryGroup, " --- Please Select---", new { id = "ddlArt", @class = "form-control" })*@
+                <select class="form-control" id="ddlIG">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Article</label>
+                @*@Html.DropDownList("InventoryArticle", Selections.InventoryArticle, " --- Please Select---", new {id = "ddlArt", @class = "form-control"})*@
+                <select class="form-control" id="ddlArt">
+                  <option value="" selected="selected">--- Please Select ---</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Date Acquisition</label>
+                @Html.TextBox("DateCreated", "", "{0:MM/dd/yyyy}", new { @id = "dpDateAcquired", @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-1">
+              <div class="form-group">
+                <label class="control-label">&nbsp;</label>
+                <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2" style="visibility: hidden">
+              <div class="form-group">
+                <label class="control-label">Unit Station</label>
+                @Html.DropDownList("Region", Selections.Units, " --- Please Select---", new { id = "ddlUnit", @class = "form-control" })
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      @if (PageSecurity.HasAccess(PageArea.Inventory_PhysicalInventory_Modify))
+        {
+      <p>
+        <a href="@Url.Action("PhysicalInventoryDetails", "PhysicalInventory", new {sId = 0.ToString().Encrypt()})" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+          <i class="fa fa-plus-circle"></i> Create New
+        </a>
+      </p>
+      }
+
+      <span id="totalRecords">&nbsp;</span>
+      <div class="block1" style="position: static; zoom: 1;">
+
+        <div class="table-responsive">
+          <table id="myTable" class="table table-striped table-bordered nowrap">
+            <thead>
+            <tr>
+              <th >PI_Id</th>
+              <th class="all">Unit</th>
+              <th  class="all">Directorates</th>
+              <th class="all">Group</th>
+              <th class="all">Article</th>
+              <th class="all">Description</th>
+
+                <th>Property Number</th>
+                <th>Unit Of Measure</th>
+                <th>Date Acquisition</th>
+                <th>Unit Value</th>
+
+                <th>Office</th>
+                <th>ARE Number</th>
+                <th>End User</th>
+
+              <th class="all">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+<script>
+    var isSearch = false;
+    var myTable = null;
+
+    $(document).ready(function () {
+        LoadTable();
+        InitDirSelection();
+        InitArticleSelection();
+        InitIGSelection();
+    });
+
+    function LoadTable() {
+        $('div.block1').block({
+            message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+    , css: {
+        border: '1px solid #fff !important'
+    }
+        });
+
+        myTable = $('#myTable').DataTable({
+            order: [[0, "asc"]],
+            serverSide: true,
+            deferRender: true,
+            pageLength: 50,
+            processing: true,
+            responsive: true,
+            searching: false,
+            ajax: {
+                url: '@Url.Action("GetPhysicalInventoryList", "PhysicalInventory")',
+                type: 'POST',
+                data: function (d) {
+                    d.gridInfo = SetDatatableParams()
+                }
+            }, "initComplete": function (settings, json) {
+            },
+            "columns": [
+                   {
+                       "name": "PI_Id",
+                       "searchable": true,
+                       "sortable": true,
+                       "visible": false,
+                       "render": function (data, type, full, meta) {
+                           return full.PI_Id;
+                       }
+                   },
+                       {
+                           "name": "PI_Unit_Name",
+                           "searchable": true,
+                           "sortable": true,
+                           "render": function (data, type, full, meta) {
+                               return full.PI_Unit_Name;
+                           }
+                       },
+                   {
+                       "name": "PI_Dir_Name",
+                       "searchable": true,
+                       "sortable": true,
+                       "render": function (data, type, full, meta) {
+                           return full.PI_Dir_Name;
+                       }
+                   },
+                {
+                    "name": "PI_IG_Name",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.PI_IG_Name;
+                    }
+                }
+                 ,
+                {
+                    "name": "PI_Art_Name",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.PI_Art_Name;
+                    }
+                },
+                {
+                    "name": "PI_Description",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.PI_Description;
+                    }
+                },
+
+
+                {
+                    "name": "PI_PropertyNumber",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.PI_PropertyNumber;
+                    }
+                },
+                {
+                    "name": "PI_UnitOfMeasure",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.PI_UnitOfMeasure;
+                    }
+                },
+                {
+                    "name": "PI_DateAcquired",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return formatDate(full.PI_DateAcquired);
+                    }
+                },
+                {
+                    "name": "PI_UnitValue",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.PI_UnitValue;
+                    }
+                },
+                {
+                    "name": "PI_Office",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.PI_Office;
+                    }
+                },
+                {
+                    "name": "PI_ARENumber",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.PI_ARENumber;
+                    }
+                },
+                {
+                    "name": "PI_End_User",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.PI_End_User;
+                    }
+                },
+
+
+      {
+          "name": "Action",
+          "searchable": false,
+          "sortable": false,
+          "width": "200px",
+          "render": function (data, type, full, meta) {
+              return GetActionTemplate(full.sPI_Id);
+          }
+
+      }
+            ]
+        })
+         .on('preXhr.dt', function () {
+             $('div.block1').block({
+                 message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+               , css: {
+                   border: '1px solid #fff !important'
+               }
+             });
+         })
+         .on('xhr.dt', function (data, settings) {
+             console.log(data);
+             $('div.block1').unblock();
+             $("#myTable_length #totalGridResult").remove();
+             if (settings.json && settings.json.recordsFiltered >= 0) {
+                 $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+             }
+         });
+    }
+    function SetDatatableParams() {
+        var datatable = $('#myTable').DataTable();
+        var datatableInfo = datatable.page.info();
+        var columns = datatable.settings().init().columns;
+        var order = datatable.order();
+        var sortIndex = order[0][0];
+        var sortOrder = order[0][1];
+        datatableInfo.sortOrder = sortOrder;
+        datatableInfo.sortColumnName = columns[sortIndex].name;
+
+        var searchPhysicalInventoryModel = {
+            PI_Description: $("#txtDescription").val(),
+            PI_Dir_Id: $("#ddlDir").val() === "" ? 0 : $("#ddlDir").val(),
+            PI_Unit_Id: $("#ddlUnit").val() === "" ? 0 : $("#ddlUnit").val(),
+            PI_IG_Id: $("#ddlIG").val() === "" ? 0 : $("#ddlIG").val(),
+            PI_Art_Id: $("#ddlArt").val() === "" ? 0 : $("#ddlArt").val(),
+            PI_PropertyNumber: $("#txtPropertyNumber").val().trim(),
+            PI_Office: $("#txtOffice").val().trim(),
+            PI_UnitOfMeasure: $("#txtUnitOfMeasure").val().trim(),
+            PI_DateAcquired: $("#dpDateAcquired").val(),
+            IsSearch: isSearch
+        };
+
+        datatableInfo.searchPhysicalInventoryModel = searchPhysicalInventoryModel;
+        return datatableInfo;
+    }
+
+    function DeleteEmployeeConfirm(event) {
+        @if (PageSecurity.HasAccess(PageArea.Inventory_PhysicalInventory_Modify)) {
+           <text>
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover deleted item!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel plx!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                swal("Deleted!", "Item has been deleted.", "success");
+                $.get(event, function (data, status) {
+                    myTable.ajax.reload();
+                });
+            } else {
+                swal("Cancelled", "Item delete has been cancelled", "error");
+            }
+        });
+        </text>
+       }
+       else
+       {
+           <text>
+        swal("Unauthorized", "You are not allowed to do this action.", "error");
+        </text>
+       }
+    }
+
+    function GetActionTemplate(physicalInventoryId) {
+        var concat = "";
+        @if (PageSecurity.HasAccess(PageArea.Inventory_PhysicalInventory_Modify))
+       {
+           <text>
+            concat += '<a href="#" onclick="return DeleteEmployeeConfirm(\'@Url.Action("Delete", "PhysicalInventory")?sId=' + physicalInventoryId + '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+            concat += ' Delete';
+            concat += '</a>';
+            </text>
+    }
+        @if (PageSecurity.HasAccess(PageArea.Inventory_PhysicalInventory_Modify) || PageSecurity.HasAccess(PageArea.Inventory_PhysicalInventory_CanViewAll))
+         {
+              <text>
+                concat += '<a href="@Url.Action("PhysicalInventoryDetails", "PhysicalInventory")?sId=' + physicalInventoryId + '" class="btn btn-success m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil">';
+                concat += ' Details';
+                concat += '</a>';
+            </text>
+        }
+        return concat;
+    }
+
+    function FilterSearch() {
+        isSearch = true;
+        myTable.ajax.reload();
+    }
+
+
+    function InitDirSelection() {
+        $("#ddlDir").select2({
+            ajax: {
+                url: '/Directorates/SelectionAutoComplete',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.data
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2
+        });
+    }
+
+    function InitIGSelection() {
+        $("#ddlIG").select2({
+            ajax: {
+                url: '/InventoryGroups/SelectionAutoComplete',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.data
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2
+        });
+    }
+
+
+    function InitArticleSelection() {
+        $("#ddlArt").select2({
+            ajax: {
+                url: '/InventoryArticles/SelectionAutoComplete',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.data
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2
+        });
+    }
+</script>
+
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")

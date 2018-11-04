@@ -1,0 +1,69 @@
+﻿@model EBFP.BL.Inventory.SubStationModel
+@using EBFP.BL.Helper
+@using EBFP.Helper
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        PERSONNEL PROFILING
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      @if (PageSecurity.HasAccess(PageArea.Inventory_SubStation_Modify) && Model.Sub_Unit_Id > 0)
+      {
+          <div style="float: left; overflow: hidden !important; padding: 10px !important">
+              <button type="button" id="NewSubStationEmployee" name="NewSubStationEmployee" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+          <div style="float: right; padding: 10px 10px 0 0; font-weight: bold">Total Personnel Count - <label>@Model.SubStationEmployees.Count()</label>
+          </div>
+      }
+      else
+      {
+        <div style="float: right; padding: 10px 20px 0 0; font-weight: bold">
+            No. of Personnel : <label>@Model.SubStationEmployees.Count()</label>
+        </div>
+      }
+
+      <div class="divTable">
+        <div class="divTableHeading">
+          <div class="divTableRow">
+            <div class="divTableHead text-center">Rank/Name/Designation</div>
+            <div class="divTableHead text-center">&nbsp;</div>
+          </div>
+        </div>
+        <div class="divTableBody" id="Employees">
+          @if (@Model.SubStationEmployees != null)
+          {
+              for (int i = 0; i < @Model.SubStationEmployees.Count(); i++)
+              {
+                  if (@Model.SubStationEmployees[i].toDelete == false)
+                  {
+                    @Html.Partial("~/Areas/Inventory/Views/Inventory/Include/SubStation/Editor.cshtml", @Model.SubStationEmployees[i])
+                  }
+              }
+          }
+        </div>
+
+      </div>
+      <div style="overflow: hidden !important; padding: 10px !important">
+        &nbsp;
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $("#NewSubStationEmployee").click(function() {
+            $.ajax({
+                async: false,
+                url: '/Inventory/SubStationEditor?unitId=' + @Html.Raw(Json.Encode(Model.Sub_Unit_Id)) + '&subStationId=' +  @Html.Raw(Json.Encode(Model.Sub_Id))
+              }).success(function(partialView) {
+                  $(partialView).appendTo("#Employees");
+              });
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+</div>

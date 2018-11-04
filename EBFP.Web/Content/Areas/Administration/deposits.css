@@ -1,0 +1,20 @@
+.dblock {
+  display: block;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.mb-1 {
+  margin-bottom: 1em;
+}
+
+.mb-2 {
+  margin-bottom: 2em;
+}
+
+.select2-container {
+  width: 100% !important;
+  max-width: 277px !important;
+}

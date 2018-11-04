@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{53375278-AE83-4246-9DE0-C5DC432017C3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EBFP.DataAccess</RootNamespace>
+    <AssemblyName>EBFP.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="EBFPEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EBFPEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EBFPEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EBFPEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EBFPEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="GetFeesByProvince_Result.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetFeesByStation_Result.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetFees_Result.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="spGetSeniorityLinealListing_Result.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAbatementOrder.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAbatementOrderDeficiencies.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAfterFireOperationBreathingApparatusUsed.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAfterFireOperationDispatchedVehicles.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAfterFireOperationExtinguishingAgentsUsed.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAfterFireOperationHoseLineUsed.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAfterFireOperationOtherToolsUsed.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAfterFireOperationPersonnelsOnDuty.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAfterFireOperationRopesLadderUsed.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAfterFireOperations.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAfterInspectionReports.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAlarmTypes.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationPayments.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblArticles.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAssetInventories.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBPLOPayments.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCityMunicipality.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblClosureOrder.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblClosureOrderDeficiencies.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCourses.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDirectorates.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDutyStatus.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEligibilities.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeAppointments.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeChildren.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeCivilServiceEligibilities.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeDutyStatusUpdates.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeEducationalBackground.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeLeaveRecords.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeMembershipInAssociationOrganizations.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeNonAcademicDistinctions.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeOtherInformation.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeReferences.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployees.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeServiceAppointments.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeSpecialSkillsHobbies.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeSpecifyDesignation.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeTrainingPrograms.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeVoluntaryWorks.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmployeeWorkExperiences.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEstablishments.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEstablishmentStatus.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFireInvestigations.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFireRecords.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFireSuppression.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFSECApplication.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFSICApplication.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblIncidentStatus.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblIndexTypes.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInspectionOrderActions.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInspectionOrderInspectors.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInspectionOrderRemarks.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInspectionOrders.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInspectionOrderViolations.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInventoryGroups.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJobFunctions.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblLogisticAssets.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblLogs.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMandatoryTrainings.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMedical.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNonCommercialEstablishments.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNoticeToComply.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNoticeToComplyDeficiencies.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNoticeToCorrectViolationDeficiencies.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNoticeToCorrectViolations.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOPSSeries.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblORSeries.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOtherClearances.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOtherFees.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOtherVehicleModel.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOtherVehicles.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOtherViolations.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPhysicalExam.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPhysicalInventory.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPopulations.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProvinces.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRanks.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRegions.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblReligions.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblResidential.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRoleAccess.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSalaryGrades.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSpoiledOPS.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSpoiledOR.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSuppliesInventory.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSuppliesInventoryOut.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTruckModel.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTrucks.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUnitDeposits.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUnits.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUnitSubStation.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUnitsUserInRole.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUnserviceablePhysicalInventory.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserInRole.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserRoles.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblViolations.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblWebPages.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFees.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFeesByRegion.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFeesByYearAndRegion.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFireCodeRevenue.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFireInvestigation.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFirePreventionCounter.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFirePreventionEstCounter.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFirePreventionIOCounter.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFPSSComplianceTable.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFSECFeesSummary.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwFSICFeesSummary.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwOtherFeesSummary.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUsersInRole.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_Membership.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_OAuthMembership.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_Roles.cs">
+      <DependentUpon>EBFPEntity.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="EBFPEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EBFPEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="EBFPEntity.edmx.diagram">
+      <DependentUpon>EBFPEntity.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EBFPEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EBFPEntity.edmx</DependentUpon>
+      <LastGenOutput>EBFPEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EBFPEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EBFPEntity.edmx</DependentUpon>
+      <LastGenOutput>EBFPEntity.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

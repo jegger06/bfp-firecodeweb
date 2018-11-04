@@ -1,0 +1,78 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.CIS.UnserviceableModel
+@{
+    ViewBag.Title = "Unserviceable Physical Inventory Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_CanViewAll) || PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+<script src="~/Content/bootstrap/eliteadmin/js/validator.js"></script>
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+}))
+{
+    <fieldset id="UnserviceableDetails">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(a => Model.sUPI_Id)
+        @Html.HiddenFor(a => Model.UPI_Id)
+        <style>
+            .ti-minus, .ti-plus {
+                font-weight: bold !important;
+                font-size: 20px !important;
+                color: white !important;
+            }
+
+                .ti-plus:before {
+                    content: "\e65f" !important;
+                }
+
+                .ti-minus:before {
+                    content: "\e65c";
+                }
+
+            .form-horizontal .control-label {
+                text-align: left !important;
+            }
+
+            .affix {
+                top: 10px;
+                width: 100%;
+                z-index: 9999 !important;
+            }
+
+            .navbar {
+                margin-bottom: 0px;
+            }
+
+            .affix ~ .container-fluid {
+                padding-top: 10px !important;
+                position: relative;
+                top: 50px !important;
+            }
+        </style>
+        <div class="row">
+            <div class="col-sm-12" data-spy="affix" data-offset-top="197">
+                @if (PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_Modify))
+                {
+                    <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-check"></i> Submit</button>
+                }
+                <a href="@Url.Action("Index", "Unserviceable")" class="btn btn-danger btn-rounded waves-effect waves-light m-r-10">
+                    <i class="fa fa-mail-reply"></i> Back
+                </a>
+            </div>
+            <br /><br /><br />
+        </div>
+        <div class="row">
+            @Html.Partial("~/Areas/CIS/Views/Unserviceable/Include/UnserviceableDetails/UnserviceableInfomation/Main.cshtml", @Model)
+         
+        </div>
+    </fieldset>
+}
+@Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")
+

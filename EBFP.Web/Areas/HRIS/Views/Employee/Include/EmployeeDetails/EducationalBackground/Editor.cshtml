@@ -1,0 +1,53 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.HumanResources.EducBackgroundModel
+@using EBFP.BL.Helper;
+@using (Html.BeginCollectionItem("EducationalBackgrounds"))
+{
+    string formID = "HRISEB_" + Guid.NewGuid().ToString().Replace("-", "");
+    <div class="divTableRow" id="@formID">
+        @Html.HiddenFor(m => @Model.EEB_Id, new { @class = "form-control" })
+        @Html.HiddenFor(m => @Model.EEB_Emp_Id, new { @class = "form-control" })
+        <div class="divTableCell"> 
+            @Html.DropDownListFor(model => Model.EEB_EducType, EducationLevel.COLLEGE.ToSelectList(), new { @class = "form-control", @onchange = "CourseSelections(this,'" + @formID + "')" } ) @*SEE CourseSelections function on main.cshtml*@
+        </div>
+       
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.EEB_SchoolName, new { @maxlength = "100", @class = "form-control", @required = "required" })</div>
+        <div class="divTableCell">
+
+            @Html.DropDownListFor(model => Model.EEB_DegreeCourse, Selections.Courses, " --- Please Select---", ((Model.EEB_EducType != 4 && Model.EEB_EducType != 5) ? new { @required = "required", @Style = "display:none;" ,@class = "form-control select2 DCSelect" + @formID, @disabled = "disabled" } as object : new { @class = "form-control select2 DCSelect" + @formID } as object) )
+            @Html.TextBoxFor(m => @Model.EEB_DegreeCourse, ((Model.EEB_EducType == 4 || Model.EEB_EducType == 5) ? new { @maxlength = "50", @Style = "display:none;", @class = "form-control DCInput" + @formID, @disabled = "disabled" } as object : new { @maxlength = "50", @class = "form-control DCInput" + @formID, @required = "required"} as object))
+        </div>
+        <div class="divTableCell">
+            @Html.TextBoxFor(model => model.EEB_GraduateYear, "{0:yyyy}", new { @maxlength = "4", @class = "form-control", @placeholder = "yyyy", @required = "required" })
+        </div>
+        <div class="divTableCell">
+           
+        @Html.TextBoxFor(m => @Model.EEB_HighestLevel, new { @class = "form-control", @required = "required" })</div>
+        <div class="divTableCell">
+            <div class="col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.EEB_StartDate, "{0:yyyy}", new { @class = "form-control", @placeholder = "yyyy", @required = "required" })
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.EEB_EndDate, "{0:yyyy}", new { @class = "form-control", @placeholder = "yyyy", @required = "required" })
+            </div>
+        </div>
+
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.EEB_Awards, new { @maxlength = "100", @class = "form-control", @required = "required" })</div>
+        <div class="divTableCell">
+            @if (!(@Model.IsReadonly))
+                {
+                <button type="button" class="btn btn-danger removeItem btn-circle UserAccessCanEdit" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button>
+            }
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+        });
+    </script>
+}

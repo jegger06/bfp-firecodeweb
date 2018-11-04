@@ -1,0 +1,155 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!PageSecurity.HasAccess(PageArea.Inventory_CanView_Dashboard))
+        {
+            @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+          return;
+        }
+}
+
+<style>
+    .morris-hover {
+        position: absolute;
+        z-index: 1000;
+    }
+
+        .morris-hover.morris-default-style {
+            border-radius: 10px;
+            padding: 6px;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            border: solid 2px rgba(230, 230, 230, 0.8);
+            font-family: sans-serif;
+            font-size: 12px;
+            text-align: center;
+        }
+
+            .morris-hover.morris-default-style .morris-hover-row-label {
+                font-weight: bold;
+                margin: 0.25em 0;
+            }
+
+            .morris-hover.morris-default-style .morris-hover-point {
+                white-space: nowrap;
+                margin: 0.1em 0;
+            }
+
+    #pie-chart {
+        min-height: 350px;
+    }
+
+    .pieClass {
+        min-height: 350px;
+    }
+
+    ol, ul {
+        padding: 0px !important;
+    }
+
+    ul.chartLables ol {
+            float: left !important;
+            min-width: 185px !important;
+    }
+
+    .tbl-Dashboard th, .tbl-Dashboard td{
+        border: 1px solid gray;
+        padding: 5px 10px 5px 10px;
+        text-align:center;
+        font-size: 15px
+    }
+    .tbl-Dashboard th{
+        font-weight:bold;
+        font-size:16px
+    }
+    .tbl-RowTitle{
+         font-weight:bold;
+    }
+
+     .tbl-Dashboard{
+         width:100%
+     }
+      .tbl-FontSize{
+        font-size: 10px !important;
+     }
+        .rotate {
+  /* FF3.5+ */
+  -moz-transform: rotate(-90deg);
+  /* Opera 10.5 */
+  -o-transform: rotate(-90.0deg);
+  /* Saf3.1+, Chrome */
+  -webkit-transform: rotate(-90.0deg);
+  /* IE6,IE7 */
+  filter: progid: DXImageTransform.Microsoft.BasicImage(rotation=0.083);
+  /* IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)";
+  /* Standard */
+  transform: rotate(-90.0deg);
+}
+
+
+#tblx table, #tblx  tr, #tblx  td, #tblx  th {
+  border: 1px solid #000;
+  position: relative;
+  padding: 10px;
+}
+
+#tblx  th span {
+  transform-origin: 0 50%;
+  transform: rotate(-90deg); 
+  white-space: nowrap; 
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+}
+</style>
+
+<div id="UserWrap" ng-controller="CapabilityDashCtrl" ng-init="LoadData()">
+
+    @*Municipality Summary Counter*@
+    @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/Municipality/Municipality.cshtml")
+
+    @*TRUCK Counter Summary*@
+    @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/Truck/FireTruckPerStatus.cshtml")
+
+
+    @*Other Vehicle Counter Summary*@
+    @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/Vehicles/Vehicles.cshtml")
+
+
+    @*Personnel Strength Summary*@
+    @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/Personnel/PersonnelStrength.cshtml")
+
+    @*Fire Incidents*@
+    @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/FireIncidents/FireIncidentStatistics.cshtml")
+
+  @*Establishment*@
+  @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/Establishment/Establishment.cshtml")
+
+  @*Establishment*@
+  @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/FireCode/FireCode.cshtml")
+
+    @*Establishment Inspection Orders*@
+    @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/Establishment/InspectionOrders.cshtml")
+
+    @*Fire Prevention*@
+    @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/Establishment/FirePrevention.cshtml")
+
+</div>
+
+
+
+    <!-- Sparkline chart JavaScript -->
+    <script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js")"></script>
+    <script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js")"></script>
+    <!-- Real estate dashboard JavaScript -->
+    <script src="@Url.Content("~/Scripts/Areas/CIS/dashboardCIS.js")"></script>
+    <!--Morris JavaScript -->
+    <script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/raphael/raphael-min.js")"></script>
+    <script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/morrisjs/morris.js")"></script>
+
+<!-- Controller -->
+<script src="~/Scripts/Areas/CIS/ctrldashboardCIS.js"></script>

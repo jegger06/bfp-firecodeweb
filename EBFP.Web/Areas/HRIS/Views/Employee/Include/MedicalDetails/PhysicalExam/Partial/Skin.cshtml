@@ -1,0 +1,84 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+
+
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_Skin_Warm_Dry_Intact, new { @class = "form-control" })
+        <label class="control-label chk-label">Skin Warm, Dry, Intact</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_Good_Skin_Turgor, new { @class = "form-control" })
+        <label class="control-label chk-label">Good Skin Turgor</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_No_Rashes, new { @class = "form-control" })
+        <label class="control-label chk-label">No Rashes</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_Poor_Skin_Turgor, new { @class = "form-control" })
+        <label class="control-label chk-label">Poor Skin Turgor</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_No_Abnormal_Lesions, new { @class = "form-control" })
+        <label class="control-label chk-label">No Abnormal Lesions</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_No_Ulcers, new { @class = "form-control" })
+        <label class="control-label chk-label">No Ulcers</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_Cyanosis_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Cyanosis Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_Diaphoresis_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Diaphoresis Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_Nails, new { @class = "form-control" })
+        <label class="control-label chk-label">Nails</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_Foot_Exam, new { @class = "form-control" })
+        <label class="control-label chk-label">Foot Exam Reveals Callus Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_Scars, new { @class = "form-control" })
+        <label class="control-label chk-label">Scars</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Skin.PE_Ulcer_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Ulcer Present - Type of Ulcer</label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(model => model.Skin.PE_Ulcer_Type, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label"> Location: </label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(model => model.Skin.PE_Ulcer_Location, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label"> Stage (if pressure sore): </label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Skin.PE_Ulcer_Stage, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="col-md-3">
+        <label class="control-label chk-label">Abnormal Exam Findings: </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Skin.PE_Skin_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

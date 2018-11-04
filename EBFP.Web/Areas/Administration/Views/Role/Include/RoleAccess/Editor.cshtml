@@ -1,0 +1,33 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.Administration.RoleAccessModel
+@using EBFP.BL.Helper
+@using (Html.BeginCollectionItem("RoleAccessList"))
+{
+  string formID = "ROLEACCESS" + Guid.NewGuid().ToString().Replace("-", "");
+  <div class="divTableRow" id="@formID">
+    @Html.HiddenFor(m => @Model.RA_ID, new { @class = "form-control" })
+      
+   
+    <div class="divTableCell">
+      @Html.DropDownListFor(model => Model.RA_PageSecurityID, PageArea.HRIS.ToSelectList(), " --- Please Select---", new { @class = "form-control select2 required" })
+    </div>
+    <div class="divTableCell"> 
+      <button type="button" class="btn btn-danger removeItem btn-circle" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button>
+    </div>
+
+  </div>
+    <script type="text/javascript">       
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+           // InitSelection();
+        });
+
+        function InitSelection() {
+            $(".select2").select2();
+        }
+
+    </script>
+}

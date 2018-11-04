@@ -1,0 +1,443 @@
+﻿
+@model EBFP.BL.HumanResources.EmployeeModel
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                VIII.  OTHER INFORMATION
+                <div class="pull-left">
+                   <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                 
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/OtherInformation/SpecialSkillsHobbies/Main.cshtml")
+                    </div>
+                    <div class="col-md-4">
+                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/OtherInformation/NonAcademicDistinction/Main.cshtml")
+                    </div>
+                    <div class="col-md-4">
+                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/OtherInformation/MemInAssociationOrg/Main.cshtml")
+                    </div>
+                </div>
+            <hr/>
+              <fieldset>
+                <div class="row otherInformation">
+                  <div class="row">
+                    <div class="col-md-1 InfoNumbering">
+                      &nbsp;
+                    </div>
+                    <div class="col-md-8">
+                      Are you related by consanguinity or affinity to any of the following :
+                    </div>
+                    <div class="col-md-3">
+                      &nbsp;
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-1 InfoNumbering">
+                      a.
+                    </div>
+                    <div class="col-md-8">
+                      Within the third degree (for National Government Employees):<br />appointing authority, recommending authority, chief of office/bureau/department or person who has immediate supervision over you in the Office, Bureau or Department where you will be appointed?
+                    </div>
+                    <div class="col-md-3">
+                      <div class="radio-list">
+                        <div>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Rel_NatGovtEmp, "True", new { id = "EOI_Rel_NatGovtEmp_True" })
+                              <label for="EOI_Rel_NatGovtEmp_True" style="font-weight:100 !important">Yes</label>
+                            </div>
+                          </label>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Rel_NatGovtEmp, "False", new { id = "EOI_Rel_NatGovtEmp_False" })
+                              <label for="EOI_Rel_NatGovtEmp_False" style="font-weight:100 !important">No</label>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                      <div>If YES, give details</div>
+                      @Html.TextAreaFor(model => model.OtherInformation.EOI_Rel_NatGovtEmp_Details, 3, 50, new { @class = "form-control " })
+                    </div>
+                  </div>
+                <div class="row borderBottom">
+                    <div class="col-md-1 InfoNumbering">
+                        b.
+                    </div>
+                    <div class="col-md-8">
+                        Within the fourth degree (for Local Government Employees):<br/>appointing authority or recommending authority where you will be appointed?
+                    </div>
+                    <div class="col-md-3">
+                        <div class="radio-list">
+                            <div>
+                                <label class="radio-inline">
+                                    <div class="radio radio-info">
+                                        @Html.RadioButtonFor(a => a.OtherInformation.EOI_Rel_LocalGovtEmp, "True", new {id = "EOI_Rel_LocalGovtEmp_True"})
+                                        <label for="EOI_Rel_LocalGovtEmp_True" style="font-weight: 100 !important">Yes</label>
+                                    </div>
+                                </label>
+                                <label class="radio-inline">
+                                    <div class="radio radio-info">
+                                        @Html.RadioButtonFor(a => a.OtherInformation.EOI_Rel_LocalGovtEmp, "False", new {id = "EOI_Rel_LocalGovtEmp_False"})
+                                        <label for="EOI_Rel_LocalGovtEmp_False" style="font-weight: 100 !important">No</label>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div>If YES, give details</div>
+                        @Html.TextAreaFor(model => model.OtherInformation.EOI_Rel_LocalGovtEmp_Details, 3, 50, new {@class = "form-control "})
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-1 InfoNumbering">
+                            a.
+                        </div>
+                        <div class="col-md-8">
+                            Have you ever been found guilty of any administrative offense?
+                        </div>
+                        <div class="col-md-3">
+                            <div class="radio-list">
+                                <div>
+                                    <label class="radio-inline">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(a => a.OtherInformation.EOI_AdminOffense, "True", new { id = "EOI_AdminOffense_True" })
+                                            <label for="EOI_AdminOffense_True" style="font-weight:100 !important">Yes</label>
+                                        </div>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(a => a.OtherInformation.EOI_AdminOffense, "False", new { id = "EOI_AdminOffense_False" })
+                                            <label for="EOI_AdminOffense_False" style="font-weight:100 !important">No</label>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>If YES, give details</div>
+                            @Html.TextAreaFor(model => model.OtherInformation.EOI_AdminOffense_Details, 3, 50, new { @class = "form-control " })
+                        </div>
+                    </div>
+                  <div class="row borderBottom">
+                    <div class="col-md-1 InfoNumbering">
+                      b.
+                    </div>
+                    <div class="col-md-8">
+                        Have you been criminally charged before any court?
+                    </div>
+                    <div class="col-md-3">
+                      <div class="radio-list">
+                        <div>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Charged, "True", new { id = "EOI_Charged_True" })
+                              <label for="EOI_Charged_True" style="font-weight:100 !important">Yes</label>
+                            </div>
+                          </label>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Charged, "False", new { id = "EOI_Charged_False" })
+                              <label for="EOI_Charged_False" style="font-weight:100 !important">No</label>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                      <div>If YES, give details</div>
+                      @Html.TextAreaFor(model => model.OtherInformation.EOI_Charged_Details, 3, 50, new { @class = "form-control " })
+                        <div>Date Filed</div>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.OtherInformation.EOI_Charged_DateFiled, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @id = "EOI_Charged_DateFiled" })
+                            <span class="input-group-addon"><i class="icon-calender"></i></span>
+                        </div>
+                        <div>Status of Case</div>
+                        @Html.TextBoxFor(model => model.OtherInformation.EOI_Charged_CaseStatus, new { @class = "form-control " })
+                    </div>
+                  </div>
+                  
+
+                  <div class="row borderBottom">
+                    <div class="col-md-1 InfoNumbering">
+                    </div>
+                    <div class="col-md-8">
+                      Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?
+                    </div>
+                    <div class="col-md-3">
+                      <div class="radio-list">
+                        <div>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Convicted, "True", new { id = "EOI_Convicted_True" })
+                              <label for="EOI_Convicted_True" style="font-weight:100 !important">Yes</label>
+                            </div>
+                          </label>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Convicted, "False", new { id = "EOI_Convicted_False" })
+                              <label for="EOI_Convicted_False" style="font-weight:100 !important">No</label>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                      <div>If YES, give details</div>
+                      @Html.TextAreaFor(model => model.OtherInformation.EOI_Convicted_Details, 3, 50, new { @class = "form-control " })
+                    </div>
+                  </div>
+                  <div class="row borderBottom">
+                    <div class="col-md-1 InfoNumbering">
+                    </div>
+                    <div class="col-md-8">
+                      Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract, AWOL or phased out, in the public or private sector?
+                    </div>
+                    <div class="col-md-3">
+                      <div class="radio-list">
+                        <div>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Separated, "True", new { id = "EOI_Separated_True" })
+                              <label for="EOI_Separated_True" style="font-weight:100 !important">Yes</label>
+                            </div>
+                          </label>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Separated, "False", new { id = "EOI_Separated_False" })
+                              <label for="EOI_Separated_False" style="font-weight:100 !important">No</label>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                      <div>If YES, give details</div>
+                      @Html.TextAreaFor(model => model.OtherInformation.EOI_Separated_Details, 3, 50, new { @class = "form-control " })
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-1 InfoNumbering">
+                          a.
+                      </div>
+                    <div class="col-md-8">
+                        Have you ever been a candidate in a national or local election held within the last year (except Barangay election)?
+                    </div>
+                    <div class="col-md-3">
+                      <div class="radio-list">
+                        <div>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Candidate, "True", new { id = "EOI_Candidate_True" })
+                              <label for="EOI_Candidate_True" style="font-weight:100 !important">Yes</label>
+                            </div>
+                          </label>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_Candidate, "False", new { id = "EOI_Candidate_False" })
+                              <label for="EOI_Candidate_False" style="font-weight:100 !important">No</label>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                      <div>If YES, give details</div>
+                      @Html.TextAreaFor(model => model.OtherInformation.EOI_Candidate_Details, 3, 50, new { @class = "form-control " })
+                    </div>
+                  </div>
+                    <div class="row borderBottom">
+                        <div class="col-md-1 InfoNumbering">
+                            b.
+                        </div>
+                        <div class="col-md-8">
+                            Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?
+                        </div>
+                        <div class="col-md-3">
+                            <div class="radio-list">
+                                <div>
+                                    <label class="radio-inline">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(a => a.OtherInformation.EOI_ResignedGovt, "True", new { id = "EOI_ResignedGovte_True" })
+                                            <label for="EOI_ResignedGovt_True" style="font-weight:100 !important">Yes</label>
+                                        </div>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(a => a.OtherInformation.EOI_ResignedGovt, "False", new { id = "EOI_ResignedGovt_False" })
+                                            <label for="EOI_ResignedGovt_False" style="font-weight:100 !important">No</label>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>If YES, give details</div>
+                            @Html.TextAreaFor(model => model.OtherInformation.EOI_ResignedGovt_Details, 3, 50, new { @class = "form-control " })
+                        </div>
+                    </div>
+                    <div class="row borderBottom">
+                        <div class="col-md-1 InfoNumbering">
+                        </div>
+                        <div class="col-md-8">
+                            Have you acquired the status of an immigrant or permanent resident of another country?
+                        </div>
+                        <div class="col-md-3">
+                            <div class="radio-list">
+                                <div>
+                                    <label class="radio-inline">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(a => a.OtherInformation.EOI_Immigrant, "True", new { id = "EOI_Immigrant_True" })
+                                            <label for="EOI_Immigrant_True" style="font-weight:100 !important">Yes</label>
+                                        </div>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(a => a.OtherInformation.EOI_Immigrant, "False", new { id = "EOI_Immigrant_False" })
+                                            <label for="EOI_Immigrant_False" style="font-weight:100 !important">No</label>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>If YES, give details (country)</div>
+                            @Html.TextAreaFor(model => model.OtherInformation.EOI_Immigrant_Details, 3, 50, new { @class = "form-control " })
+                        </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-md-1 InfoNumbering">
+                    </div>
+                    <div class="col-md-8">
+                        Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following items:
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-1 InfoNumbering">
+                      a.
+                    </div>
+                    <div class="col-md-8">
+                      Are you a member of any indigenous group?
+                    </div>
+                    <div class="col-md-3">
+                      <div class="radio-list">
+                        <div>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_IndigentGroup, "True", new { id = "EOI_IndigentGroup_True" })
+                              <label for="EOI_IndigentGroup_True" style="font-weight:100 !important">Yes</label>
+                            </div>
+                          </label>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_IndigentGroup, "False", new { id = "EOI_IndigentGroup_False" })
+                              <label for="EOI_IndigentGroup_False" style="font-weight:100 !important">No</label>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                      <div>If YES, give details</div>
+                      @Html.TextAreaFor(model => model.OtherInformation.EOI_IndigentGroup_Details, 3, 50, new { @class = "form-control " })
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-1 InfoNumbering">
+                      b.
+                    </div>
+                    <div class="col-md-8">
+                      Are you differently abled?
+                    </div>
+                    <div class="col-md-3">
+                      <div class="radio-list">
+                        <div>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_DiffAbled, "True", new { id = "EOI_DiffAbled_True" })
+                              <label for="EOI_DiffAbled_True" style="font-weight:100 !important">Yes</label>
+                            </div>
+                          </label>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_DiffAbled, "False", new { id = "EOI_DiffAbled_False" })
+                              <label for="EOI_DiffAbled_False" style="font-weight:100 !important">No</label>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                        <div>If YES, please specify ID No: </div>
+                      @Html.TextAreaFor(model => model.OtherInformation.EOI_DiffAbled_Details, 3, 50, new { @class = "form-control " })
+                    </div>
+                  </div>
+                  <div class="row borderBottom">
+                    <div class="col-md-1 InfoNumbering">
+                      c.
+                    </div>
+                    <div class="col-md-8">
+                      Are you a solo parent?
+                    </div>
+                    <div class="col-md-3">
+                      <div class="radio-list">
+                        <div>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_SoloParent, "True", new { id = "EOI_SoloParent_True" })
+                              <label for="EOI_SoloParent_True" style="font-weight:100 !important">Yes</label>
+                            </div>
+                          </label>
+                          <label class="radio-inline">
+                            <div class="radio radio-info">
+                              @Html.RadioButtonFor(a => a.OtherInformation.EOI_SoloParent, "False", new { id = "EOI_SoloParent_False" })
+                              <label for="EOI_SoloParent_False" style="font-weight:100 !important">No</label>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                      <div>If YES, please specify ID No: </div>
+                      @Html.TextAreaFor(model => model.OtherInformation.EOI_SoloParent_Details, 3, 50, new { @class = "form-control " })
+                    </div>
+                  </div>
+                  <div class="row borderBottom">
+                    <div class="col-md-1 InfoNumbering">
+
+                    </div>
+                    <div class="col-md-8">
+                      REFERENCES <font style="color:red !important; font-style:italic">(Person not related by consanguinity or affinity to applicant / appointee)</font>
+                    </div>
+                    <div class="col-md-3">
+
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-11">
+                      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/OtherInformation/References/Main.cshtml")
+                    </div>
+                  </div>
+                </div>
+              </fieldset>  
+            </div>
+        </div>
+        <style>
+            .InfoNumbering
+            {
+                width:5px !important;
+            }
+            .otherInformation {
+                width: 100%;
+                border-top: 1px solid #686868 !important;
+                border: 1px solid #686868 !important;
+                vertical-align: text-top;
+            }
+
+            .otherInformation .row div{
+                  margin: 5px !important;
+            }
+                .otherInformation td {
+                    padding: 5px;
+                }
+
+                .otherInformation .borderBottom {
+                    border-bottom: 1px solid #686868 !important;
+                    margin : 0px !important;
+                }
+
+                .otherInformation .borderRight {
+                    border-right: 1px solid #686868 !important;
+                }
+        </style>
+        <div class="row">&nbsp;</div>
+    </div>
+</div> 

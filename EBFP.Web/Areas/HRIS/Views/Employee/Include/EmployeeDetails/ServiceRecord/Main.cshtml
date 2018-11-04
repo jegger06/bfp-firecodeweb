@@ -1,0 +1,98 @@
+﻿@using EBFP.Helper
+@model EBFP.BL.HumanResources.EmployeeModel
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        Service Record
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      @if (CurrentUser.RoleName == "NATIONAL HRIS ADMIN" || CurrentUser.RoleName == "MAIN ADMIN" || CurrentUser.RoleName == "FIRE STATION HRIS ADMIN" || CurrentUser.RoleName == "FIRE STATION ADMIN" || CurrentUser.RoleName == "REGIONAL ADMIN" ||  CurrentUser.RoleName == "REGIONAL HRIS ADMIN" || CurrentUser.RoleName == "PROVINCIAL HRIS ADMIN"|| CurrentUser.RoleName == "PROVINCIAL ADMIN")
+      {
+
+        <div style="overflow: hidden !important; padding: 10px !important"> @*UserViewing UserAccessCanEdit BFPInfoAccess*@
+          <button type="button" id="NewServiceRecord" name="NewServiceRecord" class="btn btn-success btn-rounded waves-effect waves-light m-r-10  "><i class="fa fa-plus"></i> Add New</button>
+        </div>
+      }
+      <fieldset>
+        <div class="divTable">
+          <div class="divTableHeading">
+            <div class="divTableRow">
+              <div class="divTableHead text-center" style="width: 18% !important">
+                INCLUSIVE DATES (mm/dd/yyyy)
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="font-weight: 200 !important; color: white !important; width: 50%">FROM</td>
+                    <td style="font-weight: 200 !important; color: white !important; width: 50%">TO <br/>
+                      <font style="color: red; font-style: italic">leave blank if present</font></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="divTableHead text-center">
+                RECORDS OF APPOINTMENT
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="font-weight: 200 !important; color: white !important; width: 40%">DESIGNATION</td>
+                    <td style="font-weight: 200 !important; color: white !important; width: 30%">STATUS</td>
+                    <td style="font-weight: 200 !important; color: white !important; width: 30%">SALARY (PHP)</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="divTableHead text-center">
+                <br/> LEAVE W/O PAY
+              </div>
+              <div class="divTableHead text-center">OFFICE/ENTITY <br/> STATION PLACE
+              </div>
+              <div class="divTableHead text-center"><br/> RANK
+              </div>
+              <div class="divTableHead text-center">
+                <br/> DUTY STATUS
+              </div>
+                <div class="divTableHead text-center">
+                    <br /> AUTHORITY
+                </div>
+              <div class="divTableHead text-center">&nbsp;</div>
+            </div>
+          </div>
+          <div class="divTableBody" id="ServiceRecord">
+            @if (@Model.ServiceAppointment != null)
+            {
+              for (int i = 0; i < @Model.ServiceAppointment.Count(); i++)
+              {
+                @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/ServiceRecord/Editor.cshtml", @Model.ServiceAppointment[i])
+              }
+            }
+          </div>
+
+        </div>
+      </fieldset>
+      <div style="overflow: hidden !important; padding: 10px !important">
+        &nbsp;
+      </div>
+
+      <script type="text/javascript">
+        $(document).ready(function () {
+
+       
+
+          var formCtr = 1;
+          $('.mydatepicker, #datepicker').datepicker();
+          $("#NewServiceRecord").click(function() {
+            $.ajax({
+              async: false,
+              url: '/HRIS/Employee/ServiceRecordEditor'
+            }).success(function(partialView) {
+              $(partialView).appendTo("#ServiceRecord");
+              $('.mydatepicker, #datepicker').datepicker();
+            });
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>

@@ -1,0 +1,127 @@
+﻿<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                Truck Summary
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="row row-in">
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-danger"></i>
+                                            <h5 class="text-muted vb">Total Trucks</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-danger" id="totalTrucks">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-megna"></i>
+                                            <h5 class="text-muted vb">Total Serviceable</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-megna" id="totalServiceable">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-primary"></i>
+                                            <h5 class="text-muted vb">Total Under Repair</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-primary" id="totalServiceable">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="row row-in">
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-danger"></i>
+                                            <h5 class="text-muted vb">Total Unserviceable</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-danger" id="totalUnserviceable">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-megna"></i>
+                                            <h5 class="text-muted vb">Total BFP Owned Trucks</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-megna" id="totalBFP">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-primary"></i>
+                                            <h5 class="text-muted vb">Total LGU Owned Trucks</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-primary" id="totalLGU">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                @*TRUCKS Count*@
+                <div class="col-lg-6 col-xs-6">
+                    <div class="white-box" style="height: 450px !important">
+                        <div style="font-weight:bold;font-size:15px">
+                            NUMBER OF FIRE TRUCKS PER STATUS
+                        </div>
+                        <div class="box-title">
+                            <h5 class="pull-right">
+                                <i class="fa fa-circle m-r-5" style="color: #03a9f3;"></i>BFP
+                                <i class="fa fa-circle m-r-5" style="color: #87CEFA;"></i>LGU
+                            </h5>
+                        </div>
+                        <div id="truck-bar-chart" style="height: 372px;"></div>
+                    </div>
+                </div>
+
+                @*TRUCKS Age*@
+                <div class="row">
+                    <div class="col-lg-6 col-xs-6">
+                        <div class="white-box" style="height: 450px !important">
+                            <div style="font-weight:bold;font-size:15px">NUMBER OF FIRE TRUCKS PER AGE GROUP</div>
+                            <div class="box-title">
+                                <h5 class="pull-right">
+                                    <i class="fa fa-circle m-r-5" style="color: #03a9f3;"></i>BFP
+                                    <i class="fa fa-circle m-r-5" style="color: #87CEFA;"></i>LGU
+                                </h5>
+                            </div>
+                            <div id="truckAge-bar-chart" style="height: 372px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

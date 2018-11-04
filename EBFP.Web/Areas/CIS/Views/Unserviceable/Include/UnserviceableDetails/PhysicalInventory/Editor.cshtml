@@ -1,0 +1,63 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.CIS.PhysicalInventoryModel
+@using EBFP.BL.Helper
+@using EBFP.Helper
+@using (Html.BeginCollectionItem("PhysicalInventoryList"))
+{
+  <style>
+    .selection {
+      display: block;
+    }
+  </style>
+
+  string formID = "CISU_" + Guid.NewGuid().ToString().Replace("-", "");
+    <div class="divTableRow" id="@formID">
+      <div class="divTableCell">
+        @Html.DropDownListFor(model => Model.PI_Id, Selections.PhysicalInventoryList(@Model.PI_Id), " --- Please Select---", new { @class = "form-control selection", @id="ddl" + formID })
+      </div>
+
+        <div class="divTableCell">
+            @if (PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_Modify))
+            {
+                <button type="button" class="btn btn-danger removeItem btn-circle" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button>
+            }
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+
+          InitIGSelection();
+        
+        });
+
+
+      function InitIGSelection() {
+        $(".selection").select2({
+          ajax: {
+            url: '/Unserviceable/SelectionAutoComplete',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+              return {
+                search: params.term // search term
+              };
+            },
+            processResults: function (data) {
+              return {
+                results: data.data
+              };
+            },
+            cache: true
+          },
+          minimumInputLength: 2
+        });
+      }
+    </script>
+}
+
+

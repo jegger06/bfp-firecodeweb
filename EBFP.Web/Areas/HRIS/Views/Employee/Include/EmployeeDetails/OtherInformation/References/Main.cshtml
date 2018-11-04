@@ -1,0 +1,42 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+
+<div style="overflow: hidden !important; padding: 10px !important">
+  <button type="button" id="NewEmployeeReference" name="NewEmployeeReference" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit UserViewing"><i class="fa fa-plus"></i> Add New</button>
+</div>
+<fieldset>
+  <div class="divTable">
+    <div class="divTableHeading">
+      <div class="divTableRow">
+        <div class="divTableHead  text-center">NAME</div>
+        <div class="divTableHead text-center">ADDRESS</div>
+        <div class="divTableHead text-center">TEL. NO.</div>
+        <div class="divTableHead text-center">&nbsp;</div>
+      </div>
+    </div>
+    <div class="divTableBody" id="EmployeeReferences">
+      @if (@Model.References != null)
+      {
+        for (int i = 0; i < @Model.References.Count(); i++)
+        {
+              @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/OtherInformation/References/Editor.cshtml", @Model.References[i])
+        }
+      }
+    </div>
+
+  </div>
+</fieldset>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var formCtr = 1;
+      $('.mydatepicker, #datepicker').datepicker();
+      $("#NewEmployeeReference").click(function () {
+        $.ajax({
+          async: false,
+          url: '/HRIS/Employee/ReferenceEditor'
+        }).success(function (partialView) {
+          $(partialView).appendTo("#EmployeeReferences");
+          $('.mydatepicker, #datepicker').datepicker();
+        });
+      });
+    });
+  </script>

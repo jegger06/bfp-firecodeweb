@@ -1,0 +1,233 @@
+﻿@using EBFP.BL.Helper
+@model EBFP.BL.Establishment.EstablishmentModel
+'@{
+    ViewBag.Title = "Create Establishment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="@Url.Content("~/content/Areas/Establishment/establishmentDetails.css")" rel="stylesheet">
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+  InsertionMode = InsertionMode.Replace,
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(a => Model.sEst_Id)
+    @Html.HiddenFor(a => Model.Ref_Est_Id)
+    @Html.HiddenFor(a => Model.Est_Id)
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <form>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Name of Owner</label>
+              @*<input type="text" id="nameOfOwner" name="nameOfOwner" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_OwnerName, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">MP / TIN / BIN</label>
+              @*<input type="text" id="mpTinBin" name="mpTinBin" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_MP_Number, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Establishment Name</label>
+              @*<input type="text" id="establishmentName" name="establishmentName" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_BusinessName, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Trade Name</label>
+              @*<input type="text" id="tradeName" name="tradeName" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_BusinessTradeName, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Nature of Business</label>
+              @*<input type="text" id="natureOfBusiness" name="natureOfBusiness" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_NatureOfBusiness, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Establishment Address</label>
+              @*<input type="text" id="establishmentAddress" name="establishmentAddress" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_BusinessAddress, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Landline / Fax No.</label>
+              @*<input type="text" id="landlineOrFax" name="landlineOrFax" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_PhoneFaxNumber, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Cellphone No.</label>
+              @*<input type="text" id="cellphoneNumber" name="cellphoneNumber" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_MobileNumber, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Authorized Representative</label>
+              @*<input type="text" id="authorizedRepresentative" name="authorizedRepresentative" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_AuthorizedRepresentative, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="custom-control custom-checkbox m-b-0">
+                <span class="custom-control-label dblock mb-1">PEZA</span>
+                @*<input type="checkbox" class="custom-control-input" name="peza" id="peza">*@
+                @*@Html.CheckBoxFor(model => model.Est_IsPEZA.Value, new { @class = "" })*@      
+
+                @Html.CheckBox("Est_IsPEZA", Model.Est_IsPEZA ?? false)
+
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Business Permit Number</label>
+              @*<input type="text" id="businessPermitNumber" name="businessPermitNumber" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_BusinessPermitNumber, new { @class = "form-control" })
+            </div>
+          </div>
+        </div>
+        <h3 class="box-title">Business Occupational Data</h3>
+        <hr class="mt-0 mb-2" />
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Type</label>
+              <div class="radio-list row">
+
+                <div class="form-group">
+                  <div class="col-md-12">         
+                    <label class="radio-inline">
+                      <div class="radio radio-info">
+                        @Html.RadioButtonFor(model => model.Est_OwnershipType, 0)
+                        <label style="font-weight: 100 !important">Owner</label>
+                      </div>
+                    </label>
+                    <label class="radio-inline">
+                      <div class="radio radio-info">
+                        @Html.RadioButtonFor(model => model.Est_OwnershipType, 1)
+                        <label style="font-weight: 100 !important">Lessee</label>
+                      </div>
+                    </label>
+                  </div>
+                </div>  
+
+                @*<div class="custom-control custom-radio col-sm-6">                 
+                  <input type="radio" id="owner" name="type" class="custom-control-input">
+                  <label class="custom-control-label" for="owner">Owner</label>
+                </div>
+                <div class="custom-control custom-radio col-sm-6 text-left">
+                  <input type="radio" id="lessee" name="type" class="custom-control-input">
+                  <label class="custom-control-label" for="lessee">Lessee</label>
+                </div>*@
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Type of Occupancy (Specify)</label>
+              @Html.DropDownListFor(model => model.Est_OccupancyType, OccupancyType.Assembly.ToSelectList(), " --- Please Select---", new { @id = "ddlOccupancyType", @class = "form-control" })
+              @*@Html.DropDownListFor(model => Model.Est_OccupancyType, Selections.Region, " --- Please Select---", new { id = "ddlRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)" })*@
+              @*<select class="form-control custom-select" name="typeOfOccupancy" id="typeOfOccupancy">
+                <option value="">--- Please Select ---</option>
+                <option value="1">First Type Occupancy</option>
+              </select>*@
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Land Area (sqm)</label>
+              @*<input type="text" id="landArea" name="landArea" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_LandArea, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">No. of Floors</label>
+              @*<input type="text" id="numberOfFloors" name="numberOfFloors" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_NumberOfFloor, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Floor Area/Flr. (sqm)</label>
+              @*<input type="text" id="floorArea" name="floorArea" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_FloorArea, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">No. of Occupants/Employees</label>
+              @*<input type="text" id="numberOfOccupantsEmployees" name="numberOfOccupantsEmployees" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_OccupantsEmployeeNumber, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Type of Building</label>
+              @*<input type="text" id="typeOfBuilding" name="typeOfBuilding" class="form-control">*@
+              @Html.TextBoxFor(model => model.Est_BuildingType, new { @class = "form-control" })
+            </div>
+          </div>
+        </div>
+        <h3 class="box-title">Current Status</h3>
+        <hr class="mt-0 mb-2" />
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Hazard Type</label>
+              @Html.DropDownListFor(model => model.Est_HazardType, HazardType.High.ToSelectList(), " --- Please Select---", new { @id = "ddlHazardType", @class = "form-control" })
+              @*<select class="form-control custom-select" name="hazardType" id="hazardType">
+                <option value="">--- Please Select ---</option>
+                <option value="1">First Type Hazard</option>
+              </select>*@
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Registration Status</label>
+              @Html.DropDownListFor(model => model.Est_RegistrationStatus, RegistrationStatus.None.ToSelectList(), " --- Please Select---", new { @id = "ddlRegistrationStatus", @class = "form-control" })
+              @*<select class="form-control custom-select" name="registrationStatus" id="registrationStatus">
+                <option value="">--- Please Select ---</option>
+                <option value="1">First Registration Status</option>
+              </select>*@
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label class="control-label">Establishment Status</label>
+              @Html.DropDownListFor(model => model.Est_EstablishmentStatus, EstablishmentStatus.Closed.ToSelectList(), " --- Please Select---", new { @id = "ddlEstablishmentStatus", @class = "form-control" })
+              @*<select class="form-control custom-select" name="establishmentStatus" id="establishmentStatus">
+                <option value="">--- Please Select ---</option>
+                <option value="1">First Establishment Status</option>
+              </select>*@
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <button type="submit" class="btn btn-info"> <i class="fa fa-check"></i> Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+}

@@ -1,0 +1,81 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                V. Work Experience (Include private employment.  Start from your current work)
+                <div class="pull-left">
+                   <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+          <div style="overflow: hidden !important; padding: 10px !important">
+            <button type="button" id="NewWorkExperience" name="NewWorkExperience" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit UserViewing"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+          <fieldset>
+          <div class="divTable">
+            <div class="divTableHeading">
+              <div class="divTableRow">
+                <div class="divTableHead text-center">
+                  INCLUSIVE DATES (mm/dd/yyyy)
+                  <table style="width: 100%;">
+                    <tr>
+                      <td style="font-weight: 200 !important; color: white !important; width: 50%">From</td>
+                      <td style="font-weight: 200 !important; color: white !important; width: 50%">
+                        To
+                        <br/>
+                        <font style="color: red; font-style: italic">leave blank if present</font>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="divTableHead text-center">POSITION TITLE<br/>(Write in full)
+                </div>
+                <div class="divTableHead text-center">DEPARTMENT / AGENCY / OFFICE / COMPANY<br/>(Write in full)
+                </div>
+                <div class="divTableHead text-center">MONTHLY<br/>SALARY
+                </div>
+                <div class="divTableHead text-center">SALARY GRADE & STEP INCREMENT<br/>(Format "00-0")
+                </div>
+                <div class="divTableHead text-center">STATUS OF APPOINTMENT</div>
+                <div class="divTableHead text-center">GOV'T SERVICE<br/>(Yes / No)
+                </div>
+                <div class="divTableHead text-center">&nbsp;</div>
+              </div>
+            </div>
+            <div class="divTableBody" id="WorkExperiences">
+              @if (@Model.WorkExperiences != null)
+              {
+                for (int i = 0; i < @Model.WorkExperiences.Count(); i++)
+                {
+                  @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/WorkExperience/Editor.cshtml", @Model.WorkExperiences[i])
+                }
+              }
+            </div>
+
+          </div>
+            </fieldset>
+            <div style="overflow:hidden !important; padding:10px !important">
+              &nbsp;
+            </div>
+
+            <script type="text/javascript">
+              $(document).ready(function () {
+                var formCtr = 1;
+                $('.mydatepicker, #datepicker').datepicker();
+                $("#NewWorkExperience").click(function () {
+                  $.ajax({
+                    async: false,
+                    url: '/HRIS/Employee/WorkExperienceEditor'
+                  }).success(function (partialView) {
+                    $(partialView).appendTo("#WorkExperiences");
+                    $('.mydatepicker, #datepicker').datepicker();
+                  });
+                });
+              });
+            </script>
+</div>
+    </div>
+
+</div> 

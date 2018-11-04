@@ -1,0 +1,88 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+
+
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_No_Joint_Abnormality, new { @class = "form-control" })
+        <label class="control-label chk-label">No Joint Abnormality</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_Amputations, new { @class = "form-control" })
+        <label class="control-label chk-label">Amputations (please specify): </label>
+    </div>
+    <div class="col-md-6">
+        @Html.TextBoxFor(model => model.Musculoskeletal.PE_Amputations_Text, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px;">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_Joint_Abnormality, new { @class = "form-control" })
+        <label class="control-label chk-label">Joint Abnormality (please specify joint and abnormality): </label>
+    </div>
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.Musculoskeletal.PE_Joint_Abnormality_Text, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_Kyphosis, new { @class = "form-control" })
+        <label class="control-label chk-label">Kyphosis +/-</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_Scoliosis, new { @class = "form-control" })
+        <label class="control-label chk-label">Scoliosis +/-</label>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_Osteoarthritis, new { @class = "form-control" })
+        <label class="control-label chk-label">Osteoarthritis</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_Bouchards_Nodes_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Bouchard's Nodes Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_Heberdens_Nodes_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Heberden's Nodes Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_Paronychia_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">PE Paronychia Present</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 10px">
+    <div class="col-md-4">
+        @Html.CheckBoxFor(model => model.Musculoskeletal.PE_Swelling_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Swelling Present (please specify): </label>
+    </div>
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.Musculoskeletal.PE_Swelling_Present_Location, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="col-md-4">
+        <label class="control-label chk-label">Peripheral Joint Exam Findings: </label>
+    </div>
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.Musculoskeletal.PE_Peripheral_Findings, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="col-md-4">
+        <label class="control-label chk-label">Central Joint Exam Findings: </label>
+    </div>
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.Musculoskeletal.PE_Central_Findings, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="col-md-4">
+        <label class="control-label chk-label">Other Abnormal Exam Findings: </label>
+    </div>
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.Musculoskeletal.PE_Other_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.HumanResources.HealthCareProviderModel
+@using EBFP.BL.Helper;
+
+@using (Html.BeginCollectionItem("HealthCareProvider"))
+{
+    string formID = "HRISEB_" + Guid.NewGuid().ToString().Replace("-", "");
+    <div class="divTableRow" id="@formID">
+        @Html.HiddenFor(m => @Model.HCP_Id, new { @class = "form-control" })
+        <div class="divTableCell"> 
+            @Html.TextBoxFor(model => Model.HCP_Name, new { @class = "form-control" } )
+        </div>
+       
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.HCP_City, new { @class = "form-control" })</div>
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.HCP_ProblemCaredFor, new {@class = "form-control"})
+        </div>
+        <div class="divTableCell">
+            @Html.RadioButtonFor(e => e.HCP_StillSeeing, true, new {id = "HCP_StillSeeing-true" })
+            @Html.Label("HCP_StillSeeing-true", "Yes")
+            @Html.RadioButtonFor(e => e.HCP_StillSeeing, false, new {id = "HCP_StillSeeing-false" })
+            @Html.Label("HCP_StillSeeing-false", "No")
+        </div>
+        <div class="divTableCell">
+            @Html.RadioButtonFor(e => e.HCP_Referral, true, new { id = "HCP_Referral-true" })
+            @Html.Label("HCP_Referral-true", "Yes")
+            @Html.RadioButtonFor(e => e.HCP_Referral, false, new { id = "HCP_Referral-false" })
+            @Html.Label("HCP_Referral-false", "No")
+        </div>
+        <div class="divTableCell">
+            <button type="button" class="btn btn-danger removeItem btn-circle MedicalAccess" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+        });
+    </script>
+}

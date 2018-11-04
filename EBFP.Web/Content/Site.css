@@ -1,0 +1,117 @@
+﻿/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}*/
+
+/* Set padding to keep content from hitting the edges */
+/*.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}*/
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+body ,.form-control { 
+    font-size: 12px !important; 
+}
+
+.form-horizontal .control-label {
+        font-weight: 500 !important;
+}
+
+
+.panel .panel-heading a i {
+   margin-left: -5px !important;
+}
+/* DivTable.com */
+.divTable {
+    border: 1px solid #4c5667;
+    border-right: 0px;
+    border-bottom: 0px;
+    display: table;
+    width: 100%;
+}
+
+.divTableRow {
+    display: table-row;
+}
+
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+}
+
+.divTableHead {
+    border-right: 1px solid #4c5667;
+    display: table-cell;
+    padding: 3px 10px;
+}
+
+.divTableCell {
+    border-right: 1px solid #4c5667;
+    border-bottom: 1px solid #4c5667;
+    display: table-cell;
+    padding: 3px 10px;
+    vertical-align: middle;
+}
+
+.divTableHead {
+    color: white;
+}
+
+.divTableHeading {
+    background-color: #4c5667;
+    display: table-header-group;
+    font-weight: 200;
+    color: white;
+}
+
+.divTableFoot {
+    background-color: #EEE;
+    display: table-footer-group;
+    font-weight: bold;
+}
+
+.divTableBody {
+    display: table-row-group;
+}
+
+
+.nav li
+{
+       overflow:hidden; 
+    white-space:nowrap; 
+    text-overflow: ellipsis;
+}
+
+  .tbl {
+        width: 100% !important;
+          border-collapse: collapse;
+    }
+
+    .tbl td {
+        border: 1px solid gray;
+        padding: 10px;
+    }
+
+    .chk-label {
+        padding-top: 3px;
+        padding-left: 5px;
+    }
+
+    .tbl input[type='checkbox'] {
+        width: 15px !important;
+        height: 15px !important;
+        float: left;
+    }
+    
+
+    .chk-group {
+        float: left;
+        padding-left: 10px;
+    }

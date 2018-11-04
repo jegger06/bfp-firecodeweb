@@ -1,0 +1,37 @@
+﻿@using EBFP.Helper;
+@if (SiteAccess.HasFPSSSAccess)
+{
+    <li>
+    <a><i class="fa fa-exclamation-triangle"></i> FIRE PREVENTION <span class="fa fa-chevron-down"></span></a>
+    <ul class="nav child_menu">
+        <li><a href="/FPSS"> My Station</a></li>
+        <li><a href="/FPSS"> Online Manual</a></li>
+        <li class="active">
+            <a>Functions <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu" style="display: block;">
+                <li class="sub_menu">
+                    <a href="/FPSS"> Advanced Search</a>
+                </li>
+                <li>
+                    <a href="/FPSS"> Search Masterlist</a>
+                </li>
+                <li>
+                    <a href="/FPSS"> Search Uninspected Establishments</a>
+                </li>
+                <li>
+                    <a href="/FPSS"> Manage by Day/Targets</a>
+                </li>
+                <li>
+                    <a href="/FPSS"> Reporting and Statistics</a>
+                </li>
+                <li>
+                    <a href="/FPSS"> Encode New Establishment</a>
+                </li>
+                <li>
+                    <a href="/FPSS"> Duplicate Names</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li>
+}

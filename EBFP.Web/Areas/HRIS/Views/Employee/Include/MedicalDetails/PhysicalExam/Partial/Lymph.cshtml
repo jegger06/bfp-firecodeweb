@@ -1,0 +1,85 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+
+
+<div class="col-md-12 chk-label">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Lymph.PE_Palpation_Lymph, new { @class = "form-control" })
+        <label class="control-label chk-label">Palpation of Lymph nodes (note all that apply): </label>
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">Neck</label>
+    </div>
+    <div class="col-md-1 col-xs-2">
+        @Html.TextBoxFor(model => model.Lymph.PE_Palpation_Lymph_Neck, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">Axilla</label>
+    </div>
+    <div class="col-md-1 col-xs-2">
+        @Html.TextBoxFor(model => model.Lymph.PE_Palpation_Lymph_Axilla, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">Groin</label>
+    </div>
+    <div class="col-md-1 col-xs-2">
+        @Html.TextBoxFor(model => model.Lymph.PE_Palpation_Lymph_Groin, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">Other Site</label>
+    </div>
+    <div class="col-md-1 col-xs-2">
+        @Html.TextBoxFor(model => model.Lymph.PE_Palpation_Lymph_OtherSite, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Lymph.PE_No_Lymph_Enlargement, new { @class = "form-control" })
+        <label class="control-label chk-label">No Lymph Node Enlargement Noted</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Lymph.PE_Lymphadenopathy_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Lympadenopathy Present: </label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Lymph.PE_Lymphadenopathy_Anterior_Cervical, new { @class = "form-control" })
+        <label class="control-label chk-label">Anterior Cervical</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Lymph.PE_Lymphadenopathy_Posterior_Cervical, new { @class = "form-control" })
+        <label class="control-label chk-label">Posterior Cervical</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Lymph.PE_Lymphadenopathy_Postauricular, new { @class = "form-control" })
+        <label class="control-label chk-label">Postauricular</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Lymph.PE_Lymphadenopathy_Submental, new { @class = "form-control" })
+        <label class="control-label chk-label">Submental</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Lymph.PE_Supraclavicular, new { @class = "form-control" })
+        <label class="control-label chk-label">Supraclavicular</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Lymph.PE_Inguinal, new { @class = "form-control" })
+        <label class="control-label chk-label">Inguinal</label>
+    </div>
+    <div class="chk-group" style="padding-right: 20px;">
+        @Html.CheckBoxFor(model => model.Lymph.PE_Axillary, new { @class = "form-control" })
+        <label class="control-label chk-label">Axillary</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px;">
+    <div class="col-md-3">
+        <label class="control-label chk-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Lymph.PE_Lymph_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

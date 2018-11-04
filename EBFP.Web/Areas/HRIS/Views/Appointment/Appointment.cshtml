@@ -1,0 +1,447 @@
+﻿@using EBFP.Helper;
+@using EBFP.BL.Helper;
+@model EBFP.BL.HumanResources.EmployeeAppointmentsSearchModel
+@{
+    ViewBag.Title = "Employee Appointment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.HRIS_EmployeeAppointment_CanViewAll) ||
+           PageSecurity.HasAccess(PageArea.HRIS_EmployeeAppointment_RestricttoRegion) ||
+           PageSecurity.HasAccess(PageArea.HRIS_EmployeeAppointment_RestricttoProvince) ||
+           PageSecurity.HasAccess(PageArea.HRIS_EmployeeAppointment_RestricttoStation)))
+     {
+         @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+         return;
+     }
+    Selections.SelectionReset();
+}
+
+ <div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-info">
+            <a href="#" data-perform="panel-collapse">
+                <div class="panel-heading">
+                    Search Filter (Click to expand)
+                    <div class="pull-left">
+                        <i class="ti-minus"></i>
+                    </div>
+                </div>
+            </a>
+            <div class="panel-wrapper collapse in" aria-expanded="false">
+                <div class="panel-body">
+                  <div role="form" class="row">
+                    <div class="col-sm-4 col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">Account Number</label>
+                        @Html.TextBoxFor(model => model.EA_Emp_AccountNumber, new { @id = "txtAccountNumber", @class = "form-control" })
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">Name</label>
+                        @Html.DropDownListFor(model => model.EA_Emp_Id, new List<SelectListItem>(), " --- Please Select---", new {@id = "ddlEmployeeSearch", @class = "form-control"})
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">Rank</label>
+                        @Html.DropDownListFor(model => model.EA_Rank_Id, Selections.Ranks, " --- Please Select---", new {@id = "ddlRank", @class = "form-control"})
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">Appointment Status</label>
+                        @Html.DropDownListFor(model => model.EA_AppoitmentStatus, AppointmentStatuses.Permanent.ToSelectList(), " --- Please Select---", new {@id = "ddlAppointmentStatus", @class = "form-control"})
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">Item Number</label>
+                        @Html.TextBoxFor(model => model.EA_ItemNumber, new {@id = "txtItemNumber", @class = "form-control"})
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">Nature of Appointment </label>
+                        @Html.DropDownListFor(model => model.EA_AppoitmentNature, AppointmentNature.Promotion.ToSelectList(), " --- Please Select---", new {id = "ddlAppointmentNature", @class = "form-control"})
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label class="control-label">Appointing Authority</label>
+                      @Html.TextBoxFor(model => model.EA_AppointingAuthority, new { @id = "txtAppointingAuthority", @class = "form-control" })
+                    </div>
+                  </div>
+                      <div role="form" class="row">
+                        <div class="col-sm-4 col-md-2">
+                          <div class="form-group">
+                            <label class="control-label">Attesting Authority</label>
+                            @Html.TextBoxFor(model => model.EA_AttestingAuthority, new { @id = "txtAttestingAuthority", @class = "form-control" })
+                          </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                          <div class="form-group">
+                            <label class="control-label">Appointment From</label>
+                            @Html.TextBoxFor(model => model.EA_AppointmentDate_From, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @id = "dpFrom" })
+                          </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                          <div class="form-group">
+                            <label class="control-label">Appointment To</label>
+                            @Html.TextBoxFor(model => model.EA_AppointmentDate_To, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @id = "dpTo" })
+                          </div>
+                        </div>
+
+                        <div class="col-sm-4 col-md-2">
+                          <div class="form-group">
+                            <label class="control-label">&nbsp;</label>
+                            <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeAppointment_Modify))
+            {
+                <p>
+                    <a href="@Url.Action("AppointmentDetails", "Appointment", new {sId = 0.ToString().Encrypt()})" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+                        <i class="fa fa-plus-circle"></i> Create New
+                    </a>
+                </p>
+            }
+
+            <span id="totalRecords">&nbsp;</span>
+            <div class="block1" style="position: static; zoom: 1;">
+
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped table-bordered nowrap">
+                        <thead>
+                        <tr>
+                          <th class="all">Appointment Date</th>
+                          <th class="all">Account Number</th>
+                            <th class="all">Name</th>
+                            <th class="all">Rank</th>
+                            <th class="all">Status of Appointment</th>
+                            <th class="all">Item Number</th>
+                            <th>Nature of Appointment</th>
+                            <th>Appointing Authority</th>
+                            <th>Attesting Authority</th>
+                            <th class="all">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{string sId = 0.ToString().Encrypt(); }
+<script>
+    $(document).ready(function () {
+        $("#myBtn").click(function () {
+
+            showModal('@sId');
+        });
+
+        function showModal(sId) {
+            $("#responsive-modal").modal();
+            $.ajax({
+                async: false,
+                url: '/HRIS/EmployeeAppointment/AppointmentDetails?sId=' + sId
+            }).success(function (partialView) {
+                $("#editUnitContent").html("");
+                $(partialView).appendTo("#editUnitContent");
+            });
+        }
+    });
+</script>
+ 
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content" id="editUnitContent"> 
+            
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+<script>
+    var isSearch = false;
+    var myTable = null;
+    var oSelectionDS = new SelectionDS();
+
+    $(document).ready(function() {
+        InitSelection();
+        $('div.block1').block({
+            message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>',
+            css: {
+                border: '1px solid #fff !important'
+            }
+        });
+
+        myTable = $('#myTable').DataTable({
+                order: [[0, "asc"]],
+                serverSide: true,
+                deferRender: true,
+                pageLength: 50,
+                processing: true,
+                responsive: true,
+                searching: false,
+                ajax: {
+                    url: '@Url.Action("GetEmployeeAppointments", "Appointment")',
+                    type: 'POST',
+                    data: function(d) {
+                        d.gridInfo = SetDatatableParams()
+                    }
+                },
+                "initComplete": function(settings, json) {
+                    //if (settings.json.recordsFiltered)
+                    //    $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+                },
+                "columns": [
+                    {
+                        "name": "EA_AppointmentDate",
+                        "searchable": true,
+                        "sortable": true,
+                        "render": function(data, type, full, meta) {
+                            return formatDate(full.EA_AppointmentDate);
+                        }
+                    },
+                        {
+                          "name": "EA_Emp_AccountNumber",
+                          "searchable": true,
+                          "sortable": true,
+                          "render": function (data, type, full, meta) {
+                            return full.EA_Emp_AccountNumber;
+                          }
+                        },
+                    {
+                        "name": "EA_Emp_Name",
+                        "searchable": true,
+                        "sortable": true,
+                        "render": function(data, type, full, meta) {
+                            return full.EA_Emp_Name;
+                        }
+                    },
+                    {
+                        "name": "EA_Rank_Name",
+                        "searchable": true,
+                        "sortable": true,
+                        "render": function(data, type, full, meta) {
+                            return full.EA_Rank_Name;
+                        }
+                    },
+                    {
+                        "name": "EA_AppoitmentStatus",
+                        "searchable": true,
+                        "sortable": true,
+                        "render": function(data, type, full, meta) {
+                            return full.EA_AppoitmentStatus;
+                        }
+                    },
+                    {
+                        "name": "EA_ItemNumber",
+                        "searchable": true,
+                        "sortable": true,
+                        "render": function(data, type, full, meta) {
+                            return full.EA_ItemNumber;
+                        }
+                    },
+                    {
+                        "name": "EA_AppoitmentNature",
+                        "searchable": true,
+                        "sortable": true,
+                        "render": function(data, type, full, meta) {
+                            return full.EA_AppoitmentNature;
+                        }
+                    },
+                    {
+                        "name": "EA_AppointingAuthority",
+                        "searchable": true,
+                        "sortable": true,
+                        "render": function(data, type, full, meta) {
+                            return full.EA_AppointingAuthority;
+                        }
+                    },
+                    {
+                        "name": "EA_AttestingAuthority",
+                        "searchable": true,
+                        "sortable": true,
+                        "render": function(data, type, full, meta) {
+                            return full.EA_AttestingAuthority;
+                        }
+                    },
+                    {
+                        "name": "Action",
+                        "searchable": false,
+                        "sortable": false,
+                        "width": "200px",
+                        "render": function(data, type, full, meta) {
+                            return GetActionTemplate(full.sEA_Id);
+                        }
+
+                    }
+                ]
+            })
+            .on('preXhr.dt', function() {
+                $('div.block1').block({
+                    message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>',
+                    css: {
+                        border: '1px solid #fff !important'
+                    }
+                });
+            })
+            .on('xhr.dt', function(data, settings) {
+                console.log(data);
+                $('div.block1').unblock();
+                $("#myTable_length #totalGridResult").remove();
+                if (settings.json && settings.json.recordsFiltered >= 0) {
+                    $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+                }
+            });
+    });
+
+    function SetDatatableParams() {
+        var datatable = $('#myTable').DataTable();
+        var datatableInfo = datatable.page.info();
+        var columns = datatable.settings().init().columns;
+        var order = datatable.order();
+        var sortIndex = order[0][0];
+        var sortOrder = order[0][1];
+        datatableInfo.sortOrder = sortOrder;
+        datatableInfo.sortColumnName = columns[sortIndex].name;
+
+        var searchEmployeeAppointment = {
+            EA_Emp_Id: $("#ddlEmployeeSearch").val() === "" ? 0 : $("#ddlEmployeeSearch").val(),
+            EA_Rank_Id: $("#ddlRank").val() === "" ? 0 : $("#ddlRank").val(),
+            EA_AppoitmentStatus: $("#ddlAppointmentStatus").val() === "" ? 0 : $("#ddlAppointmentStatus").val(),
+            EA_AppoitmentNature: $("#ddlAppointmentNature").val() === "" ? 0 : $("#ddlAppointmentNature").val(),
+            EA_ItemNumber: $("#txtItemNumber").val(),
+            EA_AttestingAuthority: $("#txtAttestingAuthority").val(),
+            EA_AppointingAuthority: $("#txtAppointingAuthority").val(),
+            EA_AppointmentDate_From: $("#dpFrom").val(),
+            EA_AppointmentDate_To: $("#dpTo").val(),
+            EA_Emp_AccountNumber: $("#txtAccountNumber").val(),
+        };
+
+        datatableInfo.searchEmployeeAppointment = searchEmployeeAppointment;
+        return datatableInfo;
+    }
+
+    function DeleteConfirm(event) {
+        @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeAppointment_Modify)) {
+            <text>
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover deleted item!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel plx!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                swal("Deleted!", "Item has been deleted.", "success");
+                $.get(event, function(data, status) {
+                    myTable.ajax.reload();
+                });
+            } else {
+                swal("Cancelled", "Item delete has been cancelled", "error");
+            }
+        });
+        </text>
+            }
+            else
+            {
+            <text >
+                   swal("Unauthorized", "You are not allowed to do this action.", "error");
+            </text>
+            }
+        }
+
+    function GetActionTemplate(empAppointmentId) {
+        var concat = "";
+        @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeAppointment_Modify))
+        {
+            <text>
+                concat += '<a href="#" onclick="return DeleteConfirm(\'@Url.Action("Delete", "Appointment")?sId=' + empAppointmentId + '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+                concat += ' Delete';
+                concat += '</a>';
+            </text>
+        }
+        @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeAppointment_ViewDetails) || PageSecurity.HasAccess(PageArea.HRIS_EmployeeAppointment_Modify))
+        {   <text>
+        concat += '<a href="@Url.Action("AppointmentDetails", "Appointment")?sId=' + empAppointmentId + '" class="btn btn-success m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil">';
+        concat += ' Details';
+        concat += '</a>';
+            </text>
+        }
+        return concat;
+    }
+
+    function FilterSearch() {
+        isSearch = true;
+        myTable.ajax.reload();
+    }
+
+    function InitSelection() {
+        $("#ddlEmployeeSearch").select2({
+            ajax: {
+                url: '@Url.Action("SelectionAutoComplete", "Employee")',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function(data) {
+
+                    return {
+                        results: data.data
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 3
+        });
+    }
+</script>
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+
+
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+
+
+
+

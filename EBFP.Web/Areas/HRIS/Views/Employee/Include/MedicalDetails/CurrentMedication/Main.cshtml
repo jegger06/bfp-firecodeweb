@@ -1,0 +1,91 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.HumanResources.EmployeeMedicalModel
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        II. Current Medication
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical_Modify))
+      {
+          <div style="overflow: hidden !important; padding: 10px !important">
+            <button type="button" id="AddNewMedication" name="AddNewMedication" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 MedicalAccess"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+      }
+      <div style="padding-left: 10px;">
+        <label style="font-weight: bold">
+          INCLUDE BIRTH CONTROL PILLS, VITAMINS, AND SUPPLEMENTS
+        </label>
+      </div>
+      <div class="divTable">
+        <div class="divTableHeading">
+          <div class="divTableRow">
+            <div class="divTableHead  text-center">MEDICINE NAME</div>
+            <div class="divTableHead text-center">HOW TAKEN?</div>
+            <div class="divTableHead text-center">WHO PRESCRIBES?</div>
+            <div class="divTableHead text-center">NEED RX</div>
+            <div class="divTableHead text-center">&nbsp;</div>
+          </div>
+        </div>
+        <div class="divTableBody" id="NewEmployeeMedication">
+          @if (@Model.CurrentMedication != null)
+          {
+            for (int i = 0; i < @Model.CurrentMedication.Count(); i++)
+            {
+                  @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/CurrentMedication/Editor.cshtml", @Model.CurrentMedication[i])
+            }
+          }
+        </div>
+      </div>
+
+      <br /><br />
+      <div class="row" style="padding-left: 10px;">
+        <div class="col-sm-6 col-xs-12">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-md-3 control-label">Preferred Pharmacy</label>
+              <div class="col-md-6">
+                @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_Preffered_Pharmacy, new { @class = "form-control" })
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-md-3 control-label">Location</label>
+              <div class="col-md-6">
+                @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_Location, new { @class = "form-control" })
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div style="overflow: hidden !important; padding: 10px !important">
+        &nbsp;
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#AddNewMedication").click(function () {
+            $.ajax({
+              async: false,
+              url: '/HRIS/Employee/CurrentMedicationEditor'
+            }).success(function (partialView) {
+              $(partialView).appendTo("#NewEmployeeMedication");
+            });
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
+
+

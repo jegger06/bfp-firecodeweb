@@ -1,0 +1,259 @@
+﻿@model EBFP.BL.HumanResources.UnitModel
+@using EBFP.BL.Helper
+@{
+    var baseFSES64 = Convert.ToBase64String(Model.Unit_ChiefFSES_Signature != null ? Model.Unit_ChiefFSES_Signature : new byte[0]);
+    var imgFSESSrc = String.Format("data:image/gif;base64,{0}", baseFSES64);
+
+    var baseMarshall64 = Convert.ToBase64String(Model.Unit_FireMarshall_Signature != null ? Model.Unit_FireMarshall_Signature : new byte[0]);
+    var imgMarshallSrc = String.Format("data:image/gif;base64,{0}", baseMarshall64);
+}
+<style>
+    .employeeSelection, .mydatepicker {
+        display: block;
+    }
+</style>
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        I. Unit Information
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-6 col-xs-12">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Unit Code</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Unit_Code, new {@maxlength = "50", @class = "form-control", @required = "required"})
+                  @Html.ValidationMessageFor(model => model.Unit_Code, "Field is required.", new {@class = "text-danger"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Region</label>
+                <div class="col-md-6">
+                  <div>
+                    @Html.DropDownListFor(model => Model.Unit_Reg_Id, Selections.InventoryRegion, " --- Please Select---", new {id = "ddlRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)", @required = "required" })
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">Province</label>
+                <div class="col-md-6">
+                  <div>
+                    @Html.DropDownListFor(model => Model.Unit_ProvDistrict, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new {id = "ddlProvince", @class = "form-control", onchange = "ddlProvinceValueChanged(this.value)", @required = "required" })
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">City Municipality</label>
+                <div class="col-md-6">
+                  <div>
+                    @Html.DropDownListFor(model => Model.Unit_Municipality_Id, new SelectList(Enumerable.Empty<SelectListItem>(), "Municipality_Id", "Unit_StationName"), " --- Please Select---", new {id = "ddlMunicipality", @class = "form-control", @required = "required" })
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">Station Category</label>
+                <div class="col-md-6">
+                  @{ var stationCategory = Selections.StationCategory;}
+                  <div>
+                    @Html.DropDownListFor(model => Model.Unit_Category, stationCategory, " --- Please Select---", new {@class = "form-control", @id = "unit_category", @required = "required"})
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">Unit (Station)</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Unit_StationName, new {@class = "form-control"})
+                  @Html.ValidationMessageFor(model => model.Unit_StationName, "Field is required.", new {@class = "text-danger"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Address</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Unit_Address, new {@class = "form-control"})
+                  @Html.ValidationMessageFor(model => model.Unit_Address, "Field is required.", new {@class = "text-danger"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Phone Number</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Unit_PhoneNumber, new {@class = "form-control"})
+                  @Html.ValidationMessageFor(model => model.Unit_PhoneNumber, "Field is required.", new {@class = "text-danger"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Unit Description</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Unit_Description, new {@class = "form-control"})
+                  @Html.ValidationMessageFor(model => model.Unit_Description, "Field is required.", new {@class = "text-danger"})
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">Fire Marshall</label>
+                <div class="col-md-6">
+                  <div>
+                    @Html.DropDownListFor(model => Model.Unit_FireMarshall_Emp_Id, Selections.FireMarshallById(@Model.Unit_FireMarshall_Emp_Id ?? 0), " --- Please Select---", new {@class = "employeeSelection form-control", @id = "unit_FireMarshall_Emp_Id"})
+                  </div>
+                </div>
+              </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Fire Marshall Signature</label>
+                    <div class="col-md-6">
+                        <div style="border: 1px darkgray solid; padding: 10px; width: 174px; height: 34px;">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <img id="ImgMarshall" src="@imgMarshallSrc" alt="No image uploaded" style="width: 154px; height: 34px;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top: 10px;">
+                            @Html.TextBoxFor(model => model.FireMarshallImage, "", new { type = "file", name = "ImageMarshall", id = "ImageMarshall" })
+                        </div>
+                    </div>
+                </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">Chief FSES</label>
+                <div class="col-md-6">
+                  <div>
+                    @Html.DropDownListFor(model => Model.Unit_ChiefFSES_Emp_Id, Selections.FireMarshallById(@Model.Unit_ChiefFSES_Emp_Id ?? 0), " --- Please Select---", new { @class = "employeeSelection form-control", @id = "unit_ChiefFSES_Emp_Id" })
+                  </div>
+                </div>
+              </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Chief FSES Signature</label>
+                    <div class="col-md-6">
+                        <div style="border: 1px darkgray solid; padding: 10px; width: 174px; height: 34px;">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <img id="ImgFses" src="@imgFSESSrc" alt="No image uploaded" style="width: 154px; height: 34px;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top: 10px;">
+                            @Html.TextBoxFor(model => model.ChiefFSESImage, "", new { type = "file", name = "ImageFses", id = "ImageFses" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+  <script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+  <script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+  <script type="text/javascript">
+    var oSelectionDS = new SelectionDS();
+    $(document).ready(function() {
+      InitSelection();
+      InitChiefFSESSelection();
+      ddlRegionValueChanged($("#ddlRegion").val(),@Model.Unit_ProvDistrict);
+      ddlProvinceValueChanged(@Model.Unit_ProvDistrict,@Model.Unit_Municipality_Id);
+    });
+
+      function ddlRegionValueChanged(regionId,provinceId) {
+      var province = provinceId;
+      oSelectionDS.ProvinceByRegion("ddlProvince", regionId, province);
+      oSelectionDS.ClearDropdown("ddlMunicipality");
+    }
+
+    function ddlProvinceValueChanged(provinceId,municipalityId) {
+      var municipality = municipalityId;
+      oSelectionDS.MunicipalityByProvince("ddlMunicipality", provinceId,municipality);
+    }
+    function InitSelection() {
+        $("#unit_FireMarshall_Emp_Id").select2({
+        ajax: {
+          url: '@Url.Action("SelectionAutoComplete", "Employee")',
+          dataType: 'json',
+          delay: 250,
+          data: function(params) {
+            return {
+              search: params.term // search term
+            };
+          },
+          processResults: function(data) {
+
+            return {
+              results: data.data
+            };
+          },
+          cache: true
+        },
+        minimumInputLength: 3
+      });
+    }
+
+    function InitChiefFSESSelection() {
+      $("#unit_ChiefFSES_Emp_Id").select2({
+        ajax: {
+          url: '@Url.Action("SelectionAutoComplete", "Employee")',
+          dataType: 'json',
+          delay: 250,
+          data: function(params) {
+            return {
+              search: params.term // search term
+            };
+          },
+          processResults: function(data) {
+
+            return {
+              results: data.data
+            };
+          },
+          cache: true
+        },
+        minimumInputLength: 3
+      });
+    }
+
+      $("#ImageFses").change(function () {
+          readURL(this, '#ImgFses', '#ImageFses');
+      });
+      
+      $("#ImageMarshall").change(function () {
+          readURL(this, '#ImgMarshall', '#ImageMarshall');
+      });
+
+      function readURL(input, id, fileId) {
+          if (input.files && input.files[0]) {
+              if(input.files[0].type && input.files[0].type.toLowerCase().indexOf("png") < 0){
+                  alert("Only PNG file allowed!");
+                  $(fileId).val(null);
+                  $(id).attr('src', "");
+              }
+              else{
+                  if (input.files[0].size > 1000000) {
+                      alert("Image size must not be greater than 1MB!");
+                      $(fileId).val(null);
+                  } else {
+                      var reader = new FileReader();
+                      reader.onload = function (e) {
+                          $(id).attr('src', e.target.result);
+                      }
+                      reader.readAsDataURL(input.files[0]);
+                  }
+              }
+          }
+          else {
+              $(id).attr('src', "");
+          }
+      }
+
+  </script>

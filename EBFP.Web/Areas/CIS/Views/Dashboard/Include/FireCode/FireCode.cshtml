@@ -1,0 +1,79 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+              Fire Code Summary
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+
+                    <div style="font-weight: bold; font-size: 15px;text-align: center">
+                        <div> FIRE CODE FEES COLLECTION</div>
+                    </div>
+
+                    <br /><br />
+                    <div>
+                        <table cellpadding="1" class="tbl-Dashboard">
+                          <tr>
+                            @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                            {
+                              <th>Province</th>
+                            }
+                            else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                            {
+                              <th>Station</th>
+                            }
+                            else
+                            {
+                                <th>Region</th>
+                            }
+
+                            <th>{{FireCodeFeesYears[0]}}</th>
+                            <th>{{FireCodeFeesYears[1]}}</th>
+                            <th>{{FireCodeFeesYears[2]}}</th>
+                            <th>{{FireCodeFeesYears[3]}}</th>
+                            <th>{{FireCodeFeesYears[4]}}</th>
+                            <th>5 YEAR AVERAGE</th>
+                          </tr>
+                          <tr ng-repeat="item in FireCodeFees">
+                            @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                            {
+                                <td class="tbl-RowTitle">{{item.ProvinceName}}</td>
+                            }
+                            else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                            {
+                                <td class="tbl-RowTitle">{{item.UnitName}}</td>
+                            }
+                            else
+                            {
+                                <td class="tbl-RowTitle">{{item.RegionName}}</td>
+                            }
+                            @*<td class="tbl-RowTitle">{{item.RegionName}}</td>*@
+                            <td>{{item.Year1 | number:2}}</td>
+                            <td>{{item.Year2 | number:2}}</td>
+                            <td>{{item.Year3 | number:2}}</td>
+                            <td>{{item.Year4 | number:2}}</td>
+                            <td>{{item.Year5 | number:2}}</td>
+                            <td>{{item.Average | number:2}}</td>
+                          </tr>
+                            <tr>
+                                <th>TOTAL</th>
+                                <th>{{FireCodeFees[0].TotalYear1| number:2}}</th>
+                                <th>{{FireCodeFees[0].TotalYear2 | number:2}}</th>
+                                <th>{{FireCodeFees[0].TotalYear3 | number:2}}</th>
+                                <th>{{FireCodeFees[0].TotalYear4 | number:2}}</th>
+                                <th>{{FireCodeFees[0].TotalYear5 | number:2}}</th>
+                                <th>{{FireCodeFees[0].TotalAverage | number:2}}</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

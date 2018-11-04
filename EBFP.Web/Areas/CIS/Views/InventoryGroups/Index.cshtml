@@ -1,0 +1,385 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@{
+    ViewBag.Title = "Inventory Groups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_Groups_CanViewAll) || PageSecurity.HasAccess(PageArea.Inventory_Groups_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          Search Filter (Click to expand)
+          <div class="pull-left">
+            <i class="ti-minus"></i>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body">
+          <div role="form" class="row">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Group Code</label>
+                <input type="text" id="txtCode" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Group Description</label>
+                <input type="text" id="txtDescription" name="txtMunicipality" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-1">
+              <div class="form-group">
+                <label class="control-label">&nbsp;</label>
+                <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      @if (PageSecurity.HasAccess(PageArea.Inventory_Groups_Modify))
+      {
+        <p>
+          <a href="#" onclick="return setInfo('','','')" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+            <i class="fa fa-plus-circle"></i> Create New
+          </a>
+        </p>
+      }
+
+      <span id="totalRecords">&nbsp;</span>
+      <div class="block1" style="position: static; zoom: 1;">
+
+        <div class="table-responsive">
+          <table id="myTable" class="table table-striped table-bordered nowrap">
+            <thead>
+            <tr>
+              <th class="all">Inventory Group Code</th>
+              <th class="all">Inventory Group Description</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+              <th>Updated By</th>
+              <th>Last Update</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+<script>
+  var isSearch = false;
+  var myTable = null;
+  var sID = "";
+  $(document).ready(function () {
+
+    LoadTable();
+
+    $('#btnSave').click(function () {
+      SaveDetails();
+    });
+
+    $('#btnClose').click(function () {
+      $("#responsive-modal").modal('hide');
+    });
+  });
+
+  function LoadTable() {
+    $('div.block1').block({
+      message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+   , css: {
+     border: '1px solid #fff !important'
+   }
+    });
+
+    myTable = $('#myTable').DataTable({
+      order: [[0, "asc"]],
+      serverSide: true,
+      deferRender: true,
+      pageLength: 50,
+      processing: true,
+      responsive: true,
+      searching: false,
+      ajax: {
+        url: '@Url.Action("GetInventoryGroups", "InventoryGroups")',
+        type: 'POST',
+        data: function (d) {
+          d.gridInfo = SetDatatableParams()
+        }
+      }, "initComplete": function (settings, json) {
+      },
+      "columns": [
+             {
+               "name": "IG_Code",
+               "searchable": true,
+               "sortable": true,
+               "render": function (data, type, full, meta) {
+                 return full.IG_Code;
+               }
+             },
+          {
+            "name": "IG_Description",
+            "searchable": true,
+            "sortable": true,
+            "render": function (data, type, full, meta) {
+              return full.IG_Description;
+            }
+          }
+           ,
+          {
+            "name": "IG_CreatedBy",
+            "searchable": true,
+            "sortable": true,
+            "render": function (data, type, full, meta) {
+              return full.IG_CreatedBy;
+            }
+          },
+          {
+            "name": "IG_CreatedDate",
+            "searchable": true,
+            "sortable": true,
+            "render": function (data, type, full, meta) {
+              return formatDate(full.IG_CreatedDate);
+            }
+          },
+             {
+               "name": "IG_LastUpdateBy",
+               "searchable": true,
+               "sortable": true,
+               "render": function (data, type, full, meta) {
+                 return full.IG_LastUpdateBy;
+               }
+             },
+          {
+            "name": "IG_LastUpdateDate",
+            "searchable": true,
+            "sortable": true,
+            "render": function (data, type, full, meta) {
+              return formatDate(full.IG_LastUpdateDate);
+            }
+          },
+
+{
+  "name": "Action",
+  "searchable": false,
+  "sortable": false,
+  "width": "200px",
+  "render": function (data, type, full, meta) {
+    return GetActionTemplate(full.IG_Id, full.IG_Code, full.IG_Description, full.sIG_Id);
+  }
+
+}
+      ]
+    })
+     .on('preXhr.dt', function () {
+       $('div.block1').block({
+         message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+         , css: {
+           border: '1px solid #fff !important'
+         }
+       });
+     })
+     .on('xhr.dt', function (data, settings) {
+       console.log(data);
+       $('div.block1').unblock();
+       $("#myTable_length #totalGridResult").remove();
+       if (settings.json && settings.json.recordsFiltered >= 0) {
+         $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+       }
+     });
+  }
+
+
+  function SetDatatableParams() {
+    var datatable = $('#myTable').DataTable();
+    var datatableInfo = datatable.page.info();
+    var columns = datatable.settings().init().columns;
+    var order = datatable.order();
+    var sortIndex = order[0][0];
+    var sortOrder = order[0][1];
+    datatableInfo.sortOrder = sortOrder;
+    datatableInfo.sortColumnName = columns[sortIndex].name;
+
+    var searchInventoryGroupModel = {
+      IG_Code: $("#txtCode").val().trim(),
+      IG_Description: $("#txtDescription").val().trim(),
+      IsSearch: isSearch
+    };
+
+    datatableInfo.searchInventoryGroupModel = searchInventoryGroupModel;
+    return datatableInfo;
+  }
+
+  function DeleteEmployeeConfirm(event) {
+    @if (PageSecurity.HasAccess(PageArea.Inventory_Groups_Modify)) {
+           <text>
+    swal({
+      title: "Are you sure?",
+      text: "You will not be able to recover deleted item!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel plx!",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    }, function (isConfirm) {
+      if (isConfirm) {
+        swal("Deleted!", "Item has been deleted.", "success");
+        $.get(event, function (data, status) {
+          myTable.ajax.reload();
+        });
+      } else {
+        swal("Cancelled", "Item delete has been cancelled", "error");
+      }
+    });
+    </text>
+       }
+       else
+       {
+           <text>
+                  swal("Unauthorized", "You are not allowed to do this action.", "error");
+           </text>
+       }
+  }
+
+  function GetActionTemplate(id, code, desc,sId) {
+    var concat = "";
+    @if (PageSecurity.HasAccess(PageArea.Inventory_Groups_Modify))
+       {
+           <text>
+    concat += '<a href="#" onclick="return DeleteEmployeeConfirm(\'@Url.Action("Delete", "InventoryGroups")?sId=' + sId + '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+    concat += ' Delete';
+    concat += '</a>';
+    </text>
+}
+        @if (PageSecurity.HasAccess(PageArea.Inventory_Groups_Modify) || PageSecurity.HasAccess(PageArea.Inventory_Groups_CanViewAll))
+        {
+            <text>
+    concat += "<a href=\"#\" onclick=\"setInfo('" + id + "','" + code + "','" + desc + "');\" class=\"btn btn-success pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil\">";
+    concat += ' Details';
+    concat += '</a>';
+        </text>
+    }
+    return concat;
+  }
+
+  function FilterSearch() {
+    isSearch = true;
+    myTable.ajax.reload();
+  }
+
+
+  function setInfo(id, code, desc) {
+    sID = id;
+
+    $('.modal-content #Code').val(code);
+    $('.modal-content #Desc').val(desc);
+    $("#responsive-modal").modal();
+  }
+
+  function SaveDetails() {
+    var model = {
+      IG_Id: sID,
+      IG_Code: $('.modal-content #Code').val(),
+      IG_Description: $('.modal-content #Desc').val()
+    };
+    $.ajax({
+      type: "POST",
+      url: '@Url.Action("InventoryGroupsDetails", "InventoryGroups")',
+      async: true,
+      cache: false,
+      data: JSON.stringify(model),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function (response) {
+        if (response.message === "success") {
+          $(".modal-content #Code").val("");
+          $(".modal-content #Desc").val("");
+
+          $("#responsive-modal").modal('hide');
+          swal("Saved!", "Item has been saved.", "success");
+          myTable.ajax.reload();
+        } else {
+          swal("Error!", response.message, "error");
+        }
+      },
+      error: function (data) {
+        $("#responsive-modal").modal('hide');
+      }
+    });
+  }
+</script>
+
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content" id="editUnitContent" style="height: 250px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myLargeModalLabel">Inventory Group Details</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-horizontal">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Inventory Group Code</label>
+                  <div class="col-md-6">
+                    <input class="form-control text-box single-line" id="Code" name="Code" type="text" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Inventory Group Description</label>
+                  <div class="col-md-6">
+                    <input class="form-control text-box single-line" id="Desc" name="Desc" type="text" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-danger btn-rounded waves-effect waves-light m-r-10 pull-right" id="btnClose">Cancel</button>
+            @if (PageSecurity.HasAccess(PageArea.Inventory_Groups_Modify))
+            {
+                <button class="btn btn-success btn-rounded waves-effect waves-light m-r-10 pull-right" id="btnSave">Save</button>
+            }
+
+      </div>
+    </div>
+  </div>
+</div>

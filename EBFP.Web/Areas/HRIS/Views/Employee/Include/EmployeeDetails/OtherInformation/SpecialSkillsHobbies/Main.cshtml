@@ -1,0 +1,44 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+
+<div class="form-horizontal">
+    <div class="form-group">
+
+        <div class="row"> 
+            <label class="control-label">&nbsp;</label>
+        </div>
+        <div class="row"> <label class="control-label">SPECIAL SKILLS / HOBBIES:</label>
+        </div>
+        <div class="row"> 
+            <button type="button" id="NewSpecialSkillsHobby" name="NewSpecialSkillsHobby" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit UserViewing"><i class="fa fa-plus"></i></button>
+        </div>
+        <div id="SpecialSkillsHobbies" class="row">
+            @if (@Model.SpecialSkillsHobbies != null)
+            {
+                for (int i = 0; i < @Model.SpecialSkillsHobbies.Count(); i++)
+                {
+                    @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/OtherInformation/SpecialSkillsHobbies/Editor.cshtml", @Model.SpecialSkillsHobbies[i])
+                }
+            }
+        </div>
+    </div>
+
+</div>
+<div style="overflow:hidden !important; padding:10px !important">
+    &nbsp;
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var formCtr = 1;
+        $('.mydatepicker, #datepicker').datepicker();
+        $("#NewSpecialSkillsHobby").click(function () {
+            $.ajax({
+                async: false,
+                url: '/HRIS/Employee/SpecialSkillsHobbyEditor'
+            }).success(function (partialView) {
+                $(partialView).appendTo("#SpecialSkillsHobbies");
+                $('.mydatepicker, #datepicker').datepicker();
+            });
+        });
+    });
+</script>

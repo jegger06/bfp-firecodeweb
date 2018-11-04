@@ -1,0 +1,105 @@
+﻿<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                Vehicles Summary
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="row row-in">
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-danger"></i>
+                                            <h5 class="text-muted vb">Total Fire Vehicles and Equipment</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-danger" id="totalVehicles">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-megna"></i>
+                                            <h5 class="text-muted vb">Total Fire Trucks</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-megna" id="totalFireTrucks">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-primary"></i>
+                                            <h5 class="text-muted vb">Total Ambulance</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-primary" id="totalAmbulance">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="row row-in">
+                                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-danger"></i>
+                                            <h5 class="text-muted vb">Total Rescue Vans</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-danger" id="totalRescueVans">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-megna"></i>
+                                            <h5 class="text-muted vb">Total Fire Boats</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-megna" id="totalFireBoats">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                @*Other Vehicles Count*@
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="white-box" style="height: 455px !important">
+                            <div style="font-weight:bold;font-size:15px">
+                                NUMBER OF FIRE VEHICLES AND EQUIPMENT
+                            </div>
+                            * Serviceable, unserviceable and under repair vehicles and equipment.
+                            <div class="box-title">
+                                <h5 class="pull-right">
+                                    <i class="fa fa-circle m-r-5" style="color: #03a9f3;"></i>BFP
+                                    <i class="fa fa-circle m-r-5" style="color: #87CEFA;"></i>LGU
+                                </h5>
+                            </div>
+                            <div id="vehicle-bar-chart" style="height: 372px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/Truck/TruckAgeGroup.cshtml")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

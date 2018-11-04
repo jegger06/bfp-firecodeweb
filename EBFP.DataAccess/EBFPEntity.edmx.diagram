@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c873c42a67234f86aec108b0e810e505" Name="Diagram1" ZoomLevel="30">
+        <EntityTypeShape EntityType="EBFPModel.tblAfterFireOperationBreathingApparatusUsed" Width="1.5" PointX="15" PointY="126.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblAfterFireOperationDispatchedVehicles" Width="1.5" PointX="15" PointY="144.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblAfterFireOperationExtinguishingAgentsUsed" Width="1.5" PointX="15" PointY="137.625" />
+        <EntityTypeShape EntityType="EBFPModel.tblAfterFireOperationHoseLineUsed" Width="1.5" PointX="15" PointY="133.875" />
+        <EntityTypeShape EntityType="EBFPModel.tblAfterFireOperationOtherToolsUsed" Width="1.5" PointX="15" PointY="130.375" />
+        <EntityTypeShape EntityType="EBFPModel.tblAfterFireOperationRopesLadderUsed" Width="1.5" PointX="15" PointY="141.25" />
+        <EntityTypeShape EntityType="EBFPModel.tblAfterInspectionReports" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblAlarmTypes" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblArticles" Width="1.5" PointX="15.75" PointY="53.875" />
+        <EntityTypeShape EntityType="EBFPModel.tblAssetInventories" Width="1.5" PointX="12.75" PointY="149" />
+        <EntityTypeShape EntityType="EBFPModel.tblCourses" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblDirectorates" Width="1.5" PointX="15.75" PointY="68.375" />
+        <EntityTypeShape EntityType="EBFPModel.tblDutyStatus" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeChildren" Width="1.5" PointX="15" PointY="64.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeCivilServiceEligibilities" Width="1.5" PointX="15" PointY="83.375" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeDutyStatusUpdates" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeEducationalBackground" Width="1.5" PointX="15" PointY="115.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeLeaveRecords" Width="1.5" PointX="15" PointY="57.875" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeMembershipInAssociationOrganizations" Width="1.5" PointX="15" PointY="62.25" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeNonAcademicDistinctions" Width="1.5" PointX="15" PointY="100" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeOtherInformation" Width="1.5" PointX="15" PointY="106.25" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeReferences" Width="1.5" PointX="15" PointY="102.5" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeSpecialSkillsHobbies" Width="1.5" PointX="15" PointY="149.625" />
+        <EntityTypeShape EntityType="EBFPModel.tblEstablishmentStatus" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblFireRecords" Width="1.5" PointX="7.5" PointY="76" />
+        <EntityTypeShape EntityType="EBFPModel.tblFireSuppression" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblIncidentStatus" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblIndexTypes" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblInspectionOrderActions" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblInspectionOrderInspectors" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblInspectionOrderRemarks" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblInventoryGroups" Width="1.5" PointX="15.75" PointY="87.625" />
+        <EntityTypeShape EntityType="EBFPModel.tblJobFunctions" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblLogisticAssets" Width="1.5" PointX="15" PointY="72.125" />
+        <EntityTypeShape EntityType="EBFPModel.tblMandatoryTrainings" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblMedical" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblNoticeToComply" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblNoticeToCorrectViolations" Width="1.5" PointX="6.75" PointY="13.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblOPSSeries" Width="1.5" PointX="12.75" PointY="13.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblORSeries" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblOtherVehicleModel" Width="1.5" PointX="8.75" PointY="14.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblOtherVehicles" Width="1.5" PointX="23.25" PointY="75.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblPhysicalExam" Width="1.5" PointX="14.75" PointY="11.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblPhysicalInventory" Width="1.5" PointX="18" PointY="75.5" />
+        <EntityTypeShape EntityType="EBFPModel.tblPopulations" Width="1.5" PointX="7.5" PointY="132.25" />
+        <EntityTypeShape EntityType="EBFPModel.tblProvinces" Width="1.5" PointX="3" PointY="77.625" />
+        <EntityTypeShape EntityType="EBFPModel.tblResidential" Width="1.5" PointX="14.75" PointY="14.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblRoleAccess" Width="1.5" PointX="18" PointY="46.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblSalaryGrades" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblSpoiledOR" Width="1.5" PointX="16.75" PointY="3.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblTruckModel" Width="1.5" PointX="16.75" PointY="11.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblTrucks" Width="1.5" PointX="26.25" PointY="75.5" />
+        <EntityTypeShape EntityType="EBFPModel.tblUnitDeposits" Width="1.5" PointX="12.75" PointY="104.25" />
+        <EntityTypeShape EntityType="EBFPModel.tblUnserviceablePhysicalInventory" Width="1.5" PointX="15.75" PointY="50.375" />
+        <EntityTypeShape EntityType="EBFPModel.tblUserInRole" Width="1.5" PointX="18" PointY="82.625" />
+        <EntityTypeShape EntityType="EBFPModel.tblWebPages" Width="1.5" PointX="16.75" PointY="14.75" />
+        <EntityTypeShape EntityType="EBFPModel.webpages_Membership" Width="1.5" PointX="8.75" PointY="17.75" />
+        <EntityTypeShape EntityType="EBFPModel.webpages_OAuthMembership" Width="1.5" PointX="10.75" PointY="17.75" />
+        <EntityTypeShape EntityType="EBFPModel.webpages_Roles" Width="1.5" PointX="10.5" PointY="84.125" />
+        <EntityTypeShape EntityType="EBFPModel.vwFirePreventionCounter" Width="1.5" PointX="16.75" PointY="17.75" />
+        <AssociationConnector Association="EBFPModel.FK_tblPhysicalInventory_tblArticles" />
+        <AssociationConnector Association="EBFPModel.FK_tblPhysicalInventory_tblDirectorates" />
+        <AssociationConnector Association="EBFPModel.FK_tblPhysicalInventory_tblInventoryGroups" />
+        <AssociationConnector Association="EBFPModel.FK_tblPhysicalInventory_tblUnserviceablePhysicalInventory" />
+        <EntityTypeShape EntityType="EBFPModel.vwFireInvestigation" Width="1.5" PointX="19.375" PointY="12.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblSuppliesInventory" Width="1.5" PointX="18" PointY="65.375" />
+        <EntityTypeShape EntityType="EBFPModel.tblSuppliesInventoryOut" Width="1.5" PointX="20.25" PointY="66" />
+        <AssociationConnector Association="EBFPModel.FK_tblSuppliesInventory_tblArticles" />
+        <AssociationConnector Association="EBFPModel.FK_tblSuppliesInventoryOut_tblSuppliesInventory" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeAppointments" Width="1.5" PointX="15" PointY="76.5" />
+        <EntityTypeShape EntityType="EBFPModel.tblAfterFireOperationPersonnelsOnDuty" Width="1.5" PointX="23.25" PointY="82.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblLogs" Width="1.5" PointX="0.75" PointY="20.75" />
+        <EntityTypeShape EntityType="EBFPModel.vwFees" Width="1.5" PointX="13.375" PointY="17.75" />
+        <EntityTypeShape EntityType="EBFPModel.vwFirePreventionIOCounter" Width="1.5" PointX="21.375" PointY="13.75" />
+        <EntityTypeShape EntityType="EBFPModel.vwFirePreventionEstCounter" Width="1.5" PointX="21.375" PointY="5.75" />
+        <EntityTypeShape EntityType="EBFPModel.vwFPSSComplianceTable" Width="1.5" PointX="21.375" PointY="8.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblEligibilities" Width="1.5" PointX="21.375" PointY="19.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblReligions" Width="1.5" PointX="7.375" PointY="22.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblUnitSubStation" Width="1.5" PointX="21" PointY="75.25" />
+        <AssociationConnector Association="EBFPModel.FK_tblOtherVehicles_tblUnitSubStation" />
+        <AssociationConnector Association="EBFPModel.FK_tblTrucks_tblUnitSubStation" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeWorkExperiences" Width="1.5" PointX="15" PointY="91.625" />
+        <EntityTypeShape EntityType="EBFPModel.vwFSECFeesSummary" Width="1.5" PointX="3.375" PointY="18.75" />
+        <EntityTypeShape EntityType="EBFPModel.vwFSICFeesSummary" Width="1.5" PointX="3.375" PointY="22.75" />
+        <EntityTypeShape EntityType="EBFPModel.vwOtherFeesSummary" Width="1.5" PointX="5.375" PointY="18.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblAfterFireOperations" Width="1.5" PointX="21" PointY="82.25" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperationBreathingApparatusUsed_tblAfterFireOperations" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperationDispatchedVehicles_tblAfterFireOperations" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperationExtinguishingAgentsUsed_tblAfterFireOperations" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperationHoseLineUsed_tblAfterFireOperations" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperationOtherToolsUsed_tblAfterFireOperationOtherToolsUsed" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperationPersonnelsOnDuty_tblAfterFireOperations" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperationRopesLadderUsed_tblAfterFireOperationRopesLadderUsed" />
+        <EntityTypeShape EntityType="EBFPModel.tblFireInvestigations" Width="1.5" PointX="12.75" PointY="57" />
+        <EntityTypeShape EntityType="EBFPModel.tblCityMunicipality" Width="1.5" PointX="5.25" PointY="72.75" />
+        <AssociationConnector Association="EBFPModel.FK_tblCityMunicipality_tblProvinces" />
+        <AssociationConnector Association="EBFPModel.FK_tblFireRecords_tblCityMunicipality" />
+        <AssociationConnector Association="EBFPModel.FK_tblPopulations_tblCityMunicipality" />
+        <EntityTypeShape EntityType="EBFPModel.tblNonCommercialEstablishments" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblUnitsUserInRole" Width="1.5" PointX="29.25" PointY="72.625" />
+        <EntityTypeShape EntityType="EBFPModel.tblUserRoles" Width="1.5" PointX="9.75" PointY="64.25" />
+        <AssociationConnector Association="EBFPModel.FK_tblRoleAccess_tblUserRoles" />
+        <AssociationConnector Association="EBFPModel.FK_tblUserInRole_tblUserRoles" />
+        <EntityTypeShape EntityType="EBFPModel.tblInspectionOrders" Width="1.5" PointX="25.25" PointY="65.25" />
+        <EntityTypeShape EntityType="EBFPModel.tblBPLOPayments" Width="1.5" PointX="3.375" PointY="7.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeVoluntaryWorks" Width="1.5" PointX="34.5" PointY="67.625" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeSpecifyDesignation" Width="1.5" PointX="17.375" PointY="7.75" />
+        <EntityTypeShape EntityType="EBFPModel.vwFeesByYearAndRegion" Width="1.5" PointX="9.375" PointY="22.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployees" Width="1.5" PointX="32.25" PointY="56" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperationPersonnelsOnDuty_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperations_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeAppointments_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeAppointments_tblEmployees3" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeAppointments_tblEmployees5" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeChildren_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeCivilServiceEligibilities_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeEducationalBackground_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeLeaveRecords_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeLeaveRecords_tblEmployees1" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeMembershipInAssociationOrganizations_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeNonAcademicDistinctions_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeOtherInformation_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeReferences_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeSpecialSkillsHobbies_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeVoluntaryWorks_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeWorkExperiences_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblLogisticAssets_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblPhysicalInventory_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblUnitSubStation_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblUnitsUserInRole_tblEmployees" />
+        <AssociationConnector Association="EBFPModel.FK_tblUserInRole_tblEmployees" />
+        <EntityTypeShape EntityType="EBFPModel.vwUsersInRole" Width="1.5" PointX="3.375" PointY="11.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblSpoiledOPS" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblOtherFees" Width="1.5" PointX="23.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.vwFireCodeRevenue" Width="1.5" PointX="19.375" PointY="22.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblRanks" Width="1.5" PointX="12.75" PointY="67.5" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeAppointments_tblRanks" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployees_tblRanks" />
+        <EntityTypeShape EntityType="EBFPModel.tblInspectionOrderViolations" Width="1.5" PointX="21.375" PointY="22.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblOtherViolations" Width="1.5" PointX="14.375" PointY="23.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblUnits" Width="1.5" PointX="37.5" PointY="67.375" />
+        <AssociationConnector Association="EBFPModel.FK_tblAfterFireOperations_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblLogisticAssets_tblLogisticAssets" />
+        <AssociationConnector Association="EBFPModel.FK_tblUnits_tblCityMunicipality" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployees_tblUnits_CurrentUnit" />
+        <AssociationConnector Association="EBFPModel.FK_tblUnits_tblEmployees_Firemarshall" />
+        <AssociationConnector Association="EBFPModel.FK_tblFireInvestigations_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblInspectionOrders_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblLogisticAssets_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblOtherVehicles_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblPhysicalInventory_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblSuppliesInventory_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblTrucks_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblUnitDeposits_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblUnitSubStation_tblUnits" />
+        <AssociationConnector Association="EBFPModel.FK_tblUnitsUserInRole_tblUnits" />
+        <EntityTypeShape EntityType="EBFPModel.tblFSICApplication" Width="1.5" PointX="11.375" PointY="23.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblNoticeToComplyDeficiencies" Width="1.5" PointX="11.375" PointY="9.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblNoticeToCorrectViolationDeficiencies" Width="1.5" PointX="13.375" PointY="5.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblEstablishments" Width="1.5" PointX="39.75" PointY="68.5" />
+        <AssociationConnector Association="EBFPModel.FK_tblEstablishments_tblUnits" />
+        <EntityTypeShape EntityType="EBFPModel.tblAbatementOrder" Width="1.5" PointX="23.375" PointY="11.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblAbatementOrderDeficiencies" Width="1.5" PointX="23.375" PointY="16.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblClosureOrder" Width="1.5" PointX="16.375" PointY="23.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblClosureOrderDeficiencies" Width="1.5" PointX="23.375" PointY="20.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblRegions" Width="1.5" PointX="0.75" PointY="77.625" />
+        <AssociationConnector Association="EBFPModel.FK_tblProvinces_tblRegions" />
+        <EntityTypeShape EntityType="EBFPModel.tblViolations" Width="1.5" PointX="23.375" PointY="24.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblFSECApplication" Width="1.5" PointX="0.75" PointY="23.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeServiceAppointments" Width="1.5" PointX="34.5" PointY="71.625" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeServiceAppointments_tblEmployees" />
+        <EntityTypeShape EntityType="EBFPModel.tblApplicationPayments" Width="1.5" PointX="39.75" PointY="77.125" />
+        <AssociationConnector Association="EBFPModel.FK_tblApplicationPayments_tblUnits" />
+        <EntityTypeShape EntityType="EBFPModel.tblEmployeeTrainingPrograms" Width="1.5" PointX="34.5" PointY="63" />
+        <AssociationConnector Association="EBFPModel.FK_tblEmployeeTrainingPrograms_tblEmployees" />
+        <EntityTypeShape EntityType="EBFPModel.vwFeesByRegion" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EBFPModel.tblOtherClearances" Width="1.5" PointX="25.375" PointY="0.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

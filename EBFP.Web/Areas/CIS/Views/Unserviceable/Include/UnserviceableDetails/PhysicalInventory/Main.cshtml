@@ -1,0 +1,53 @@
+﻿@model EBFP.BL.CIS.UnserviceableModel
+@using EBFP.BL.Helper
+@using EBFP.Helper
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+
+        <div style="overflow: hidden !important; padding: 10px !important">
+            @if (PageSecurity.HasAccess(PageArea.Inventory_Unserviceable_Modify))
+            {
+                <button type="button" id="NewPhysicalInventory" name="NewPhysicalInventory" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 "><i class="fa fa-plus"></i> Add New</button>
+            }
+        </div>
+    
+      <div class="divTable">
+        <div class="divTableHeading">
+          <div class="divTableRow">
+            <div class="divTableHead text-center">[Property Number] - Description</div>
+          </div>
+        </div>
+        <div class="divTableBody" id="PhysicalInventory">
+          @if (@Model.PhysicalInventoryList != null)
+          {
+            for (int i = 0; i < @Model.PhysicalInventoryList.Count(); i++)
+            {
+                  @Html.Partial("~/Areas/CIS/Views/Unserviceable/Include/UnserviceableDetails/PhysicalInventory/Editor.cshtml", @Model.PhysicalInventoryList[i])
+            }
+          }
+        </div>
+
+      </div>
+      <div style="overflow: hidden !important; padding: 10px !important">
+        &nbsp;
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          var formCtr = 1;
+          $("#NewPhysicalInventory").click(function () {
+            $.ajax({
+              async: false,
+              url: '@Url.Action("PhysicalInventoryRecordEditor", "Unserviceable")'
+              }).success(function(partialView) {
+                $(partialView).appendTo("#PhysicalInventory");
+            });
+          });
+        });
+      </script>
+    </div>
+  </div>
+  <link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+  <script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+
+</div>

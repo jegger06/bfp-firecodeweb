@@ -1,0 +1,10 @@
+﻿ @model EBFP.BL.HumanResources.EmployeeModel
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="col-md-3 control-label">TIN</label>
+        <div class="col-md-6">
+            @Html.TextBox(Model.Name, Model.Value, new { @class = "form -control" })
+           @*// @Html.ValidationMessage(@ViewData["userExists"].ToString(), "Field is required.", new { @class = "text-danger" })*@
+        </div>
+    </div>
+</div>

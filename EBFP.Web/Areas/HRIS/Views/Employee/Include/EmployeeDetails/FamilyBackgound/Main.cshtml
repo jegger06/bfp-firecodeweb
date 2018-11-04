@@ -1,0 +1,202 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+   
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                II. Family Background
+                <div class="pull-left">
+                   <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+          <div class="panel-body">
+            <br/>
+            <fieldset>
+            <div class="col-sm-6 col-xs-12">
+
+              <div class="form-horizontal">
+                <div class="sttabs tabs-style-bar tabs-style-info">
+                  <nav>
+                    <ul>
+                      <li class="tab-current"><a href="#section-iconbox-1 " class="sticon icon-user-female "><span>Spouse</span></a></li>
+                      <li class=""><a href="#section-iconbox-2" class="sticon icon-user-following"><span>Father</span></a></li>
+                      <li class=""><a href="#section-iconbox-3" class="sticon icon-user"><span>Mother</span></a></li>
+                    </ul>
+                  </nav>
+                  <div class="content-wrap">
+                    <section id="section-iconbox-1" class="content-current">
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">Spouse Surname</label>
+                        <div class="col-md-6">
+                          @Html.EditorFor(model => model.Emp_Spouse_LastName, new {htmlAttributes = new {@class = "form-control"}})
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">First name</label>
+                        <div class="col-md-6">
+                          @Html.EditorFor(model => model.Emp_Spouse_FirstName, new {htmlAttributes = new {@class = "form-control"}})
+                        </div>
+                      </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Middle Name</label>
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Emp_Spouse_MiddleName, new {htmlAttributes = new {@class = "form-control"}})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Suffix Name</label>
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Emp_Spouse_SuffixName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">OCCUPATION</label>
+                        <div class="col-md-6">
+                          @Html.EditorFor(model => model.Emp_Spouse_Occupation, new {htmlAttributes = new {@class = "form-control"}})
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">EMPLOYER/BUS. NAME</label>
+                        <div class="col-md-6">
+                          @Html.EditorFor(model => model.Emp_Spouse_EmpBusName, new {htmlAttributes = new {@class = "form-control"}})
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">BUSINESS ADDRESS</label>
+                        <div class="col-md-6">
+                          @Html.EditorFor(model => model.Emp_Spouse_EmpBusAddress, new {htmlAttributes = new {@class = "form-control"}})
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">TELEPHONE NO.</label>
+                        <div class="col-md-6">
+                          @Html.EditorFor(model => model.Emp_Spouse_EmpBusPhoneNumber, new {htmlAttributes = new {@maxlength = "50", @class = "form-control"}})
+                        </div>
+                      </div>
+                    </section>
+                    <section id="section-iconbox-2" class="">
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">Father Surname</label>
+                        <div class="col-md-6">
+                          @Html.EditorFor(model => model.Emp_Father_LastName, new {htmlAttributes = new {@class = "form-control"}})
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label">First name</label>
+                        <div class="col-md-6">
+                          @Html.EditorFor(model => model.Emp_Father_FirstName, new {htmlAttributes = new {@class = "form-control"}})
+                        </div>
+                      </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Middle Name</label>
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Emp_Father_MiddleName, new {htmlAttributes = new {@class = "form-control"}})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Suffix Name</label>
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Emp_Father_SuffixName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </section>
+                      <section id="section-iconbox-3" class="">
+                          <div class="form-group">
+                              <label class="col-md-3 control-label">Maiden Name</label>
+                              <div class="col-md-6">
+                                  @*@Html.EditorFor(model => model.Emp_Mother_MaidenName, new { htmlAttributes = new { @class = "form-control" } })*@
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-md-3 control-label">Mother Surname</label>
+                              <div class="col-md-6">
+                                  @Html.EditorFor(model => model.Emp_Mother_LastName, new {htmlAttributes = new {@class = "form-control"}})
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-md-3 control-label">First name</label>
+                              <div class="col-md-6">
+                                  @Html.EditorFor(model => model.Emp_Mother_FirstName, new {htmlAttributes = new {@class = "form-control"}})
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-md-3 control-label">Middle Name</label>
+                              <div class="col-md-6">
+                                  @Html.EditorFor(model => model.Emp_Mother_MiddleName, new {htmlAttributes = new {@class = "form-control"}})
+                              </div>
+                          </div>
+                      </section>
+                  </div>
+                  <!-- /content -->
+                </div>
+              </div>
+            </div>
+            </fieldset>
+            @*----------------------------------------------------------------------*@
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-horizontal">
+                <div class="form-group">
+
+                  <div class="col-xs-6">
+                    <label class="control-label">NAME OF CHILD (Write full name and list all)</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <label class="control-label">DATE OF BIRTH (mm/dd/yyyy)</label>
+                  </div>
+                </div>
+                <div class="form-group UserViewing">
+
+                  <div class="col-xs-6">
+                    <button type="button" id="AddChild" name="AddChild" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit"><i class="fa fa-plus"></i> Add Child</button>
+                  </div>
+                </div>
+                <div id="NewEmployeeChild">
+                  @if (@Model.EmployeeChildren != null)
+                  {
+                    for (int i = 0; i < @Model.EmployeeChildren.Count(); i++)
+                    {
+                      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/FamilyBackgound/Editor.cshtml", @Model.EmployeeChildren[i])
+                    }
+                  }
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+              $(document).ready(function() {
+                $('.mydatepicker, #datepicker').datepicker();
+                $("#AddChild").click(function() {
+                  //var $template = $('#divPartialView');
+                  //$clone = $template
+                  //                .clone()
+                  //                .removeClass('hide')
+                  //                .removeAttr('id');
+                  //                   //.insertBefore($template);
+
+
+                  //var $templatex = $('#divPartialView form-group');
+                  //console.log($templatex);
+                  $.ajax({
+                    async: false,
+                    url: '/HRIS/Employee/EmployeeChildEditor'
+                  }).success(function(partialView) {
+
+                    $('#NewEmployeeChild').append(partialView);
+                    $('.mydatepicker, #datepicker').datepicker();
+                  });
+                });
+              });
+
+              function RemoveEmpChild(formID) {
+                //alert(formID);
+                //$("#" + formID).remove();
+              }
+              @*$("#@formID .removeButton").click(function () {
+                    $("#" + $(this).data().bind).remove();
+                });*@
+            </script>
+        </div>
+      </div>
+    </div>
+</div>

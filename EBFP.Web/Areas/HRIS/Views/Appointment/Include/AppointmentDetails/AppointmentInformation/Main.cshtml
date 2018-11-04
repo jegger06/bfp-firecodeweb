@@ -1,0 +1,198 @@
+﻿@model EBFP.BL.HumanResources.EmployeeAppointmentsModel
+@using EBFP.BL.Helper
+
+    <div class="col-sm-12">
+        <div class="panel panel-info">
+            <a href="#" data-perform="panel-collapse">
+                <div class="panel-heading">
+                    I. Employee Appointment Information
+                    <div class="pull-left">
+                        <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                    </div>
+                </div>
+            </a>
+            <div class="panel-wrapper collapse in" aria-expanded="true">
+                <div class="panel-body">
+                    <div class="row col-sm-6 col-xs-12">
+                        <div style="margin: 10px; padding: 10px; border: 1px solid gray">
+                            <div class="form-horizontal">
+                                @if (Model.EA_Id > 0)
+                            {
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Account Number</label>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(model => model.EA_Emp_AccountNumber, new {@class = "form-control", @readonly = "readonly"})
+                                        </div>
+                                    </div>
+                            }
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Name<span style="color: red"> *</span></label>
+                                    <div class="col-md-6">
+                                        <div>
+                                            @Html.DropDownListFor(model => Model.EA_Emp_Id, Selections.FireMarshallById(@Model.EA_Emp_Id), " --- Please Select---", new {@class = "employeeSelection form-control", @required = "required", @id = "ddlEmployee"})
+                                            @Html.ValidationMessageFor(model => model.EA_Emp_Id, "Field is required.", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Rank/SG<span style="color: red"> *</span></label>
+                                    <div class="col-md-6">
+                                        <div>
+                                            @Html.DropDownListFor(model => Model.EA_Rank_Id, Selections.Ranks, " --- Please Select---", new {@class = "form-control select2", @required = "required", @id = "ddlRank" })
+                                            @Html.ValidationMessageFor(model => model.EA_Rank_Id, "Field is required.", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Status of Appointment<span style="color: red"> *</span></label>
+                                    <div class="col-md-6">
+                                        @Html.DropDownListFor(model => Model.EA_AppoitmentStatus, AppointmentStatuses.Permanent.ToSelectList(), " --- Please Select---", new {@class = "form-control select2", @required = "required", @id = "ddlStatus" })
+                                        @Html.ValidationMessageFor(model => model.EA_Rank_Id, "Field is required.", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Item Number<span style="color: red"> *</span></label>
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(model => model.EA_ItemNumber, new {@maxlength = "50", @class = "form-control", @required = "required", @id="txtItemNumber"})
+                                        @Html.ValidationMessageFor(model => model.EA_ItemNumber, "Field is required.", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Reason for Non-Renewal</label>
+                                    <div class="col-md-6">
+                                        @Html.DropDownListFor(model => Model.EA_NonRenewalReason, NonRenewalStatus.Eligibility.ToSelectList(), " --- Please Select---", new {@class = "form-control select2"})
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Date of Appointment<span style="color: red"> *</span></label>
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(model => model.EA_AppointmentDate, "{0:MM/dd/yyyy}", new {@class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @id = "dpAppointmentDate", @required = "required"})
+                                        @Html.ValidationMessageFor(model => model.EA_AppointmentDate, "Field is required.", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-sm-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" style="margin: 10px; padding: 10px; border: 1px solid gray">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Nature of Appointment<span style="color: red"> *</span></label>
+                                        <div class="col-md-6">
+                                            @Html.DropDownListFor(model => Model.EA_AppoitmentNature, AppointmentNature.Original.ToSelectList(), " --- Please Select---", new {@class = "form-control select2", @required = "required", @id = "ddlNature" })
+                                            @Html.ValidationMessageFor(model => model.EA_ItemNumber, "Field is required.", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Vacated By</label>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(model => model.EA_PositionVacatedBy, new {@maxlength = "50", @class = "form-control"})
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Appointing Authority</label>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(model => model.EA_AppointingAuthority, new {@maxlength = "50", @class = "form-control"})
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" style="margin: 10px; padding: 10px; border: 1px solid gray">
+                                <div class="form-horizontal">
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Date Attested<span style="color: red"> *</span></label>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(model => model.EA_AttestmentDate, "{0:MM/dd/yyyy}", new {@class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @id = "dpAttesstedDate", @required = "required"})
+                                            @Html.ValidationMessageFor(model => model.EA_AttestmentDate, "Field is required.", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Attesting Authority<span style="color: red"> *</span></label>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(model => model.EA_AttestingAuthority, new {@maxlength = "50", @class = "form-control", @required = "required", @id="txtAttestingAuthority"})
+                                            @Html.ValidationMessageFor(model => model.EA_AttestingAuthority, "Field is required.", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Designation</label>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(model => model.EA_AttestingAuthorityDesignation, new {@maxlength = "50", @class = "form-control"})
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Shared/formcontrols/CustomSelect.cshtml")
+    <link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+    <script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+    <script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+    @Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+<script src="@Url.Content("~/Content/bootstrap/eliteadmin/plugins/bower_components/toast-master/js/jquery.toast.js")"></script>
+
+
+<script type="text/javascript">
+
+        var oSelectionDS = new SelectionDS();
+        $(document).ready(function () {
+            InitSelection();
+        });
+        function InitSelection() {
+            $("#ddlEmployee").select2({
+                ajax: {
+                    url: '@Url.Action("SelectionAutoComplete", "Employee")',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            search: params.term // search term
+                        };
+                    },
+                    processResults: function (data) {
+
+                        return {
+                            results: data.data
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 3
+            });
+        }
+
+    function showErrorMessage(message) {
+        $.toast({
+            heading: 'Oops..',
+            text: message,
+            position: 'top-right',
+            loaderBg: '#ff6849',
+            icon: 'error',
+            hideAfter: 10500
+
+        });
+    }
+        function checkRequiredFields()
+        {
+            if ($("#dpAppointmentDate").val() === "" || $("#dpAttesstedDate").val() === "" ||
+                $("#txtItemNumber").val() === "" || $("#txtAttestingAuthority").val() === "") {
+            } else {
+                if ($("#ddlEmployee").val() === "")
+                    showErrorMessage('Name is required.');
+                if ($("#ddlRank").val() === "")
+                    showErrorMessage('Rank/SG is required.');
+                if ($("#ddlStatus").val() === "")
+                    showErrorMessage('Appointment staus is required');
+                if ($("#ddlNature").val() === "")
+                    showErrorMessage('Appointment nature is required');
+            }
+        }
+        
+    </script>

@@ -1,0 +1,44 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="row text-center">
+            <label class="control-label">(Write in full)</label>
+              </div>
+        <div class="row"> 
+            <label class="control-label">NON-ACADEMIC DISTINCTIONS / RECOGNITION:</label>
+        </div>
+        <div class="row"> 
+            <button type="button" id="NewNonAcademicDistinction" name="NewNonAcademicDistinction" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserViewing UserAccessCanEdit"><i class="fa fa-plus"></i></button>
+        </div>
+        <div id="NonAcademicDistinctions" class="row">
+            @if (@Model.NonAcademicDistinctions != null)
+            {
+                for (int i = 0; i < @Model.NonAcademicDistinctions.Count(); i++)
+                {
+                    @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/OtherInformation/NonAcademicDistinction/Editor.cshtml", @Model.NonAcademicDistinctions[i])
+                }
+            }
+        </div>
+    </div>
+
+</div>
+<div style="overflow:hidden !important; padding:10px !important">
+    &nbsp;
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var formCtr = 1;
+        $('.mydatepicker, #datepicker').datepicker();
+        $("#NewNonAcademicDistinction").click(function () {
+            $.ajax({
+                async: false,
+                url: '/HRIS/Employee/NonAcademicDistinctionEditor'
+            }).success(function (partialView) {
+                $(partialView).appendTo("#NonAcademicDistinctions");
+                $('.mydatepicker, #datepicker').datepicker();
+            });
+        });
+    });
+</script>

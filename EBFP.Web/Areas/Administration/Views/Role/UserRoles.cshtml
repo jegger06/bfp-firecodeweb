@@ -1,0 +1,263 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@{
+    ViewBag.Title = "User Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Administration_UserRole)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+      return;
+    }
+}
+@*@{ string accessType = Convert.ToString(Request["AccessType"]);}*@
+@*@if (PageSecurity.HasAccess(EBFP.BL.Helper.PageArea.HRIS_EmployeeRoster_ViewDetails_Leave))
+{*@
+    
+    <br />
+
+    <div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                List of User Roles
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                <div>
+                    <div role="form" class="row">
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Role Name</label>
+                                <input type="text" id="txtRoleName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Description</label>
+                                <input type="text" id="txtDescription" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">&nbsp;</label>
+                                <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div>
+                                @*@if (PageSecurity.HasAccess(EBFP.BL.Helper.PageArea.HRIS_EmployeeRoster_ViewDetails_Leave_Modify))
+                                    {*@
+                                <p>
+                                    <a href="@Url.Action("UserRoleDetails", "Role", new {sRole_Id = 0.ToString().Encrypt()})" style="color: white !important" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+                                        <i class="fa fa-plus-circle"></i> Create New
+                                    </a>
+                                </p>
+                                @*}*@
+
+                                <span id="totalRecords">&nbsp;</span>
+                                <div class="block1" style="position: static; zoom: 1;">
+
+                                    <div class="table-responsive">
+                                        <table id="myTable" class="table table-striped table-bordered nowrap">
+                                            <thead>
+                                            <tr>
+                                                <th class="all">Role Name</th>
+                                                <th class="all">Description</th>
+                                                <th class="all">Number of Access</th>
+                                                <th class="all">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="min-width: 200px !important"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        var myTable = null;
+                        $(document).ready(function() {
+                            $.ajax("demo_test.asp", function(data, status) {
+                                alert("Data: " + data + "\nStatus: " + status);
+                            });
+
+                            $('div.block1').block({
+                                message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>',
+                                css: {
+                                    border: '1px solid #fff !important'
+                                }
+                            });
+
+                            myTable = $('#myTable').DataTable({
+                                    order: [[0, "asc"]],
+                                    serverSide: true,
+                                    deferRender: true,
+                                    pageLength: 50,
+                                    processing: true,
+                                    responsive: true,
+                                    searching: false,
+                                    ajax: {
+                                        url: '@Url.Action("GetUserRoles", "Role")',
+                                type: 'POST',
+                                data: function(d) {
+                                  d.gridInfo = SetDatatableParams();
+                                }
+                              },
+                              "initComplete": function(settings, json) {
+                                $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings._iRecordsTotal.toLocaleString() + " result(s)</span>");
+                              },
+                              "columns": [
+                                {
+                                  "name": "Role_Name",
+                                  "searchable": true,
+                                  "sortable": true,
+                                  "render": function(data, type, full, meta) {
+                                    return full.Role_Name;
+                                  }
+                                },
+                                {
+                                  "name": "Role_Description",
+                                  "searchable": true,
+                                  "sortable": true,
+                                  "render": function(data, type, full, meta) {
+                                    return full.Role_Description;
+                                  }
+                                },
+                                {
+                                  "name": "NumberOfAccess",
+                                  "searchable": true,
+                                  "sortable": true,
+                                  "render": function(data, type, full, meta) {
+                                    return full.NumberOfAccess;
+                                  }
+                                },
+                                {
+                                  "name": "Action",
+                                  "searchable": false,
+                                  "sortable": false,
+                                  "width": "200px",
+                                  "render": function(data, type, full, meta) {
+                                    return GetActionTemplate(full.sRole_ID);
+                                  }
+
+                                }
+                              ]
+                            })
+                            .on('preXhr.dt', function() {
+                              $('div.block1').block({
+                                message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>',
+                                css: {
+                                  border: '1px solid #fff !important'
+                                }
+                              });
+                            })
+                            .on('xhr.dt', function(data, settings) {
+                              $('div.block1').unblock();
+                              if (settings._iRecordsTotal > 0) {
+                                $("#myTable_length #totalGridResult").remove();
+                                $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + (settings._iRecordsTotal - 1).toLocaleString() + " result(s)</span>");
+                              }
+
+                            });
+                        });
+
+                        function SetDatatableParams() {
+                          var datatable = $('#myTable').DataTable();
+                          var datatableInfo = datatable.page.info();
+                          var columns = datatable.settings().init().columns;
+                          var order = datatable.order();
+                          var sortIndex = order[0][0];
+                          var sortOrder = order[0][1];
+                          datatableInfo.sortOrder = sortOrder;
+                          datatableInfo.sortColumnName = columns[sortIndex].name;
+
+                          var searchUserRoleModel = {
+                            Role_Name: $("#txtRoleName").val(),
+                            Role_Description: $("#txtDescription").val()
+                          }
+
+                          datatableInfo.searchUserRoleModel = searchUserRoleModel;
+                          return datatableInfo;
+                        }
+                        function SwalAlert(msg) {
+                          swal("Ooops..", msg, "error");
+                        }
+                        function DeleteConfirm(id) {
+
+                          swal({
+                            title: "Are you sure?",
+                            text: "You will not be able to recover deleted item!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, delete it!",
+                            cancelButtonText: "No, cancel plx!",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                          }, function(isConfirm) {
+                            if (isConfirm) {
+                              $.post("/Role/DeleteRole?sRole_Id=" + id)
+                                .success(function(response) {
+                                  if (response == "Success") {
+                                    swal("Deleted!", "Item has been deleted.", "success");
+                                  } else {
+                                    SwalAlert(response);
+                                  }
+                                  myTable.ajax.reload();
+                                });
+                            } else {
+                              swal("Cancelled", "Item delete has been cancelled", "error");
+                            }
+                          });
+
+                        }
+
+                        function GetActionTemplate(sRole_Id) {
+                          var concat = "";
+                          var empId = '@(ViewBag.sEmployeeID)';
+                          @*if ('@SiteAccess.CanEdit(accessType.Decrypt())' === 'True') {*@
+                          concat += '<a href="#" onclick="return DeleteConfirm(\'' + sRole_Id + '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+                          concat += ' Delete';
+                          concat += '</a>';
+                          //}
+                          concat += '<a href="@Url.Action("UserRoleDetails", "Role")?sRole_Id=' + sRole_Id + '" class="btn btn-success pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil">';
+                            concat += ' Details';
+                            concat += '</a>';
+                            return concat;
+                        }
+
+                      function FilterSearch() {
+                        myTable.ajax.reload();
+                      }
+
+                    </script>
+
+
+                    @Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    @*@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+        @Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+        @Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")*@
+@*}*@
+

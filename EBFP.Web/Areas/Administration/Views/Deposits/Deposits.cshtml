@@ -1,0 +1,226 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@{
+    ViewBag.Title = "Deposits";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}<style>
+  .depositorSearchSelection {
+    display: block;
+  }
+</style>
+<!-- Date picker plugins css -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css")" id="theme" rel="stylesheet">
+
+<link href="@Url.Content("~/content/Areas/Administration/deposits.css")" rel="stylesheet">
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          Search Filter
+          <div class="pull-left">
+            <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body">
+          <form>
+            <div role="form" class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">LC Number</label>
+                  <input type="text" id="txtSearchlcNumber" name="txtSearchlcNumber" class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">Bank Name</label>
+                  <input type="text" id="txtSearchbankName" name="txtSearchbankName" class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">Depositor</label>
+                  @*<input type="text" id="txtSearchdepositor" name="txtSearchdepositor" class="form-control">*@
+                  <select class="depositorSearchSelection form-control" id="ddlSearchDepositor">
+                    <option value="" selected="selected">--- Please Select ---</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div role="form" class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="custom-control custom-checkbox m-b-0">
+                    <span class="custom-control-label dblock mb-1">Include Date</span>
+                    <input type="checkbox" class="custom-control-input includeDate" name="cbSearchincludeDate" id="cbSearchincludeDate">
+                  </label>
+                </div>
+              </div>
+              <div class="input-daterange">
+                <div class="col-sm-3">
+                  <label class="control-label">From</label>
+                  <input type="text" class="input-sm form-control startDate" name="startDate" id="startDate" />
+                </div>
+                <div class="col-sm-3">
+                  <label class="control-label">To</label>
+                  <input type="text" class="input-sm form-control endDate" name="endDate" id="endDate" />
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">&nbsp;</label>
+                  <button type="button" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>&nbsp; Search</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <p>
+        @*<a href="#" class="btn btn-info btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#modalAddDeposit">*@
+        <a href="#" class="btn btn-info btn-rounded waves-effect waves-light" data-toggle="modal" id="btnDepositModal">
+          <i class="fa fa-plus-circle"></i> Add New
+        </a>
+      </p>
+
+      <div class="table-responsive">
+        <table id="depositsTable" class="table table-striped table-bordered nowrap">
+          <thead>
+            <tr>
+              <th>LC Number</th>
+              <th>Amount</th> 
+              <th class="all">Bank Name</th>
+              <th class="all">Collection Start Date</th>
+              <th>Collection End Date</th>
+              <th>Deposit Date</th>
+              <th>Depositor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="modalAddDeposit" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Deposits</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div role="form" class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">LC Number<font color="#ff1800">*</font></label>
+                      <input type="text" id="newLcNumber" name="newLcNumber" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Amount</label>
+                      <input type="text" id="newAmount" name="newAmount" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Bank Name<font color="#ff1800">*</font></label>
+                      <input type="text" id="newBankName" name="newBankName" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div role="form" class="row">
+                  <h3 class="box-title">Date Collected</h3>
+                  <hr class="mt-0 mb-2">
+                  <div class="input-daterange">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Start Date</label>
+                        <div class="input-group">
+                          <input type="text" class="input-sm form-control newStartDate" id="newStartDate" name="newStartDate" />
+                          <label class="input-group-addon btn newDateIcon" for="newStartDate">
+                            <span class="fa fa-calendar"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">End Date</label>
+                        <div class="input-group">
+                          <input type="text" class="input-sm form-control newEndDate" id="newEndDate" name="newEndDate" />
+                          <label class="input-group-addon btn newDateIcon" for="newEndDate">
+                            <span class="fa fa-calendar"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <h3 class="box-title">Deposit</h3>
+                    <hr class="mt-0 mb-2">
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Deposit Date</label>
+                      <div class="input-group">
+                        <input type="text" name="newDepositDate" id="newDepositDate" class="form-control newDepositDate">
+                        <label class="input-group-addon btn newDateIcon" for="newDepositDate">
+                          <span class="fa fa-calendar"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label dblock">Depositor<font color="#ff1800">*</font></label>
+                      <select class="form-control custom-select depositorSelection" name="ddlDepositor" id="ddlDepositor">
+                        <option value="">--- Please Select ---</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              @*<button type="button" class="btn btn-success depositsSubmitBtn">Submit</button>*@
+              <button id="btnSaveDeposits" type="button" class="btn btn-success">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Typehead CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<!-- Typehead Plugin JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+<!-- Date Picker Plugin JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js")"></script>
+<script src="@Url.Content("~/scripts/Areas/Administration/deposits.js")"></script>

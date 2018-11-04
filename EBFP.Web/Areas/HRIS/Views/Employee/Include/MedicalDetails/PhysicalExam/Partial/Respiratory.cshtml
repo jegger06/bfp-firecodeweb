@@ -1,0 +1,82 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+
+<div class="col-md-12 chk-label">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Respiratory.PE_Lungs_Clear_Bilaterally, new { @class = "form-control" })
+        <label class="control-label chk-label">Lungs Clear Bilaterally</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Respiratory.PE_No_ChestWall_Tenderness, new { @class = "form-control" })
+        <label class="control-label chk-label">No ChestWall Tenderness</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Respiratory.PE_Cough_Absent, new { @class = "form-control" })
+        <label style="float: left" class="control-label chk-label">Cough Absent</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Respiratory.PE_Percussion_Normal, new { @class = "form-control" })
+        <label style="float: left" class="control-label chk-label">Percussion Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Respiratory.PE_SOB, new { @class = "form-control" })
+        <label style="float: left" class="control-label chk-label">SOB</label>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-3">
+        @Html.CheckBoxFor(model => model.Respiratory.PE_Crackles_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Crackles Present-Details</label>
+    </div>
+    <div class="col-md-3">
+        @Html.TextBoxFor(model => model.Respiratory.PE_Crackles_Present_Text, new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.CheckBoxFor(model => model.Respiratory.PE_Wheezes_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Wheezes Present-Details</label>
+    </div>
+    <div class="col-md-3">
+        @Html.TextBoxFor(model => model.Respiratory.PE_Wheezes_Present_Text, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px;">
+    <div class="col-md-3">
+        @Html.CheckBoxFor(model => model.Respiratory.PE_Rhonchi_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Rhonchi Present-Details</label>
+    </div>
+    <div class="col-md-3">
+        @Html.TextBoxFor(model => model.Respiratory.PE_Rhonchi_Present_Text, new { @class = "form-control" })
+    </div>
+    <div class="col-md-2">
+        <label class="control-label chk-label">Tracheotomy Present</label>
+    </div>
+    <div class="col-md-2">
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Respiratory.PE_Tracheotomy_Present, true, new { id = "PE_Tracheotomy_Present-true" })
+                @Html.Label("PE_Tracheotomy_Present-true", "Yes")
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Respiratory.PE_Tracheotomy_Present, false, new { id = "PE_Tracheotomy_Present-false" })
+                @Html.Label("PE_Tracheotomy_Present-false", "No")
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <label class="control-label chk-label">No Year Placed</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Respiratory.PE_Year_Placed, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-3">
+        <label class="control-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Respiratory.PE_Respiratory_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

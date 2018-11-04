@@ -1,0 +1,199 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.HumanResources.MunicipalityModel
+@{
+    ViewBag.Title = "Inventory - " + Model.Municipality_Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_Municipality_ViewDetails)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+@{
+    var sMunicipalityId = string.IsNullOrWhiteSpace(Request.QueryString["sMunicipalityId"]) ? "0" : Request.QueryString["sMunicipalityId"].Decrypt();
+}
+
+<style>
+  .affix {
+    top: 10px;
+    width: 100%;
+    z-index: 9999 !important;
+  }
+
+  .navbar {
+    margin-bottom: 0px;
+  }
+
+  .affix ~ .container-fluid {
+    padding-top: 10px !important;
+    position: relative;
+    top: 50px !important;
+  }
+</style>
+
+<div class="row">@if (PageSecurity.HasAccess(PageArea.Inventory_Municipality_Modify) && (PageSecurity.HasAccess(PageArea.Inventory_Municipality_RestricttoProvince) || PageSecurity.HasAccess(PageArea.Inventory_Municipality_RestricttoRegion) || PageSecurity.HasAccess(PageArea.Inventory_Municipality_CanViewAll)))
+                 {
+                     <div class="col-sm-12" data-spy="affix" data-offset-top="197">
+
+                         <a href="@Url.Action("MunicipalityList", "Inventory")" class="btn btn-danger btn-rounded waves-effect waves-light m-r-10">
+                             <i class="fa fa-mail-reply"></i> Back
+                         </a>
+
+                         <br/><br/>
+                     </div>
+                 }
+    <div class="col-sm-12">
+        <div class="panel panel-info">
+            <a href="#" data-perform="panel-collapse">
+                <div class="panel-heading">
+                    MUNICIPALITY INFO
+                    <div class="pull-left">
+                        <i class="ti-minus"></i>
+                    </div>
+                </div>
+            </a>
+
+
+            <div class="panel-wrapper expand collapse in" aria-expanded="true">
+                <div class="panel-body">
+                    <div class="sttabs tabs-style-bar tabs-style-info" id="tabs">
+                        <nav>
+                            <ul>
+                                @if (PageSecurity.HasAccess(PageArea.Inventory_Municipality_ViewDetails))
+                                {
+                                    <li class="tab-current"><a href="#section-DETAILS" class="sticon "><span>DETAILS</span></a></li>
+                                }
+                                <li class=""><a href="#section-PPE" class="sticon"><span>PPE</span></a></li>
+                                @*@if (PageSecurity.HasAccess(PageArea.Inventory_Personnel_CanViewAll))
+                                {*@
+                                    <li class=""><a href="#section-PERSONNEL"><span>PERSONNEL</span></a></li>
+                                @*}*@
+                                @*@if (PageSecurity.HasAccess(PageArea.Inventory_Station_CanViewAll))
+                                {
+                                    <li class=""><a href="#section-STATION"><span>STATIONS</span></a></li>
+                                }*@
+                                @if (PageSecurity.HasAccess(PageArea.Inventory_SubStation_CanViewAll))
+                                {
+                                    <li class=""><a href="#section-SUBSTATION" class="sticon"><span>SUB STATIONS</span></a></li>
+                                }
+                                @if (PageSecurity.HasAccess(PageArea.Inventory_Truck_CanViewAll))
+                                {
+                                    <li class=""><a href="#section-TRUCK" class="sticon"><span>TRUCKS</span></a></li>
+                                }
+                                @if (PageSecurity.HasAccess(PageArea.Inventory_OtherVehicle_CanViewAll))
+                                {
+                                    <li class=""><a href="#section-OTHERVEHICLE" class="sticon"><span>OTHER VEHICLES</span></a></li>
+                                }
+                                @*@if (PageSecurity.HasAccess(PageArea.Inventory_FireCodeRevenue_CanViewAll))
+                                {*@
+                                    <li class=""><a href="#section-FIRECODEREVENUE" onclick="openTab('fcrs')" class="sticon"><span>FIRE CODE REVENUE</span></a></li>
+                                @*}*@
+                               
+                            </ul>
+                        </nav>
+                        <div class="content-wrap">
+                            @if (PageSecurity.HasAccess(PageArea.Inventory_Municipality_ViewDetails))
+                            {
+                                <section id="section-DETAILS" class="content-current">
+                                    @Html.Partial("~/Areas/Inventory/Views/Inventory/Municipality.cshtml")
+                                </section>
+                            }
+                            <section id="section-PPE" class="">
+                                @Html.Partial("~/Areas/Inventory/Views/Inventory/PPE.cshtml")
+                            </section>
+                            @*@if (PageSecurity.HasAccess(PageArea.Inventory_Personnel_CanViewAll))
+                            {*@
+                                <section id="section-PERSONNEL">
+                                    @Html.Partial("~/Areas/Inventory/Views/Inventory/Personnel.cshtml")
+                                </section>
+                            @*}*@
+                            @*@if (PageSecurity.HasAccess(PageArea.Inventory_Station_CanViewAll))
+                            {
+                                <section id="section-STATION">
+                                    @Html.Partial("~/Areas/Inventory/Views/Inventory/Station.cshtml")
+                                </section>
+                            }*@
+                            @if (PageSecurity.HasAccess(PageArea.Inventory_SubStation_CanViewAll))
+                            {
+                                <section id="section-SUBSTATION" class="">
+                                    @Html.Partial("~/Areas/Inventory/Views/Inventory/SubStation.cshtml")
+                                </section>
+                            }
+                            @if (PageSecurity.HasAccess(PageArea.Inventory_Truck_CanViewAll))
+                            {
+                                <section id="section-TRUCK" class="">
+                                    @Html.Partial("~/Areas/Inventory/Views/Inventory/Truck.cshtml")
+                                </section>
+                            }
+                            @if (PageSecurity.HasAccess(PageArea.Inventory_OtherVehicle_CanViewAll))
+                            {
+                                <section id="section-OTHERVEHICLE" class="">
+                                    @Html.Partial("~/Areas/Inventory/Views/Inventory/OtherVehicles.cshtml")
+                                </section>
+                            }
+                            @*@if (PageSecurity.HasAccess(PageArea.Inventory_FireCodeRevenue_CanViewAll))
+                                {*@
+                                <section id="section-FIRECODEREVENUE" class="">
+                                    @Html.Partial("~/Areas/Inventory/Views/Inventory/FireCodeRevenue.cshtml")
+                                </section>
+                            @*}*@
+                          
+                        </div>
+                        <!-- /content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+<script src="@Url.Content("~/Scripts/Areas/Inventory/municipality.js")"></script>
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css")" id="theme" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/Magnific-Popup-master/dist/jquery.magnific-popup.min.js")"></script>
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/Magnific-Popup-master/dist/jquery.magnific-popup-init.js")"></script>
+
+<script>
+    function openTab(name) {
+        if (name === 'fcrs') {
+            var decryptedMunicipalityId =  @Html.Raw(Json.Encode(sMunicipalityId));
+            //Fees and Taxes
+            $.ajax({
+                url: '/FCRS/GetFirecodeFeesSummary?municipalityId=' + decryptedMunicipalityId,
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: {},
+                success: function (data) {
+                    var list = [];
+                    $.each(data, function (key, value) {
+                        list.push({
+                            feesName: key.replace(/([a-z])([A-Z])/g, '$1 $2'),
+                            amount: value
+                        });
+                    });
+
+                    Morris.Bar({
+                        element: 'bar-chart-fees',
+                        data: list,
+                        xkey: 'feesName',
+                        ykeys: ['amount'],
+                        labels: ['Amount'],
+                        barColors: ['#03a9f3'],
+                        hideHover: 'auto',
+                        horizontal: true,
+
+                        gridLineColor: '#03a9f3',
+                        resize: true
+                    });
+                }
+            });
+
+        }
+
+    }
+</script>

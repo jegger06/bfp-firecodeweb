@@ -1,0 +1,217 @@
+﻿@using EBFP.Helper
+@using System.Text.RegularExpressions;
+@using EBFP.BL.Helper
+@model EBFP.BL.HumanResources.EmployeeModel
+@{
+    string accessType = Convert.ToString(Request["AccessType"]).Decrypt();
+    bool Viewing = SiteAccess.Viewing(accessType);
+
+    ViewBag.Title = "Employee Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!Viewing)
+    {
+        if (!SiteAccess.hasAccess(accessType) || !(PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails) || PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify)))
+        {
+            @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+            return;
+        }
+    }
+}
+<style>
+    select[readonly] option, select[readonly] optgroup {
+        display: none;
+    }
+    input {text-transform: uppercase;}
+</style>
+
+<script src="~/Content/bootstrap/eliteadmin/js/validator.js"></script>
+@*@using (Ajax.BeginForm(new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+}))
+{*@
+@using (Html.BeginForm("EmployeeDetails", "Employee", FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-sm-12" data-spy="affix" data-offset-top="197">
+            @if (!Viewing)
+            {
+                <a href="@Url.Action("EmployeeRoster", "Employee")" class="btn btn-danger btn-rounded waves-effect waves-light m-r-10">
+                    <i class="fa fa-mail-reply"></i> Back
+                </a>
+            }
+            @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify) || Viewing)
+            {
+                <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10" id="SubmiButtonMain"><i class="fa fa-check"></i> Submit</button>
+            }
+
+
+            @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_PrintPDS) || Viewing)
+            {
+                <a href="@Url.Action("PrintPDS", "Employee", new {sEmp_Id = Model.Emp_Id.ToString().Encrypt()})" target="_blank" class="btn btn-default btn-rounded waves-effect waves-light m-r-10">
+                    <i class="fa fa-print"></i> Print PDS
+                </a>
+            }
+            @if ((PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical) || PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical_Modify)) || Viewing)
+            {
+                <a href="@Url.Action("MedicalDetails", "Employee", new {sEmp_Id = Model.Emp_Id.ToString().Encrypt(), accessType = accessType.Encrypt()})" target="_blank" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+                    <i class="fa fa-medkit"></i> Medical
+                </a>
+            }
+            @if ((PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Leave) || PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Leave_Modify)) || Viewing)
+            {
+                <a href="@Url.Action("LeaveDetails", "Employee", new {sEmp_Id = Model.Emp_Id.ToString().Encrypt(), accessType = accessType.Encrypt()})" target="_blank" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+                    <i class="fa fa-pencil-square-o"></i> Leave
+                </a>
+            }
+            <br /><br /><br />
+        </div>
+    </div>
+    @*<fieldset id="EmployeeDetails">*@
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(a => Model.sEmp_Id)
+    @Html.HiddenFor(a => Model.Emp_Id)
+    @*Model.AccessType = Request["AccessType"];
+    @Html.HiddenFor(model => model.AccessType)*@
+
+    @Html.HiddenFor(m => m.AccessType, new { Value = Request["AccessType"] })
+    <style>
+        .ti-minus, .ti-plus {
+            font-weight: bold !important;
+            font-size: 20px !important;
+            color: white !important;
+        }
+
+            .ti-plus:before {
+                content: "\e65f" !important;
+            }
+
+            .ti-minus:before {
+                content: "\e65c";
+            }
+
+        .form-horizontal .control-label {
+            text-align: left !important;
+        }
+
+        .affix {
+            top: 10px;
+            width: 100%;
+            z-index: 9999 !important;
+        }
+
+        .navbar {
+            margin-bottom: 0px;
+        }
+
+        .affix ~ .container-fluid {
+            padding-top: 10px !important;
+            position: relative;
+            top: 50px !important;
+        }
+    </style>
+  <div class="row">
+      <div class="col-sm-12" data-spy="affix" data-offset-top="197" style="position: relative !important">
+          @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify) && Model.Emp_Id > 0)
+    {
+      <input type="checkbox" id="cbValidatedBy" /> <label>Validated By :</label> <label style="font-weight: bold" id="lblValidatedBy"></label>
+      <div>
+          <label> Validated Date :</label>  <label style="font-weight: bold" id="lblValidatedDate"></label>
+      </div>
+      <div>
+          <label style="font-weight: bold" id="lblValidatedDate1"></label>
+      </div>
+}
+      </div>
+      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/PersonalInformation/Main.cshtml")
+      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/FamilyBackgound/Main.cshtml")
+      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/EducationalBackground/Main.cshtml")
+      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/CivilServiceEligibility/Main.cshtml")
+      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/WorkExperience/Main.cshtml")
+      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/VoluntaryWork/Main.cshtml")
+      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/TrainingPrograms/Main.cshtml")
+      @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/OtherInformation/Main.cshtml")
+
+    </div>
+
+
+        @*</fieldset>*@
+}
+
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")
+
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+
+<script>
+
+  function UpdateValidatedBy(type) {
+    $.ajax({
+      type: "POST",
+      url: "/Employee/SetValidatedEmp?type=" + type + "&empId=" + '@Model.Emp_Id',
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        $("#lblValidatedBy").text(response);
+      }
+    });
+  }
+
+  function getMonthName(month) {
+    var n = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return n[month];
+  }
+
+  function GetDate(date) {
+    var dd = date.getDate();
+    //var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = date.getFullYear();
+
+    var month = getMonthName(date.getMonth());
+
+    return month + ' ' + dd + ', ' + yyyy;
+  }
+
+  $(document).ready(function () {
+    var ischecked = '@Model.Emp_IsChecked';
+      if (ischecked === "True") {
+          $.ajax({
+              type: "POST",
+              url: "/Employee/GetValidatedBy?empId=" + '@Model.Emp_CheckedBy',
+              contentType: "application/json; charset=utf-8",
+              success: function (response) {
+                  $("#lblValidatedBy").text(response);
+              }
+          });       
+          var checkedDate = GetDate(new Date('@Model.Emp_CheckedDate'));
+          $("#lblValidatedDate").text(checkedDate);
+          $('#cbValidatedBy').prop('checked', true); 
+          $('#SubmiButtonMain').prop('disabled', true);
+     $("#lblValidatedDate1").text("For updates please contact your HRIS Administor.Thank you");       
+      }
+
+      if ('@CurrentUser.RoleName' == "FIRE STATION ADMIN" || '@CurrentUser.RoleName' == "PROVINCIAL FIRE STATION ADMIN" || '@CurrentUser.RoleName' == "REGIONAL HRIS ADMIN" || '@CurrentUser.RoleName' == "NATIONAL HRIS ADMIN" || '@CurrentUser.RoleName' == "MAIN ADMIN") {
+          $('#cbValidatedBy').prop('disabled', false);
+          $('#SubmiButtonMain').prop('disabled', false);
+         
+      } else {
+          $('#cbValidatedBy').prop('disabled', true);
+         
+      }
+
+    $("#cbValidatedBy").change(function () {
+      if (this.checked) {
+        UpdateValidatedBy("Validated");
+        var checkedDate = GetDate(new Date());
+        $("#lblValidatedDate").text(checkedDate);
+         
+      } else {
+        UpdateValidatedBy("NotValidated");
+        $("#lblValidatedDate").text("");
+    
+      }
+
+    });
+
+  });
+</script>

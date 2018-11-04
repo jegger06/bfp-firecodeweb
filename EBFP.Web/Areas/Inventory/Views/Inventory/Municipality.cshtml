@@ -1,0 +1,867 @@
+﻿@model EBFP.BL.HumanResources.MunicipalityModel
+@using EBFP.BL.Helper;
+@using EBFP.Helper
+@{
+    ViewBag.Title = "Municipality";
+}@using (Ajax.BeginForm(new AjaxOptions()
+{
+  InsertionMode = InsertionMode.Replace,
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(a => Model.Municipality_Id)
+    <style>
+      .form-horizontal .control-label {
+        text-align: left !important;
+        padding-left: 15px;
+      }
+
+      .partition-border {
+        border: 1px darkgray solid;
+        padding: 10px;
+      }
+
+      .bold-label {
+        font-weight: 500;
+        text-align: center !important;
+      }
+
+      .align-center {
+        text-align: center;
+      }
+
+      select[readonly] option, select[readonly] optgroup {
+        display: none;
+      }
+    </style>
+    <div class="row">
+
+      <div class="col-sm-12">
+        @if (PageSecurity.HasAccess(PageArea.Inventory_Municipality_Modify))
+        {
+            <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-check"></i> Submit</button>
+        }
+      </div>
+      <br /><br /><br />
+      <div class="col-sm-6 col-xs-12">
+        <div class="form-horizontal">
+          <div class="partition-border">
+            <div class="form-group">
+              <label class="col-md-3 control-label">Municipality</label>
+              <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Municipality_Name, new { @class = "form-control", @style = "font-weight:bold;", @readonly = "readonly" })
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label">Region</label>
+              <div class="col-md-8">
+                <div>
+                  @Html.DropDownListFor(model => Model.Municipality_Reg_Id, Selections.InventoryRegion, " --- Please Select---", new { id = "municipality_Reg_Id", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)", @readonly = "readonly" })
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label">Province</label>
+              <div class="col-md-8">
+                <div>
+                  @Html.DropDownListFor(model => Model.Municipality_Province_Id, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "municipality_Province_Id", @class = "form-control", @readonly = "readonly" })
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label">PSGC</label>
+              <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Municipality_NSCB, new { @class = "form-control", @required = "required" })
+                @Html.ValidationMessageFor(model => model.Municipality_NSCB, "Field is required.", new { @class = "text-danger" })
+              </div>
+            </div>
+
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="partition-border">
+            <div class="form-group">
+              <label class="col-md-4 control-label">Classification</label>
+              <div class="col-md-7">
+                @{ var Classification = Selections.Classifications; }
+                <div>
+                  @Html.DropDownListFor(model => Model.Municipality_Classification, Classification, " --- Please Select---", new { @class = "form-control", @id = "municipality_classification" })
+                </div>
+              </div>
+            </div>
+            @if (PageSecurity.HasAccess(PageArea.Inventory_Municipality_Modify))
+                {
+                <a class="popup-with-form btn btn-rounded btn-success" style="color: white !important" href="#PopForm-Population"><i class="fa fa-pencil"></i> Edit</a>
+            }
+            @if (Model.PopulationList != null)
+                {
+                    int count = 1;
+                    foreach (var category in Model.PopulationList)
+                    {
+                    <div class="form-group">
+                      <label class="col-md-4 control-label">Population (@category.Population_Year)</label>
+                      <div class="col-md-7">
+                        @Html.TextBox("PopulationCount", @category.Population_Count, new { @class = "form-control", @readonly = "readonly", @id = "txtPopulation_" + count })
+                      </div>
+                    </div>
+                count++;
+              }
+            }
+            <div class="form-group">
+              <label class="col-md-4 control-label">Land Area(Square KM)</label>
+              <div class="col-md-7">
+                @Html.TextBoxFor(model => model.sMunicipality_LandArea, new { @class = "form-control", @id = "txtLandArea", @onblur = "toMoneyFormat(this)" })
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-4 control-label">Population Density</label>
+              <div class="col-md-7">
+                @Html.TextBoxFor(model => model.sMunicipality_PopulationDensity, new { @class = "form-control", @id = "txtPopulationDensity", @onblur = "toMoneyFormat(this)" })
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-4 control-label">Income Class</label>
+              <div class="col-md-7">
+                @{ var IncomeClass = Selections.IncomeClassList; }
+                <div>
+                  @Html.DropDownListFor(model => Model.Municipality_IncomeClass, IncomeClass, " --- Please Select---", new { @class = "form-control", @id = "municipality_incomeClass" })
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="partition-border">
+            <div class="form-group">
+              <label class="col-md-4 control-label">FireFighting Capability</label>
+              <div class="col-md-7">
+                @Html.TextBoxFor(model => model.Municipality_FireFightingCapability, new {@class = "form-control"})
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-6">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">No. Of Station(s)</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Total_Stations, new {@class = "form-control align-center", @readonly = "readonly"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-6">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">No. Of Truck(s)</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Total_Trucks, new {@class = "form-control align-center", @readonly = "readonly"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-6">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Other Vehicle(s)</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Total_OtherVehicles, new {@class = "form-control align-center", @readonly = "readonly"})
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="partition-border">
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">URBAN</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Urban, new { @class = "form-control align-center", @id = "txtUrban", @oninput = "onInputTextNumber(this)" })
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">RURAL</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Rural, new { @class = "form-control align-center", @id = "txtRural", @oninput = "onInputTextNumber(this)" })
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">BARANGAYS</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Barangays, new { @class = "form-control align-center", @readonly = "readonly", @id = "txtBarangays" })
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+          <div class="partition-border">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-12 control-label" style="text-align: center !important;">Self-Contained Breathing Apparatus</label>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_SCBA_Serviceable, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtSCBASevicable"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-5 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_SCBA_ServiceableForReplacement, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtSCBASevicableBFR"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Total</label>
+                <div class="col-md-12">
+                  @Html.TextBox("txtTotalSCBA", "0", new {@class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalSCBA"})
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+          <div class="partition-border">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-12 control-label" style="text-align: center !important;">Fire Coat</label>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_FireCoat_Serviceable, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFCSevicable"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-5 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_FireCoat_ServiceableForReplacement, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFCSevicableBFR"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Total</label>
+                <div class="col-md-12">
+                  @Html.TextBox("txtTotalFireCoat", "0", new {@class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalFireCoat"})
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+          <div class="partition-border">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-12 control-label" style="text-align: center !important;">Trouser</label>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Trouser_Serviceable, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtTrouserSevicable"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-5 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Trouser_ServiceableForReplacement, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtTrouserSevicableBFR"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Total</label>
+                <div class="col-md-12">
+                  @Html.TextBox("txtTotalTrouser", "0", new {@class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalTrouser"})
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+          <div class="partition-border">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-12 control-label" style="text-align: center !important;">Boots</label>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Boots_Serviceable, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtBootsSevicable"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-5 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Boots_ServiceableForReplacement, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtBootsSevicableBFR"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Total</label>
+                <div class="col-md-12">
+                  @Html.TextBox("txtTotalBoots", "0", new {@class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalBoots"})
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+          <div class="partition-border">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-12 control-label" style="text-align: center !important;">Gloves</label>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Gloves_Serviceable, new { @class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtGlovesSevicable" })
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-5 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Gloves_ServiceableForReplacement, new { @class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtGlovesSevicableBFR" })
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Total</label>
+                <div class="col-md-12">
+                  @Html.TextBox("txtTotalGloves", "0", new { @class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalGloves" })
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xs-12">
+        <div class="form-horizontal">
+          <div class="partition-border col-md-12">
+            @Html.Partial("~/Areas/Inventory/Views/Inventory/Include/FireRecords/Main.cshtml")
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="partition-border col-md-12">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-12 control-label" style="text-align: center !important;">PERSONNEL</label>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4">
+              <div class="form-group">
+                <label class="col-md-6 control-label">CSUPT</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_CSUPT, new {@class = "form-control", @id = "txtCSUPT", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">SSUPT</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_SSUPT, new {@class = "form-control", @id = "txtSSUPT", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">SUPT</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_SUPT, new {@class = "form-control", @id = "txtSUPT", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">CINSP</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_CINSP, new {@class = "form-control", @id = "txtCINSP", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">SINSP</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_SINSP, new {@class = "form-control", @id = "txtSINSP", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">INSP</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_INSP, new {@class = "form-control", @id = "txtINSP", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">Officers</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_Officers, new {@class = "form-control", @readonly = "readonly", @id = "txtTotalOfficers"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4">
+              <div class="form-group">
+                <label class="col-md-6 control-label">SFO4</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_SFO4, new {@class = "form-control", @id = "txtSFO4", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">SFO3</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_SFO3, new {@class = "form-control", @id = "txtSFO3", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">SFO2</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_SFO2, new {@class = "form-control", @id = "txtSFO2", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">SFO1</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_SFO1, new {@class = "form-control", @id = "txtSFO1", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">FO3</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_FO3, new {@class = "form-control", @id = "txtFO3", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">FO2</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_FO2, new {@class = "form-control", @id = "txtFO2", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">FO1</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_FO1, new {@class = "form-control", @id = "txtFO1", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">NOCs</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_NCOS, new {@class = "form-control", @readonly = "readonly", @id = "txtNCOs"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4">
+              <div class="form-group">
+                <label class="col-md-6 control-label">U-Personnel</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_UPersonnel, new {@class = "form-control", @readonly = "readonly", @id = "txtUPersonnel"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">NUP</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_NUP, new {@class = "form-control", @id = "txtNUP", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-6 control-label">Total</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Municipality_TotalPersonnel, new {@class = "form-control", @readonly = "readonly", @id = "txtTotal"})
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="partition-border">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-12 control-label" style="text-align: center !important;">HYDRANTS</label>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-6">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Functional</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Hydrant_Functional, new {@class = "form-control align-center", @id = "txtFunctional", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-6">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Non Functional</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Hydrant_NonFunctional, new {@class = "form-control align-center", @id = "txtNonFunctional", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-6">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Under Repair</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Hydrant_UnderRepair, new {@class = "form-control align-center", @id = "txtUnderRepair", @oninput = "onInputTextNumber(this)"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-6">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Total</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Hydrant_Total, new {@class = "form-control align-center", @readonly = "readonly", @id = "txtHydrantTotal"})
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+          <div class="partition-border">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-12 control-label" style="text-align: center !important;">Helmet</label>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Helmet_Serviceable, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtHelmetSevicable"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-5 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_Helmet_ServiceableForReplacement, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtHelmetSevicableBFR"})
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Total</label>
+                <div class="col-md-12">
+                  @Html.TextBox("txtTotalHelmet", "0", new {@class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalHelmet"})
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+        <div class="partition-border">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-md-12 control-label" style="text-align: center !important;">FireHose 1.5 Size</label>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="form-horizontal col-md-4 col-sm-4">
+            <div class="form-group">
+              <label class="col-md-12 bold-label">Serviceable</label>
+              <div class="col-md-12">
+                @Html.TextBoxFor(model => model.Municipality_FireHose15_Serviceable, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFireHose15Sevicable"})
+              </div>
+            </div>
+          </div>
+          <div class="form-horizontal col-md-5 col-sm-4">
+            <div class="form-group">
+              <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+              <div class="col-md-12">
+                @Html.TextBoxFor(model => model.Municipality_FireHose15_ServiceableForReplacement, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFireHose15SevicableBFR"})
+              </div>
+            </div>
+          </div>
+          <div class="form-horizontal col-md-3 col-sm-4">
+            <div class="form-group">
+              <label class="col-md-12 bold-label">Total</label>
+              <div class="col-md-12">
+                @Html.TextBox("txtTotalFireHose15", "0", new {@class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalFireHose15"})
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+        <div class="partition-border">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-md-12 control-label" style="text-align: center !important;">FireHose 2.5 Size</label>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="form-horizontal col-md-4 col-sm-4">
+            <div class="form-group">
+              <label class="col-md-12 bold-label">Serviceable</label>
+              <div class="col-md-12">
+                @Html.TextBoxFor(model => model.Municipality_FireHose25_Serviceable, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFireHose25Sevicable"})
+              </div>
+            </div>
+          </div>
+          <div class="form-horizontal col-md-5 col-sm-4">
+            <div class="form-group">
+              <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+              <div class="col-md-12">
+                @Html.TextBoxFor(model => model.Municipality_FireHose25_ServiceableForReplacement, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFireHose25SevicableBFR"})
+              </div>
+            </div>
+          </div>
+          <div class="form-horizontal col-md-3 col-sm-4">
+            <div class="form-group">
+              <label class="col-md-12 bold-label">Total</label>
+              <div class="col-md-12">
+                @Html.TextBox("txtTotalFireHose25", "0", new {@class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalFireHose25"})
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+        <div class="partition-border">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-md-12 control-label" style="text-align: center !important;">FireNozzle 1.5 Size</label>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="form-horizontal col-md-4 col-sm-4">
+            <div class="form-group">
+              <label class="col-md-12 bold-label">Serviceable</label>
+              <div class="col-md-12">
+                @Html.TextBoxFor(model => model.Municipality_FireNozzle15_Serviceable, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFireNozzle15Sevicable"})
+              </div>
+            </div>
+          </div>
+          <div class="form-horizontal col-md-5 col-sm-4">
+            <div class="form-group">
+              <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+              <div class="col-md-12">
+                @Html.TextBoxFor(model => model.Municipality_FireNozzle15_ServiceableForReplacement, new {@class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFireNozzle15SevicableBFR"})
+              </div>
+            </div>
+          </div>
+          <div class="form-horizontal col-md-3 col-sm-4">
+            <div class="form-group">
+              <label class="col-md-12 bold-label">Total</label>
+              <div class="col-md-12">
+                @Html.TextBox("txtTotalFireNozzle15", "0", new {@class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalFireNozzle15"})
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+
+          <div>
+            <div class="form-group">
+            </div>
+          </div>
+
+          <div class="partition-border">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-md-12 control-label" style="text-align: center !important;">FireNozzle 2.5 Size</label>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="form-horizontal col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_FireNozzle25_Serviceable, new { @class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFireNozzle25Sevicable" })
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-5 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Serviceable but for replacement</label>
+                <div class="col-md-12">
+                  @Html.TextBoxFor(model => model.Municipality_FireNozzle25_ServiceableForReplacement, new { @class = "form-control align-center", @oninput = "onInputTextNumber(this)", @id = "txtFireNozzle25SevicableBFR" })
+                </div>
+              </div>
+            </div>
+            <div class="form-horizontal col-md-3 col-sm-4">
+              <div class="form-group">
+                <label class="col-md-12 bold-label">Total</label>
+                <div class="col-md-12">
+                  @Html.TextBox("txtTotalFireNozzle25", "0", new { @class = "form-control align-center", @readonly = "readonly", @oninput = "onInputTextNumber(this)", @id = "txtTotalFireNozzle25" })
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="form-group">
+      </div>
+    </div>
+    <div id="PopForm-Population" class="white-popup-block mfp-hide" style="padding-right:0px !important;padding-left:0px !important; min-width:600px">
+      <div>&nbsp;</div>
+      <div style="min-height:300px;max-height:400px;overflow-y:scroll" class="form-group">
+        @Html.Partial("~/Areas/Inventory/Views/Inventory/Include/Population/Main.cshtml")
+      </div>
+    </div>
+  <div>
+    @if (PageSecurity.HasAccess(PageArea.Inventory_Station_CanViewAll))
+    {
+      @Html.Partial("~/Areas/Inventory/Views/Inventory/Station.cshtml")
+    }
+  </div>        }
+<script>
+  var paramProvinceID = @Html.Raw(Json.Encode(Model.Municipality_Province_Id));
+  var paramPopulationList = @Html.Raw(Json.Encode(Model.PopulationList));
+  var paramFireRecordList = @Html.Raw(Json.Encode(Model.FireRecordsList));
+</script>

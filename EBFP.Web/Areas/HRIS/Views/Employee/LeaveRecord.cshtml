@@ -1,0 +1,228 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.HumanResources.LeaveModel
+@{
+    ViewBag.Title = "Employee Leave Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Leave) || PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Leave_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+
+    <style>
+        input[readonly] {
+            background-color: white !important;
+        }
+    </style>
+    <script src="~/Content/bootstrap/eliteadmin/js/validator.js"></script>
+@using (Ajax.BeginForm(new AjaxOptions()
+ {
+     InsertionMode = InsertionMode.Replace,
+ }))
+ {
+    @*<fieldset id="EmployeeLeaveDetails">*@
+     @Html.AntiForgeryToken()
+     @Html.HiddenFor(a => Model.sELR_Id)
+     @Html.HiddenFor(a => Model.ELR_Id)
+     @Html.HiddenFor(a => Model.ELR_Emp_Id)
+     <style>
+         .ti-minus, .ti-plus {
+             font-weight: bold !important;
+             font-size: 20px !important;
+             color: white !important;
+         }
+
+         .ti-plus:before {
+             content: "\e65f" !important;
+         }
+
+         .ti-minus:before {
+             content: "\e65c";
+         }
+
+         .form-horizontal .control-label {
+             text-align: left !important;
+         }
+
+         .affix {
+             top: 10px;
+             width: 100%;
+             z-index: 9999 !important;
+         }
+
+         .navbar {
+             margin-bottom: 0px;
+         }
+
+         .affix ~ .container-fluid {
+             padding-top: 10px !important;
+             position: relative;
+             top: 50px !important;
+         }
+     </style>
+     <div class="row">
+         <div class="col-sm-12 " data-spy="affix" data-offset-top="197">
+             <a href="@Url.Action("LeaveDetails", "Employee", new {sEmp_Id = @ViewBag.sEmployeeID})" class="btn btn-danger  btn-rounded waves-effect waves-light m-r-10">
+                 <i class="fa fa-mail-reply"></i> Back
+             </a>
+             @if ((PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Leave_Modify)))
+             {
+             <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-check"></i> Submit</button>
+             }
+             <br/><br/><br/>
+         </div>
+     </div>
+     <div class="col-sm-12">
+         <div class="panel panel-info">
+             <a href="#" data-perform="panel-collapse">
+                 <div class="panel-heading">
+                     Leave Information
+                     <div class="pull-left">
+                         <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                     </div>
+                 </div>
+             </a>
+             <div class="panel-wrapper collapse in" aria-expanded="true">
+                 <div class="panel-body">
+                     <div class="row">
+                         <div class="row">
+                             <div class="col-sm-6 col-xs-12">
+                                 <div class="form-horizontal">
+                                     <div class="form-group">
+                                         <label class="col-md-4 control-label">Leave Type:</label>
+                                         <div class="col-md-6">
+                                             @Html.DropDownListFor(model => Model.ELR_LeaveType, Selections.LeaveType, " --- Please Select---", new {@class = "form-control select2", @required = "required"})
+                                         </div>
+                                     </div>
+                                     <div class="form-group">
+                                         <label class="col-md-4 control-label">Start Date:</label>
+                                         <div class="col-md-6">
+                                             <div class="input-group">
+                                                 @Html.TextBoxFor(model => model.ELR_StartDate, "{0:MM/dd/yyyy}", new {@class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @id = "dpStartDate"})
+                                                 <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="form-group">
+                                         <label class="col-md-4 control-label">End Date:</label>
+                                         <div class="col-md-6">
+                                             <div class="input-group">
+                                                 @Html.TextBoxFor(model => model.ELR_EndDate, "{0:MM/dd/yyyy}", new {@class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @id = "dpEndDate"})
+                                                 <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="form-group">
+                                         <label class="col-md-4 control-label">Total Days:</label>
+                                         <div class="col-md-6">
+                                             @Html.TextBoxFor(model => model.ELR_TotalDays, new {@class = "form-control", @type = "number", @onchange = "(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)"})
+                                         </div>
+                                     </div>
+                                     <div class="form-group">
+                                         <label class="col-md-4 control-label">With Pay:</label>
+                                         <div class="col-md-6">
+                                             <div class="col-sm-6" style="padding-left: 0 !important">
+                                                 <div class="radio radio-info">
+                                                     @Html.RadioButtonFor(e => e.ELR_WithPay, true, new {id = "ELR_WithPay-true"})
+                                                     @Html.Label("ELR_WithPay-true", "Yes")
+                                                 </div>
+                                             </div>
+                                             <div class="col-sm-6" style="padding-left: 0 !important">
+                                                 <div class="radio radio-info">
+                                                     @Html.RadioButtonFor(e => e.ELR_WithPay, false, new {id = "ELR_WithPay-false"})
+                                                     @Html.Label("ELR_WithPay-false", "No")
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="form-group">
+                                         <label class="col-md-4 control-label">Deduct From:</label>
+                                         <div class="col-md-6">
+                                             @Html.DropDownListFor(model => Model.ELR_ChargeTo, Selections.DeductFrom, " --- Please Select---", new {@class = "form-control select2", @required = "required"})
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div class="col-sm-6 col-xs-12">
+                                 <div class="form-horizontal" style="padding: 20px 0 0 40px;">
+                                     <div class="form-group">
+                                         <label class="control-label"> Remaining Leave (as of today)</label>
+
+                                     </div>
+                                     <div class="form-group">
+
+                                         <table border="1">
+                                             <tr>
+                                                 <td style="width: 100px">
+                                                     &nbsp;Vacation
+                                                 </td>
+                                                 <td>
+                                                     <input id="remaining_vl" type="text" value="@(ViewBag.Vacation.ToString("F") ?? String.Empty)" class="form-control" readonly/>
+                                                 </td>
+                                             </tr>
+                                             <tr>
+                                                 <td>&nbsp;Sick</td>
+                                                 <td><input id="remaining_sl" type="text" value="@(ViewBag.Sick.ToString("F") ?? String.Empty)" class="form-control" readonly/></td>
+                                             </tr>
+                                             <tr>
+                                                 <td>&nbsp;Total</td>
+                                                 <td>
+                                                     <input id="remaining_total" type="text" value="@(ViewBag.Total.ToString("F") ?? String.Empty)" class="form-control" readonly/>
+                                                 </td>
+                                             </tr>
+                                         </table>
+
+                                     </div>
+                                 </div>
+                             </div>
+
+                         </div>
+
+
+
+                         <div class="row">
+                             <div class="col-sm-12 col-xs-12">
+                                 <div class="form-horizontal">
+                                     <div class="form-group">
+                                         <label class="col-md-2 control-label">Remarks :</label>
+                                         <div class="col-md-10">
+                                             @Html.TextAreaFor(model => model.ELR_Remarks, new {@cols = "10", @rows = "3", @class = "form-control"})
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+
+                     </div>
+
+                 </div>
+             </div>
+         </div>
+     </div>
+
+        @*<div class="row ">
+            <br />
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-check"></i> Submit</button>
+                <a href="@Url.Action("LeaveDetails", "Employee", new {sEmp_Id = @ViewBag.sEmployeeID})" class="btn btn-danger  btn-rounded waves-effect waves-light m-r-10">
+                    <i class="fa fa-mail-reply"></i> Back
+                </a>
+            </div>
+        </div>*@
+
+     <script type="text/javascript">
+         $(document).ready(function() {
+             $('.mydatepicker, #datepicker').datepicker();
+         });
+     </script>
+
+        @*</fieldset>*@
+ }
+
+    @Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+    @Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+    @Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")
+

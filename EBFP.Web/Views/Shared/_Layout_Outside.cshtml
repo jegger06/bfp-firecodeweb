@@ -1,0 +1,102 @@
+﻿@using EBFP.Helper;
+@using EBFP.BL.Helper;
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11">
+    @*<meta http-equiv="X-UA-Compatible" content="IE=edge">*@
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content=""> 
+    <title>EBFP Portal</title>
+    @Html.Partial("~/Views/Shared/Themes/EliteAdmin/Header.cshtml")
+</head>
+
+<body style="background-color:white"> 
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top m-b-0">
+        <div class="navbar-header">
+            <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+            <div class="top-left-part" style="background-color: #03a9f3"><a class="logo" href="/home"><b><img src="~/Content/images/eliteadmin-logo.png" alt="home"/></b><span class="hidden-xs"><strong>EBFP</strong>Portal</span></a>
+            </div>
+            <ul class="nav navbar-top-links navbar-left hidden-xs">
+                <li>
+                    <a style="visibility: hidden" href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a>
+                </li>
+                <li>
+                    <form role="search" class="app-search hidden-xs" style="visibility: hidden">
+                        <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a>
+                    </form>
+                </li>
+            </ul>
+
+        </div>
+        <!-- /.navbar-header -->
+        <!-- /.navbar-top-links -->
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <!-- Page Content -->
+    <div>
+        <div class="container-fluid">
+            <div class="row bg-title" style="background-color: lightgray">
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                    @*@if (ViewBag.TitleImage != null)
+                        {
+                            <img src="@ViewBag.TitleImage" style="max-height:45px !important; height : 45px !important; float:left" border="0"> 
+                        }*@
+                    @if (ViewBag.Title != null)
+                    {
+                        <h2>
+                            @Html.Raw(@ViewBag.Title)
+                        </h2>
+                    }
+                </div>
+              <div class="col-lg-7 col-sm-8 col-md-8 col-xs-12">
+                @if (ViewContext.RouteData.Values["action"].ToString() != "ResetPassword")
+                {
+                    <ol class="breadcrumb">
+                      <li>
+                        <a href="#">
+                          @ViewContext.RouteData.Values["controller"]
+
+                      </a>
+                    </li>
+                    <li class="active">
+                      @ViewContext.RouteData.Values["action"]
+                    </li>
+                  </ol>
+                }
+            
+              </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            @RenderBody();
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+
+    <footer class="footer text-center"> @DateTime.Now &copy; Bureau of Fire Protection </footer>
+<!-- /#wrapper -->
+    <!-- jQuery -->
+
+ 
+  @Html.Partial("~/Views/Shared/Themes/EliteAdmin/Footer.cshtml")
+    @Html.Partial("~/Views/Shared/Notifications.cshtml")
+</body>
+
+</html>

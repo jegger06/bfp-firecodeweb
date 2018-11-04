@@ -1,0 +1,42 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.HumanResources.CivilServiceEligibilityModel
+@using EBFP.BL.Helper
+@using (Html.BeginCollectionItem("CivilServiceEligibilities"))
+{
+    string formID = "HRISCSE_" + Guid.NewGuid().ToString().Replace("-", "");
+    <div class="divTableRow" id="@formID">
+        @Html.HiddenFor(m => @Model.ECSE_Emp_Id, new { @class = "form-control" })
+        @Html.HiddenFor(m => @Model.ECSE_Id, new { @class = "form-control" })
+        @{ var Eligibilities = Selections.Eligibilities;}
+        <div class="divTableCell">@Html.DropDownListFor(model => Model.ECSE_Title, Eligibilities, " --- Please Select---", new { @class = "form-control select2" ,@required ="required"})
+        @*@Html.TextBoxFor(m => @Model.ECSE_Title, new { @class = "form-control" })*@</div>
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.ECSE_Rating, new { @maxlength = "50", @class = "form-control" })</div>
+        <div class="divTableCell">
+            @Html.TextBoxFor(model => model.ECSE_ExamDate, "{0:MM/dd/yyyy}", new { @class = "form-control ", @placeholder = "mm/dd/yyyy", @required = "required" })
+        </div>
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.ECSE_ExamPlace, new { @maxlength = "150", @class = "form-control", @required = "required" })</div>
+
+
+        <div class="divTableCell">
+            <div class="col-sm-6 col-xs-12">
+                @Html.TextBoxFor(m => @Model.ECSE_LicNumber, new { @maxlength = "50", @class = "form-control" })
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.ECSE_LicReleaseDate, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+            </div>
+        </div>
+        <div class="divTableCell"> 
+            <button type="button" class="btn btn-danger removeItem btn-circle UserAccessCanEdit" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button> 
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+        });
+    </script>
+}

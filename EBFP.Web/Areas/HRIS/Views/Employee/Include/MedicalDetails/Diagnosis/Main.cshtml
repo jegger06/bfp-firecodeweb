@@ -1,0 +1,221 @@
+﻿@model EBFP.BL.HumanResources.PhysicalExamModel
+<style>
+    input[type='checkbox'] {
+        width: 15px !important;
+        height: 15px !important;
+        float: left;
+    }
+</style>
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                II. Diagnosis
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+
+            <div style="overflow: hidden !important; padding: 10px !important">
+                <button type="button" id="AddDiagnosis" name="AddDiagnosis" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 MedicalAccess"><i class="fa fa-plus"></i> Add New</button>
+            </div>
+            <div class="divTable">
+                <div class="divTableHeading">
+                    <div class="divTableRow">
+                        <div class="divTableHead  text-center">Diagnosis Description</div>
+                        <div class="divTableHead text-center">Status of Diagnosis</div>
+                        <div class="divTableHead text-center">Plan Of Care</div>
+                        <div class="divTableHead text-center">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="divTableBody" id="NewDiagnosis">
+                    @if (@Model.DiagnosisList != null)
+                    {
+                        for (int i = 0; i < @Model.DiagnosisList.Count(); i++)
+                        {
+                            @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/Diagnosis/Editor.cshtml", @Model.DiagnosisList[i])
+                        }
+                    }
+                </div>
+            </div>
+
+            <div style="overflow: hidden !important; padding: 10px !important">
+                &nbsp;
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="chk-group">
+                        <label class="control-label" style="font-weight: bold">Health Maintenance</label>
+                    </div>
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Atleast_One_PCP, new {@class = "form-control"})
+                        <label class="control-label chk-label">Atleast 1 PCP visit in the last year</label>
+                    </div>
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Breast_Cancer_Screening, new {@class = "form-control"})
+                        <label class="control-label chk-label">Breast Cancer Screening</label>
+                    </div>
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Colorectal_Cancer_Screening, new {@class = "form-control"})
+                        <label class="control-label chk-label">Colorectal Cancer Screening</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Cholesterol_Screening_Diabetes, new {@class = "form-control"})
+                        <label class="control-label chk-label">Cholesterol Screening for Members with Diabetes</label>
+                    </div>
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Cholesterol_Screening_Heart, new {@class = "form-control"})
+                        <label class="control-label chk-label">Cholesterol Screening for Members with Heart Disease</label>
+                    </div>
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Glaucoma_Testing, new {@class = "form-control"})
+                        <label class="control-label chk-label">Glaucoma Testing</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Monitoring_LongTerm_Medication, new {@class = "form-control"})
+                        <label class="control-label chk-label">Monitoring of Members Taking Long-Term Medications</label>
+                    </div>
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_ACE, new {@class = "form-control"})
+                        <label class="control-label chk-label">ACE</label>
+                    </div>
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_ARB, new {@class = "form-control"})
+                        <label class="control-label chk-label">ARB</label>
+                    </div>
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Digoxin, new {@class = "form-control"})
+                        <label class="control-label chk-label">Digoxin</label>
+                    </div>
+                    <div class="chk-group">
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Diurectics, new {@class = "form-control"})
+                        <label class="control-label chk-label">Diurectics</label>
+                    </div>
+                    <div>
+                        @Html.CheckBoxFor(model => model.HealthMaintenance.PE_Anticonvulsants, new {@class = "form-control"})
+                        <label class="control-label chk-label">Anticonvulsants</label>
+                    </div>
+                </div>
+            </div>
+
+            <div style="overflow: hidden !important; padding: 10px !important">
+                &nbsp;
+            </div>
+
+            <div class="row" style="padding-left: 10px;">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">RTC</label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_RTC, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="control-label">Other Orders if not specified in above plan of care:</label>
+                            </div>
+                            </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Print Provider Name:</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Print_Provider_Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Provider ID:</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Provider_Id, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Provider Address:</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Provider_Address, new {@class = "form-control"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Provider Signature:</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Provider_Signature, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*RIGHT*@
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Referrals:</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Referrals, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Other_Orders, new {@class = "form-control"})
+                            </div>
+                            </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Group Name:</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Group_Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Tax ID Number:</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Tax_Id_number, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">City, States, Zip</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_City_States_Zip, new {@class = "form-control"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Date</label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('.mydatepicker, #datepicker').datepicker();
+                        $("#AddDiagnosis").click(function () {
+                            $.ajax({
+                                async: false,
+                                url: '/HRIS/Employee/DiagnosisEditor'
+                            }).success(function (partialView) {
+                                $(partialView).appendTo("#NewDiagnosis");
+                            });
+                        });
+                    });
+                </script>
+            </div>
+    </div>
+    </div>
+
+

@@ -1,0 +1,245 @@
+﻿@model EBFP.BL.CIS.PhysicalInventoryModel
+@using EBFP.BL.Helper
+<style>
+  .partition-border {
+    border: 1px darkgray solid;
+    padding: 10px;
+  }
+</style>
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        Physical Inventory Details
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-6 col-xs-12">
+            <div class="form-horizontal partition-border">
+              @*<div class="form-group">
+                <label class="col-md-3 control-label">Unit</label>
+                <div class="col-md-6">
+                  @Html.DropDownListFor(model => Model.PI_Unit_Id, Selections.Units, " --- Please Select---", new {@class = "form-control select2"})
+                </div>
+              </div>*@
+              <div class="form-group">
+                <label class="col-md-3 control-label">Directorates</label>
+                <div class="col-md-6">
+                  @*@Html.DropDownListFor(model => Model.PI_Dir_Id, Selections.Directorates, " --- Please Select---", new {@class = "form-control select2"})*@
+                  @Html.DropDownListFor(model => Model.PI_Dir_Id, Selections.DirectoratesList(@Model.PI_Dir_Id), " --- Please Select---", new {@class = "form-control", @id = "ddlDir"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Inventory Group</label>
+                <div class="col-md-6">
+                @*@Html.DropDownListFor(model => Model.PI_IG_Id, Selections.InventoryGroup, " --- Please Select---", new { @class = "form-control select2" })*@
+                  @Html.DropDownListFor(model => Model.PI_IG_Id, Selections.InventoryGroupList(@Model.PI_Dir_Id), " --- Please Select---", new {@class = "form-control", @id = "ddlIG"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Article</label>
+                <div class="col-md-6">
+                  @*@Html.DropDownListFor(model => Model.PI_Art_Id, Selections.InventoryArticle, " --- Please Select---", new { @class = "form-control select2" })*@
+                  @Html.DropDownListFor(model => Model.PI_Art_Id, Selections.InventoryArticleList(@Model.PI_Dir_Id), " --- Please Select---", new {@class = "form-control", @id = "ddlArticle"})
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">Description</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.PI_Description, new {@class = "form-control" ,@required ="required"})
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">Unit Of Measure</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.PI_UnitOfMeasure, new {@class = "form-control"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Unit Value</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.sPI_UnitValue, new {@class = "form-control", @onblur = "toMoneyFormat(this)"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Office</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.PI_Office, new { @class = "form-control" })
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Date Acquisition</label>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    @Html.TextBoxFor(model => model.PI_DateAcquired, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @id = "EmpBirthDate" })
+                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xs-12">
+            <div class="form-horizontal partition-border">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Property Number</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.PI_PropertyNumber, new {@class = "form-control",@required = "required"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">Serial Number</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.PI_StockNumber, new {@class = "form-control"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">ARE Number</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.PI_ARENumber, new {@class = "form-control"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">ICS NUmber</label>
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.PI_ICSNUmber, new {@class = "form-control"})
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label">End User</label>
+                <div class="col-md-6">
+                  @Html.DropDownListFor(model => Model.PI_Emp_Id, Selections.FireMarshallById(@Model.PI_Emp_Id ?? 0), " --- Please Select---", new {@class = "form-control", @id = "ddlEndUser"})
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">Remarks</label>
+                <div class="col-md-6">
+                  @Html.TextAreaFor(model => model.PI_Remarks, 10, 55, new {@class = "form-control"})
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+<script type="text/javascript">
+
+
+  $(document).ready(function () {
+    InitDirSelection();
+    InitEmployeeSelection();
+    InitArticleSelection();
+    InitIGSelection();
+  });
+
+  function InitEmployeeSelection() {
+    $("#ddlEndUser").select2({
+      ajax: {
+        url: '/Employee/SelectionAutoComplete',
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            search: params.term // search term
+          };
+        },
+        processResults: function (data) {
+          return {
+            results: data.data
+          };
+        },
+        cache: true
+
+      },
+      minimumInputLength: 3
+    });
+  }
+
+    function InitDirSelection() {
+      $("#ddlDir").select2({
+        ajax: {
+          url: '/Directorates/SelectionAutoComplete',
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              search: params.term // search term
+            };
+          },
+          processResults: function(data) {
+            return {
+              results: data.data
+            };
+          },
+          cache: true
+        },
+        minimumInputLength: 2
+      });
+    }
+
+    function InitIGSelection() {
+      $("#ddlIG").select2({
+        ajax: {
+          url: '/InventoryGroups/SelectionAutoComplete',
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              search: params.term // search term
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data.data
+            };
+          },
+          cache: true
+        },
+        minimumInputLength: 2
+      });
+    }
+
+
+    function InitArticleSelection() {
+      $("#ddlArticle").select2({
+        ajax: {
+          url: '/InventoryArticles/SelectionAutoComplete',
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              search: params.term // search term
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data.data
+            };
+          },
+          cache: true
+        },
+        minimumInputLength: 2
+      });
+    }
+</script>
+

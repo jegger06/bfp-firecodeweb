@@ -1,0 +1,70 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                VI. VOLUNTARY WORK OR INVOLVEMENT IN CIVIC / NON-GOVERNMENT / PEOPLE / VOLUNTARY ORGANIZATION/S
+                <div class="pull-left">
+                   <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+          <div style="overflow: hidden !important; padding: 10px !important">
+            <button type="button" id="NewVoluntaryWork" name="NewVoluntaryWork" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit UserViewing"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+          <fieldset>
+          <div class="divTable">
+            <div class="divTableHeading">
+              <div class="divTableRow">
+                <div class="divTableHead text-center">NAME & ADDRESS OF ORGANIZATION<br/>(Write in full)
+                </div>
+                <div class="divTableHead text-center">
+                  INCLUSIVE DATES (mm/dd/yyyy)
+                  <table style="width: 100%;">
+                    <tr>
+                      <td style="font-weight: 200 !important; color: white !important; width: 50%">From</td>
+                      <td style="font-weight: 200 !important; color: white !important; width: 50%">To</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="divTableHead text-center">NUMBER OF HOURS <br /><font style="color: red; font-style: italic">leave blank if N/A</font></div>
+                <div class="divTableHead text-center">POSITION / NATURE OF WORK</div>
+                <div class="divTableHead text-center">&nbsp;</div>
+              </div>
+            </div>
+            <div class="divTableBody" id="VoluntaryWorks">
+              @if (@Model.VoluntaryWorks != null)
+              {
+                foreach (var item in Model.VoluntaryWorks)
+                {
+                  @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/VoluntaryWork/Editor.cshtml", item)
+                }
+              }
+            </div>
+
+          </div>
+            </fieldset>
+            <div style="overflow:hidden !important; padding:10px !important">
+              &nbsp;
+            </div>
+
+            <script type="text/javascript">
+              $(document).ready(function () {
+                var formCtr = 1;
+                $('.mydatepicker, #datepicker').datepicker();
+                $("#NewVoluntaryWork").click(function () {
+                  $.ajax({
+                    async: false,
+                    url: '/HRIS/Employee/VoluntaryWorkEditor'
+                  }).success(function (partialView) {
+                    $(partialView).appendTo("#VoluntaryWorks");
+                    $('.mydatepicker, #datepicker').datepicker();
+                  });
+                });
+              });
+            </script>
+</div>
+    </div>
+
+</div> 

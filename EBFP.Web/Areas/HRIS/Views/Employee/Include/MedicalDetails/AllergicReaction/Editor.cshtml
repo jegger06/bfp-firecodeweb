@@ -1,0 +1,28 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.HumanResources.AllergicReactionModel
+@using EBFP.BL.Helper;
+
+@using (Html.BeginCollectionItem("AllergicReaction"))
+{
+    string formID = "HRISEB_" + Guid.NewGuid().ToString().Replace("-", "");
+    <div class="divTableRow" id="@formID">
+        @Html.HiddenFor(m => @Model.ALR_Id, new { @class = "form-control" })
+        <div class="divTableCell"> 
+            @Html.TextBoxFor(model => Model.ALR_MedicationName, new { @class = "form-control" } )
+        </div>
+       
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.ALR_AdverseReaction, new { @class = "form-control" })</div>
+        <div class="divTableCell">
+            <button type="button" class="btn btn-danger removeItem btn-circle MedicalAccess" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+        });
+    </script>
+}

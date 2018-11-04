@@ -1,0 +1,441 @@
+﻿@using EBFP.Helper;
+@using EBFP.BL.Helper;
+@model EBFP.BL.HumanResources.UnitModel
+@{
+    ViewBag.Title = "Units (Stations)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.HRIS_Unit_CanViewAll) ||
+       PageSecurity.HasAccess(PageArea.HRIS_Unit_RestricttoRegion) ||
+       PageSecurity.HasAccess(PageArea.HRIS_Unit_RestricttoProvince) ||
+       PageSecurity.HasAccess(PageArea.HRIS_Unit_RestricttoStation)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+
+@{ string accessType = AccessType.Edit.ToString().Encrypt();}
+ <div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-info">
+            <a href="#" data-perform="panel-collapse">
+                <div class="panel-heading">
+                    Search Filter (Click to expand)
+                    <div class="pull-left">
+                        <i class="ti-minus"></i>
+                    </div>
+                </div>
+            </a>
+            <div class="panel-wrapper collapse in" aria-expanded="false">
+                <div class="panel-body">
+                    <div role="form" class="row">
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Unit Code</label>
+                                <input type="text" id="txtUnitCode" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                              <label class="control-label">Region</label>
+                              @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                              {
+                                  @Html.DropDownList("Region", Selections.Region, new { id = "ddlRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)", @disabled = "disabled" })
+                              }
+                              else
+                              {
+                                  @Html.DropDownList("Region", Selections.SearchRegion, " --- Please Select---", new { id = "ddlRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)" })
+
+                              }
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                              <label class="control-label">Province</label>
+                              @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                              {
+                                  @Html.DropDownListFor(model => Model.Unit_ProvDistrict, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "ddlProvince", @class = "form-control", onchange = "ddlProvinceValueChanged(this.value)", @disabled = "disabled" })
+                              }
+                              else
+                              {
+                                  @Html.DropDownList("Province", new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "ddlProvince", @class = "form-control", onchange = "ddlProvinceValueChanged(this.value)" })
+
+                              }
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                              <label class="control-label">Municipality</label>
+                              @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                              {
+                                  @Html.DropDownListFor(model => Model.Unit_Municipality_Id, new SelectList(Enumerable.Empty<SelectListItem>(), "MunicipalityId_Id", "MunicipalityId_Name"), " --- Please Select---", new { id = "ddlMunicipality", @class = "form-control", @disabled = "disabled" })
+                              }
+                              else
+                              {
+                                  @Html.DropDownList("Municipality", new SelectList(Enumerable.Empty<SelectListItem>(), "Municipality_Id", "Municipality_Name"), " --- Please Select---", new { id = "ddlMunicipality", @class = "form-control" })
+
+                              }
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Station Category</label>
+                                @Html.DropDownList("Category", Selections.StationCategory, " --- Please Select---", new { @id = "ddlCategory", @class = "form-control" })
+                            </div>
+                        </div>
+                        @*<div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Unit (Station)</label>
+                                @Html.DropDownList("Station", new SelectList(Enumerable.Empty<SelectListItem>(), "Unit_Id", "Unit_Name"), " --- Please Select---", new { id = "ddlUnit", @class = "form-control" })
+                            </div>
+                        </div>*@
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Station Name</label>
+                                <input type="text" id="txtStationName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Unit Description</label>
+                                <input type="text" id="txtUnitDescription" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Fire Marshall</label>
+                              <select class="employeeSelection form-control" id="ddlFireMarshall">
+                                <option value="" class="form-control" selected="selected">--- Please Select ---</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-1">
+                            <div class="form-group">
+                                <label class="control-label">&nbsp;</label>
+                                <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <p>
+        @if (PageSecurity.HasAccess(PageArea.HRIS_Unit_Modify))
+        {
+          <a href="@Url.Action("UnitDetails", "Unit", new {sId = 0.ToString().Encrypt(), AccessType = @accessType})" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+            <i class="fa fa-plus-circle"></i> Create New
+          </a>
+        }
+      </p>
+
+      <span id="totalRecords">&nbsp;</span>
+      <div class="block1" style="position: static; zoom: 1;">
+
+        <div class="table-responsive">
+          <table id="myTable" class="table table-striped table-bordered nowrap">
+            <thead>
+            <tr>
+              <th class="all">Region</th>
+              <th class="all">Unit Code</th>
+              <th class="all">Municipality</th>
+              <th class="all">Unit Station</th>
+              <th class="all">Province</th>
+              <th class="all">Category</th>
+              <th class="all">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+<script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+<script>
+  var isSearch = false;
+  var myTable = null;
+  var oSelectionDS = new SelectionDS();
+  var restrictToProvince = '@PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince)';
+  var restrictToStation = '@PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation)';
+
+
+  $(document).ready(function () {
+    LoadTable();
+    InitSelection();
+    ddlRegionValueChanged($('#ddlRegion').val(),@Model.Unit_ProvDistrict);
+    ddlProvinceValueChanged(@Model.Unit_ProvDistrict,@Model.Unit_Municipality_Id);
+  });
+
+  function ddlRegionValueChanged(regionId, provinceId) {
+    var province = provinceId;
+    if (regionId === "" || (restrictToProvince === 'False' && restrictToStation === 'False'))
+      oSelectionDS.ProvinceByRegion("ddlProvince", regionId);
+    else
+      oSelectionDS.ProvinceByRegion("ddlProvince", regionId, province);
+
+    oSelectionDS.ClearDropdown("ddlMunicipality");
+  }
+
+  function ddlProvinceValueChanged(provinceId, municipalityId) {
+    var municipality = municipalityId;
+    if (provinceId === "" || restrictToStation === 'False') {
+      if (restrictToProvince === 'False' && restrictToStation === 'False')
+        provinceId = $('#ddlProvince').val();
+      oSelectionDS.MunicipalityByProvince("ddlMunicipality", provinceId);
+    }
+    else
+      oSelectionDS.MunicipalityByProvince("ddlMunicipality", provinceId, municipality);
+
+    oSelectionDS.ClearDropdown("ddlUnit");
+  }
+
+  function LoadTable() {
+    $('div.block1').block({
+      message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+, css: {
+  border: '1px solid #fff !important'
+}
+    });
+
+    myTable = $('#myTable').DataTable({
+      order: [[0, "asc"]],
+      serverSide: true,
+      deferRender: true,
+      pageLength: 50,
+      processing: true,
+      responsive: true,
+      searching: false,
+      ajax: {
+        url: '@Url.Action("GetUnits", "Unit")',
+        type: 'POST',
+        data: function (d) {
+          d.gridInfo = SetDatatableParams()
+        }
+      }, "initComplete": function (settings, json) {
+
+        //if (settings.json.recordsFiltered && settings.json.recordsFiltered > 0)
+        //{
+        //    $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+        //}
+      },
+      "columns": [
+             {
+               "name": "Reg_Description",
+               "searchable": true,
+               "sortable": true,
+               "render": function (data, type, full, meta) {
+                 return full.Reg_Description;
+               }
+             },
+          {
+            "name": "Unit_Code",
+            "searchable": true,
+            "sortable": true,
+            "render": function (data, type, full, meta) {
+              return full.Unit_Code;
+            }
+          }
+           ,
+          {
+            "name": "CityMunicipality_Name",
+            "searchable": true,
+            "sortable": true,
+            "render": function (data, type, full, meta) {
+              return full.CityMunicipality_Name;
+            }
+          },
+           {
+             "name": "Unit_StationName",
+             "searchable": true,
+             "sortable": true,
+             "render": function (data, type, full, meta) {
+               return full.Unit_StationName;
+             }
+           },
+          {
+            "name": "Province_Name",
+            "searchable": true,
+            "sortable": true,
+            "render": function (data, type, full, meta) {
+              return full.Province_Name;
+            }
+          },
+           {
+             "name": "Unit_CategoryName",
+             "searchable": true,
+             "sortable": true,
+             "render": function (data, type, full, meta) {
+               return full.Unit_CategoryName;
+             }
+           },
+
+{
+  "name": "Action",
+  "searchable": false,
+  "sortable": false,
+  "width": "200px",
+  "render": function (data, type, full, meta) {
+    return GetActionTemplate(full.sUnit_Id);
+  }
+
+}
+      ]
+    })
+     .on('preXhr.dt', function () {
+       $('div.block1').block({
+         message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+         , css: {
+           border: '1px solid #fff !important'
+         }
+       });
+     })
+     .on('xhr.dt', function (data, settings) {
+       console.log(data);
+       $('div.block1').unblock();
+       if (settings.json && settings.json.recordsFiltered >= 0) {
+         $("#myTable_length #totalGridResult").remove();
+         $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + (settings.json.recordsFiltered).toLocaleString() + " result(s)</span>");
+       }
+
+     });
+  }
+  function SetDatatableParams() {
+    var datatable = $('#myTable').DataTable();
+    var datatableInfo = datatable.page.info();
+    var columns = datatable.settings().init().columns;
+    var order = datatable.order();
+    var sortIndex = order[0][0];
+    var sortOrder = order[0][1];
+    datatableInfo.sortOrder = sortOrder;
+    datatableInfo.sortColumnName = columns[sortIndex].name;
+
+
+    var searchUnitModel = {
+      UnitCode: $("#txtUnitCode").val(),
+      RegionId: $("#ddlRegion").val() === "" ? 0 : $("#ddlRegion").val(),
+      ProvinceId:restrictToProvince === 'True' || restrictToStation === 'True' ? @Model.Unit_ProvDistrict : $("#ddlProvince").val() === "" ? 0 : $("#ddlProvince").val(),
+      MunicipalityId: restrictToStation === 'True' ? @Model.Unit_Municipality_Id : $("#ddlMunicipality").val() === "" ? 0 : $("#ddlMunicipality").val(),
+      StationName: $("#txtStationName").val(),
+      Municipality: $("#txtStationUnit").val(),
+      UnitDescription: $("#txtUnitDescription").val(),
+      FireMashallId: $("#ddlFireMarshall").val() === "" ? 0 : $("#ddlFireMarshall").val(),
+      UnitCategory: $("#ddlCategory").val() === "" ? 0 : $("#ddlCategory").val(),
+      IsSearch: isSearch
+    };
+
+    datatableInfo.searchUnitModel = searchUnitModel;
+    return datatableInfo;
+  }
+  function SwalAlert(msg) {
+    swal("Ooops..", msg, "error");
+  }
+  function DeleteEmployeeConfirm(id) {
+    @if (PageSecurity.HasAccess(PageArea.HRIS_Unit_Modify)) {
+            <text> swal({
+      title: "Are you sure?",
+      text: "You will not be able to recover deleted item!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel plx!",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    }, function (isConfirm) {
+      if (isConfirm) {
+        $.post("/Unit/Delete?sId=" + id)
+         .success(function(response) {
+           if (response == "Success") {
+             swal("Deleted!", "Item has been deleted.", "success");
+           } else {
+             SwalAlert(response);
+           }
+           myTable.ajax.reload();
+         });
+      } else {
+        swal("Cancelled", "Item delete has been cancelled", "error");
+      }
+    });
+    </text>
+        }
+        else
+        {
+            <text>
+    swal("Unauthorized", "You are not allowed to do this action.", "error");
+    </text>
+        }
+  }
+
+  function GetActionTemplate(unitId) {
+    var concat = "";
+    @if (PageSecurity.HasAccess(PageArea.HRIS_Unit_Modify))
+      {
+          <text>
+    concat += '<a href="#" onclick="return DeleteEmployeeConfirm(\''+ unitId + '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+    concat += ' Delete';
+    concat += '</a>';
+    </text>
+      }
+    @if (PageSecurity.HasAccess(PageArea.HRIS_Unit_ViewDetails) || PageSecurity.HasAccess(PageArea.HRIS_Unit_Modify))
+      {   <text>
+    concat += '<a href="@Url.Action("UnitDetails", "Unit")?sId=' + unitId + '&AccessType=@accessType" class="btn btn-success m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil">';
+    concat += ' Details';
+    concat += '</a>';
+    </text>
+      }
+    return concat;
+  }
+
+  function FilterSearch() {
+    isSearch = true;
+    myTable.ajax.reload();
+  }
+
+  function InitSelection() {
+    $("#ddlFireMarshall").select2({
+      ajax: {
+        url: '@Url.Action("SelectionAutoComplete", "Employee")',
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            search: params.term // search term
+          };
+        },
+        processResults: function (data) {
+          return {
+            results: data.data
+          };
+        },
+        cache: true
+      },
+      minimumInputLength: 3
+    });
+  }
+
+</script>
+
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")

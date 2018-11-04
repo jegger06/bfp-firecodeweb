@@ -1,0 +1,358 @@
+﻿@using EBFP.Helper;
+@using EBFP.BL.Helper;
+
+@{
+    ViewBag.Title = "Seniority Lineal Listing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.HRIS_SeniorityLineal_CanViewAll) ||
+    PageSecurity.HasAccess(PageArea.HRIS_SeniorityLineal_RestricttoRegion) ||
+    PageSecurity.HasAccess(PageArea.HRIS_SeniorityLineal_RestricttoProvince) ||
+    PageSecurity.HasAccess(PageArea.HRIS_SeniorityLineal_RestricttoStation)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+      return;
+    }
+}
+
+@{ string accessType = AccessType.Edit.ToString().Encrypt();}
+ <div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-info">
+                <div class="panel-body">
+                    <div role="form" class="row">
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">First Name</label>
+                                <input type="text" id="txtFirstName" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Last Name</label>
+                                <input type="text" id="txtLastName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Region</label>
+                                @Html.DropDownList("Region", Selections.Region, " --- Please Select---", new { @id = "ddlRegion", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Province</label>
+                                @Html.DropDownList("Province", new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "ddlProvince", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Unit Station</label>
+                                @Html.DropDownList("Station", new SelectList(Enumerable.Empty<SelectListItem>(), "Unit_Id", "Unit_StationName"), " --- Please Select---", new {id = "ddlUnit", @class = "form-control"})
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Present Rank</label>
+                                @Html.DropDownList("PresentRank", Selections.SearchRanks, " --- Please Select---", new {@class = "form-control", id = "ddlPresentRank"})
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Qualified Rank</label>
+                                @Html.DropDownList("QualifiedRank", Selections.SearchRanks, " --- Please Select---", new { @class = "form-control", id = "ddlQualifiedRank" })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">&nbsp;</label>
+                                <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <span id="totalRecords">&nbsp;</span>
+            <div class="block1" style="position: static; zoom: 1;">
+
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped table-bordered nowrap">
+                        <thead>
+                            <tr>
+                                <th class="all">FIRST NAME</th>
+                                <th class="all">LAST NAME</th>
+                                <th class="all">REGION</th>
+                                <th class="all">PROVINCE</th>
+                                <th class="all">UNIT</th>
+                                <th class="all">PRESENT RANK</th>
+                                <th class="all">QUALIFIED RANK</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td> 
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="font-weight: bold !important"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+<script>
+    var isSearch = false;
+    var myTable = null;
+    $(document).ready(function () {
+        isSearch = false;
+
+        LoadProvinceDropdown();
+
+        $("#ddlRegion").change(function () {
+            var ID = $(this).val();
+            LoadProvinceByRegion(ID);
+            EmptyUnitDropdown();
+        });
+
+        $("#ddlProvince").change(function () {
+            var ID = $(this).val();
+            LoadUnitByProvince(ID);
+            EmptyUnitDropdown();
+        });
+
+
+        $('div.block1').block({
+            message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+ , css: {
+     border: '1px solid #fff !important'
+ }
+        });
+
+       myTable = $('#myTable').DataTable({
+            order : [[ 0, "asc" ]],
+            serverSide: true,
+            deferRender: true,
+            pageLength: 50,
+            processing: true,
+            responsive: true,
+            searching: false,
+            ajax: {
+                url: '@Url.Action("GetSeniorLinearListing", "SLL")',
+                type: 'POST',
+                data: function (d) {
+                    d.gridInfo = SetDatatableParams()
+                }
+            }, "initComplete": function (settings, json) {
+                //if (settings.json.recordsFiltered)
+                //    $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+            },
+            "columns": [
+                   {
+                       "name": "FirstName",
+                       "searchable": true,
+                       "sortable": true,
+                       "render": function (data, type, full, meta) {
+                           return full.FirstName;
+                       }
+                   } ,
+                {
+                    "name": "LastName",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.LastName;
+                    }
+                }
+                 ,
+                {
+                    "name": "RegionName",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.RegionName;
+                    }
+                },
+                {
+                    "name": "ProvinceName",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.ProvinceName;
+                    }
+                },
+                 {
+                     "name": "UnitName",
+                     "searchable": true,
+                     "sortable": true,
+                     "render": function (data, type, full, meta) {
+                         return full.UnitName;
+                     }
+                 },
+                  {
+                      "name": "PresentRankName",
+                      "searchable": true,
+                      "sortable": true,
+                      "render": function (data, type, full, meta) {
+                          return full.PresentRankName;
+                      }
+                  },
+                   {
+                       "name": "QualifiedRank",
+                       "searchable": true,
+                       "sortable": true,
+                       "render": function (data, type, full, meta) {
+                           return full.QualifiedRank;
+                       }
+                   }
+            ]
+        })
+        .on('preXhr.dt', function () {
+            $('div.block1').block({
+                message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+              , css: {
+                  border: '1px solid #fff !important'
+              }
+            });
+        })
+        .on('xhr.dt', function (data, settings) {
+            console.log(data);
+            $('div.block1').unblock();
+            $("#myTable_length #totalGridResult").remove();
+            if (settings.json && settings.json.recordsFiltered >= 0) {
+                $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+            }
+        });
+    });
+    
+    function EmptyUnitDropdown() {
+        var select = $("#ddlUnit");
+        select.empty();
+        select.append($('<option/>', {
+            value: 0,
+            text: " --- Please Select---"
+        }));
+    }
+
+    function LoadProvinceDropdown() {
+        var ID = $("#ddlRegion").val();
+        LoadProvinceByRegion(ID);
+    }
+
+    function LoadProvinceByRegion(ID) {
+        $.getJSON("/Unit/LoadProvinceByDistrict", { regionId: ID },
+            function (data) {
+                var select = $("#ddlProvince");
+                select.empty();
+                select.append($('<option/>', {
+                    value: 0,
+                    text: " --- Please Select---"
+                }));
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+    }
+
+
+    function LoadUnitByProvince(ID) {
+        $.getJSON("/FCRS/GetUnitByProvince", { provinceId: ID },
+            function (data) {
+                var select = $("#ddlUnit");
+                select.empty();
+                select.append($('<option/>', {
+                    value: 0,
+                    text: " --- Please Select---"
+                }));
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+    }
+
+    function SetDatatableParams() {
+        var datatable = $('#myTable').DataTable();
+        var datatableInfo = datatable.page.info();
+        var columns = datatable.settings().init().columns;
+        var order = datatable.order();
+        var sortIndex = order[0][0];
+        var sortOrder = order[0][1];
+        datatableInfo.sortOrder = sortOrder;
+        datatableInfo.sortColumnName = columns[sortIndex].name;
+
+        var searchSLLModel = {
+            FirstName: $("#txtFirstName").val(),
+            LastName: $("#txtLastName").val(),
+            RegionId: $("#ddlRegion").val() === "" ? 0 : $("#ddlRegion").val(),
+            ProvinceId: $("#ddlProvince").val() === "" ? 0 : $("#ddlProvince").val(),
+            UnitId: $("#ddlUnit").val() === "" ? 0 : $("#ddlUnit").val(),
+            QualifiedRankId: $("#ddlQualifiedRank").val() === "" ? 0 : $("#ddlQualifiedRank").val(),
+            QualifiedRank: $("#ddlQualifiedRank").text() === "" ? 0 : $("#ddlQualifiedRank").text(),
+            PresentRank: $("#ddlPresentRank").val() === "" ? 0 : $("#ddlPresentRank").val()
+        };
+
+        datatableInfo.searchSLLModel = searchSLLModel;
+        return datatableInfo;
+    }
+
+    function FilterSearch() {
+        isSearch = true;
+        myTable.ajax.reload();
+    }
+
+
+    $(document).ready(function() {
+
+        LoadProvinceDropdown();
+
+        $("#ddlRegion").change(function () {
+            var ID = $(this).val();
+            LoadProvinceByRegion(ID, "");
+        });
+
+    });
+
+    function LoadProvinceDropdown() {
+        var ID = $("#ddlRegion").val();
+        LoadProvinceByRegion(ID, "FirstLoad");
+    }
+
+    function LoadProvinceByRegion(ID, type) {
+        $.getJSON("/Unit/LoadProvinceByDistrict", { regionId: ID },
+            function (data) {
+                var select = $("#ddlProvince");
+                select.empty();
+                select.append($('<option/>', {
+                    value: 0,
+                    text: " --- Please Select---"
+                }));
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+    }
+</script>
+
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")

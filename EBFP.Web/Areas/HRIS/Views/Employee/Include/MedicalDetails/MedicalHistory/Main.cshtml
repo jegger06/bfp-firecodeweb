@@ -1,0 +1,1488 @@
+﻿@model EBFP.BL.HumanResources.EmployeeMedicalModel
+@using EBFP.BL.Helper
+
+<style>
+    #divCheck input[type='checkbox'] {
+        width: 15px !important;
+        height: 15px !important;
+    }
+
+    #divCheckHistory input[type='checkbox'] {
+        width: 15px !important;
+        height: 15px !important;
+    }
+</style>
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                VI. Past Illness of your self and family
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Date</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalHistory.MH_History_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Alcohol use:</label>
+                                <div class="col-md-6">
+                                    <div class="col-sm-6" style="padding-left: 0 !important">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(e => e.MedicalHistory.MH_Alcohol_Use, true, new { id = "MH_Alcohol_Use-true" })
+                                            @Html.Label("MH_Alcohol_Use-true", "Yes")
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6" style="padding-left: 0 !important">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(e => e.MedicalHistory.MH_Alcohol_Use, false, new { id = "MH_Alcohol_Use-false" })
+                                            @Html.Label("MH_Alcohol_Use-false", "No")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Alcohol: How much per day</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalHistory.MH_Alcohol_HowMuch_PerDay, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Caffeine use:</label>
+                                <div class="col-md-6">
+                                    <div class="col-sm-4" style="padding-left: 0 !important">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(e => e.MedicalHistory.MH_Caffeine, 1, new { id = "MH_Caffeine-1" })
+                                            @Html.Label("MH_Caffeine-1", "Coffee")
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" style="padding-left: 0 !important">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(e => e.MedicalHistory.MH_Caffeine, 2, new {id = "MH_Caffeine-2"})
+                                            @Html.Label("MH_Caffeine-2", "Tea")
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" style="padding-left: 0 !important">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(e => e.MedicalHistory.MH_Caffeine, 3, new { id = "MH_Caffeine-3" })
+                                            @Html.Label("MH_Caffeine-3", "Colas")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Caffeine: How much per day</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalHistory.MH_Caffeine_HowMuch_PerDay, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">No of Children</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalHistory.MH_NoOfChildren, new {@class = "form-control"})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Tobbacco use:</label>
+                                <div class="col-md-6">
+                                    <div class="col-sm-6" style="padding-left: 0 !important">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(e => e.MedicalHistory.MH_Tobacco_Use, true, new {id = "MH_Tobacco_Use-true" })
+                                            @Html.Label("MH_Tobacco_Use-true", "Yes")
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6" style="padding-left: 0 !important">
+                                        <div class="radio radio-info">
+                                            @Html.RadioButtonFor(e => e.MedicalHistory.MH_Tobacco_Use, false, new {id = "MH_Tobacco_Use-false" })
+                                            @Html.Label("MH_Tobacco_Use-false", "No")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Tobbacco: How much per day</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalHistory.MH_Tobacco_HowMuch_PerDay, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Tobbacco: How long</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalHistory.MH_Tobacco_HowLong, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Date Quit</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalHistory.MH_Tobacco_Quit_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div>
+                    <label style="font-weight: bold; text-decoration: underline">
+                        PAST ILLNESS OF YOURSELF AND FAMILY:
+                    </label>
+                </div>
+                <br />
+
+                <div id="divCheck" style="padding-bottom: 20px" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid gray">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="form-horizontal">
+
+
+                            <div class="form-group" style="border-bottom: 1px solid gray">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    You
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    Family
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Alcoholism, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Alcoholism, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Alcoholism
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Anemia, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Anemia, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Anemia
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Asthma, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Asthma, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Asthma
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Cancer, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Cancer, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Cancer/Tumor
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Diabetes, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Diabetes, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Diabetes
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_DrugAbuse, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_DrugAbuse, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Drug Abuse
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Depression, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Depression, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Depression
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Epilepsy, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Epilepsy, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Epilepsy/Seizues
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Glaucoma, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Glaucoma, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Glaucoma
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_HeartDisease, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_HeartDisease, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Heart Disease
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @*Second Column*@
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="form-horizontal">
+
+                            <div class="form-group" style="border-bottom: 1px solid gray">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    You
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    Family
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_HighBlood, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_HighBlood, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    High Blood Pressure
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_KidneyDisease, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_KidneyDisease, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Kidney Disease
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_LiverDisease, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_LiverDisease, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Liver Disease
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Hepatitis, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Hepatitis, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Hepatitis
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_LungDisease, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_LungDisease, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Lung Disease
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_MentalIllness, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_MentalIllness, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Mental Illness
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_OsteoArthritis, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_OsteoArthritis, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    OsteoArthritis
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_OsteoPorosis, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_OsteoPorosis, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    OsteoPorosis
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Phlebitis, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Phlebitis, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Phlebitis
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_RheumaticArthritis, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_RheumaticArthritis, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Rheumatic Arthritis
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="form-horizontal">
+
+                            <div class="form-group" style="border-bottom: 1px solid gray">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    You
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    Family
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Stroke, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Stroke, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Stroke
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_SuicideAttempt, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_SuicideAttempt, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Suicide Attemp
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_ThyroidDisease, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_ThyroidDisease, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Thyroid Disease
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Tubercolosis, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Tubercolosis, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Tubercolosis, TB
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Ulcer, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Ulcer, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Ulcer in GI Tract
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_VenerealDisease, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_VenerealDisease, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    Venereal Disease
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_HighCholesterol, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_HighCholesterol, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    High Cholesterol
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_HIV, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_HIV, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    HIV/Immune DX
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Self_Other, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    @Html.CheckBoxFor(model => model.MedicalHistory.MH_Fam_Other, new { @class = "form-control" })
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <div style="float: left; padding: 0 5px 0 0">
+                                        Other
+                                    </div>
+                                    <div style="float:left">
+                                        @Html.TextBoxFor(model => model.MedicalHistory.MH_Fam_Other_Text, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="divCheckHistory" class="col-lg-12 col-md-12 col-sm-12 col-xs-12  radio radio-info">
+                    @*First Column*@
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="form-horizontal">
+                            @*CONSTITUTIONAL*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    CONSTITUTIONAL :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Weight Loss
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_WeightLoss, true, new { id = "MH_WeightLoss-true" })
+                                    @Html.Label("MH_WeightLoss-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_WeightLoss, false, new { id = "MH_WeightLoss-false" })
+                                    @Html.Label("MH_WeightLoss-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Fatigue
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Fatigue, true, new { id = "MH_Fatigue-true" })
+                                    @Html.Label("MH_Fatigue-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Fatigue, false, new { id = "MH_Fatigue-false" })
+                                    @Html.Label("MH_Fatigue-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Fever
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Fever, true, new { id = "MH_Fever-true" })
+                                    @Html.Label("MH_Fever-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Fever, false, new { id = "MH_Fever-false" })
+                                    @Html.Label("MH_Fever-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*EYES*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    EYES :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Glasses/Contact
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Glasses_Contacts, true, new { id = "MH_Glasses_Contacts-true" })
+                                    @Html.Label("MH_Glasses_Contacts-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Glasses_Contacts, false, new { id = "MH_Glasses_Contacts-false" })
+                                    @Html.Label("MH_Glasses_Contacts-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Eye Pain
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_EyePain, true, new { id = "MH_EyePain-true" })
+                                    @Html.Label("MH_EyePain-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_EyePain, false, new { id = "MH_EyePain-false" })
+                                    @Html.Label("MH_EyePain-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Double Vision
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_DoubleVision, true, new { id = "MH_DoubleVision-true" })
+                                    @Html.Label("MH_DoubleVision-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_DoubleVision, false, new { id = "MH_DoubleVision-false" })
+                                    @Html.Label("MH_DoubleVision-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Cataracts
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Cataracts, true, new { id = "MH_Cataracts-true" })
+                                    @Html.Label("MH_Cataracts-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Cataracts, false, new { id = "MH_Cataracts-false" })
+                                    @Html.Label("MH_Cataracts-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*EARS, NOSE, THROAT*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    EARS, NOSE, THROAT :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Difficulty Hearing
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_DifficultyHearing, true, new {id = "MH_DifficultyHearing-true"})
+                                    @Html.Label("MH_DifficultyHearing-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_DifficultyHearing, false, new {id = "MH_DifficultyHearing-false"})
+                                    @Html.Label("MH_DifficultyHearing-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Ringin in Ears
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_RingingInEars, true, new {id = "MH_RingingInEars-true"})
+                                    @Html.Label("MH_RingingInEars-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_RingingInEars, false, new {id = "MH_RingingInEars-false"})
+                                    @Html.Label("MH_RingingInEars-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Vertigo
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Vertigo, true, new {id = "MH_Vertigo-true"})
+                                    @Html.Label("MH_Vertigo-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Vertigo, false, new {id = "MH_Vertigo-false"})
+                                    @Html.Label("MH_Vertigo-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Sinus Trouble
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_SinusTrouble, true, new {id = "MH_SinusTrouble-true"})
+                                    @Html.Label("MH_SinusTrouble-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_SinusTrouble, false, new {id = "MH_SinusTrouble-false"})
+                                    @Html.Label("MH_SinusTrouble-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Nasal Stuffiness
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_NasalStuffiness, true, new {id = "MH_NasalStuffiness-true"})
+                                    @Html.Label("MH_NasalStuffiness-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_NasalStuffiness, false, new {id = "MH_NasalStuffiness-false"})
+                                    @Html.Label("MH_NasalStuffiness-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Frequent Sore Throat
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_FrequentSoreThroat, true, new {id = "MH_FrequentSoreThroat-true"})
+                                    @Html.Label("MH_FrequentSoreThroat-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_FrequentSoreThroat, false, new {id = "MH_FrequentSoreThroat-false"})
+                                    @Html.Label("MH_FrequentSoreThroat-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*CARDIOVASCULAR*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    CARDIOVASCULAR :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Murmur
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Murmur, true, new { id = "MH_Murmur-true" })
+                                    @Html.Label("MH_Murmur-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Murmur, false, new { id = "MH_Murmur-false" })
+                                    @Html.Label("MH_Murmur-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Chest Pain
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_ChestPain, true, new { id = "MH_ChestPain-true" })
+                                    @Html.Label("MH_ChestPain-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_ChestPain, false, new { id = "MH_ChestPain-false" })
+                                    @Html.Label("MH_ChestPain-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Palpitations
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Palpitations, true, new { id = "MH_Palpitations-true" })
+                                    @Html.Label("MH_Palpitations-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Palpitations, false, new { id = "MH_Palpitations-false" })
+                                    @Html.Label("MH_Palpitations-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Diszziness
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Dizziness, true, new { id = "MH_Dizziness-true" })
+                                    @Html.Label("MH_Dizziness-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Dizziness, false, new { id = "MH_Dizziness-false" })
+                                    @Html.Label("MH_Dizziness-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Fainting Spells
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_FaintingSpells, true, new { id = "MH_FaintingSpells-true" })
+                                    @Html.Label("MH_FaintingSpells-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_FaintingSpells, false, new { id = "MH_FaintingSpells-false" })
+                                    @Html.Label("MH_FaintingSpells-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Shortness of Breath
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_ShortnessOfBreath, true, new { id = "MH_ShortnessOfBreath-true" })
+                                    @Html.Label("MH_ShortnessOfBreath-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_ShortnessOfBreath, false, new { id = "MH_ShortnessOfBreath-false" })
+                                    @Html.Label("MH_ShortnessOfBreath-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Difficulty Lying Flat
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_DifficultyLyingFlat, true, new { id = "MH_DifficultyLyingFlat-true" })
+                                    @Html.Label("MH_DifficultyLyingFlat-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_DifficultyLyingFlat, false, new { id = "MH_DifficultyLyingFlat-false" })
+                                    @Html.Label("MH_DifficultyLyingFlat-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Swelling Ankles
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_SwellingAnkles, true, new { id = "MH_SwellingAnkles-true" })
+                                    @Html.Label("MH_SwellingAnkles-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_SwellingAnkles, false, new { id = "MH_SwellingAnkles-false" })
+                                    @Html.Label("MH_SwellingAnkles-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*ENDOCRINE*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    ENDOCRINE :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Loss of Hair
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_LossOfHair, true, new { id = "MH_LossOfHair-true" })
+                                    @Html.Label("MH_LossOfHair-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_LossOfHair, false, new { id = "MH_LossOfHair-false" })
+                                    @Html.Label("MH_LossOfHair-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Heat/Cold Intolerance
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Heat_ColdIntolerance, true, new { id = "MH_Heat_ColdIntolerance-true" })
+                                    @Html.Label("MH_Heat_ColdIntolerance-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Heat_ColdIntolerance, false, new { id = "MH_Heat_ColdIntolerance-false" })
+                                    @Html.Label("MH_Heat_ColdIntolerance-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Second Column*@
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    RESPIRATORY :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Cough
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Cough, true, new {id = "MH_Cough-true"})
+                                    @Html.Label("MH_Cough-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Cough, false, new {id = "MH_Cough-false"})
+                                    @Html.Label("MH_Cough-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Coughing Blood
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_CoughingBlood, true, new {id = "MH_CoughingBlood-true"})
+                                    @Html.Label("MH_CoughingBlood-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_CoughingBlood, false, new {id = "MH_CoughingBlood-false"})
+                                    @Html.Label("MH_CoughingBlood-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Wheezing
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Wheezing, true, new {id = "MH_Wheezing-true"})
+                                    @Html.Label("MH_Wheezing-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Wheezing, false, new {id = "MH_Wheezing-false"})
+                                    @Html.Label("MH_Wheezing-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Chills
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Chills, true, new {id = "MH_Chills-true"})
+                                    @Html.Label("MH_Chills-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Chills, false, new {id = "MH_Chills-false"})
+                                    @Html.Label("MH_Chills-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*GASTROINTESTINAL*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    GASTROINTESTINAL :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Heartburn/Reflux
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Heartburn, true, new { id = "MH_Heartburn-true" })
+                                    @Html.Label("MH_Heartburn-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Heartburn, false, new { id = "MH_Heartburn-false" })
+                                    @Html.Label("MH_Heartburn-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Nausea/Vomiting
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Nausea, true, new { id = "MH_Nausea-true" })
+                                    @Html.Label("MH_Nausea-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Nausea, false, new { id = "MH_Nausea-false" })
+                                    @Html.Label("MH_Nausea-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Constipation
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Constipation, true, new { id = "MH_Constipation-true" })
+                                    @Html.Label("MH_Constipation-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Constipation, false, new { id = "MH_Constipation-false" })
+                                    @Html.Label("MH_Constipation-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Change in BMs
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_ChangeInBM, true, new { id = "MH_ChangeInBM-true" })
+                                    @Html.Label("MH_ChangeInBM-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_ChangeInBM, false, new { id = "MH_ChangeInBM-false" })
+                                    @Html.Label("MH_ChangeInBM-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Diarrhea
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Diarrhea, true, new { id = "MH_Diarrhea-true" })
+                                    @Html.Label("MH_Diarrhea-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Diarrhea, false, new { id = "MH_Diarrhea-false" })
+                                    @Html.Label("MH_Diarrhea-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Jaundince
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Jaundince, true, new { id = "MH_Jaundince-true" })
+                                    @Html.Label("MH_Jaundince-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Jaundince, false, new { id = "MH_Jaundince-false" })
+                                    @Html.Label("MH_Jaundince-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Abdominal Pain
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_AbdominalPain, true, new { id = "MH_AbdominalPain-true" })
+                                    @Html.Label("MH_AbdominalPain-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_AbdominalPain, false, new { id = "MH_AbdominalPain-false" })
+                                    @Html.Label("MH_AbdominalPain-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Black or Bloody BM
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_BlackOrBloodyBM, true, new { id = "MH_BlackOrBloodyBM-true" })
+                                    @Html.Label("MH_BlackOrBloodyBM-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_BlackOrBloodyBM, false, new { id = "MH_BlackOrBloodyBM-false" })
+                                    @Html.Label("MH_BlackOrBloodyBM-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*GENITOURINARY*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    GENITOURINARY :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Burning/Frequency
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_Burning, true, new { id = "MH_Gen_Burning-true" })
+                                    @Html.Label("MH_Gen_Burning-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_Burning, false, new { id = "MH_Gen_Burning-false" })
+                                    @Html.Label("MH_Gen_Burning-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Nighttime
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_NightTime, true, new { id = "MH_Gen_NightTime-true" })
+                                    @Html.Label("MH_Gen_NightTime-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_NightTime, false, new { id = "MH_Gen_NightTime-false" })
+                                    @Html.Label("MH_Gen_NightTime-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Blood in Urine
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_BloodInUrine, true, new { id = "MH_Gen_BloodInUrine-true" })
+                                    @Html.Label("MH_Gen_BloodInUrine-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_BloodInUrine, false, new { id = "MH_Gen_BloodInUrine-false" })
+                                    @Html.Label("MH_Gen_BloodInUrine-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Erectile Dysfunction
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_ErectileDysfunction, true, new { id = "MH_Gen_ErectileDysfunction-true" })
+                                    @Html.Label("MH_Gen_ErectileDysfunction-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_ErectileDysfunction, false, new { id = "MH_Gen_ErectileDysfunction-false" })
+                                    @Html.Label("MH_Gen_ErectileDysfunction-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Abnormal Discharge
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_AbnormalDischarge, true, new { id = "MH_Gen_AbnormalDischarge-true" })
+                                    @Html.Label("MH_Gen_AbnormalDischarge-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_AbnormalDischarge, false, new { id = "MH_Gen_AbnormalDischarge-false" })
+                                    @Html.Label("MH_Gen_AbnormalDischarge-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Bladder Leakage
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_BladderLeakage, true, new { id = "MH_Gen_BladderLeakage-true" })
+                                    @Html.Label("MH_Gen_BladderLeakage-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Gen_BladderLeakage, false, new { id = "MH_Gen_BladderLeakage-false" })
+                                    @Html.Label("MH_Gen_BladderLeakage-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*ALLERGIC/IMMUNOLOGIC*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    ALLERGIC/IMMUNOLOGIC :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Hives/Eczema
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Hives, true, new {id = "MH_Hives-true"})
+                                    @Html.Label("MH_Hives-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Hives, false, new {id = "MH_Hives-false"})
+                                    @Html.Label("MH_Hives-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Hay Fever
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_HayFever, true, new {id = "MH_HayFever-true"})
+                                    @Html.Label("MH_HayFever-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_HayFever, false, new {id = "MH_HayFever-false"})
+                                    @Html.Label("MH_HayFever-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*PSYCHIATRIC*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    PSYCHIATRIC :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Anxiety/Depression
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Anxiety, true, new { id = "MH_Anxiety-true" })
+                                    @Html.Label("MH_Anxiety-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Anxiety, false, new { id = "MH_Anxiety-false" })
+                                    @Html.Label("MH_Anxiety-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Mood Swings
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_MoodSwings, true, new { id = "MH_MoodSwings-true" })
+                                    @Html.Label("MH_MoodSwings-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_MoodSwings, false, new { id = "MH_MoodSwings-false" })
+                                    @Html.Label("MH_MoodSwings-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Difficult Sleeping
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_DifficultSleeping, true, new { id = "MH_DifficultSleeping-true" })
+                                    @Html.Label("MH_DifficultSleeping-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_DifficultSleeping, false, new { id = "MH_MoodSwingsMH_DifficultSleeping-false" })
+                                    @Html.Label("MH_MoodSwings-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Third Column*@
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="form-horizontal">
+                            @*HEMATOLOGY/LYMPH*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    HEMATOLOGY/LYMPH :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Easy Bruising
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_EasyBruising, true, new {id = "MH_EasyBruising-true"})
+                                    @Html.Label("MH_EasyBruising-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_EasyBruising, false, new {id = "MH_EasyBruising-false"})
+                                    @Html.Label("MH_EasyBruising-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Gums Bleed Easily
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_GumsBleedEasily, true, new {id = "MH_GumsBleedEasily-true"})
+                                    @Html.Label("MH_GumsBleedEasily-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_GumsBleedEasily, false, new {id = "MH_GumsBleedEasily-false"})
+                                    @Html.Label("MH_GumsBleedEasily-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Elarged Glands
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_EnlargeGlands, true, new {id = "MH_EnlargeGlands-true"})
+                                    @Html.Label("MH_EnlargeGlands-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_EnlargeGlands, false, new {id = "MH_EnlargeGlands-false"})
+                                    @Html.Label("MH_EnlargeGlands-false", "No")
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-horizontal">
+                            @*MUsCULOSKELETAL*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    MUSCULOSKELETAL :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Joint Pain/Swelling
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_JointPain, true, new {id = "MH_JointPain-true"})
+                                    @Html.Label("MH_JointPain-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_JointPain, false, new {id = "MH_JointPain-false"})
+                                    @Html.Label("MH_JointPain-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Stiffiness
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Stiffness, true, new {id = "MH_Stiffness-true"})
+                                    @Html.Label("MH_Stiffness-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Stiffness, false, new {id = "MH_Stiffness-false"})
+                                    @Html.Label("MH_Stiffness-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Muscle Pain
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_MusclePain, true, new {id = "MH_MusclePain-true"})
+                                    @Html.Label("MH_MusclePain-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_MusclePain, false, new {id = "MH_MusclePain-false"})
+                                    @Html.Label("MH_MusclePain-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Back Pain
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_BackPain, true, new {id = "MH_BackPain-true"})
+                                    @Html.Label("MH_BackPain-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_BackPain, false, new {id = "MH_BackPain-false"})
+                                    @Html.Label("MH_BackPain-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*SKIN*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    SKIN :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Rash/Sores
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Rash, true, new {id = "MH_Rash-true"})
+                                    @Html.Label("MH_Rash-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Rash, false, new {id = "MH_Rash-false"})
+                                    @Html.Label("MH_Rash-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Lesions
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Lesions, true, new {id = "MH_Lesions-true"})
+                                    @Html.Label("MH_Lesions-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Lesions, false, new {id = "MH_Lesions-false"})
+                                    @Html.Label("MH_Lesions-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Itching/Burning
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Itching, true, new {id = "MH_Itching-true"})
+                                    @Html.Label("MH_Itching-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Itching, false, new {id = "MH_Itching-false"})
+                                    @Html.Label("MH_Itching-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*NEUROLOGICAL*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    NEUROLOGICAL :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Loss of Strength
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_LossOfStrength, true, new {id = "MH_LossOfStrength-true"})
+                                    @Html.Label("MH_LossOfStrength-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_LossOfStrength, false, new {id = "MH_LossOfStrength-false"})
+                                    @Html.Label("MH_LossOfStrength-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Numbness
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Numbness, true, new {id = "MH_Numbness-true"})
+                                    @Html.Label("MH_Numbness-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Numbness, false, new {id = "MH_Numbness-false"})
+                                    @Html.Label("MH_Numbness-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Headaches
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Headaches, true, new {id = "MH_Headaches-true"})
+                                    @Html.Label("MH_Headaches-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Headaches, false, new {id = "MH_Headaches-false"})
+                                    @Html.Label("MH_Headaches-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Tremors
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Tremors, true, new {id = "MH_Tremors-true"})
+                                    @Html.Label("MH_Tremors-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Tremors, false, new {id = "MH_Tremors-false"})
+                                    @Html.Label("MH_Tremors-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Memory Loss
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_MemoryLoss, true, new {id = "MH_MemoryLoss-true"})
+                                    @Html.Label("MH_MemoryLoss-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_MemoryLoss, false, new {id = "MH_MemoryLoss-false"})
+                                    @Html.Label("MH_MemoryLoss-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            @*FEMALES ONLY*@
+                            <div class="form-group">
+                                <div style="text-decoration: underline; font-weight: bold">
+                                    FEMALE ONLY :
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Date Last Mammogram
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalHistory.MH_LastMammogram_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Normal
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_LastMammogram_Normal, true, new { id = "MH_LastMammogram_Normal-true" })
+                                    @Html.Label("MH_LastMammogram_Normal-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_LastMammogram_Normal, false, new { id = "MH_LastMammogram_Normal-false" })
+                                    @Html.Label("MH_LastMammogram_Normal-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Date Last PAP
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalHistory.MH_LastPap_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Normal
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_LastPap_Normal, true, new { id = "MH_LastPap_Normal-true" })
+                                    @Html.Label("MH_LastPap_Normal-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_LastPap_Normal, false, new { id = "MH_LastPap_Normal-false" })
+                                    @Html.Label("MH_LastPap_Normal-false", "No")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Age Onset Periods
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.TextBoxFor(model => model.MedicalHistory.MH_Age_Onset_Periods, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Age Onset Menopause
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.TextBoxFor(model => model.MedicalHistory.MH_Age_Onset_Menopause, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Periods Regular
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Periods_Regular, true, new { id = "MH_Periods_Regular-true" })
+                                    @Html.Label("MH_Periods_Regular-true", "Yes", new { @style="padding-right:30px;" })
+                                    @Html.RadioButtonFor(e => e.MedicalHistory.MH_Periods_Regular, false, new { id = "MH_Periods_Regular-false" })
+                                    @Html.Label("MH_Periods_Regular-false", "No")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    Number Pregnancies
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    @Html.TextBoxFor(model => model.MedicalHistory.MH_Pregnancies_Number, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                   
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <label class="col-md-5 control-label">Reviewing Physicians</label>
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(model => model.MedicalHistory.MH_ReviewingPhysician, new { @class = "form-control" })
+                    </div>
+                </div>
+           
+                <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.mydatepicker, #datepicker').datepicker();
+                });
+                </script>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

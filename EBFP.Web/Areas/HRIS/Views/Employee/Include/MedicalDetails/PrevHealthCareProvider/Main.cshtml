@@ -1,0 +1,62 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.HumanResources.EmployeeMedicalModel
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        III. Previous Health Care Provider in the past five years
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical_Modify))
+      {
+          <div style="overflow: hidden !important; padding: 10px !important">
+            <button type="button" id="AddNewProvider" name="AddNewProvider" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 MedicalAccess"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+      }
+      <div class="divTable">
+        <div class="divTableHeading">
+          <div class="divTableRow">
+            <div class="divTableHead  text-center">NAME</div>
+            <div class="divTableHead text-center">CITY/STATE</div>
+            <div class="divTableHead text-center">PROBLEM CARED FOR</div>
+            <div class="divTableHead text-center">STILL SEEING?</div>
+            <div class="divTableHead text-center">REFERRAL?</div>
+            <div class="divTableHead text-center">&nbsp;</div>
+          </div>
+        </div>
+        <div class="divTableBody" id="NewProvider">
+          @if (@Model.HealthCareProvider != null)
+          {
+            for (int i = 0; i < @Model.HealthCareProvider.Count(); i++)
+            {
+                  @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PrevHealthCareProvider/Editor.cshtml", @Model.HealthCareProvider[i])
+            }
+          }
+        </div>
+      </div>
+
+      <div style="overflow: hidden !important; padding: 10px !important">
+        &nbsp;
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#AddNewProvider").click(function () {
+            $.ajax({
+              async: false,
+              url: '/HRIS/Employee/HealthCareProviderEditor'
+            }).success(function (partialView) {
+              $(partialView).appendTo("#NewProvider");
+            });
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
+
+

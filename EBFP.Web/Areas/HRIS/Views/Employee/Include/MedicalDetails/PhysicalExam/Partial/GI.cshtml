@@ -1,0 +1,129 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+
+
+<div class="col-md-12 chk-label">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Abdomen_Symmetrical, new { @class = "form-control" })
+        <label class="control-label chk-label">Abdomen Symmetrical</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_No_Abnormal_Distension, new { @class = "form-control" })
+        <label class="control-label chk-label">No Abnormal Distension</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Mass, new { @class = "form-control" })
+        <label class="control-label chk-label">+ Mass-Location(s)</label>
+    </div>
+    <div class="col-md-4">
+        @Html.TextBoxFor(model => model.GI.PE_Mass_Locations, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Percussion_Wthin_Normal_Limits, new { @class = "form-control" })
+        <label class="control-label chk-label">Percussion Within Normal Limits</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Soft, new { @class = "form-control" })
+        <label class="control-label chk-label">Soft</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_No_Tenderness, new { @class = "form-control" })
+        <label class="control-label chk-label">No Tenderness</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Scars_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Scars Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Hernias_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Hernias Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Organomegaly, new { @class = "form-control" })
+        <label class="control-label chk-label">Organomegaly</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Auscultation, new { @class = "form-control" })
+        <label class="control-label chk-label">AUSCULTATION: Normal Bowel Sounds X 4Q</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_BS_Hypoactive, new { @class = "form-control" })
+        <label class="control-label chk-label">BS Hypoactive</label>
+    </div>
+    <div class="chk-group" style="padding-right: 20px;">
+        @Html.CheckBoxFor(model => model.GI.PE_BS_Hyperactive, new { @class = "form-control" })
+        <label class="control-label chk-label">BS Hyperactive</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_BS_Absent, new { @class = "form-control" })
+        <label class="control-label chk-label">BS Absent</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Rectal_Exam_Deferred, new { @class = "form-control" })
+        <label class="control-label chk-label">Rectal Exam Deferred</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Rectal_Exam_Reveals, new { @class = "form-control" })
+        <label class="control-label chk-label">Rectal Exam Reveals: Peri-Rectal Area Normal to Inspection and Palpation</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Stool_Brown, new { @class = "form-control" })
+        <label class="control-label chk-label">Stool Brown</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Deep_Palpation_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">Deep Palpation Normal</label>
+    </div>
+    <div class="chk-group" style="padding-right: 20px;">
+        @Html.CheckBoxFor(model => model.GI.PE_Ostomy_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Ostomy present (please specify): </label>
+    </div>
+    <div class="col-md-3 col-sm-3">
+        @Html.TextBoxFor(model => model.GI.PE_Ostomy_Present_Text, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GI.PE_Stool_Guaiac, new { @class = "form-control" })
+        <label class="control-label chk-label">Stool Guaiac</label>
+    </div>
+    <div class="col-md-3">
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.GI.PE_Stool_Guaiac_Positive, true, new { id = "PE_Stool_Guaiac_Positive-true" })
+                @Html.Label("PE_Stool_Guaiac_Positive-true", "Positive")
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.GI.PE_Stool_Guaiac_Positive, false, new { id = "PE_Stool_Guaiac_Positive-false" })
+                @Html.Label("PE_Stool_Guaiac_Positive-false", "Negative")
+            </div>
+        </div>
+    </div>
+    <div class="chk-group" style="padding-right: 20px;">
+        @Html.CheckBoxFor(model => model.GI.PE_Internal_External_Hemorrhoids, new { @class = "form-control" })
+        <label class="control-label chk-label">Internal or External Hemorrhoid(s) Present</label>
+    </div>
+    <div class="chk-group" style="padding-right: 20px;">
+        @Html.CheckBoxFor(model => model.GI.PE_Sphincter_Tone_Poor, new { @class = "form-control" })
+        <label class="control-label chk-label">Sphincter Tone Poor</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px;">
+    <div class="col-md-3">
+        <label class="control-label chk-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.GI.PE_GI_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

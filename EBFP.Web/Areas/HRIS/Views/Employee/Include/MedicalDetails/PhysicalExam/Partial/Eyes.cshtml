@@ -1,0 +1,113 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+<div class="col-md-12">
+    <div class="col-md-4 chk-group">
+        <label class="col-md-3 control-label">Vision</label>
+        <div class="col-md-9">
+            <div class="col-sm-6" style="padding-left: 0 !important">
+                <div class="radio radio-info">
+                    @Html.RadioButtonFor(e => e.Eyes.PE_Vision_Normal, true, new { id = "PE_Vision_Normal-true" })
+                    @Html.Label("PE_Vision_Normal-true", "Normal", new { @style = "padding-right:40px;" })
+                </div>
+            </div>
+            <div class="col-sm-6" style="padding-left: 0 !important">
+                <div class="radio radio-info">
+                    @Html.RadioButtonFor(e => e.Eyes.PE_Vision_Normal, false, new { id = "PE_Vision_Normal-false" })
+                    @Html.Label("PE_Vision_Normal-false", "Abnormal", new { @style = "padding-right:30px;" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="chk-group col-md-2">
+            <label class="control-label chk-label">Lids/Lashes</label>
+        </div>
+        <div class="chk-group col-md-10">
+            <div class="col-md-12">
+                <div class="col-sm-3" style="padding-left: 0 !important">
+                    <div class="radio radio-info">
+                        @Html.RadioButtonFor(e => e.Eyes.PE_Lids, 1, new { id = "PE_Lids-1" })
+                        @Html.Label("PE_Lids-1", "Normal", new { @style = "padding-right:30px;" })
+                    </div>
+                </div>
+                <div class="col-sm-3" style="padding-left: 0 !important">
+                    <div class="radio radio-info">
+                        @Html.RadioButtonFor(e => e.Eyes.PE_Lids, 2, new { id = "PE_Lids-2" })
+                        @Html.Label("PE_Lids-2", "Abnormal", new { @style = "padding-right:30px;" })
+                    </div>
+                </div>
+                <div class="col-sm-3" style="padding-left: 0 !important">
+                    <div class="radio radio-info">
+                        @Html.RadioButtonFor(e => e.Eyes.PE_Lids, 3, new { id = "PE_Lids-3" })
+                        @Html.Label("PE_Lids-3", "Erythema", new { @style = "padding-right:30px;" })
+                    </div>
+                </div>
+                <div class="col-sm-3" style="padding-left: 0 !important">
+                    <div class="radio radio-info">
+                        @Html.RadioButtonFor(e => e.Eyes.PE_Lids, 4, new { id = "PE_Lids-4" })
+                        @Html.Label("PE_Lids-4", "Drainage", new { @style = "padding-right:30px;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Eyes.PE_Conjunctivae, new { @class = "form-control" })
+        <label class="control-label chk-label">Conjunctivae Pink - No Injection</label>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-5">
+        <div class="col-md-4" style="padding-left: 3px;">
+            @Html.CheckBoxFor(model => model.Eyes.PE_PERRLA, new { @class = "form-control" })
+            <label class="control-label chk-label">PERRLA</label>
+        </div>
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.Eyes.PE_PERRLA_Text, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Eyes.PE_ScleralIcterus, new { @class = "form-control" })
+        <label class="control-label chk-label">Scleral Icterus</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Eyes.PE_PaleConjunctivae, new { @class = "form-control" })
+        <label class="control-label chk-label">Pale Conjunctivae</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Eyes.PE_EOM_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">EOM Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Eyes.PE_AV_Nicking, new { @class = "form-control" })
+        <label class="control-label chk-label">AV Nicking</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 10px;">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Eyes.PE_VisualAcuity, new { @class = "form-control" })
+        <label class="control-label chk-label">Visual Aculity RT-20/</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Eyes.PE_VisualAcuity_Right, new { @class = "form-control" })
+    </div>
+    <div class="col-md-1">
+        LT-20/
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Eyes.PE_VisualAcuity_Left, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 10px;">
+    <div class="col-md-3">
+        <label class="control-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Eyes.PE_Eyes_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

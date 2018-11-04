@@ -1,0 +1,59 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.HumanResources.EmployeeMedicalModel
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        IV. Allergic and Adverse Reactions to Medications
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical_Modify))
+      {
+          <div style="overflow: hidden !important; padding: 10px !important">
+            <button type="button" id="AddReaction" name="AddReaction" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 MedicalAccess"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+      }
+      <div class="divTable">
+        <div class="divTableHeading">
+          <div class="divTableRow">
+            <div class="divTableHead  text-center">Name of Medication</div>
+            <div class="divTableHead text-center">Adverse Reaction</div>
+            <div class="divTableHead text-center">&nbsp;</div>
+          </div>
+        </div>
+        <div class="divTableBody" id="NewAllergicReaction">
+          @if (@Model.AllergicReaction != null)
+          {
+            for (int i = 0; i < @Model.AllergicReaction.Count(); i++)
+            {
+                  @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/AllergicReaction/Editor.cshtml", @Model.AllergicReaction[i])
+            }
+          }
+        </div>
+      </div>
+
+      <div style="overflow: hidden !important; padding: 10px !important">
+        &nbsp;
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#AddReaction").click(function () {
+            $.ajax({
+              async: false,
+              url: '/HRIS/Employee/AllergicReactionEditor'
+            }).success(function (partialView) {
+              $(partialView).appendTo("#NewAllergicReaction");
+            });
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
+
+

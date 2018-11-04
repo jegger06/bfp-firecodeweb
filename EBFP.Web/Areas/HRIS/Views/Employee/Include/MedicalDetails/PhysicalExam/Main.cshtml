@@ -1,0 +1,220 @@
+﻿@model string
+@using EBFP.BL.Helper
+@using EBFP.Helper
+@{ string accessType = Convert.ToString(Request["AccessType"]);}
+<style>
+    #divCheck input[type='checkbox'] {
+        width: 15px !important;
+        height: 15px !important;
+        float: left;
+    }
+
+    #tblPhysicalExam td:first-child {
+        text-align: center;
+        vertical-align: middle
+    }
+
+    #tblPhysicalExam td:first-child + td {
+        text-align: center;
+        vertical-align: middle
+    }
+
+</style>
+
+
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                IX. Physical Exam
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+        <div class="panel-body">
+
+            <div>
+              <div class="row col-sm-12">
+
+                @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical_Modify))
+                {
+                    <div class="row">
+                      <a href="@Url.Action("PhysicalExamDetails", "Employee", new {sPE_Id = 0.ToString().Encrypt(), sEmp_Id = @Model, AccessType = accessType})" style="color: white !important" target="_blank" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 MedicalAccess">
+                        <i class="fa fa-plus-circle"></i> Create New
+                      </a>
+                    </div>
+                }
+               
+
+                <span id="totalRecords">&nbsp;</span>
+                <div class="block1" style="position: static; zoom: 1;">
+
+                  <div class="table-responsive">
+                    <table id="myTable" class="table table-striped table-bordered nowrap">
+                      <thead>
+                      <tr>
+                        <th class="all">Date</th>
+                        <th class="all">Action</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td></td>
+                        <td style="min-width: 200px !important"></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+                <script>
+                    var myTable = null;
+                    $(document).ready(function () {
+                        $('div.block1').block({
+                            message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+                         , css: {
+                             border: '1px solid #fff !important'
+                         }
+                        });
+
+                        myTable = $('#myTable').DataTable({
+                            order: [[0, "asc"]],
+                            serverSide: true,
+                            deferRender: true,
+                            pageLength: 50,
+                            processing: true,
+                            responsive: true,
+                            searching: false,
+                            ajax: {
+                                url: '@Url.Action("GetPhysicalExamList", "Employee")',
+                                type: 'POST',
+                                data: function (d) {
+                                    d.gridInfo = SetDatatableParams()
+                                }
+                            }, "initComplete": function (settings, json) {
+                                $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings._iRecordsTotal.toLocaleString() + " result(s)</span>");
+                            },
+                            "columns": [
+                                {
+                                    "name": "PE_Date",
+                                    "searchable": true,
+                                    "sortable": true,
+                                    "render": function (data, type, full, meta) {
+                                        return formatDate(full.PE_Date);
+                                    }
+                                },
+                                {
+                                    "name": "Action",
+                                    "searchable": false,
+                                    "sortable": false,
+                                    "width": "200px",
+                                    "render": function (data, type, full, meta) {
+                                        return GetActionTemplate(full.sPE_Id);
+                                    }
+
+                                }
+                            ]
+                        })
+                         .on('preXhr.dt', function () {
+                             $('div.block1').block({
+                                 message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+                               , css: {
+                                   border: '1px solid #fff !important'
+                               }
+                             });
+                         })
+                         .on('xhr.dt', function (data, settings) {
+                             $('div.block1').unblock();
+                             if (settings._iRecordsTotal > 0) {
+                                 $("#myTable_length #totalGridResult").remove();
+                                 $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + (settings._iRecordsTotal - 1).toLocaleString() + " result(s)</span>");
+                             }
+
+                         });
+                    });
+
+                    function SetDatatableParams() {
+                        var datatable = $('#myTable').DataTable();
+                        var datatableInfo = datatable.page.info();
+                        var columns = datatable.settings().init().columns;
+                        var order = datatable.order();
+                        var sortIndex = order[0][0];
+                        var sortOrder = order[0][1];
+                        datatableInfo.sortOrder = sortOrder;
+                        datatableInfo.sortColumnName = columns[sortIndex].name;
+                        var empId = @Html.Raw(Json.Encode(Model));
+                        datatableInfo.searchValue = empId;
+                        return datatableInfo;
+                    }
+
+                    function DeleteConfirm(event) {
+
+                        swal({
+                            title: "Are you sure?",
+                            text: "You will not be able to recover deleted item!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, delete it!",
+                            cancelButtonText: "No, cancel plx!",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        }, function (isConfirm) {
+                            if (isConfirm) {
+                                swal("Deleted!", "Item has been deleted.", "success");
+                                $.get(event, function (data, status) {
+                                    myTable.ajax.reload();
+                                });
+                            } else {
+                                swal("Cancelled", "Item delete has been cancelled", "error");
+                            }
+                        });
+
+                    }
+
+                    function GetActionTemplate(sPE_Id) {
+                        var concat = "";
+                        if('@SiteAccess.CanEdit(accessType.Decrypt())' === 'True')
+                        {
+                            concat += '<a href="#" onclick="return DeleteConfirm(\'@Url.Action("DeletePhysicalExam", "Employee")?sPE_Id=' + sPE_Id + '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+                            concat += ' Delete';
+                        }
+                        concat += '</a>';
+                        concat += '<a href="@Url.Action("PhysicalExamDetails", "Employee")?sPE_Id=' + sPE_Id + '&sEmp_Id=' + @Html.Raw(Json.Encode(Model)) + '&AccessType=' + '@accessType' + '" target="_blank" class="btn btn-success pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil">';
+                        concat += ' Details';
+                        concat += '</a>';
+                        return concat;
+                    }
+
+                    function formatDate(date) {
+                        if (date) {
+                            date = new Date(parseInt(date.substr(6)));
+
+                            return addLeadingZeros((date.getMonth() + 1), 2) + '-' + addLeadingZeros(date.getDate(), 2) + '-' + date.getFullYear();
+                            //var time = date.toLocaleTimeString().toLowerCase().replace(/([\d]+:[\d]+):[\d]+(\s\w+)/g, "$1$2");
+
+                            //return (dt + " " + time);
+                        }
+                        return "";
+                    }
+
+                    function addLeadingZeros(n, length) {
+                        var str = (n > 0 ? n : -n) + "";
+                        var zeros = "";
+                        for (var i = length - str.length; i > 0; i--)
+                            zeros += "0";
+                        zeros += str;
+                        return n >= 0 ? zeros : "-" + zeros;
+                    }
+                </script>
+
+
+                @Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

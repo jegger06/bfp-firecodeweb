@@ -1,0 +1,63 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper;
+
+@{
+    bool Viewing = SiteAccess.Viewing(Convert.ToString(Request["AccessType"]).Decrypt());
+    string RoleName = CurrentUser.RoleName;
+}
+
+@if (!Viewing && !PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify))
+    {
+
+      <script type="text/javascript" class="UserViewing">
+        $(document).ready(function () {
+            $(".UserAccessCanEdit").remove();
+          //$('#fieldBFPInfo').attr('disabled', 'disabled');
+          $(".select2").prop("disabled", true);
+
+        });
+      </script>
+    }
+@*@if (Viewing || !PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_BFPInformation_Modify))
+{
+    <script type="text/javascript" class="UserViewing">
+        $(document).ready(function () {
+            $('#fieldBFPInfo').attr('disabled', 'disabled');
+            $('.BFPInfoAccess').remove();
+    });
+    </script>
+}*@
+
+@if (Viewing || !PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical_Modify))
+{
+    <script type="text/javascript" class="UserViewing">
+    $(document).ready(function () {
+        $(".MedicalAccess").remove();
+    });
+    </script>
+}
+@if (RoleName != "REGIONAL ADMIN" && RoleName != "MAIN ADMIN" && !Viewing)
+{
+    <script type="text/javascript" class="UserViewing">
+        $(document).ready(function () {
+            $('.DutyStat').prop("disabled", true);
+        });
+    </script>
+}
+
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/bootstrap/dist/js/bootstrap.min.js")"></script>
+<!-- Menu Plugin JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js")"></script>
+<!--slimscroll JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/js/jquery.slimscroll.js")"></script>
+<!--Wave Effects -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/js/waves.js")"></script>
+<!-- Custom Theme JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/js/custom.min.js")"></script>
+
+<!--Style Switcher -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js")"></script>
+
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/blockUI/jquery.blockUI.js")"></script>
+
+

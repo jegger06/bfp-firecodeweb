@@ -1,0 +1,407 @@
+﻿@model EBFP.BL.Inventory.StationModel
+@using EBFP.BL.Helper;
+@using EBFP.Helper
+@{
+    ViewBag.Title = "Unit (Station) - " + Model.Unit_StationName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_Station_ViewDetails) || PageSecurity.HasAccess(PageArea.Inventory_Station_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+@{
+    var sMunicipalityId = string.IsNullOrWhiteSpace(Request.QueryString["sMunicipalityId"]) ? "0" : Request.QueryString["sMunicipalityId"].Decrypt();
+    var stationModel = new EBFP.BL.Inventory.StationDetailsSearchModel
+    {
+        Station_Id = Model.Unit_Id,
+        SubStation_Id = 0
+    };
+}
+<script src="~/Content/bootstrap/eliteadmin/js/validator.js"></script>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(a => Model.Unit_Id)
+    @Html.HiddenFor(a => Model.sUnit_Id)
+    @Html.HiddenFor(a => Model.Unit_Municipality_Id)
+    <style>
+        .form-horizontal .control-label {
+            text-align: left !important;
+            padding-left: 15px;
+        }
+
+        .partition-border {
+            border: 1px darkgray solid;
+            padding: 10px;
+        }
+
+        .bold-label {
+            font-weight: 500;
+            text-align: center !important;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+
+        select[readonly] option, select[readonly] optgroup {
+            display: none;
+        }
+
+        .affix {
+            top: 10px;
+            width: 100%;
+            z-index: 9999 !important;
+        }
+
+            .affix ~ .container-fluid {
+                padding-top: 10px !important;
+                position: relative;
+                top: 50px !important;
+            }
+
+        .employeeSelection, .mydatepicker {
+            display: block;
+        }
+        
+        .navbar {
+            margin-bottom: 0px;
+        }
+
+        .affix ~ .container-fluid {
+            padding-top: 10px !important;
+            position: relative;
+            top: 50px !important;
+        }
+    </style>
+
+    if (sMunicipalityId == "0")
+    {
+        <a href="@Url.Action("Index", "Inventory")" class="btn btn-danger btn-rounded waves-effect waves-light m-r-10">
+            <i class="fa fa-mail-reply"></i> Back
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action("Index", "Inventory", new { sMunicipalityId = sMunicipalityId.Encrypt()})" class="btn btn-danger btn-rounded waves-effect waves-light m-r-10">
+            <i class="fa fa-mail-reply"></i> Back
+        </a>
+    }
+    <br /><br />
+    <div class="panel-wrapper expand collapse in white-box" aria-expanded="true">
+        <div class="panel-body">
+            <div class="sttabs tabs-style-bar tabs-style-info" id="tabs">
+                <nav>
+                    <ul>
+                        <li class="tab-current"><a href="#section-STATIONDETAILS" class="sticon "><span>DETAILS</span></a></li>
+                        <li class=""><a href="#section-STATIONPERSONNEL"><span>PERSONNEL</span></a></li>
+                        <li class=""><a href="#section-STATIONTRUCK"><span>TRUCK</span></a></li>
+                        <li class=""><a href="#section-STATIONVEHICLE"><span>VEHICLE</span></a></li>
+                    </ul>
+                </nav>
+                <div class="content-wrap">
+                    <section id="section-STATIONDETAILS" class="content-current">
+                        <div class="col-sm-12">
+                            <div class="col-sm-12" data-spy="affix" data-offset-top="197">
+                                @if (PageSecurity.HasAccess(PageArea.Inventory_Station_Modify))
+                {
+                                    <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-check"></i> Submit</button>
+                                }
+                            </div>
+                            <br /><br />
+                            <div class="panel panel-info">
+                                <div class="row" style="padding: 20px;">
+                                    <div class="col-sm-12">
+
+                                        <div class="row">
+                                            <div class="col-sm-6 col-xs-12">
+                                                <div class="form-horizontal">
+                                                    <div class="partition-border">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">NSCB GEOCODE</label>
+                                                            <div class="col-md-8">
+                                                                @Html.TextBoxFor(model => model.NSCB, new { @class = "form-control", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Municipality</label>
+                                                            <div class="col-md-8">
+                                                                @Html.TextBoxFor(model => model.MunicipalityName, new { @class = "form-control", @style = "font-weight:bold;", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Region</label>
+                                                            <div class="col-md-8">
+                                                                <div>
+                                                                    @Html.DropDownListFor(model => Model.RegionId, Selections.InventoryRegion, " --- Please Select---", new { @class = "form-control", @id = "ddlRegion", @readonly = "readonly" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Province</label>
+                                                            <div class="col-md-8">
+                                                                <div>
+                                                                    @Html.DropDownListFor(model => Model.ProvinceId, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "ddlProvince", @class = "form-control", @readonly = "readonly" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="form-group">
+                                                        </div>
+                                                    </div>
+                                                    <div class="partition-border col-md-12">
+                                                        <div class="form-horizontal">
+                                                            <div class="form-group">
+                                                                <label class="col-md-12 control-label" style="text-align: center !important;">Station Details</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-horizontal">
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Station ID <font color="#ff1800">*</font></label>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(model => model.Unit_Code, new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Station Name <font color="#ff1800">*</font></label>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(model => model.Unit_StationName, new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Street</label>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(model => model.Unit_Street, new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Barangay</label>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(model => model.Unit_Barangays, new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Coordinate</label>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(model => model.Unit_Coordinates, new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Phone Number</label>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(model => model.Unit_PhoneNumber, new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Cell Number</label>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(model => model.Unit_CellphoneNumbers, new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Email</label>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(model => model.Unit_Email, new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <div class="form-group">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12">
+                                                <div class="form-horizontal">
+
+                                                    <div class="partition-border">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Building Status</label>
+                                                            <div class="col-md-7">
+                                                                <div>
+                                                                    @Html.DropDownListFor(model => Model.Unit_BuildingStatus, BuildingStatus.Attached.ToSelectList(), " --- Please Select---", new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Building Owner</label>
+                                                            <div class="col-md-7">
+                                                                <div>
+                                                                    @Html.DropDownListFor(model => Model.Unit_BuildingOwner, BuildingOwner.BFP.ToSelectList(), " --- Please Select---", new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Lot Owner</label>
+                                                            <div class="col-md-7">
+                                                                <div>
+                                                                    @Html.DropDownListFor(model => Model.Unit_LotOwner, LotOwner.BFP.ToSelectList(), " --- Please Select---", new { @class = "form-control" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Lot Status</label>
+                                                            <div class="col-md-7">
+                                                                <div>
+                                                                    @Html.DropDownListFor(model => Model.Unit_LotStatus, LotStatus.Donated.ToSelectList(), " --- Please Select---", new { @class = "form-control", @id = "ddlBuildingStatus" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Floor Area (Square M)</label>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.sUnit_FloorArea, new { @class = "form-control", @id = "txtFloorArea", @onblur = "toMoneyFormat(this)" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Lot Area (Square M)</label>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.sUnit_LotArea, new { @class = "form-control", @id = "txtLotArea", @onblur = "toMoneyFormat(this)" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Number of Storey</label>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.Unit_NumberStorey, new { @class = "form-control", @oninput = "onInputTextNumber(this)" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Activation Date</label>
+                                                            <div class="col-md-7">
+                                                                <div class="input-group">
+                                                                    @Html.TextBoxFor(model => model.Unit_ActivationDate, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                                                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                                                </div>
+                                                                @*@Html.TextBoxFor(model => model.Unit_ActiviationDate, new {@class = "form-control mydatepicker"})*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Remarks</label>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.Unit_Remarks, new { @class = "form-control" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="form-group">
+                                                        </div>
+                                                    </div>
+                                                    <div class="partition-border">
+                                                        <div class="form-horizontal">
+                                                            <div class="form-group">
+                                                                <label class="col-md-12 control-label" style="text-align: center !important;">Fire Marshall Information</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-horizontal col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 bold-label control-label" style="padding-top: 10px">Position</label>
+                                                                <div class="col-md-9">
+                                                                    @Html.DropDownListFor(model => Model.Unit_FireMarshall_Position, Selections.JobFunctions, " --- Select---", new { @class = "form-control", @readonly = "readonly", @id = "ddlJobFunctions" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-horizontal col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 bold-label control-label" style="padding-top: 10px">Name</label>
+                                                                <div class="col-md-9">
+                                                                    @Html.DropDownListFor(model => Model.Unit_FireMarshall_Emp_Id, Selections.FireMarshallById(@Model.Unit_FireMarshall_Emp_Id ?? 0), " --- Select---", new { @class = "employeeSelection form-control", @id = "ddlMarshallName" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-horizontal col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 bold-label control-label" style="padding-top: 10px">Contact Number</label>
+                                                                <div class="col-md-9">
+                                                                    @Html.TextBoxFor(model => model.Unit_FireMarshall_CellphoneNumber, new { @class = "form-control", @id = "txtMarshallCellNumber", @readonly = "readonly" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="form-group">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="form-group">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                    <section id="section-STATIONPERSONNEL">
+                        @Html.Partial("~/Areas/Inventory/Views/Inventory/Include/Station/PersonnelStation.cshtml", Model.Unit_Id)
+                    </section>
+                    <section id="section-STATIONTRUCK">
+                        @Html.Partial("~/Areas/Inventory/Views/Inventory/Include/Station/TruckStation.cshtml", stationModel)
+                    </section>
+                    <section id="section-STATIONVEHICLE">
+                        @Html.Partial("~/Areas/Inventory/Views/Inventory/Include/Station/OtherVehiclesStation.cshtml", stationModel)
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+
+<script>
+    var paramProvinceID = @Html.Raw(Json.Encode(Model.ProvinceId));
+    var paramMarshallID = @Html.Raw(Json.Encode(Model.Unit_FireMarshall_Emp_Id));
+    var paramMunicipalityId = @Html.Raw(Json.Encode(Model.Unit_Municipality_Id));
+
+    $(document).ready(function() {
+        InitSelection();
+    });
+
+    function InitSelection() {
+        $("#ddlMarshallName").select2({
+            ajax: {
+                url: '/Employee/SelectionAutoComplete',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function(data) {
+
+                    return {
+                        results: data.data
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 3
+        });
+    }
+</script>
+<script src="@Url.Content("~/Scripts/Areas/Inventory/station.js")"></script>
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")

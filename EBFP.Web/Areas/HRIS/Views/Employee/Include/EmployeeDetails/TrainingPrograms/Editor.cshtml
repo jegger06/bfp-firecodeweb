@@ -1,0 +1,64 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.HumanResources.TrainingProgramModel
+@using EBFP.BL.Helper
+@using (Html.BeginCollectionItem("TrainingPrograms"))
+{
+    string formID = "HRISTP_" + Guid.NewGuid().ToString().Replace("-", "");
+<div class="divTableRow" id="@formID">
+    @Html.HiddenFor(m => @Model.ETP_Emp_Id, new { @class = "form-control" })
+    @Html.HiddenFor(m => @Model.ETP_Id, new { @class = "form-control" })
+    <div class="divTableCell">
+        @Html.TextBoxFor(m => @Model.ETP_TrainingTitle, new { @maxlength = "200", @class = "form-control typeahead", @required = "required" })
+    </div>
+    <div class="divTableCell">
+        <div class="col-sm-6 col-xs-12">
+            @Html.TextBoxFor(model => model.ETP_StartDate, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @required = "required" })
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            @Html.TextBoxFor(model => model.ETP_EndDate, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @required = "required" })
+        </div>
+    </div>
+
+    <div class="divTableCell">@Html.TextBoxFor(m => @Model.ETP_Hours, new { @class = "form-control", @type = "number", @step = "any" })</div>
+
+    <div class="divTableCell">@Html.DropDownListFor(model => @Model.ETP_LDType, FieldTraining.Managerial.ToSelectList(), " --- Please Select---", new { @class = "form-control" })</div>
+    @*<div class="divTableCell">@Html.TextBoxFor(m => @Model.ETP_LDType, new { @maxlength = "200", @class = "form-control" })</div>*@
+    <div class="divTableCell">@Html.TextBoxFor(m => @Model.ETP_ConductSponsor, new { @maxlength = "150", @class = "form-control" })</div>
+    <div class="divTableCell">@Html.TextBoxFor(m => @Model.ETP_Remarks, new { @maxlength = "500", @class = "form-control" })</div>
+    <div class="divTableCell">
+        <button type="button" class="btn btn-danger removeItem btn-circle UserAccessCanEdit" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button>
+    </div>
+</div>
+
+    string MandatoyTrainings = Newtonsoft.Json.JsonConvert.SerializeObject(Selections.MandatoyTrainings.Select(a => a.Text).ToList());
+    MandatoyTrainings = MandatoyTrainings.Replace("\"", "'");
+
+<script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+        });
+
+        var TrainingsSelections = '@MandatoyTrainings'.replace(/\&#39;/g, "\"");
+        var trainings = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: JSON.parse(TrainingsSelections)
+        });
+
+        $('#@formID .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 0
+        },
+        {
+            name: 'trainings',
+            source: trainings
+        });
+</script>
+}
+
+

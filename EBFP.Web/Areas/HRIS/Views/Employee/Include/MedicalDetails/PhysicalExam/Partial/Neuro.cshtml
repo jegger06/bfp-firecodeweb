@@ -1,0 +1,207 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+
+
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Orientation, new { @class = "form-control" })
+        <label class="control-label chk-label">Orientation: Time</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Time, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">Place</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Place, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">Person</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Person, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">Other</label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(model => model.Neuro.PE_Other, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Follow_Commands, new { @class = "form-control" })
+        <label class="control-label chk-label">Able to Follow Commands</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="chk-group">
+        <label class="control-label chk-label">Hearing:</label>
+    </div>
+    <div class="col-md-5" style="padding-right: 30px;">
+        <div class="col-sm-4" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neuro.PE_Hearing_Type, 1, new { id = "PE_Hearing_Type-1" })
+                @Html.Label("PE_Hearing_Type-1", "Normal")
+            </div>
+        </div>
+        <div class="col-sm-4" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neuro.PE_Hearing_Type, 2, new { id = "PE_Hearing_Type-2" })
+                @Html.Label("PE_Hearing_Type-2", "Impared")
+            </div>
+        </div>
+        <div class="col-sm-4" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neuro.PE_Hearing_Type, 3, new { id = "PE_Hearing_Type-3" })
+                @Html.Label("PE_Hearing_Type-3", "Total Loss")
+            </div>
+        </div>
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">Sense of Smell</label>
+    </div>
+    <div class="col-md-4">
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neuro.PE_Sense_Smell_Normal, true, new { id = "PE_Sense_Smell_Normal-true" })
+                @Html.Label("PE_Sense_Smell_Normal-true", "Normal")
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neuro.PE_Sense_Smell_Normal, false, new { id = "PE_Sense_Smell_Normal-false" })
+                @Html.Label("PE_Sense_Smell_Normal-false", "Abnormal")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Gait, new { @class = "form-control" })
+        <label class="control-label chk-label">Gait</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Gait_Text, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Balance, new { @class = "form-control" })
+        <label class="control-label chk-label">Balance</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Balance_Text, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Gross_Motor, new { @class = "form-control" })
+        <label class="control-label chk-label">Gross Motor Skills</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Gross_Motor_Text, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Fine_Motor, new { @class = "form-control" })
+        <label class="control-label chk-label">Fine Motor Skills</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Fine_Motor_Text, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_DTR_Upper, new { @class = "form-control" })
+        <label class="control-label chk-label">DTRs (Upper) RT</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Upper_RT, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">LT</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Upper_LT, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_DTR_Lower, new { @class = "form-control" })
+        <label class="control-label chk-label">DTRs (Lower) RT</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Lower_RT, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">LT</label>
+    </div>
+    <div class="col-md-1">
+        @Html.TextBoxFor(model => model.Neuro.PE_Lower_LT, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_LOPS, new { @class = "form-control" })
+        <label class="control-label chk-label">LOPS (Loss of Protective Sensation)</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Normal_PinPrick_Sensation, new { @class = "form-control" })
+        <label class="control-label chk-label">Normal Pinprick Sensation</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Tremors, new { @class = "form-control" })
+        <label class="control-label chk-label">Tremors</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Coordination, new { @class = "form-control" })
+        <label class="control-label chk-label">Coordination</label>
+    </div>
+    <div class="col-md-3">
+        @Html.TextBoxFor(model => model.Neuro.PE_Coordination_Text, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Vibration, new { @class = "form-control" })
+        <label class="control-label chk-label">Vibration</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Vibration_RT, new { @class = "form-control" })
+        <label class="control-label chk-label">RT +/-</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Vibration_LT, new { @class = "form-control" })
+        <label class="control-label chk-label">LT +/-</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Speech, new { @class = "form-control" })
+        <label class="control-label chk-label">Speech</label>
+    </div>
+    <div class="col-md-3">
+        @Html.TextBoxFor(model => model.Neuro.PE_Speech_Text, new { @class = "form-control" })
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Monofilament_Testing, new { @class = "form-control" })
+        <label class="control-label chk-label">Monofilament Testing</label>
+    </div>
+    <div class="chk-group">
+
+        @Html.CheckBoxFor(model => model.Neuro.PE_Monofilament_RT, new { @class = "form-control" })
+        <label class="control-label chk-label">RT +/-</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_Monofilament_LT, new { @class = "form-control" })
+        <label class="control-label chk-label">LT +/-</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neuro.PE_CN_II_XII, new { @class = "form-control" })
+        <label class="control-label chk-label">CN II-XII</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px">
+    <div class="col-md-3">
+        <label class="control-label chk-label">Abnormal Exam Findings: </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Neuro.PE_Nuero_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

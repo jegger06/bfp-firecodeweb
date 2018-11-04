@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C9C6C14E-DB70-47CF-B976-83F29C1A9C18}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EBFP.BL</RootNamespace>
+    <AssemblyName>EBFP.BL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="GemBox.Presentation, Version=21.3.35.1025, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>..\packages\GemBox.Presentation.21.3.35.1025\lib\net35\GemBox.Presentation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GemBox.Spreadsheet, Version=39.3.30.1024, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\GemBox.Spreadsheet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.ViewFeatures">
+      <HintPath>..\EBFP.Web\Bin\Microsoft.AspNetCore.Mvc.ViewFeatures.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Presentation.Base, Version=15.3451.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Program Files (x86)\Syncfusion\Essential Studio\15.3.0.26\Assemblies\4.5\Syncfusion.Presentation.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PresentationToPdfConverter.Base, Version=15.3451.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Program Files (x86)\Syncfusion\Essential Studio\15.3.0.26\Assemblies\4.5\Syncfusion.PresentationToPdfConverter.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\Administration\BL\ApplicationPaymentBL.cs" />
+    <Compile Include="Areas\Administration\BL\BPLOPaymentBL.cs" />
+    <Compile Include="Areas\Administration\BL\DepositsBL.cs" />
+    <Compile Include="Areas\Administration\BL\MembershipBL.cs" />
+    <Compile Include="Areas\Administration\BL\OPSSeriesBL.cs" />
+    <Compile Include="Areas\Administration\BL\ORSeriesBL.cs" />
+    <Compile Include="Areas\Administration\BL\RoleAccessBL.cs" />
+    <Compile Include="Areas\Administration\BL\SpoiledOPSBL.cs" />
+    <Compile Include="Areas\Administration\BL\SpoiledORBL.cs" />
+    <Compile Include="Areas\Administration\BL\UserInRoleBL.cs" />
+    <Compile Include="Areas\Administration\BL\UserRoleBL.cs" />
+    <Compile Include="Areas\Administration\Contract\IApplicationPayment.cs" />
+    <Compile Include="Areas\Administration\Contract\IBPLOPayment.cs" />
+    <Compile Include="Areas\Administration\Contract\IDeposits.cs" />
+    <Compile Include="Areas\Administration\Contract\IMembership.cs" />
+    <Compile Include="Areas\Administration\Contract\IOPSSeries.cs" />
+    <Compile Include="Areas\Administration\Contract\IORSeries.cs" />
+    <Compile Include="Areas\Administration\Contract\IRoleAccess.cs" />
+    <Compile Include="Areas\Administration\Contract\ISpoiledOPS.cs" />
+    <Compile Include="Areas\Administration\Contract\ISpoiledOR.cs" />
+    <Compile Include="Areas\Administration\Contract\IUserInRole.cs" />
+    <Compile Include="Areas\Administration\Contract\IUserRole.cs" />
+    <Compile Include="Areas\Administration\AdministrationUnitOfWork.cs" />
+    <Compile Include="Areas\Administration\Model\ApplicationPaymentModel.cs" />
+    <Compile Include="Areas\Administration\Model\BPLOPaymentModel.cs" />
+    <Compile Include="Areas\Administration\Model\DepositsModel.cs" />
+    <Compile Include="Areas\Administration\Model\MembershipModel.cs" />
+    <Compile Include="Areas\Administration\Model\NumberOfCustomerProcessedModel.cs" />
+    <Compile Include="Areas\Administration\Model\OPSSeriesModel.cs" />
+    <Compile Include="Areas\Administration\Model\ORSeriesModel.cs" />
+    <Compile Include="Areas\Administration\Model\RoleAccessModel.cs" />
+    <Compile Include="Areas\Administration\Model\SpoiledOPSModel.cs" />
+    <Compile Include="Areas\Administration\Model\SpoiledORModel.cs" />
+    <Compile Include="Areas\Administration\Model\UsedORModel.cs" />
+    <Compile Include="Areas\Administration\Model\UserInRoleModel.cs" />
+    <Compile Include="Areas\Administration\Model\UserRoleModel.cs" />
+    <Compile Include="Areas\CIS\Dashboard\BL\DashboardBL.cs" />
+    <Compile Include="Areas\CIS\Dashboard\Contract\IDashboard.cs" />
+    <Compile Include="Areas\CIS\Dashboard\Model\DashboardModel.cs" />
+    <Compile Include="Areas\CIS\InventoryOutSupplies\BL\InventoryOutSuppliesBL.cs" />
+    <Compile Include="Areas\CIS\InventorySupplies\BL\InventorySuppliesBL.cs" />
+    <Compile Include="Areas\CIS\InventoryOutSupplies\Contract\IInventoryOutSupplies.cs" />
+    <Compile Include="Areas\CIS\InventorySupplies\Contract\IInventorySupplies.cs" />
+    <Compile Include="Areas\CIS\InventoryArticle\BL\InventoryArticleBL.cs" />
+    <Compile Include="Areas\CIS\InventoryArticle\Contract\IInventoryArticle.cs" />
+    <Compile Include="Areas\CIS\InventoryArticle\Model\InventoryArticleModel.cs" />
+    <Compile Include="Areas\CIS\InventoryGroup\BL\InventoryGroupBL.cs" />
+    <Compile Include="Areas\CIS\InventoryGroup\Contract\IInventoryGroup.cs" />
+    <Compile Include="Areas\CIS\InventoryGroup\Model\InventoryGroupModel.cs" />
+    <Compile Include="Areas\CIS\InventoryOutSupplies\Model\InventoryOutSuppliesModel.cs" />
+    <Compile Include="Areas\CIS\InventorySupplies\Model\InventorySuppliesModel.cs" />
+    <Compile Include="Areas\CIS\Report\BL\ReportBL.cs" />
+    <Compile Include="Areas\CIS\Report\Contract\IReport.cs" />
+    <Compile Include="Areas\CIS\Report\Model\ReportModel.cs" />
+    <Compile Include="Areas\CIS\PhysicalInventory\BL\PhysicalInventoryBL.cs" />
+    <Compile Include="Areas\CIS\PhysicalInventory\Contract\IPhysicalInventory.cs" />
+    <Compile Include="Areas\CIS\PhysicalInventory\Model\PhysicalInventoryModel.cs" />
+    <Compile Include="Areas\CIS\Unserviceable\BL\UnserviceableBL.cs" />
+    <Compile Include="Areas\CIS\Unserviceable\Contract\IUnserviceable.cs" />
+    <Compile Include="Areas\CIS\Unserviceable\Model\UnserviceableModel.cs" />
+    <Compile Include="Areas\Establishment\BL\EstablishmentBL.cs" />
+    <Compile Include="Areas\Establishment\BL\OtherClearancesBL.cs" />
+    <Compile Include="Areas\Establishment\BL\NonCommercialEstablishmentBL.cs" />
+    <Compile Include="Areas\Establishment\Contract\IEstablishment.cs" />
+    <Compile Include="Areas\Establishment\Contract\IOtherClearances.cs" />
+    <Compile Include="Areas\Establishment\Contract\INonCommercialEstablishment.cs" />
+    <Compile Include="Areas\Establishment\EstablishmentUnitOfWork.cs" />
+    <Compile Include="Areas\Establishment\Model\EstablishmentModel.cs" />
+    <Compile Include="Areas\Establishment\Model\OtherClearancesModel.cs" />
+    <Compile Include="Areas\Establishment\Model\NonCommercialEstablishmentModel.cs" />
+    <Compile Include="Areas\CIS\CISUnitOfWork.cs" />
+    <Compile Include="Areas\FSEC\BL\FireSafetyEvaluationClearance.cs" />
+    <Compile Include="Areas\FSEC\Contract\IFireSafetyEvaluationClearance.cs" />
+    <Compile Include="Areas\FSEC\Model\FSECModel.cs" />
+    <Compile Include="Areas\FSIC\BL\FireSafetyInspectionCertificate.cs" />
+    <Compile Include="Areas\FSIC\Contract\IFireSafetyInspectionCertificate.cs" />
+    <Compile Include="Areas\FSIC\UnitOfWork.cs" />
+    <Compile Include="Areas\FSIC\Model\FSICModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\ReligionBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\ServiceRecordBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\SpecifyDesignationBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IReligion.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IServiceRecord.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\AlphaModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\DashboardModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\ReligionModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\ServiceAppointmentModel.cs" />
+    <Compile Include="Areas\HumanResources\EmployeeAppointments\BL\EmployeeAppointmentsBL.cs" />
+    <Compile Include="Areas\HumanResources\EmployeeAppointments\Contract\IEmployeeAppointments.cs" />
+    <Compile Include="Areas\HumanResources\EmployeeAppointments\Model\EmployeeAppointmentsModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\SpecifyDesignationModel.cs" />
+    <Compile Include="Areas\HumanResources\Logs\BL\LogsBL.cs" />
+    <Compile Include="Areas\HumanResources\Logs\Contract\ILogs.cs" />
+    <Compile Include="Areas\HumanResources\Logs\Model\LogsModel.cs" />
+    <Compile Include="Areas\HumanResources\Municipality\Contract\IMunicipality.cs" />
+    <Compile Include="Areas\HumanResources\Municipality\Model\MunicipalityModel.cs" />
+    <Compile Include="Areas\HumanResources\Directorates\BL\DirectoratesBL.cs" />
+    <Compile Include="Areas\HumanResources\Directorates\Contract\IDirectorates.cs" />
+    <Compile Include="Areas\HumanResources\Directorates\Model\DirectoratesModel.cs" />
+    <Compile Include="Areas\HumanResources\SLL\BL\SLLBL.cs" />
+    <Compile Include="Areas\HumanResources\SLL\Contract\ISLL.cs" />
+    <Compile Include="Areas\HumanResources\SLL\Model\SLLModel.cs" />
+    <Compile Include="Areas\HumanResources\Unit\BL\UnitBL.cs" />
+    <Compile Include="Areas\HumanResources\Unit\BL\UnitUserInRoleBL.cs" />
+    <Compile Include="Areas\HumanResources\Municipality\BL\MunicipalityBL.cs" />
+    <Compile Include="Areas\HumanResources\Unit\Contract\IUnitUserInRole.cs" />
+    <Compile Include="Areas\HumanResources\Unit\Model\UnitUserInRoleModel.cs" />
+    <Compile Include="Areas\Inspection Order\BL\ClosureOrderDeficienciesBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\ClosureOrderBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\InspectionOrderBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\AbatementOrderBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\AbatementOrderDeficienciesBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\ViolationBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\OtherViolationBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\InspectionOrderViolationsBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\InspectionOrderInspectorsBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\NoticeToComplyBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\NTCDeficienciesBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\NTCVBL.cs" />
+    <Compile Include="Areas\Inspection Order\BL\NTCVDeficienciesBL.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\IClosureOrderDeficiencies.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\IClosureOrder.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\IInspectionOrder.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\IAbatementOrder.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\IAbatementOrderDeficiencies.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\IViolations.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\IOtherViolations.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\IInspectionOrderViolations.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\IInspectionOrderInspectors.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\INoticeToComply.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\INTCDeficiencies.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\INTCV.cs" />
+    <Compile Include="Areas\Inspection Order\Contract\INTCVDeficiencies.cs" />
+    <Compile Include="Areas\Inspection Order\InspectionOrderUnitOfWork.cs" />
+    <Compile Include="Areas\Inspection Order\Model\ClosureOrderDeficienciesModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\ClosureOrderModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\AbatementOrderModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\AbatementOrderDeficienciesModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\ViolationModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\OtherViolationModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\InspectionOrderViolationModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\InspectionOrderInspectorsModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\InspectionOrderModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\NoticeToComplyModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\NTCDeficienciesModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\NTCVDeficienciesModel.cs" />
+    <Compile Include="Areas\Inspection Order\Model\NTCVModel.cs" />
+    <Compile Include="Areas\Inventory\BL\PopulationBL.cs" />
+    <Compile Include="Areas\Inventory\BL\FireRecordBL.cs" />
+    <Compile Include="Areas\Inventory\BL\OtherVehicleBL.cs" />
+    <Compile Include="Areas\Inventory\BL\MunicipalityBL.cs" />
+    <Compile Include="Areas\Inventory\BL\StationBL.cs" />
+    <Compile Include="Areas\Inventory\BL\PersonnelBL.cs" />
+    <Compile Include="Areas\Inventory\BL\TruckBL.cs" />
+    <Compile Include="Areas\Inventory\BL\SubStationBL.cs" />
+    <Compile Include="Areas\Inventory\BL\OVModelBL.cs" />
+    <Compile Include="Areas\Inventory\BL\TruckModelBL.cs" />
+    <Compile Include="Areas\Inventory\Contract\IPopulation.cs" />
+    <Compile Include="Areas\Inventory\Contract\IFireRecord.cs" />
+    <Compile Include="Areas\Inventory\Contract\IOtherVehicle.cs" />
+    <Compile Include="Areas\Inventory\Contract\IMunicipality.cs" />
+    <Compile Include="Areas\Inventory\Contract\IStation.cs" />
+    <Compile Include="Areas\Inventory\Contract\IPersonnel.cs" />
+    <Compile Include="Areas\Inventory\Contract\ITruck.cs" />
+    <Compile Include="Areas\Inventory\Contract\ISubStation.cs" />
+    <Compile Include="Areas\Inventory\Contract\IOVModel.cs" />
+    <Compile Include="Areas\Inventory\Contract\ITruckModel.cs" />
+    <Compile Include="Areas\Inventory\InventoryUnitOfWork.cs" />
+    <Compile Include="Areas\Inventory\Model\PersonnelModel.cs" />
+    <Compile Include="Areas\Inventory\Model\PopulationModel.cs" />
+    <Compile Include="Areas\Inventory\Model\FireRecordsModel.cs" />
+    <Compile Include="Areas\Inventory\Model\OtherVehicleModel.cs" />
+    <Compile Include="Areas\Inventory\Model\StationModel.cs" />
+    <Compile Include="Areas\Inventory\Model\TruckModel.cs" />
+    <Compile Include="Areas\Inventory\Model\SubStationModel.cs" />
+    <Compile Include="Areas\Inventory\Model\OVModel.cs" />
+    <Compile Include="Areas\Inventory\Model\TruckModelList.cs" />
+    <Compile Include="Helper\CustomAttributes.cs" />
+    <Compile Include="Helper\CustomExtensions.cs" />
+    <Compile Include="Helper\EntityFrameworkBase.cs" />
+    <Compile Include="Helper\Enums.cs" />
+    <Compile Include="Helper\Export\HRISUpload.cs" />
+    <Compile Include="Helper\Export\HRISReport.cs" />
+    <Compile Include="Helper\Export\CISReport.cs" />
+    <Compile Include="Helper\Export\PDSExport.cs" />
+    <Compile Include="Helper\Extensions.cs" />
+    <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Helper\Functions.cs" />
+    <Compile Include="Helper\GenericMapper.cs" />
+    <Compile Include="Helper\GridInfo.cs" />
+    <Compile Include="Helper\MailHelper.cs" />
+    <Compile Include="Helper\Mail\Mail.cs" />
+    <Compile Include="Helper\Security\PageSecurity.cs" />
+    <Compile Include="Helper\Selections.cs" />
+    <Compile Include="Helper\Web\HtmlPrefixScopeExtensions.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\ReportBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\DashboardBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\LeaveBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\MedicalBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\PhysicalExamBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\ProvinceBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\RegionBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IReport.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\ILeave.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IMedical.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IPhysicalExam.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IProvince.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IDashboard.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IRegion.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IReference.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\ReferenceBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IUser.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\UserBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\DutyStatusBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IEmployeeChildren.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IJobFunction.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IMandatoyTraining.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IRank.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\ISalaryGrade.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\ICourse.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IDutyStatus.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IEligibility.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\JobFunctionBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\SalaryGradeBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\RankBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\MandatoyTrainingBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\CourseBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\EligibilityBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\EmployeeChildrenBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\MembershipInAssociationOrganizationBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\NonAcademicDistinctionBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\SpecialSkillsHobbyBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\CivilServiceEligibilityBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\EducationalBackgroundBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\OtherInformationBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\TrainingProgramBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\VoluntaryWorkBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\WorkExperienceBL.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Contract\IEmployee.cs" />
+    <Compile Include="Areas\HumanResources\Employee\BL\EmployeeBL.cs" />
+    <Compile Include="Helper\DynamicLibrary.cs" />
+    <Compile Include="Helper\Crypto.cs" />
+    <Compile Include="Helper\Security\Principals\CustomPrincipal.cs" />
+    <Compile Include="Helper\Security\Principals\CustomPrincipalModel.cs" />
+    <Compile Include="Helper\Security\SiteAccess.cs" />
+    <Compile Include="Helper\Security\SiteRoles.cs" />
+    <Compile Include="Helper\Web\CurrentUser.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\CivilServiceEligibilityModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\CourseModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\AllergicReactionModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\ReportModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\DiagnosisModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\EmployeeMedicalModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\HealthCareProviderModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\DutyStatusModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\CurrentMedicationModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\EducBackgroundModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\EligibilityModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\EmployeeChildModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\EmployeeModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\HealthRecordModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\JobFuntionModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\LeaveModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\MandatoryTrainingModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\PhysicalExamModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\MedicalHistory.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\MembershipInAssociationOrganizationModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\NonAcademicDistinctionModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\OtherInformationModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\RankModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\ReferenceModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\ProvinceModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\RegionModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\SalaryGradeModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\SpecialSkillsHobbyModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\TrainingProgramModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\UserModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\VoluntaryWorkModel.cs" />
+    <Compile Include="Areas\HumanResources\Employee\Model\WorkExperienceModel.cs" />
+    <Compile Include="Areas\HumanResources\HRISUnitOfWork.cs" />
+    <Compile Include="Areas\HumanResources\Unit\Contract\IUnit.cs" />
+    <Compile Include="Areas\HumanResources\Unit\Model\UnitModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EBFP.DataAccess\EBFP.DataAccess.csproj">
+      <Project>{53375278-ae83-4246-9de0-c5dc432017c3}</Project>
+      <Name>EBFP.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\HumanResources\Employee\BL\EnitityFramework\" />
+    <Folder Include="Core\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,80 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+
+    <div>
+        <table cellpadding="1" class="tbl-Dashboard">
+          <tr class="tbl-FontSize">
+            @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+            {
+              <th class="tbl-FontSize" rowspan="2">Province</th>
+            }
+            else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+            {
+              <th class="tbl-FontSize" rowspan="2">Station</th>
+            }
+            else
+            {
+                <th class="tbl-FontSize" rowspan="2">Region</th>
+            }
+           
+            <th class="tbl-FontSize" colspan="3">WITH FIRE STATION BUILDING AND FIRE TRUCK/S</th>
+            <th class="tbl-FontSize" rowspan="2">MUNICIPALITIES WITH FIRE TRUCK ONLY</th>
+            <th class="tbl-FontSize" rowspan="2">MUNICIPALITIES WITHOUT FIRE TRUCK</th>
+            <th class="tbl-FontSize" rowspan="2">MUNICIPALITIES WITH FIRE STATION BLDG ONLY</th>
+            <th class="tbl-FontSize" rowspan="2">MUNICIPALITIES WITHOUT FIRE STATION BLDG AND WITHOUT FIRE TRUCK</th>
+            <th class="tbl-FontSize" rowspan="2">MUNICIPALITIES WITHOUT FIRE STATION BLDG</th>
+            <th class="tbl-FontSize" colspan="3">TOTAL NUMBER OF CITIES AND MUNICIPALITIES</th>
+            <th class="tbl-FontSize" rowspan="2">NUMBER OF FIRE SUB-STATION BUILDINGS</th>
+          </tr>
+            <tr class="tbl-FontSize">
+                <th class="tbl-FontSize">CITY</th>
+                <th class="tbl-FontSize">MUNICIPALITY</th>
+                <th class="tbl-FontSize">SUB-TOTAL</th>
+                <th class="tbl-FontSize">CITY</th>
+                <th class="tbl-FontSize">MUNICIPALITY</th>
+                <th class="tbl-FontSize">SUB-TOTAL</th>
+            </tr>
+          <tr ng-repeat="item in FireFightingCapability">
+            @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+            {
+              <td class="tbl-RowTitle tbl-FontSize">{{item.Province}}</td>
+            }
+            else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+            {
+              <td class="tbl-RowTitle tbl-FontSize">{{item.Unit}}</td>
+            }
+            else
+            {
+                <td class="tbl-RowTitle tbl-FontSize">{{item.Region}}</td>
+            }
+            @*<td class="tbl-RowTitle tbl-FontSize">{{item.Region}}</td>*@
+            <td>{{item.TotalCitiesWithBuildingAndFireTrucks}}</td>
+            <td>{{item.TotalMunicipalitiesWithBuildingAndFireTrucks}}</td>
+            <td>{{item.WithBuildingAndFireTrucksSubtotal }}</td>
+            <td>{{item.MunicipalitiesWithFireTrucksOnly}}</td>
+            <td>{{item.MunicipalitiesWithoutFireTrucks}}</td>
+            <td>{{item.MunicipalitiesWithFireStationBLDGOnly}}</td>
+            <td>{{item.MunicipalitiesWithoutFireTrucksAndStation}}</td>
+            <td>{{item.MunicipalitiesWithoutFireStationBLDG}}</td>
+            <td>{{item.TotalCities}}</td>
+            <td>{{item.TotalMunicipalities}}</td>
+            <td>{{item.TotalCitiesAndMunicipalities}}</td>
+            <td>{{item.NumberOfFireSubStationBuilding}}</td>
+          </tr>
+            <tr>
+                <th>TOTAL</th>
+                <th>{{FireFightingCapability | sumByKey:'TotalCitiesWithBuildingAndFireTrucks' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'TotalMunicipalitiesWithBuildingAndFireTrucks' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'WithBuildingAndFireTrucksSubtotal' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'MunicipalitiesWithFireTrucksOnly' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'MunicipalitiesWithoutFireTrucks' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'MunicipalitiesWithFireStationBLDGOnly' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'MunicipalitiesWithoutFireTrucksAndStation' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'MunicipalitiesWithoutFireStationBLDG' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'TotalCities' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'TotalMunicipalities' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'TotalCitiesAndMunicipalities' | number}}</th>
+                <th>{{FireFightingCapability | sumByKey:'NumberOfFireSubStationBuilding' | number}}</th>
+            </tr>
+        </table>
+    </div>

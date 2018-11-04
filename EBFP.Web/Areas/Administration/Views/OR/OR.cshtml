@@ -1,0 +1,216 @@
+﻿@{
+    ViewBag.Title = "OR Series";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css")" id="theme" rel="stylesheet">
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          Search Filter
+          <div class="pull-left">
+            <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body">
+          <form>
+            <div role="form" class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">Start Series</label>
+                  <input type="number" id="searchStartSeries" name="searchStartSeries" step="1" min="1" class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">End Series</label>
+                  <input type="number" id="searchEndSeries" name="searchEndSeries" step="1" min="1" class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">&nbsp;</label>
+                  <button type="button" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>&nbsp; Search</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <p>
+        <a href="#" class="btn btn-info btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#modalEditOrAddSeries">
+          <i class="fa fa-plus-circle"></i> Add New
+        </a>
+      </p>
+
+      <div class="table-responsive">
+
+        <table id="orSeriesTable" class="table table-striped table-bordered nowrap">
+          <thead>
+            <tr>
+              <th>Start Series</th>
+              <th>End Series</th>
+              <th>Date Issued</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Edit Modal -->
+      <div class="modal fade" id="modalEditOrAddSeries" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">OR Series</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div role="form" class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Start Series</label>
+                      <input type="number" id="newStartSeries" name="newStartSeries" step="1" min="1" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">End Series</label>
+                      <input type="number" id="newEndSeries" name="newEndSeries" step="1" min="1" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Date Issued</label>
+                      <div class="input-group">
+                        <input type="text" name="newDateIssued" id="newDateIssued" class="form-control newDateIssued">
+                        <label class="input-group-addon btn newDateIssuedIcon" for="newDateIssued">
+                          <span class="fa fa-calendar"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success addOrEditOrSeriesBtn actionBtn">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Modal -->
+      <div class="modal fade" id="deleteOrSeries" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+            </div>
+            <div class="modal-body successMessage">
+              Are you sure you want to delete this series?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger actionBtn">Delete</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Modal -->
+      <div class="modal fade" id="orSeriesSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Success</h4>
+            </div>
+            <div class="modal-body">
+              A new OR Series has been successfully saved!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+<!-- Date Picker Plugin JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js")"></script>
+
+
+<script>
+  var orSeriesID = "";
+  var orSeriesTable = null;
+  function editOr(id, startSeries, endSeries, issuedDate) {
+
+    orSeriesID = id;
+    $('.modal-content #newStartSeries').val(startSeries);
+    $(".modal-content #newEndSeries").val(endSeries);
+    $(".modal-content #newDateIssued").val(issuedDate);
+
+    $("#modalEditOrAddSeries").modal();
+  }
+
+  function DeleteORSeriesConfirm(id,start,end) {
+    swal({
+      title: "Are you sure?",
+      text: "You will not be able to recover deleted item!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel please!",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    }, function (isConfirm) {
+      if (isConfirm) {
+        $.post("/OR/DeleteORSeries?OR_StartSeries=" + start + "&OR_EndSeries=" + end + "&OR_Id=" + id)
+          .success(function (response) {
+            if (response.message == "Success") {
+              swal("Deleted!", "Item has been deleted.", "success");
+            } else {
+              SwalAlert(response.message);
+            }
+            orSeriesTable.ajax.reload();
+          });
+      } else {
+        swal("Cancelled", "Item delete has been cancelled", "error");
+      }
+    });
+  }
+
+  function SwalAlert(msg) {
+    swal("Ooops..", msg, "error");
+  }
+</script>
+<script src="@Url.Content("~/scripts/Areas/Administration/orSeries.js")"></script>

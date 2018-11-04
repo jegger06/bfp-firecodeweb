@@ -1,0 +1,70 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+<div class="col-md-12 chk-label">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Cardiac.PE_Normal_S1_S2, new { @class = "form-control" })
+        <label class="control-label chk-label">Normal S1/S2</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Cardiac.PE_S3_Present, new { @class = "form-control" })
+        <label style="float: left" class="control-label chk-label">S3 Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Cardiac.PE_S4_Present, new { @class = "form-control" })
+        <label style="float: left" class="control-label chk-label">S4 Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Cardiac.PE_Rate_Normal, new { @class = "form-control" })
+        <label style="float: left" class="control-label chk-label">Rate Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Cardiac.PE_Tachycardia, new { @class = "form-control" })
+        <label style="float: left" class="control-label chk-label">Tachycardia</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Cardiac.PE_Bradycardia, new { @class = "form-control" })
+        <label style="float: left" class="control-label chk-label">Bradycardia</label>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-5">
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Cardiac.PE_Rhythm_Regular, true, new { id = "PE_Rhythm_Regular-true" })
+                @Html.Label("PE_Rhythm_Regular-true", "Rhythm Irregular")
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Cardiac.PE_Rhythm_Regular, false, new { id = "PE_Rhythm_Regular-false" })
+                @Html.Label("PE_Rhythm_Regular-false", "Rhythm Regular")
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        @Html.CheckBoxFor(model => model.Cardiac.PE_Rubs_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Rubs Present</label>
+    </div>
+    <div class="col-md-3">
+        @Html.CheckBoxFor(model => model.Cardiac.PE_No_Murmurs, new { @class = "form-control" })
+        <label class="control-label chk-label">No Murmurs</label>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="col-md-5 col-sm-7">
+        <label class="control-label chk-label">If murmur present, please describe location & grade:</label>
+    </div>
+    <div class="col-md-7 col-sm-5">
+        @Html.TextBoxFor(model => model.Cardiac.PE_Murmur_Location, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px;">
+    <div class="col-md-3">
+        <label class="control-label chk-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Cardiac.PE_Cardio_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

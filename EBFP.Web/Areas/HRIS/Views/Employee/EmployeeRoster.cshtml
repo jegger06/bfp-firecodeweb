@@ -1,0 +1,1732 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.HumanResources.EmployeeModel
+@{
+    ViewBag.Title = "Employee Roster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (!(PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_CanViewAll) ||
+          PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_RestricttoRegion) ||
+          PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_RestricttoProvince) ||
+          PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_RestricttoStation)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+      return;
+    }
+
+    Selections.SelectionReset();
+    var accessType = AccessType.Edit.ToString().Encrypt();
+}
+<style>
+  .modal-dialog {
+    width: 70%;
+    margin: 30px auto;
+}
+</style>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          Search Filter (Click to expand)
+          <div class="pull-left">
+            <i class="ti-minus"></i>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body">
+          <div role="form" class="row">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Region</label>
+                @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                {
+                    @Html.DropDownList("Region", Selections.Region, new { id = "ddlRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)", @disabled = "disabled" })
+                }
+                else
+                {
+                    @Html.DropDownList("Region", Selections.Region, " --- Please Select---", new { id = "ddlRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)" })
+                }
+
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Province</label>
+                @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                {
+                    @Html.DropDownListFor(model => Model.ProvinceID, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "ddlProvince", @class = "form-control", onchange = "ddlProvinceValueChanged(this.value)", @disabled = "disabled" })
+                }
+                else
+                {
+                    @Html.DropDownList("Province", new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "ddlProvince", @class = "form-control", onchange = "ddlProvinceValueChanged(this.value)" })
+
+                }
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Municipality</label>
+                @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                {
+                    @Html.DropDownListFor(model => Model.MunicipalityID, new SelectList(Enumerable.Empty<SelectListItem>(), "MunicipalityId_Id", "MunicipalityId_Name"), " --- Please Select---", new { id = "ddlMunicipality", @class = "form-control", onchange = "ddlMunicipalityValueChanged(this.value)", @disabled = "disabled" })
+                }
+                else
+                {
+                    @Html.DropDownList("MunicipalityId", new SelectList(Enumerable.Empty<SelectListItem>(), "MunicipalityId_Id", "MunicipalityId_Name"), " --- Please Select---", new { id = "ddlMunicipality", @class = "form-control", onchange = "ddlMunicipalityValueChanged(this.value)" })
+
+                }
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Unit Station</label>
+                @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                {
+                    @Html.DropDownListFor(model => Model.Emp_Curr_Unit, new SelectList(Enumerable.Empty<SelectListItem>(), "Unit_Id", "Unit_StationName"), " --- Please Select---", new { id = "ddlUnit", @class = "form-control", @disabled = "disabled" })
+                }
+                else
+                {
+                    @Html.DropDownList("Station", new SelectList(Enumerable.Empty<SelectListItem>(), "Unit_Id", "Unit_StationName"), " --- Please Select---", new { id = "ddlUnit", @class = "form-control" })
+
+                }
+              </div>
+            </div>
+
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Duty Status</label>
+                @Html.DropDownList("DutyStatus", Selections.DutyStatuses, " --- Please Select---", new { id = "ddlDutyStatus", @class = "form-control" })
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Sex</label>
+                @Html.DropDownList("Gender", Selections.Genders, " --- Please Select---", new { id = "ddlGender", @class = "form-control" })
+              </div>
+            </div>
+          </div>
+          <div role="form" class="row">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Civil Status</label>
+                @Html.DropDownList("CivilStatus", Selections.CivilStatus, " --- Please Select---", new { id = "ddlCivilStatus", @class = "form-control" })
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Designation</label>
+                @Html.DropDownList("Designation", Selections.JobFunctions, " --- Please Select---", new { id = "ddlDesignation", @class = "form-control" })
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Course</label>
+                @Html.DropDownList("Course", Selections.Courses, " --- Please Select---", new { id = "ddlCourse", @class = "form-control" })
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Eligibility</label>
+                @Html.DropDownList("Eligibility", Selections.Eligibilities, " --- Please Select---", new { id = "ddlEligibility", @class = "form-control" })
+              </div>
+            </div>
+
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Rank</label>
+                @Html.DropDownList("Rank", Selections.SearchRanks, " --- Please Select---", new { id = "ddlRank", @class = "form-control" })
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Date of Birth</label>
+                @Html.TextBox("Birthdate", "", "{0:MM/dd/yyyy}", new { id = "dpBirthdate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy" })
+              </div>
+            </div>
+          </div>
+          <div role="form" class="row">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <input type="text" id="txtLastName" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Account Number</label>
+                <input type="text" id="txtAccountNumber" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Badge Number</label>
+                <input type="text" id="txtBadgeNumber" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Item Number</label>
+                <input type="text" id="txtItemNumber" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Appointment Status</label>
+                @Html.DropDownList("AppointmentStatus", AppointmentStatuses.Temporary.ToSelectList(), " --- Please Select---", new {id = "ddlAppointmentStatus", @class = "form-control"})
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Highest Mandatory Training</label>
+                @Html.DropDownList("HighestMandatoryTraining", Selections.MandatoyTrainings, " --- Please Select---", new { id = "ddlHighestMandatoryTraining", @class = "form-control" })
+              </div>
+            </div>
+
+              <div class="col-sm-4 col-md-2">
+                  <div class="form-group">
+                      <label class="control-label">Validation Status</label>
+                      @Html.DropDownList("EmployeeStatus", EmployeeStatus.Validated.ToSelectList(), " --- Please Select---", new { id = "ddlEmployeeStatus", @class = "form-control" })
+                  </div>
+              </div>
+
+
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">&nbsp;</label>
+                <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+              </div>
+            </div>
+          </div>
+          <div role="form" class="row" style="display: none">
+            <div class="col-sm-4 col-md-3">
+              <div class="form-group">
+                <label class="control-label">Last Training Date</label>
+                @Html.TextBox("LastTraining", "", "{0:MM/dd/yyyy}", new { id = "dpLastTraining", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy" })
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-3">
+              <div class="form-group">
+                <label class="control-label">Date Entered Service (Start)</label>
+                @Html.TextBox("StartService", "", "{0:MM/dd/yyyy}", new { id = "dpStartService", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy" })
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-3">
+              <div class="form-group">
+                <label class="control-label">Date Entered Service (End)</label>
+                @Html.TextBox("EndService", "", "{0:MM/dd/yyyy}", new { id = "dpEndService", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy" })
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <p>
+
+        @if (CurrentUser.RoleName == "MAIN ADMIN" || CurrentUser.RoleName == "NATIONAL HRIS ADMIN" || CurrentUser.RoleName == "REGIONAL ADMIN" || CurrentUser.RoleName == "REGIONAL HRIS ADMIN")
+        {
+            <a href="@Url.Action("EmployeeDetails", "Employee", new {sEmp_Id = 0.ToString().Encrypt(), AccessType = AccessType.Create.ToString().Encrypt()})" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+              <i class="fa fa-plus-circle"></i> Create New
+            </a>
+
+          <a href="#" onclick="return setInfo()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+            <i class="fa fa-upload"></i> Upload Alpha
+          </a>
+
+          <button type="button" onclick="OpenExportAlpha()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Export Alpha</button>
+        }
+      </p>
+
+      <span id="totalRecords">&nbsp;</span>
+      <div class="block1" style="position: static; zoom: 1;">
+
+        <div class="table-responsive">
+          <table id="myTable" class="table table-striped table-bordered nowrap">
+            <thead>
+              <tr>
+                <th class="all">Account Number</th>
+                <th>Present Rank</th>
+                <th class="all">Last Name</th>
+                <th class="all">First Name</th>    
+                <th>Eligibility</th>
+                <th>Region</th>
+                <th>PRESENT ASSIGNMENT (UNIT)</th>
+                <th class="all">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="min-width: 200px !important"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+<script>
+  var myTable = null;
+  var isSearch = false;
+  var restrictToProvince = '@PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince)';
+  var restrictToStation = '@PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation)';
+  ///Reference ~/scripts/areas/common/SelectionDS.js to use SelectionDS js class
+  var oSelectionDS = new SelectionDS();
+  $(document).ready(function() {
+    var uploadResult = '@Model.UploadResult';
+    if (uploadResult != null && uploadResult !== '') {
+      if(uploadResult === 'Success')
+        swal("Uploaded!", "Item has been uploaded.", "success");
+      else {
+        swal("Ooops..", uploadResult, "error");
+        $("#responsive-modal").modal();
+      }
+    }
+    $('#ddlDutyStatus').val(1);
+
+    isSearch = false;
+    LoadTable();
+    ddlRegionValueChanged($('#ddlRegion').val(),@Model.ProvinceID);
+    ddlProvinceValueChanged(@Model.ProvinceID,@Model.MunicipalityID);
+    ddlMunicipalityValueChanged(@Model.MunicipalityID,@Model.Emp_Curr_Unit);
+    $('#btnClose').click(function () {
+      $("#responsive-modal").modal('hide');
+    });
+    $('#btnCloseDownloadModal').click(function () {
+      $("#donwloadModal").modal('hide');
+    });
+    $('#btnCloseExportAlphaModal').click(function () {
+      $("#exportAlphaModal").modal('hide');
+    });
+    $('#btnUpload').click(function () {
+      var template = $('#Alphalist').val();
+      if (template != null && template !== '') {
+        $('#responsive-modal').block({
+          message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait , do not close or refresh the page...</h3>'
+       , css: {
+         border: '1px solid #fff !important'
+       }
+        });
+      }
+
+    });
+  });
+
+
+  function ddlRegionValueChanged(regionId, provinceId) {
+    var province = provinceId;
+    if (regionId === "" || (restrictToProvince === 'False' && restrictToStation === 'False'))
+      oSelectionDS.ProvinceByRegion("ddlProvince", regionId);
+    else
+      oSelectionDS.ProvinceByRegion("ddlProvince", regionId, province);
+
+    oSelectionDS.ClearDropdown("ddlMunicipality");
+    oSelectionDS.ClearDropdown("ddlUnit");
+  }
+
+  function ddlProvinceValueChanged(provinceId, municipalityId) {
+    var municipality = municipalityId;
+    if (provinceId === "" || restrictToStation === 'False') {
+      if(restrictToProvince === 'False' && restrictToStation === 'False')
+        provinceId = $('#ddlProvince').val();
+      oSelectionDS.MunicipalityByProvince("ddlMunicipality", provinceId);
+    }
+    else
+      oSelectionDS.MunicipalityByProvince("ddlMunicipality", provinceId, municipality);
+
+    oSelectionDS.ClearDropdown("ddlUnit");
+  }
+  function ddlMunicipalityValueChanged(municipalityId, unitId) {
+    var unit = unitId;
+    if (municipalityId === "" || restrictToStation === 'False') {
+      municipalityId = $('#ddlMunicipality').val();
+      oSelectionDS.UnitByMunicipality("ddlUnit", municipalityId);
+    }
+    else
+      oSelectionDS.UnitByMunicipality("ddlUnit", municipalityId, unit);
+
+  }
+
+  function SetDatatableParams() {
+    var datatable = $('#myTable').DataTable();
+    var datatableInfo = datatable.page.info();
+    var columns = datatable.settings().init().columns;
+    var order = datatable.order();
+    var sortIndex = order[0][0];
+    var sortOrder = order[0][1];
+    datatableInfo.sortOrder = sortOrder;
+    datatableInfo.sortColumnName = columns[sortIndex].name;
+
+    var searchModel = {
+      RegionId: $("#ddlRegion").val() === "" ? 0 : $("#ddlRegion").val(),
+      ProvinceId:restrictToProvince === 'True' || restrictToStation === 'True'? @Model.ProvinceID : $("#ddlProvince").val() === "" ? 0 : $("#ddlProvince").val(),
+      MunicipalityId: restrictToStation === 'True' ? @Model.MunicipalityID : $("#ddlMunicipality").val() === "" ? 0 : $("#ddlMunicipality").val(),
+      UnitId: restrictToStation === 'True' ? @Model.Emp_Curr_Unit : $("#ddlUnit").val() === "" ? 0 : $("#ddlUnit").val(),
+      DutyStatusId: $("#ddlDutyStatus").val() === "" ? 0 : $("#ddlDutyStatus").val(),
+      Gender: $("#ddlGender").val(),
+      CivilStatus: $("#ddlCivilStatus").val() === "" ? 0 : $("#ddlCivilStatus").val(),
+      DesignationId: $("#ddlDesignation").val() === "" ? 0 : $("#ddlDesignation").val(),
+      CourseId: $("#ddlCourse").val() === "" ? 0 : $("#ddlCourse").val(),
+      EligibilityId: $("#ddlEligibility").val() === "" ? 0 : $("#ddlEligibility").val(),
+      //LastTrainingId: $("#ddlLastTraining").val() === "" ? 0 : $("#ddlLastTraining").val(),
+      LastName: $("#txtLastName").val(),
+      AccountNumber: $("#txtAccountNumber").val(),
+      BadgeNumber: $("#txtBadgeNumber").val(),
+      ItemNumber: $("#txtItemNumber").val(),
+      AppointmentStatusId: $("#ddlAppointmentStatus").val() === "" ? 0 : $("#ddlAppointmentStatus").val(),
+      RankId: $("#ddlRank").val() === "" ? 0 : $("#ddlRank").val(),
+      StartServiceDate: $("#dpStartService").val(),
+      EndServiceDate: $("#dpEndService").val(),
+      Birthdate: $("#dpBirthdate").val(),
+      LastTrainingDate: $("#dpLastTraining").val(),
+      HighestMandatoryTraining : $("#ddlHighestMandatoryTraining").val() === "" ? 0 : $("#ddlHighestMandatoryTraining").val(),
+      isChecked : $("#ddlEmployeeStatus").val() === "" ? 0 : $("#ddlEmployeeStatus").val(),
+      IsSearch: isSearch
+    };
+
+    datatableInfo.searchModel = searchModel;
+    return datatableInfo;
+  }
+
+  function DeleteEmployeeConfirm(event) {
+    @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify))
+        {
+            <text> swal({
+      title: "Are you sure?",
+      text: "You will not be able to recover deleted item!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel plx!",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    },
+        function(isConfirm) {
+          if (isConfirm) {
+            swal("Deleted!", "Item has been deleted.", "success");
+            $.get(event,
+                function() {
+                  myTable.ajax.reload();
+                });
+          } else {
+            swal("Cancelled", "Item delete has been cancelled", "error");
+          }
+        });
+    </text>
+        }
+        else
+        {
+            <text>
+    swal("Unauthorized", "You are not allowed to do this action.", "error");
+    </text>
+        }
+  }
+
+  function GetActionTemplate(Emp_Id) {
+    var concat = "";
+    @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify) && (CurrentUser.RoleName == "MAIN ADMIN" || CurrentUser.RoleName == "NATIONAL HRIS ADMIN"))
+    {
+            <text>
+    concat +=
+        '<a href="#" onclick="return DeleteEmployeeConfirm(\'@Url.Action("Delete", "Employee")?sEmp_Id=' +  Emp_Id +
+        '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+    concat += ' Delete';
+    concat += '</a>';
+    </text>
+        }
+    @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails) || PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify))
+        {
+            <text>
+    concat += '<a href="@Url.Action("EmployeeDetails", "Employee")?sEmp_Id=' + Emp_Id + "&AccessType=" + @Html.Raw(Json.Encode(accessType)) +
+                '" class="btn btn-success pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil">';
+    concat += ' Details';
+    concat += '</a>';
+    </text>
+        }
+    return concat;
+  }
+
+  function FilterSearch() {
+    isSearch = true;
+    myTable.ajax.reload();
+  }
+
+  function LoadTable() {
+    $('div.block1').block({
+      message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>',
+      css: {
+        border: '1px solid #fff !important'
+      }
+    });
+
+    myTable = $('#myTable').DataTable({
+      order: [[2, "asc"]],
+      serverSide: true,
+      deferRender: true,
+      pageLength: 50,
+      processing: true,
+      responsive: true,
+      searching: false,
+      ajax: {
+        url: '@Url.Action("GetEmployees", "Employee")',
+        type: 'POST',
+        data: function(d) {
+          d.gridInfo = SetDatatableParams();
+        }
+      },
+      "initComplete": function(settings, json) {
+        //if (settings.json.recordsFiltered)
+        //$('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+      },
+      "columns": [
+          {
+            "name": "Emp_Number",
+            "searchable": true,
+            "sortable": true,
+            "render": function(data, type, full) {
+              return full.Emp_Number;
+            }
+          },
+          {
+            "name": "Emp_Curr_Rank",
+            "searchable": true,
+            "sortable": true,
+            "render": function(data, type, full) {
+              return full.Emp_Curr_Rank;
+            }
+          },
+          {
+            "name": "Emp_LastName",
+            "searchable": true,
+            "sortable": true,
+            "render": function(data, type, full) {
+              return full.Emp_LastName;
+            }
+          },
+          {
+            "name": "Emp_FirstName",
+            "searchable": true,
+            "sortable": true,
+            "render": function(data, type, full) {
+              return full.Emp_FirstName;
+            }
+          },
+          {
+            "name": "Emp_Curr_Eligibility",
+            "searchable": true,
+            "sortable": true,
+            "render": function(data, type, full) {
+              return full.Emp_Curr_Eligibility;
+            }
+          },
+          {
+            "name": "Emp_Curr_Unit",
+            "searchable": true,
+            "sortable": true,
+            "render": function(data, type, full) {
+              return full.Emp_Curr_Unit_Region;
+            }
+          },
+          {
+            "name": "Emp_Curr_Unit",
+            "searchable": true,
+            "sortable": true,
+            "render": function(data, type, full) {
+              return full.Emp_Curr_Unit_Fullname;
+            }
+          },
+          {
+            "name": "Action",
+            "searchable": false,
+            "sortable": false,
+            "width": "200px",
+            "render": function(data, type, full) {
+              return GetActionTemplate(full.Emp_Id);
+            }
+
+          }
+      ]
+    })
+        .on('preXhr.dt',
+            function() {
+              $('div.block1').block({
+                message:
+                    '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>',
+                css: {
+                  border: '1px solid #fff !important'
+                }
+              });
+            })
+        .on('xhr.dt',
+            function(data, settings) {
+              $('div.block1').unblock();
+
+              $("#myTable_length #totalGridResult").remove();
+              if (settings.json && settings.json.recordsFiltered >= 0)
+                $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" +
+                    settings.json.recordsFiltered.toLocaleString() +
+                    " result(s)</span>");
+
+            });
+  }
+
+  function setInfo() {
+    $("#responsive-modal").modal();
+  }
+  function DownloadAlpha() {
+    $("#responsive-modal").modal('hide');
+    $("#donwloadModal").modal();
+  }
+
+  function OpenExportAlpha() {
+    $("#exportAlphaModal").modal();
+  }
+  function DownloadAlphaTemplate() {
+    var list = [];
+
+   if($('input[name="FirstName"]:checked').val() === "true")
+      list.push("First name");
+    if( $('input[name="MiddleName"]:checked').val() === "true")
+      list.push("Middle name");
+    if($('input[name="LastName"]:checked').val() === "true")
+      list.push("Last name");
+    if($('input[name="SuffixName"]:checked').val() === "true")
+      list.push("Suffix name");
+    if($('input[name="TaxCode"]:checked').val() === "true")
+      list.push("Tax Code");
+    if($('input[name="BPNumber"]:checked').val() === "true")
+      list.push("BP Number");
+
+     if($('input[name="DES"]:checked').val() === "true")
+      list.push("DES");
+     if($('input[name="AtmNumber"]:checked').val() === "true")
+      list.push("Atm Number");
+
+    if($('input[name="Placeofbirth"]:checked').val() === "true")
+      list.push("Place of Birth");
+    if( $('input[name="Dateofbirth"]:checked').val() === "true")
+      list.push("Date of birth");
+    if($('input[name="Sex"]:checked').val() === "true")
+      list.push("Sex");
+    if($('input[name="Height"]:checked').val() === "true")
+      list.push("Height");
+    if($('input[name="Weight"]:checked').val() === "true")
+      list.push("Weight");
+    if($('input[name="BloodType"]:checked').val() === "true")
+      list.push("Blood Type");
+    if($('input[name="GSISID"]:checked').val() === "true")
+      list.push("GSIS ID NO");
+    if($('input[name="PAGIBIGID"]:checked').val() === "true")
+      list.push("PAG-IBIG ID NO");
+    if($('input[name="PHILHEALTHNO"]:checked').val() === "true")
+      list.push("PHILHEALTH NO");
+    if($('input[name="SSSNO"]:checked').val() === "true")
+      list.push("SSS NO");
+    if($('input[name="TIN"]:checked').val() === "true")
+      list.push("TIN");
+    if($('input[name="Religion"]:checked').val() === "true")
+      list.push("Religion");
+    if($('input[name="EMAILADDRESS"]:checked').val() === "true")
+      list.push("E-MAIL ADDRESS (if any)");
+    if($('input[name="CELLPHONENO"]:checked').val() === "true")
+      list.push("CELLPHONE NO");
+    if($('input[name="AGENCYEMPLOYEENO"]:checked').val() === "true")
+      list.push("AGENCY EMPLOYEE NO");
+    if($('input[name="HouseBlockLot"]:checked').val() === "true")
+      list.push("RESIDENTIAL House/Block/Lot No");
+    if($('input[name="Street"]:checked').val() === "true")
+      list.push("RESIDENTIAL Street");
+    if($('input[name="SubdivisionVillage"]:checked').val() === "true")
+      list.push("RESIDENTIAL Subdivision/Village");
+    if($('input[name="Barangay"]:checked').val() === "true")
+      list.push("RESIDENTIAL Barangay");
+    if($('input[name="CityMunicipality"]:checked').val() === "true")
+      list.push("RESIDENTIAL City/Municipality");
+    if($('input[name="SubdivisionVillage"]:checked').val() === "true")
+      list.push("RESIDENTIAL Province");
+    if($('input[name="ZipCode"]:checked').val() === "true")
+      list.push("RESIDENTIAL Zip Code");
+    if($('input[name="TelephoneNo"]:checked').val() === "true")
+      list.push("RESIDENTIAL Telephone No");
+    if($('input[name="PermanentHouseBlockLot"]:checked').val() === "true")
+      list.push("PERMANENT House/Block/Lot No.");
+    if($('input[name="PermanentStreet"]:checked').val() === "true")
+      list.push("PERMANENT Street");
+    if($('input[name="PermanentSubdivisionVillage"]:checked').val() === "true")
+      list.push("PERMANENT Subdivision/Village");
+    if($('input[name="PermanentBarangay"]:checked').val() === "true")
+      list.push("PERMANENT Barangay");
+    if($('input[name="PermanentCityMunicipality"]:checked').val() === "true")
+      list.push("PERMANENT City/Municipality");
+    if($('input[name="SubdivisionVillage"]:checked').val() === "true")
+      list.push("PERMANENT PermanentProvince");
+    if($('input[name="PermanentZipCode"]:checked').val() === "true")
+      list.push("PERMANENT Zip Code");
+    if($('input[name="PermanentTelephoneNo"]:checked').val() === "true")
+      list.push("PERMANENT Telephone No");
+
+    //BFP Information
+    if($('input[name="Emp_Service_GovtStartDate"]:checked').val() === "true")
+      list.push("DATE ENTERED GOVERNMENT SERVICE");
+    if($('input[name="Emp_Service_UniformGovtStartDate"]:checked').val() === "true")
+      list.push("DATE ENTERED UNIFORMED SERVICE TO OTHER GOVERNMENT AGENCY/IES");
+    if($('input[name="Emp_Service_StartDate"]:checked').val() === "true")
+      list.push("DATE ENTERED UNIFORMED FIRE SERVICE");
+
+    if($('input[name="Emp_LastPromotionDate_Temp"]:checked').val() === "true")
+      list.push("DATE OF LAST PROMOTION (TEMPORARY STATUS)");
+    if($('input[name="Emp_LastPromotionDate_Permanent"]:checked').val() === "true")
+      list.push("DATE OF LAST PROMOTION (PERMANENT STATUS)");
+    if($('input[name="Emp_AssumedOfficerDate"]:checked').val() === "true")
+      list.push("DATE ASSUMED OFFICER");
+
+    if($('input[name="Emp_LastTrainingDate"]:checked').val() === "true")
+      list.push("LAST TRAINING DATE");
+    if($('input[name="Emp_ItemNumber"]:checked').val() === "true")
+      list.push("ITEM NUMBER");
+    if($('input[name="Emp_BadgeNumber"]:checked').val() === "true")
+      list.push("BADGE NUMBER");
+
+    if($('input[name="Emp_Curr_Rank"]:checked').val() === "true")
+      list.push("PRESENT RANK");
+
+    if($('input[name="Emp_PresentAsgmt_DO_BO_RO"]:checked').val() === "true")
+      list.push("PRESENT ASSIGNMENT DO/BO/RO");
+
+    if($('input[name="Emp_Curr_ApptStatus"]:checked').val() === "true")
+      list.push("APPOINTMENT STATUS");
+    if($('input[name="Emp_AppointmentStatus_DO_BO_RO"]:checked').val() === "true")
+      list.push("Appointment Status DO/BO/RO");
+    if($('input[name="Emp_DutyStatus"]:checked').val() === "true")
+      list.push("DUTY STATUS");
+
+    if($('input[name="Emp_Curr_SalaryGrade"]:checked').val() === "true")
+      list.push("SALARY GRADE");
+    if($('input[name="Emp_Curr_JobFunc"]:checked').val() === "true")
+      list.push("PRESENT DESIGNATION (Code)");
+    //if($('input[name="Emp_Curr_PosDesignationTitle"]:checked').val() === "true")
+    //  list.push("SPECIFY DESIGNATION");
+
+    if($('input[name="Emp_Remarks"]:checked').val() === "true")
+      list.push("REMARKS");
+    if($('input[name="Emp_EducCourse"]:checked').val() === "true")
+      list.push("BASE COURSE");
+    if($('input[name="Emp_MACourse"]:checked').val() === "true")
+      list.push("GRADUATE STUDIES");
+
+    if($('input[name="Emp_HighestEducAttainment"]:checked').val() === "true")
+      list.push("HIGHEST EDUCATIONAL ATTAINMENT");
+    if($('input[name="Emp_Eligibility_Type"]:checked').val() === "true")
+      list.push("ELIGIBITY TYPE");
+    if($('input[name="Emp_Curr_Eligibility"]:checked').val() === "true")
+      list.push("HIGHEST ELIGIBILITY");
+
+    if($('input[name="Emp_HighestMandatoryTraining"]:checked').val() === "true")
+      list.push("HIGHEST MANDATORY TRAINING");
+
+    if($('input[name="UnitCode"]:checked').val() === "true")
+      list.push("PRESENT ASSIGNMENT (Unit Code)");
+
+    var jsonText = JSON.stringify({ list: list });
+
+      BlockUI("donwloadModal");
+      $.ajax({
+        type: "POST",
+        url: "/Employee/DownloadAlphaTemplate",
+        data: jsonText,
+        contentType: "application/json; charset=utf-8",
+        success: function(response) {
+          if (response && response !== "No excel file generated.") {
+            window.location.href = '/Reports/Download?file=' + response;
+            UnblockUI("donwloadModal");
+            $('input:checkbox').removeAttr('checked');
+            $('#donwloadModal').modal('hide');
+          } else {
+            SwalAlert("No excel file generated.");
+            UnblockUI("donwloadModal");
+          }
+        }
+      });
+  }
+  function SwalAlert(msg ) {
+    swal("Ooops..", msg, "error");
+  }
+
+  function BlockUI(area) {
+    $('#' + area).block({
+      message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> </h3>'
+        , css: {
+          border: '1px solid #fff !important'
+        }
+    });
+  }
+
+  function UnblockUI(area) {
+    $('#' + area).unblock();
+  }
+
+  function ExportAlpha() {
+    var list = [];
+
+      list.push("Last name");
+      list.push("First name");
+      list.push("Middle name");
+      list.push("Suffix name");
+      list.push("Unit Code");
+      list.push("DES");
+      list.push("BP Number");
+      list.push("Tax Code");
+      list.push("Atm Number");
+
+    if($('input[name="EA_Placeofbirth"]:checked').val() === "true")
+      list.push("Place of Birth");
+    if( $('input[name="EA_Dateofbirth"]:checked').val() === "true")
+      list.push("Date of birth");
+    if($('input[name="EA_CivilStatus"]:checked').val() === "true")
+      list.push("Civil Status");
+    if ($('input[name="EA_Citizenship"]:checked').val() === "true") {
+      list.push("Citizenship");
+      list.push("By birth/ By Naturalization (if Dual Citizenship)");
+      list.push("Country(if Dual Citizenship)");
+    }
+    if($('input[name="EA_Sex"]:checked').val() === "true")
+      list.push("Sex");
+    if($('input[name="EA_Height"]:checked').val() === "true")
+      list.push("Height");
+    if($('input[name="EA_Weight"]:checked').val() === "true")
+      list.push("Weight");
+    if($('input[name="EA_BloodType"]:checked').val() === "true")
+      list.push("Blood Type");
+    if($('input[name="EA_GSISID"]:checked').val() === "true")
+      list.push("GSIS ID NO");
+    if($('input[name="EA_PAGIBIGID"]:checked').val() === "true")
+      list.push("PAG-IBIG ID NO");
+    if($('input[name="EA_PHILHEALTHNO"]:checked').val() === "true")
+      list.push("PHILHEALTH NO");
+    if($('input[name="EA_SSSNO"]:checked').val() === "true")
+      list.push("SSS NO");
+    if($('input[name="EA_TIN"]:checked').val() === "true")
+      list.push("TIN");
+    if ($('input[name="EA_Religion"]:checked').val() === "true") {
+      list.push("Religion");
+      list.push("Other Religion");
+    }
+    if($('input[name="EA_EMAILADDRESS"]:checked').val() === "true")
+      list.push("E-MAIL ADDRESS");
+    if($('input[name="EA_CELLPHONENO"]:checked').val() === "true")
+      list.push("CELLPHONE NO");
+    if($('input[name="EA_AGENCYEMPLOYEENO"]:checked').val() === "true")
+      list.push("AGENCY EMPLOYEE NO");
+    if($('input[name="EA_HouseBlockLot"]:checked').val() === "true")
+      list.push("RESIDENTIAL House/Block/Lot No");
+    if($('input[name="EA_Street"]:checked').val() === "true")
+      list.push("RESIDENTIAL Street");
+    if($('input[name="EA_SubdivisionVillage"]:checked').val() === "true")
+      list.push("RESIDENTIAL Subdivision/Village");
+    if($('input[name="EA_Barangay"]:checked').val() === "true")
+      list.push("RESIDENTIAL Barangay");
+    if($('input[name="EA_CityMunicipality"]:checked').val() === "true")
+      list.push("RESIDENTIAL City/Municipality");
+    if($('input[name="EA_SubdivisionVillage"]:checked').val() === "true")
+      list.push("RESIDENTIAL Province");
+    if($('input[name="EA_ZipCode"]:checked').val() === "true")
+      list.push("RESIDENTIAL Zip Code");
+    if($('input[name="EA_TelephoneNo"]:checked').val() === "true")
+      list.push("RESIDENTIAL Telephone No");
+    if($('input[name="EA_PermanentHouseBlockLot"]:checked').val() === "true")
+      list.push("PERMANENT House/Block/Lot No.");
+    if($('input[name="EA_PermanentStreet"]:checked').val() === "true")
+      list.push("PERMANENT Street");
+    if($('input[name="EA_PermanentSubdivisionVillage"]:checked').val() === "true")
+      list.push("PERMANENT Subdivision/Village");
+    if($('input[name="EA_PermanentBarangay"]:checked').val() === "true")
+      list.push("PERMANENT Barangay");
+    if($('input[name="EA_PermanentCityMunicipality"]:checked').val() === "true")
+      list.push("PERMANENT City/Municipality");
+    if($('input[name="EA_SubdivisionVillage"]:checked').val() === "true")
+      list.push("PERMANENT PermanentProvince");
+    if($('input[name="EA_PermanentZipCode"]:checked').val() === "true")
+      list.push("PERMANENT Zip Code");
+    if($('input[name="EA_PermanentTelephoneNo"]:checked').val() === "true")
+      list.push("PERMANENT Telephone No");
+
+    //BFP Information
+    if($('input[name="EA_Emp_Service_GovtStartDate"]:checked').val() === "true")
+      list.push("DATE ENTERED GOVERNMENT SERVICE");
+    if($('input[name="EA_YEARSINGOVERNMENTSERVICE"]:checked').val() === "true")
+        list.push("YEARS IN GOVERNMENT SERVICE");
+    if($('input[name="EA_Emp_Service_UniformGovtStartDate"]:checked').val() === "true")
+      list.push("DATE ENTERED UNIFORMED SERVICE TO OTHER GOVERNMENT AGENCY/IES");
+    if($('input[name="EA_Emp_Service_StartDate"]:checked').val() === "true")
+      list.push("DATE ENTERED UNIFORMED FIRE SERVICE");
+    if($('input[name="EA_YEARSINUNIFORMEDFIRESERVICE"]:checked').val() === "true")
+      list.push("YEARS IN UNIFORMED FIRE SERVICE");
+    if($('input[name="EA_DATEOFRETIREMENT"]:checked').val() === "true")
+      list.push("MANDATORY RETIREMENT");
+    if($('input[name="EA_UNIFORMEDOPTIONALRETIREMENT"]:checked').val() === "true")
+      list.push("UNIFORMED OPTIONAL RETIREMENT");
+    if($('input[name="EA_NONUNIFORMEDOPTIONALRETIREMENT"]:checked').val() === "true")
+      list.push("NON UNIFORMED SERVICE OPTIONAL RETIREMENT");
+    if($('input[name="EA_Emp_LastPromotionDate_Temp"]:checked').val() === "true")
+      list.push("DATE OF LAST PROMOTION (TEMPORARY STATUS)");
+    if($('input[name="EA_Emp_LastPromotionDate_Permanent"]:checked').val() === "true")
+      list.push("DATE OF LAST PROMOTION (PERMANENT STATUS)");
+    if($('input[name="EA_Emp_AssumedOfficerDate"]:checked').val() === "true")
+      list.push("DATE ASSUMED OFFICER");
+
+    if($('input[name="EA_Emp_LastTrainingDate"]:checked').val() === "true")
+      list.push("LAST TRAINING DATE");
+    if($('input[name="EA_Emp_ItemNumber"]:checked').val() === "true")
+      list.push("ITEM NUMBER");
+    if($('input[name="EA_Emp_BadgeNumber"]:checked').val() === "true")
+      list.push("BADGE NUMBER");
+
+    if($('input[name="EA_Emp_Curr_Rank"]:checked').val() === "true")
+      list.push("PRESENT RANK");
+
+    if($('input[name="EA_Emp_PresentAsgmt_DO_BO_RO"]:checked').val() === "true")
+      list.push("PRESENT ASSIGNMENT DO/BO/RO");
+
+    if($('input[name="EA_Emp_Curr_ApptStatus"]:checked').val() === "true")
+      list.push("APPOINTMENT STATUS");
+    if($('input[name="EA_Emp_AppointmentStatus_DO_BO_RO"]:checked').val() === "true")
+      list.push("Appointment Status DO/BO/RO");
+    if($('input[name="EA_Emp_DutyStatus"]:checked').val() === "true")
+      list.push("DUTY STATUS");
+
+    if($('input[name="EA_Emp_Curr_SalaryGrade"]:checked').val() === "true")
+      list.push("SALARY GRADE");
+    if($('input[name="EA_Emp_Curr_JobFunc"]:checked').val() === "true")
+      list.push("PRESENT DESIGNATION");
+    //if($('input[name="EA_Emp_Curr_PosDesignationTitle"]:checked').val() === "true")
+    //  list.push("SPECIFY DESIGNATION");
+
+    if($('input[name="EA_Emp_Remarks"]:checked').val() === "true")
+      list.push("REMARKS");
+    if($('input[name="EA_Emp_EducCourse"]:checked').val() === "true")
+      list.push("BASE COURSE");
+    if($('input[name="EA_Emp_MACourse"]:checked').val() === "true")
+      list.push("GRADUATE STUDIES");
+
+    if($('input[name="EA_Emp_HighestEducAttainment"]:checked').val() === "true")
+      list.push("HIGHEST EDUCATIONAL ATTAINMENT");
+    if($('input[name="EA_Emp_Eligibility_Type"]:checked').val() === "true")
+      list.push("ELIGIBITY TYPE");
+    if($('input[name="EA_Emp_Curr_Eligibility"]:checked').val() === "true")
+      list.push("HIGHEST ELIGIBILITY");
+
+    if($('input[name="EA_Emp_HighestMandatoryTraining"]:checked').val() === "true")
+      list.push("HIGHEST MANDATORY TRAINING");
+
+      var  searchModel = {
+        RegionId: $("#ddlRegion").val() === "" ? 0 : $("#ddlRegion").val(),
+        ProvinceId:restrictToProvince === 'True' || restrictToStation === 'True'? @Model.ProvinceID : $("#ddlProvince").val() === "" ? 0 : $("#ddlProvince").val(),
+        MunicipalityId: restrictToStation === 'True' ? @Model.MunicipalityID : $("#ddlMunicipality").val() === "" ? 0 : $("#ddlMunicipality").val(),
+        UnitId: restrictToStation === 'True' ? @Model.Emp_Curr_Unit : $("#ddlUnit").val() === "" ? 0 : $("#ddlUnit").val(),
+        DutyStatusId: $("#ddlDutyStatus").val() === "" ? 0 : $("#ddlDutyStatus").val(),
+        Gender: $("#ddlGender").val(),
+        CivilStatus: $("#ddlCivilStatus").val() === "" ? 0 : $("#ddlCivilStatus").val(),
+        DesignationId: $("#ddlDesignation").val() === "" ? 0 : $("#ddlDesignation").val(),
+        CourseId: $("#ddlCourse").val() === "" ? 0 : $("#ddlCourse").val(),
+        EligibilityId: $("#ddlEligibility").val() === "" ? 0 : $("#ddlEligibility").val(),
+        //LastTrainingId: $("#ddlLastTraining").val() === "" ? 0 : $("#ddlLastTraining").val(),
+        LastName: $("#txtLastName").val(),
+        AccountNumber: $("#txtAccountNumber").val(),
+        BadgeNumber: $("#txtBadgeNumber").val(),
+        ItemNumber: $("#txtItemNumber").val(),
+        AppointmentStatusId: $("#ddlAppointmentStatus").val() === "" ? 0 : $("#ddlAppointmentStatus").val(),
+        RankId: $("#ddlRank").val() === "" ? 0 : $("#ddlRank").val(),
+        StartServiceDate: $("#dpStartService").val(),
+        EndServiceDate: $("#dpEndService").val(),
+        Birthdate: $("#dpBirthdate").val(),
+        LastTrainingDate: $("#dpLastTraining").val()
+      };
+      BlockUI("exportAlphaModal");
+      $.ajax({
+        type: "POST",
+        url: "/Employee/ExportAlpha",
+        data: JSON.stringify({ model: searchModel, list: list }),
+        contentType: "application/json; charset=utf-8",
+        success: function(response) {
+          if (response && response !== "No excel file generated.") {
+            window.location.href = '/Reports/Download?file=' + response;
+            UnblockUI("exportAlphaModal");
+            $('input:checkbox').removeAttr('checked');
+            $('#exportAlphaModal').modal('hide');
+          } else {
+            SwalAlert("No excel file generated.");
+            UnblockUI("exportAlphaModal");
+          }
+        }
+      });
+
+  }
+</script>
+
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+
+@using (Html.BeginForm("UploadAlpha", "Employee", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog" style="width: 50% !important">
+        <div class="modal-content" id="editUnitContent" style="height: 230px;">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myLargeModalLabel">Upload Aplha</h4>
+            <h5 style="color:red">Note: Account Number is required in uploading alpha.</h5>
+          </div>
+          <div class="modal-body" id="modalBody">
+            <div class="row">
+              <div class="form-horizontal">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <div class="form-group">
+                      @*<label class="col-md-3 control-label"></label>*@
+                      <div class="col-md-6">
+                        @Html.TextBoxFor(model => model.Alphalist, "", new {type = "file", name = "Alphalist", id = "Alphalist", @accept = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel",@required = "required" })
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-rounded waves-effect waves-light m-r-10 pull-left" type="button" id="btnClose"><i class="fa fa-times"></i> Cancel</button>
+            <button class="btn btn-success btn-rounded waves-effect waves-light m-r-10 pull-left" type="submit" id="btnUpload"><i class="fa fa-upload"></i> Upload</button>
+
+            <button type="button" onclick="DownloadAlpha()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Download Template</button>
+          </div>
+        </div>
+      </div>
+    </div>
+}
+
+<div id="donwloadModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none">
+<div class="modal-dialog">
+<div class="modal-content" style="height: 600px">
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h4 class="modal-title" style="text-align: center">Choose field to be included in the template</h4>
+</div>
+<div class="modal-body" style="height: 450px; overflow-y: scroll; max-height: 95%; margin-bottom: 10px;">
+<div class="row">
+<div class="form-horizontal">
+<div style="text-align: center; margin-bottom: 10px; font-size: 14px"><b>PERSONAL INFORMATION</b>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("FirstName", new {@class = "", @id = "FirstName"}) First name
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("MiddleName", new {@class = "", @id = "MiddleName"}) Middle name
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("LastName", new {@class = "", @id = "LastName"}) Last name
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("SuffixName", new {@class = "", @id = "SuffixName"}) Suffix name
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("TaxCode", new {@class = "", @id = "TaxCode"}) Tax Code
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("BPNumber", new {@class = "", @id = "BPNumber"}) BP Number
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4">
+          @Html.CheckBox("AtmNumber", new { @class = "", @id = "AtmNumber" }) Atm Number
+        </div>
+        <div class="col-md-4">
+          @Html.CheckBox("DES", new {@class = "", @id = "DES"}) DES
+        </div>
+        <div class="col-md-4">
+          @Html.CheckBox("AGENCYEMPLOYEENO", new {@class = "", @id = "AGENCYEMPLOYEENO"}) AGENCY EMPLOYEE NO.
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("Dateofbirth", new {@class = "", @id = "Dateofbirth"}) Date of birth
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Placeofbirth", new {@class = "", @id = "Placeofbirth"})Place of birth
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Sex", new {@class = "", @id = "Sex"}) Sex
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("Height", new {@class = "", @id = "Height"})Height (m)
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Weight", new {@class = "", @id = "Weight"})Weight (kg)
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("BloodType", new {@class = "", @id = "BloodType"}) Blood Type
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("GSISID", new {@class = "", @id = "GSISID"})GSIS ID NO.
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("PAGIBIGID", new {@class = "", @id = "PAGIBIGID"})PAG-IBIG ID NO.
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("PHILHEALTHNO", new {@class = "", @id = "PHILHEALTHNO"}) PHILHEALTH NO.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("SSSNO", new {@class = "", @id = "SSSNO"})SSS NO.
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("TIN", new {@class = "", @id = "TIN"}) TIN
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Religion", new {@class = "", @id = "Religion"}) Religion
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("EMAILADDRESS", new {@class = "", @id = "EMAILADDRESS"})E-MAIL ADDRESS (if any)
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("CELLPHONENO", new {@class = "", @id = "CELLPHONENO"}) CELLPHONE NO.
+      </div>
+  
+    </div>
+  </div>
+</div>
+<div>
+  <b>RESIDENTIAL ADDRESS</b>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("HouseBlockLot", new {@class = "", @id = "HouseBlockLot"}) House/Block/Lot No.
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Street", new {@class = "", @id = "Street"}) Street
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("SubdivisionVillage", new {@class = "", @id = "SubdivisionVillage"}) Subdivision/Village
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("Barangay", new {@class = "", @id = "Barangay"}) Barangay
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("CityMunicipality", new {@class = "", @id = "CityMunicipality"}) City/Municipality
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Province", new {@class = "", @id = "Province"}) Province
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("ZipCode", new {@class = "", @id = "ZipCode"}) Zip Code
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("TelephoneNo", new {@class = "", @id = "TelephoneNo"}) Telephone No
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div>
+  <b>PERMANENT ADDRESS</b>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("PermanentHouseBlockLot", new {@class = "", @id = "PermanentHouseBlockLot"}) House/Block/Lot No.
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("PermanentStreet", new {@class = "", @id = "PermanentStreet"}) Street
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("PermanentSubdivisionVillage", new {@class = "", @id = "PermanentSubdivisionVillage"}) Subdivision/Village
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("PermanentBarangay", new {@class = "", @id = "PermanentBarangay"}) Barangay
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("PermanentCityMunicipality", new {@class = "", @id = "PermanentCityMunicipality"}) City/Municipality
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("PermanentProvince", new {@class = "", @id = "PermanentProvince"}) Province
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("PermanentZipCode", new {@class = "", @id = "PermanentZipCode"}) Zip Code
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("PermanentTelephoneNo", new {@class = "", @id = "PermanentTelephoneNo"}) Telephone No
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align: center; margin: 10px 0 10px 0; font-size: 14px"><b>BFP INFORMATION</b>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Service_GovtStartDate", new {@class = "", @id = "Emp_Service_GovtStartDate"}) DATE ENTERED GOVERNMENT SERVICE
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Service_UniformGovtStartDate", new {@class = "", @id = "Emp_Service_UniformGovtStartDate"})DATE ENTERED UNIFORMED SERVICE TO OTHER GOVERNMENT AGENCY/IES
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Service_StartDate", new {@class = "", @id = "Emp_Service_StartDate"}) DATE ENTERED UNIFORMED FIRE SERVICE
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_LastPromotionDate_Temp", new {@class = "", @id = "Emp_LastPromotionDate_Temp"})DATE OF LAST PROMOTION (TEMPORARY STATUS)
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_LastPromotionDate_Permanent", new {@class = "", @id = "Emp_LastPromotionDate_Permanent"})DATE OF LAST PROMOTION (PERMANENT STATUS)
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_AssumedOfficerDate", new {@class = "", @id = "Emp_AssumedOfficerDate"}) DATE ASSUMED OFFICER
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_LastTrainingDate", new {@class = "", @id = "Emp_LastTrainingDate"})LAST TRAINING DATE
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_ItemNumber", new {@class = "", @id = "Emp_ItemNumber"})ITEM NUMBER
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_BadgeNumber", new {@class = "", @id = "Emp_BadgeNumber"}) BADGE NUMBER
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Curr_Rank", new {@class = "", @id = "Emp_Curr_Rank"})PRESENT RANK
+      </div>
+      @*<div class="col-md-4">
+                      @Html.CheckBox("PresentAssignmentUnit", new { @class = "", @id = "PresentAssignmentUnit" }) PRESENT ASSIGNMENT (UNIT)
+                    </div>*@
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_HighestMandatoryTraining", new {@class = "", @id = "Emp_HighestMandatoryTraining"})HIGHEST MANDATORY TRAINING </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_PresentAsgmt_DO_BO_RO", new {@class = "", @id = "Emp_PresentAsgmt_DO_BO_RO"}) PRESENT ASSIGNMENT DO/BO/RO
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Curr_ApptStatus", new {@class = "", @id = "Emp_Curr_ApptStatus"})APPOINTMENT STATUS
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_AppointmentStatus_DO_BO_RO", new {@class = "", @id = "Emp_AppointmentStatus_DO_BO_RO"}) Appointment Status DO/BO/RO
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_DutyStatus", new {@class = "", @id = "Emp_DutyStatus"}) DUTY STATUS
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Curr_SalaryGrade", new {@class = "", @id = "Emp_Curr_SalaryGrade"}) SALARY GRADE
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Curr_JobFunc", new {@class = "", @id = "Emp_Curr_JobFunc"}) PRESENT DESIGNATION
+      </div>
+      @*<div class="col-md-4">
+        @Html.CheckBox("Emp_Curr_PosDesignationTitle", new {@class = "", @id = "Emp_Curr_PosDesignationTitle"}) SPECIFY DESIGNATION
+      </div>*@
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Remarks", new { @class = "", @id = "Emp_Remarks" }) REMARKS
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+  
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_EducCourse", new {@class = "", @id = "Emp_EducCourse"}) BASE COURSE
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_MACourse", new {@class = "", @id = "Emp_MACourse"}) GRADUATE STUDIES
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_HighestEducAttainment", new { @class = "", @id = "Emp_HighestEducAttainment" })HIGHEST EDUCATIONAL ATTAINMENT
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="row">
+    <div class="form-group">
+   
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Eligibility_Type", new {@class = "", @id = "Emp_Eligibility_Type"})ELIGIBITY TYPE
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("Emp_Curr_Eligibility", new {@class = "", @id = "Emp_Curr_Eligibility"})HIGHEST ELIGIBILITY
+      </div>
+      <div class="col-md-4">
+        @Html.CheckBox("UnitCode", new { @class = "", @id = "UnitCode" }) PRESENT ASSIGNMENT (Unit Code)
+      </div>
+    </div>
+  </div>
+</div>
+@*<div class="col-sm-12">
+                <div class="row">
+                  <div class="form-group">
+                    <div class="col-md-4">
+                      @Html.CheckBox("Emp_HighestMandatoryTraining", new { @class = "", @id = "Emp_HighestMandatoryTraining" })HIGHEST MANDATORY TRAINING
+                    </div>
+                  </div>
+                </div>
+              </div>*@
+</div>
+</div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-danger btn-rounded waves-effect waves-light m-r-10 pull-left" type="button" id="btnCloseDownloadModal"><i class="fa fa-times"></i> Cancel</button>
+  <button onclick="DownloadAlphaTemplate()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 pull-left" type="button" id="btnDownloadTemplate"><i class="fa fa-print"></i> Download</button>
+</div>
+</div>
+</div>
+</div>
+
+<div id="exportAlphaModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none">
+  <div class="modal-dialog">
+    <div class="modal-content" style="height: 600px">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" style="text-align: center">Choose field to be included in the report</h4>
+      </div>
+      <div class="modal-body" style="height: 450px;overflow-y: scroll; max-height:95%;margin-bottom:10px;">
+        <div class="row">
+          <div class="form-horizontal">
+            <div style="text-align: center; margin-bottom: 10px;font-size: 14px"><b>PERSONAL INFORMATION</b></div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Dateofbirth", new { @class = "", @id = "EA_Dateofbirth" }) Date of birth
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Placeofbirth", new { @class = "", @id = "EA_Placeofbirth" })Place of birth
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Sex", new {@class = "", @id = "EA_Sex" }) Sex
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_CivilStatus", new { @class = "", @id = "EA_CivilStatus" }) Civil Status
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Citizenship", new { @class = "", @id = "EA_Citizenship" }) Citizenship
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Height", new {@class = "", @id = "EA_Height" })Height (m)
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Weight", new {@class = "", @id = "EA_Weight" })Weight (kg)
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_BloodType", new {@class = "", @id = "EA_BloodType" }) Blood Type
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_GSISID", new { @class = "", @id = "EA_GSISID" })GSIS ID NO.
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PAGIBIGID", new { @class = "", @id = "EA_PAGIBIGID" })PAG-IBIG ID NO.
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PHILHEALTHNO", new {@class = "", @id = "EA_PHILHEALTHNO" }) PHILHEALTH NO.
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_SSSNO", new { @class = "", @id = "EA_SSSNO" })SSS NO.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_TIN", new { @class = "", @id = "EA_TIN" }) TIN
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Religion", new {@class = "", @id = "EA_Religion" }) Religion
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_EMAILADDRESS", new { @class = "", @id = "EA_EMAILADDRESS" })E-MAIL ADDRESS
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_CELLPHONENO", new { @class = "", @id = "EA_CELLPHONENO" }) CELLPHONE NO.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_AGENCYEMPLOYEENO", new { @class = "", @id = "EA_AGENCYEMPLOYEENO" }) AGENCY EMPLOYEE NO.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <b>RESIDENTIAL ADDRESS</b>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_HouseBlockLot", new { @class = "", @id = "EA_HouseBlockLot" }) House/Block/Lot No.
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Street", new { @class = "", @id = "EA_Street" }) Street
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_SubdivisionVillage", new {@class = "", @id = "EA_SubdivisionVillage" }) Subdivision/Village
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Barangay", new { @class = "", @id = "EA_Barangay" }) Barangay
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_CityMunicipality", new { @class = "", @id = "EA_CityMunicipality" }) City/Municipality
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_Province", new {@class = "", @id = "EA_Province" }) Province
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_ZipCode", new { @class = "", @id = "EA_ZipCode" }) Zip Code
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_TelephoneNo", new { @class = "", @id = "EA_TelephoneNo" }) Telephone No
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <b>PERMANENT ADDRESS</b>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PermanentHouseBlockLot", new { @class = "", @id = "EA_PermanentHouseBlockLot" }) House/Block/Lot No.
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PermanentStreet", new { @class = "", @id = "EA_PermanentStreet" }) Street
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PermanentSubdivisionVillage", new {@class = "", @id = "EA_PermanentSubdivisionVillage" }) Subdivision/Village
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PermanentBarangay", new { @class = "", @id = "EA_PermanentBarangay" }) Barangay
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PermanentCityMunicipality", new { @class = "", @id = "EA_PermanentCityMunicipality" }) City/Municipality
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PermanentProvince", new {@class = "", @id = "EA_PermanentProvince" }) Province
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PermanentZipCode", new { @class = "", @id = "EA_PermanentZipCode" }) Zip Code
+                  </div>
+                  <div class="col-md-3">
+                    @Html.CheckBox("EA_PermanentTelephoneNo", new { @class = "", @id = "EA_PermanentTelephoneNo" }) Telephone No
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin:10px 0 10px 0;font-size: 14px"><b>BFP INFORMATION</b></div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_Service_GovtStartDate", new { @class = "", @id = "EA_Emp_Service_GovtStartDate" }) DATE ENTERED GOVERNMENT SERVICE
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_Service_UniformGovtStartDate", new { @class = "", @id = "EA_Emp_Service_UniformGovtStartDate" })DATE ENTERED UNIFORMED SERVICE TO OTHER GOVERNMENT AGENCY/IES
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_Service_StartDate", new { @class = "", @id = "EA_Emp_Service_StartDate" }) DATE ENTERED UNIFORMED FIRE SERVICE
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_LastPromotionDate_Temp", new { @class = "", @id = "EA_Emp_LastPromotionDate_Temp" })DATE OF LAST PROMOTION (TEMPORARY STATUS)
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_LastPromotionDate_Permanent", new { @class = "", @id = "EA_Emp_LastPromotionDate_Permanent" })DATE OF LAST PROMOTION (PERMANENT STATUS)
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_AssumedOfficerDate", new { @class = "", @id = "EA_Emp_AssumedOfficerDate" }) DATE ASSUMED OFFICER
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_LastTrainingDate", new { @class = "", @id = "EA_Emp_LastTrainingDate" })LAST TRAINING DATE
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_ItemNumber", new { @class = "", @id = "EA_Emp_ItemNumber" })ITEM NUMBER
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_BadgeNumber", new { @class = "", @id = "EA_Emp_BadgeNumber" }) BADGE NUMBER
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_Curr_Rank", new { @class = "", @id = "EA_Emp_Curr_Rank" })PRESENT RANK
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_HighestMandatoryTraining", new { @class = "", @id = "EA_Emp_HighestMandatoryTraining" })HIGHEST MANDATORY TRAINING
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_PresentAsgmt_DO_BO_RO", new { @class = "", @id = "EA_Emp_PresentAsgmt_DO_BO_RO" }) PRESENT ASSIGNMENT DO/BO/RO
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_Curr_ApptStatus", new { @class = "", @id = "EA_Emp_Curr_ApptStatus" })APPOINTMENT STATUS
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_AppointmentStatus_DO_BO_RO", new { @class = "", @id = "EA_Emp_AppointmentStatus_DO_BO_RO" }) Appointment Status DO/BO/RO
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_DutyStatus", new { @class = "", @id = "EA_Emp_DutyStatus" }) DUTY STATUS
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_Curr_SalaryGrade", new { @class = "", @id = "EA_Emp_Curr_SalaryGrade" }) SALARY GRADE
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_Curr_JobFunc", new { @class = "", @id = "EA_Emp_Curr_JobFunc" }) PRESENT DESIGNATION
+                  </div>
+                  @*<div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_Curr_PosDesignationTitle", new { @class = "", @id = "EA_Emp_Curr_PosDesignationTitle" }) SPECIFY DESIGNATION
+                  </div>*@
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_UNIFORMEDOPTIONALRETIREMENT", new { @class = "", @id = "EA_UNIFORMEDOPTIONALRETIREMENT" })UNIFORMED OPTIONAL RETIREMENT
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_Remarks", new { @class = "", @id = "EA_Emp_Remarks" }) REMARKS
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_EducCourse", new { @class = "", @id = "EA_Emp_EducCourse" }) BASE COURSE
+                  </div>
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_Emp_MACourse", new { @class = "", @id = "EA_Emp_MACourse" }) GRADUATE STUDIES
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="form-group">
+                <div class="col-md-4">
+                  @Html.CheckBox("EA_Emp_HighestEducAttainment", new {@class = "", @id = "EA_Emp_HighestEducAttainment" })HIGHEST EDUCATIONAL ATTAINMENT
+                </div>
+                <div class="col-md-4">
+                  @Html.CheckBox("EA_Emp_Eligibility_Type", new {@class = "", @id = "EA_Emp_Eligibility_Type" })ELIGIBITY TYPE
+                </div>
+                <div class="col-md-4">
+                  @Html.CheckBox("EA_Emp_Curr_Eligibility", new {@class = "", @id = "EA_Emp_Curr_Eligibility" })HIGHEST ELIGIBILITY
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="form-group">
+                <div class="col-md-4">
+                  @Html.CheckBox("EA_YEARSINGOVERNMENTSERVICE", new {@class = "", @id = "EA_YEARSINGOVERNMENTSERVICE" })YEARS IN GOVERNMENT SERVICE
+                </div>
+                <div class="col-md-4">
+                  @Html.CheckBox("EA_YEARSINUNIFORMEDFIRESERVICE", new {@class = "", @id = "EA_YEARSINUNIFORMEDFIRESERVICE" })YEARS IN UNIFORMED FIRE SERVICE
+                </div>
+                <div class="col-md-4">
+                  @Html.CheckBox("EA_DATEOFRETIREMENT", new {@class = "", @id = "EA_DATEOFRETIREMENT" })MANDATORY RETIREMENT
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="form-group">
+               
+                  <div class="col-md-4">
+                    @Html.CheckBox("EA_NONUNIFORMEDOPTIONALRETIREMENT", new { @class = "", @id = "EA_NONUNIFORMEDOPTIONALRETIREMENT" })NON UNIFORMED SERVICE OPTIONAL RETIREMENT
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger btn-rounded waves-effect waves-light m-r-10 pull-left" type="button" id="btnCloseExportAlphaModal"><i class="fa fa-times"></i> Cancel</button>
+        <button onclick="ExportAlpha()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 pull-left" type="button" id="btnExportAlpha"><i class="fa fa-print"></i> Download</button>
+      </div>
+    </div>
+  </div>
+</div>

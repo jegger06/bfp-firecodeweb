@@ -1,0 +1,34 @@
+﻿
+@using MVC.Series.Web.Extensions
+@model EBFP.BL.HumanResources.VoluntaryWorkModel
+@using (Html.BeginCollectionItem("VoluntaryWorks"))
+{
+    string formID = "HRISVW_" + Guid.NewGuid().ToString().Replace("-", "");
+    <div class="divTableRow" id="@formID">
+        @Html.HiddenFor(m => @Model.EVW_Emp_Id, new { @class = "form-control" })
+        @Html.HiddenFor(m => @Model.EVW_Id, new { @class = "form-control" })
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.EVW_OrgName, new { @maxlength = "100", @class = "form-control", @required = "required" })</div>
+        <div class="divTableCell">
+            <div class="col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.EVW_StartDate, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @required = "required" })
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.EVW_EndDate, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @required = "required" })
+            </div>
+        </div>
+      <div class="divTableCell">@Html.TextBoxFor(m => @Model.EVW_Hours, new { @class = "form-control", @type = "number", @step = "any", @placeholder = "N/A" })</div>
+        <div class="divTableCell">@Html.TextBoxFor(m => @Model.EVW_PosNatureWork, new { @maxlength = "150", @class = "form-control" })</div>
+        <div class="divTableCell"> 
+            <button type="button" class="btn btn-danger removeItem btn-circle UserAccessCanEdit" id="@formID" name="@formID" data-bind="@formID"><i class="fa fa-times"></i> </button> 
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#@formID .removeItem").click(function () {
+                $("#" + $(this).data().bind).remove();
+            });
+        });
+    </script>
+}

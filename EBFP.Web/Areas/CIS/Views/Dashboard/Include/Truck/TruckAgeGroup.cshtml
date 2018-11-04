@@ -1,0 +1,27 @@
+﻿
+<div style="height: 455px !important">
+    <div style="font-weight:bold;font-size:15px" >
+        NUMBER OF FIRE TRUCKS* PER AGE GROUP
+    </div>
+    * Serviceable, unserviceable and under repair vehicles and equipment.
+
+    <br /><br />
+    <div style="height: 372px;">
+        <table cellpadding="1" class="tbl-Dashboard">
+            <tr>
+                <th>AGE (in years)</th>
+                <th>BFP - OWNED</th>
+                <th>LGU - OWNED</th>
+                <th>SUB - TOTAL</th>
+                <th>% SHARE</th>
+            </tr>
+            <tr ng-repeat="item in TruckAgeGroup">
+                <td class="tbl-RowTitle">{{item.Age}}</td>
+                <td>{{item.BFPOwnedCount}}</td>
+                <td>{{item.LGUOwnedCount}}</td>
+                <td>{{item.SubTotal}}</td>
+                <td>{{item.Share}} %</td>
+            </tr>
+        </table>
+    </div>
+</div>

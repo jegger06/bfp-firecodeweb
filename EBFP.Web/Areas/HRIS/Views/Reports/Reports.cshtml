@@ -1,0 +1,1237 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.HumanResources.EmployeeModel
+@{
+    ViewBag.Title = "REPORTS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.HRIS_Reports_CanViewAll)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+      return;
+    }
+}
+<style>
+    .employeeSelection, .mydatepicker { display: block; }
+</style>
+<div class="col-sm-12">
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            I. EMPLOYEE LEAVE RECORD
+
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="LeaveReport">
+            <div class="row" role="form">
+                <div class="form-horizontal">
+
+                    <div class="form-group" style="margin-left: 10px">
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Report End Date</label>
+                                @Html.TextBox("EndDate", "", "{0:MM/dd/yyyy}", new {id = "dpLeaveEndDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy"})
+                            </div>
+
+                        </div>
+                        <div class="col-md-3" style="margin-top: 15px">
+                            <div>
+                                <button type="button" onclick="GenerateLeaveReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label class="control-label">Employee</label>
+                      <select class="employeeSelection form-control" id="ddlEmployee">
+                        <option value="" selected="selected">--- Please Select ---</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Processed By</label>
+                            <select class="employeeSelection form-control" id="ddlProcessedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Prepared By</label>
+                            <select class="employeeSelection form-control" id="ddlPreparedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Certified By</label>
+                            <select class="employeeSelection form-control" id="ddlCertifiedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div> 
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            II. RECAP OF REGIONAL AUTHORIZED STRENGTH
+
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="RegionalAuthorizeStrReport">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <div class="col-md-3" style="margin-top: 6px">
+                                <div>
+                                    <button type="button" onclick="GenerateRegionalAuthorizeStrReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            III. PERSONNEL STRENGTH NATIONWIDE
+
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="PersonnelStrengthReport">
+            <div class="row" role="form">
+                <div class="form-group">
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Prepared By</label>
+                            <select class="employeeSelection form-control" id="ddlNPreparedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Reviewed By</label>
+                            <select class="employeeSelection form-control" id="ddlReviewedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Noted By</label>
+                            <select class="employeeSelection form-control" id="ddlNotedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top: 6px">
+                        <div>
+                            <button type="button" onclick="GeneratePersonnelStrengthReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            IV. ACTUAL VS AUTHORIZED STRENGTH
+
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="ActualVsAuthorizedReport">
+            <div class="row" role="form">
+                <div class="form-group">
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Prepared By</label>
+                            <select class="employeeSelection form-control" id="ddlAVAPreparedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Reviewed By</label>
+                            <select class="employeeSelection form-control" id="ddlAVAReviewedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Noted By</label>
+                            <select class="employeeSelection form-control" id="ddlAVANotedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top: 6px">
+                        <div>
+                            <button type="button" onclick="GenerateActualVsAuthorizedReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            V. SERVICE RECORD
+
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="ServiceReport">
+            <div class="row" role="form">
+                <div class="form-horizontal">
+
+                    <div class="form-group" style="margin-left: 10px">
+
+                        <div class="col-sm-4 col-md-5">
+                            <div class="form-group">
+                                <label class="control-label">Remarks</label>
+                                <textarea id="txtSRRemarks" class="form-control" rows="5" columns="55"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Employee</label>
+                            <select class="employeeSelection form-control" id="ddlSREmployee">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label class="control-label">Prepared by</label>
+                      <select class="employeeSelection form-control" id="ddlSRPreparedBy">
+                        <option value="" selected="selected">--- Please Select ---</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label class="control-label">Verified by</label>
+                      <select class="employeeSelection form-control" id="ddlSRVerifiedBy">
+                        <option value="" selected="selected">--- Please Select ---</option>
+                      </select>
+                    </div>
+                  </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Certified Correct from Records</label>
+                            <select class="employeeSelection form-control" id="ddlSRCertifiedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top: 6px">
+                        <div>
+                            <button type="button" onclick="GenerateServiceReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            VI. LONGEVITY PAY
+
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="LongevityPayReport">
+            <div class="row" role="form">
+                <div class="form-horizontal">
+
+                    <div class="form-group" style="margin-left: 10px">
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Start Date</label>
+                                @Html.TextBox("EndDate", "", "{0:MM/dd/yyyy}", new {id = "dpStartDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy"})
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-4 col-md-2"style="margin-left: 10px">
+                            <div class="form-group">
+                                <label class="control-label">End Date</label>
+                                @Html.TextBox("EndDate", "", "{0:MM/dd/yyyy}", new {id = "dpEndDate", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy"})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Official</label>
+                            <select class="employeeSelection form-control" id="ddlOfficial1">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2" style="margin-top: 6px">
+                        <div class="form-group">
+                            <label class="control-label"></label>
+                            <select class="employeeSelection form-control" id="ddlOfficial2">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top: 6px">
+                        <div>
+                            <button type="button" onclick="GenerateLongevityPayReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            VII. COMMUTATION OF LEAVE CREDITS OF RETIRED EMPLOYEES
+
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="CommLeaveCreditsReport">
+            <div class="row" role="form">
+                <div class="form-horizontal">
+                    <div class="form-group" style="margin-left: 10px">
+
+                        <div class="col-sm-4 col-md-5">
+                            <div class="form-group">
+                                <label class="control-label">Remarks</label>
+                                <textarea id="txtCLRemarks" class="form-control" rows="5" columns="55"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Retired Employee</label>
+                            <select class="form-control" id="ddlCLRetiredEmployee">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Processed by</label>
+                            <select class="employeeSelection form-control" id="ddlCLProcessedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Verified by</label>
+                            <select class="employeeSelection form-control" id="ddlCLVerifiedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Certified Correct by</label>
+                            <select class="employeeSelection form-control" id="ddlCLCertifiedBy">
+                                <option value="" selected="selected">--- Please Select ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top: 6px">
+                        <div>
+                            <button type="button" onclick="GenerateCommLeaveCreditsReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            VIII. AGE PROFILE
+
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="AgeProfileReport">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <div class="col-md-3" style="margin-top: 6px">
+                                <div>
+                                    <button type="button" onclick="GenerateAgeProfileReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+            IX. JOB FUNCTION DISTRIBUTION OF BFP UNIFORMED BASED ON THE ACTUAL STRENGTH NATIONWIDE
+
+            <div class="pull-left">
+                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+            </div>
+        </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="JobFunctionDistribution">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <div class="col-md-3" style="margin-top: 6px">
+                                <div>
+                                    <button type="button" onclick="GenerateJobFunctionDistribution()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+  <a href="#" data-perform="panel-collapse">
+    <div class="panel-heading">
+      X. RATIO OF FEMALE FIREFIGHTERS PER RANK PER REGION
+
+      <div class="pull-left">
+        <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+      </div>
+    </div>
+  </a>
+  <div class="panel-wrapper collapse in" aria-expanded="false">
+    <div class="panel-body" id="RatioOfFemaleFireFighters">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <div class="form-horizontal">
+
+            <div class="form-group">
+              <div class="col-md-3" style="margin-top: 6px">
+                <div>
+                  <button type="button" onclick="GenerateRatioOfFemaleFireFighters()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="panel panel-info">
+  <a href="#" data-perform="panel-collapse">
+    <div class="panel-heading">
+      XI. ALPHA LIST
+
+      <div class="pull-left">
+        <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+      </div>
+    </div>
+  </a>
+  <div class="panel-wrapper collapse in" aria-expanded="false">
+    <div class="panel-body" id="AlphaListReport">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <div class="form-horizontal">
+
+            <div class="form-group">
+              <div class="col-md-3" style="margin-top: 6px">
+                <div>
+                  <button type="button" onclick="GenerateAlphaListReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-info">
+  <a href="#" data-perform="panel-collapse">
+    <div class="panel-heading">
+      XII. RETIRING PERSONNEL
+
+      <div class="pull-left">
+        <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+      </div>
+    </div>
+  </a>
+  <div class="panel-wrapper collapse in" aria-expanded="false">
+    <div class="panel-body" id="RetiringPersonnelReport">
+      <div class="row" role="form">
+        <div class="form-group">
+          <div class="col-sm-4 col-md-2">
+            <div class="form-group">
+              <label class="control-label">Retiring By</label>
+              @Html.DropDownList("YearMonth", Selections.YearMonth, " --- Please Select---", new {@class = "form-control", @id = "ddlYearMonth"})
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-2" id="divRetiringMonth" style="display: none">
+            <div class="form-group">
+              <label class="control-label">Month</label>
+              @Html.DropDownList("RetiringMonth", Selections.Months, " --- Please Select---", new {@class = "form-control", @id = "ddlRetiringMonth"})
+            </div>
+          </div>
+          <div class="col-md-3" style="margin-top: 6px">
+            <div>
+              <button type="button" onclick="GenerateRetiringPersonnelReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        XIII. PERSONNEL PER REGION
+
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="false">
+      <div class="panel-body" id="PersonnelPerRegionReport">
+        <div class="row" role="form">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-sm-4 col-md-2" style="margin-left: 15px !important">
+                <div class="form-group">
+                  <label class="control-label">Region</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                    @Html.DropDownList("Region", Selections.SearchRegion, new {id = "ddlPersonnelPerRegion", @class = "form-control", @disabled = "disabled"})
+                  }
+                  else
+                  {
+                    @Html.DropDownList("Region", Selections.SearchRegion, " --- Please Select---", new {id = "ddlPersonnelPerRegion", @class = "form-control",})
+
+                  }
+                </div>
+              </div>
+              <div class="col-md-3" style="margin-top: 15px">
+                <div>
+                  <button type="button" onclick="GeneratePersonnelPerRegionReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          XIV. PERSONNEL PER PROVINCE
+
+          <div class="pull-left">
+            <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="PersonnelPerProvinceReport">
+          <div class="row" role="form">
+            <div class="form-group">
+              <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                  <label class="control-label">Region</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                      @Html.DropDownList("Region", Selections.SearchRegion, new { id = "ddlPersonnelByProvRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)", @disabled = "disabled" })
+                  }
+                  else
+                  {
+                      @Html.DropDownList("Region", Selections.SearchRegion, " --- Please Select---", new { id = "ddlPersonnelByProvRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)" })
+
+                  }
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                  <label class="control-label">Province</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                      @Html.DropDownListFor(model => Model.ProvinceID, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "ddlPersonnelPerProvince", @class = "form-control", @disabled = "disabled" })
+                  }
+                  else
+                  {
+                      @Html.DropDownList("Province", new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "ddlPersonnelPerProvince", @class = "form-control" })
+
+                  }
+                </div>
+              </div>
+              <div class="col-md-3" style="margin-top: 6px">
+                <div>
+                  <button type="button" onclick="GeneratePersonnelPerProvinceReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          XV. PERSONNEL PER STATION
+
+          <div class="pull-left">
+            <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body" id="PersonnelPerStationReport">
+          <div class="row" role="form">
+            <div class="form-group">
+              <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                  <label class="control-label">Region</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                      @Html.DropDownList("Region", Selections.Region, new { id = "ddlRegion", @class = "form-control", onchange = "ddlPersonnelByStationRegionValueChanged(this.value)", @disabled = "disabled" })
+                  }
+                  else
+                  {
+                      @Html.DropDownList("Region", Selections.Region, " --- Please Select---", new { id = "ddlRegion", @class = "form-control", onchange = "ddlPersonnelByStationRegionValueChanged(this.value)" })
+                  }
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                  <label class="control-label">Province</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                    @Html.DropDownListFor(model => Model.ProvinceID, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new {id = "ddlProvince", @class = "form-control", onchange = "ddlProvinceValueChanged(this.value)", @disabled = "disabled"})
+                  }
+                  else
+                  {
+                    @Html.DropDownList("Province", new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new {id = "ddlProvince", @class = "form-control", onchange = "ddlProvinceValueChanged(this.value)"})
+
+                  }
+                </div>
+              </div>
+
+
+              <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                  <label class="control-label">Municipality</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                      @Html.DropDownListFor(model => Model.MunicipalityID, new SelectList(Enumerable.Empty<SelectListItem>(), "MunicipalityId_Id", "MunicipalityId_Name"), " --- Please Select---", new { id = "ddlMunicipality", @class = "form-control", onchange = "ddlMunicipalityValueChanged(this.value)", @disabled = "disabled" })
+                  }
+                  else
+                  {
+                      @Html.DropDownList("MunicipalityId", new SelectList(Enumerable.Empty<SelectListItem>(), "MunicipalityId_Id", "MunicipalityId_Name"), " --- Please Select---", new { id = "ddlMunicipality", @class = "form-control", onchange = "ddlMunicipalityValueChanged(this.value)" })
+
+                  }
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                  <label class="control-label">Unit Station</label>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                      @Html.DropDownListFor(model => Model.Emp_Curr_Unit, new SelectList(Enumerable.Empty<SelectListItem>(), "Unit_Id", "Unit_StationName"), " --- Please Select---", new { id = "ddlUnit", @class = "form-control", @disabled = "disabled" })
+                  }
+                  else
+                  {
+                      @Html.DropDownList("Station", new SelectList(Enumerable.Empty<SelectListItem>(), "Unit_Id", "Unit_StationName"), " --- Please Select---", new { id = "ddlUnit", @class = "form-control" })
+
+                  }
+                </div>
+              </div>
+              <div class="col-md-3" style="margin-top: 6px">
+                <div>
+                  <button type="button" onclick="GeneratePersonnelPerStationReport()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-print"></i> Generate</button>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+<!-- Typehead CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<!-- Typehead Plugin JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>
+<script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+<script type="text/javascript">
+    $(document).ready(function() {
+        InitSelection();
+        InitSelectionRetiredEmployee();
+
+        $("#ddlYearMonth").change(function () {
+          if (this.value === "Month")
+          $('#divRetiringMonth').show();
+          else
+            $('#divRetiringMonth').hide();
+        });
+
+        ddlRegionValueChanged($('#ddlPersonnelByProvRegion').val(),@Model.ProvinceID);
+        ddlProvinceValueChanged(@Model.ProvinceID,@Model.MunicipalityID);
+      ddlMunicipalityValueChanged(@Model.MunicipalityID,@Model.Emp_Curr_Unit);
+      ddlPersonnelByStationRegionValueChanged($('#ddlRegion').val(),@Model.ProvinceID);
+    });
+
+  var oSelectionDS = new SelectionDS();
+  var restrictToProvince = '@PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince)';
+  var restrictToStation = '@PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation)';
+  function ddlRegionValueChanged(regionId, provinceId) {
+    var province = provinceId;
+    if (regionId === "" || (restrictToProvince === 'False' && restrictToStation === 'False'))
+      oSelectionDS.ProvinceByRegion("ddlPersonnelPerProvince", regionId);
+    else
+      oSelectionDS.ProvinceByRegion("ddlPersonnelPerProvince", regionId, province);
+  }
+
+
+  function ddlPersonnelByStationRegionValueChanged(regionId, provinceId) {
+ 
+    var province = provinceId;
+    if (regionId === "" || (restrictToProvince === 'False' && restrictToStation === 'False'))
+      oSelectionDS.ProvinceByRegion("ddlProvince", regionId);
+    else
+      oSelectionDS.ProvinceByRegion("ddlProvince", regionId, province);
+
+    oSelectionDS.ClearDropdown("ddlMunicipality");
+    oSelectionDS.ClearDropdown("ddlUnit");
+  }
+
+  function ddlProvinceValueChanged(provinceId, municipalityId) {
+    var municipality = municipalityId;
+    if (provinceId === "" || restrictToStation === 'False') {
+      if(restrictToProvince === 'False' && restrictToStation === 'False')
+        provinceId = $('#ddlProvince').val();
+      oSelectionDS.MunicipalityByProvince("ddlMunicipality", provinceId);
+    }
+    else
+      oSelectionDS.MunicipalityByProvince("ddlMunicipality", provinceId, municipality);
+
+    oSelectionDS.ClearDropdown("ddlUnit");
+  }
+  function ddlMunicipalityValueChanged(municipalityId, unitId) {
+    var unit = unitId;
+    if (municipalityId === "" || restrictToStation === 'False') {
+      municipalityId = $('#ddlMunicipality').val();
+      oSelectionDS.UnitByMunicipality("ddlUnit", municipalityId);
+    }
+    else
+      oSelectionDS.UnitByMunicipality("ddlUnit", municipalityId, unit);
+
+  }
+    function InitSelectionRetiredEmployee() {
+        $("#ddlCLRetiredEmployee").select2({
+            ajax: {
+                url: '@Url.Action("SelectionAutoCompleteRetired", "Employee")',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data.data
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 3
+        });
+    }
+
+    function InitSelection() {
+        $(".employeeSelection").select2({
+            ajax: {
+                url: '@Url.Action("SelectionAutoComplete", "Employee")',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data.data
+                    };
+                },
+                cache: true
+
+            },
+            minimumInputLength: 3
+        });
+    }
+
+    function BlockUI(area) {
+        $('#' + area).block({
+            message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait , do not close or refresh the page...</h3>'
+            , css: {
+                border: '1px solid #fff !important'
+            }
+        });
+    }
+
+    function UnblockUI(area) {
+        $('#' + area).unblock();
+    }
+
+    function SwalAlert(msg ) {
+        swal("Ooops..", msg, "error");
+    }
+    function GenerateLeaveReport() {
+        if (($('#ddlEmployee').val() == null || $('#ddlEmployee').val() === '') ||
+            ($('#ddlProcessedBy').val() == null || $('#ddlProcessedBy').val() === '') ||
+            ($('#ddlPreparedBy').val() == null || $('#ddlPreparedBy').val() === '') ||
+            ($('#ddlCertifiedBy').val() == null || $('#ddlCertifiedBy').val() === '')) {
+            SwalAlert("Processed by, Prepared by and CertifiedBy field is required for generating report!");
+        } else {
+            BlockUI("LeaveReport");
+          $.post("/HRIS/Reports/GenerateLeaveReport?employee=" +
+                    $('#ddlEmployee').val() +
+                    "&processedBy=" +
+                    $('#ddlProcessedBy').val() +
+                    "&preparedBy=" +
+                    $('#ddlPreparedBy').val() +
+                    "&certifiedBy=" +
+                    $('#ddlCertifiedBy').val() +
+                    "&endDate=" +
+                    $("#dpLeaveEndDate").val())
+                .success(function(response) {
+                    if (response && response !== "No excel file generated.") {
+                        window.location.href = '/Reports/Download?file=' + response;
+                    } else {
+                        SwalAlert("No excel file generated.");
+                    }
+
+                    UnblockUI("LeaveReport");
+                });
+        }
+    }
+
+    function GenerateRegionalAuthorizeStrReport() {
+        BlockUI("RegionalAuthorizeStrReport");
+      $.post("/HRIS/Reports/GenerateRegionalAuthorizeStrReport")
+            .success(function(response) {
+                if (response && response !== "No excel file generated.") {
+                    window.location.href = '/Reports/Download?file=' + response;
+                } else {
+                    SwalAlert("No excel file generated.");
+                }
+                UnblockUI("RegionalAuthorizeStrReport");
+            });
+    }
+
+    function GeneratePersonnelStrengthReport() {
+        if (($('#ddlNPreparedBy').val() === null || $('#ddlNPreparedBy').val() === '') ||
+            ($('#ddlReviewedBy').val() === null || $('#ddlReviewedBy').val() === '') ||
+            ($('#ddlNotedBy').val() === null || $('#ddlNotedBy').val() === '')) {
+            SwalAlert('All fields are required for generating report!');
+        } else {
+            BlockUI("PersonnelStrengthReport");
+          $.post("/HRIS/Reports/GeneratePersonnelStrengthReport?preparedBy=" +
+                    $('#ddlNPreparedBy').val() +
+                    "&reviewedBy=" +
+                    $('#ddlReviewedBy').val() +
+                    "&notedBy=" +
+                    $('#ddlNotedBy').val())
+                .success(function(response) {
+                    if (response && response !== "No excel file generated.") {
+                        window.location.href = '/Reports/Download?file=' + response;
+                    } else {
+                        SwalAlert("No excel file generated.");
+                    }
+
+                    UnblockUI("PersonnelStrengthReport");
+                });
+        }
+    }
+
+    function GenerateActualVsAuthorizedReport() {
+        if (($('#ddlAVAPreparedBy').val() === null || $('#ddlAVAPreparedBy').val() === '') ||
+            ($('#ddlAVAReviewedBy').val() === null || $('#ddlAVAReviewedBy').val() === '') ||
+            ($('#ddlAVANotedBy').val() === null || $('#ddlAVANotedBy').val() === '')) {
+            SwalAlert('All fields are required for generating reports!');
+        } else {
+            BlockUI("ActualVsAuthorizedReport");
+          $.post("/HRIS/Reports/GenerateActualVsAuthorizedReport?preparedBy=" +
+                    $('#ddlAVAPreparedBy').val() +
+                    "&reviewedBy=" +
+                    $('#ddlAVAReviewedBy').val() +
+                    "&notedBy=" +
+                    $('#ddlAVANotedBy').val())
+                .success(function(response) {
+                    if (response && response !== "No excel file generated.") {
+                        window.location.href = '/Reports/Download?file=' + response;
+                    } else {
+                        SwalAlert("No excel file generated.");
+                    }
+                    UnblockUI("ActualVsAuthorizedReport");
+                });
+        }
+    }
+
+    function GenerateServiceReport() {
+        if (($('#ddlSREmployee').val() === null || $('#ddlSREmployee').val() === '') ||
+            ($('#ddlSRPreparedBy').val() === null || $('#ddlSRPreparedBy').val() === '') ||
+            ($('#ddlSRCertifiedBy').val() === null || $('#ddlSRCertifiedBy').val() === '')
+             || $('#ddlSRVerifiedBy').val() === null || $('#ddlSRVerifiedBy').val() === '') {
+            SwalAlert('Employee,Prepared by and Certified by are required for generating report!');
+        } else {
+            BlockUI("ServiceReport");
+          $.post("/HRIS/Reports/GenerateServiceReport?employee=" +
+                    $('#ddlSREmployee').val() +
+                    "&preparedBy=" +
+                    $('#ddlSRPreparedBy').val() +
+                     "&verifiedBy=" +
+                    $('#ddlSRVerifiedBy').val() +
+                    "&certifiedBy=" +
+                    $('#ddlSRCertifiedBy').val() +
+                    "&remarks=" +
+                    $('#txtSRRemarks').val())
+                .success(function(response) {
+                    if (response && response !== "No excel file generated.") {
+                        window.location.href = '/Reports/Download?file=' + response;
+                    } else {
+                        SwalAlert("No excel file generated.");
+                    }
+                    UnblockUI("ServiceReport");
+                });
+        }
+    }
+
+    function GenerateLongevityPayReport() {
+        if (($('#dpStartDate').val() === null || $('#dpStartDate').val() === '') ||
+            ($('#dpEndDate').val() === null || $('#dpEndDate').val() === '') ||
+            ($('#ddlOfficial1').val() === null || $('#ddlOfficial1').val() === '') ||
+            ($('#ddlOfficial2').val() === null || $('#ddlOfficial2').val() === '')) {
+            SwalAlert('All fields are required for generating report!');
+        } else {
+            BlockUI("LongevityPayReport");
+          $.post("/HRIS/Reports/GenerateLongevityPayReport?startDate=" +
+                    $('#dpStartDate').val() +
+                    "&endDate=" +
+                    $("#dpEndDate").val() +
+                    "&official1=" +
+                    $("#ddlOfficial1").val() +
+                    "&official2=" +
+                    $("#ddlOfficial2").val())
+                .success(function(response) {
+                    if (response && response !== "No excel file generated.") {
+                        window.location.href = '/Reports/Download?file=' + response;
+                    } else {
+                        SwalAlert("No excel file generated.");
+                    }
+                    UnblockUI("LongevityPayReport");
+                });
+        }
+    }
+
+    function GenerateCommLeaveCreditsReport() {
+        if (($('#ddlCLRetiredEmployee').val() == null || $('#ddlCLRetiredEmployee').val() === '') ||
+            ($('#ddlCLVerifiedBy').val() == null || $('#ddlCLVerifiedBy').val() === '') ||
+            ($('#ddlCLCertifiedBy').val() == null || $('#ddlCLCertifiedBy').val() === '') ||
+            ($('#ddlCLProcessedBy').val() == null || $('#ddlCLProcessedBy').val() === '')) {
+            SwalAlert('Employee,Prepared by and Certified by are required for generating report!');
+        } else {
+            BlockUI("CommLeaveCreditsReport");
+          $.post("/HRIS/Reports/GenerateCommLeaveCreditsReport?retiredEmployee=" +
+                    $('#ddlCLRetiredEmployee').val() +
+                    "&processedBy=" +
+                    $('#ddlCLProcessedBy').val() +
+                    "&verifiedBy=" +
+                    $('#ddlCLVerifiedBy').val() +
+                    "&certifiedBy=" +
+                    $('#ddlCLCertifiedBy').val() +
+                    "&remarks=" +
+                    $('#txtCLRemarks').val())
+                .success(function(response) {
+                    if (response && response !== "No excel file generated.") {
+                        window.location.href = '/Reports/Download?file=' + response;
+                    } else {
+                        SwalAlert("No excel file generated.");
+                    }
+                    UnblockUI("CommLeaveCreditsReport");
+                });
+        }
+    }
+
+    function GenerateAgeProfileReport() {
+        BlockUI("AgeProfileReport");
+      $.post("/HRIS/Reports/GenerateAgeProfileReport")
+            .success(function(response) {
+                if (response && response !== "No excel file generated.") {
+                    window.location.href = '/Reports/Download?file=' + response;
+                } else {
+                    SwalAlert("No excel file generated.");
+                }
+                UnblockUI("AgeProfileReport");
+            });
+    }
+
+    function GenerateJobFunctionDistribution() {
+        BlockUI("JobFunctionDistribution");
+      $.post("/HRIS/Reports/GenerateJobFunctionDistribution")
+            .success(function(response) {
+                if (response && response !== "No excel file generated.") {
+                    window.location.href = '/Reports/Download?file=' + response;
+                } else {
+                    SwalAlert("No excel file generated.");
+                }
+                UnblockUI("JobFunctionDistribution");
+            });
+    }
+
+    function GenerateRatioOfFemaleFireFighters() {
+        BlockUI("RatioOfFemaleFireFighters");
+      $.post("/HRIS/Reports/GenerateRatioOfFemaleFireFighters")
+            .success(function(response) {
+                if (response && response !== "No excel file generated.") {
+                    window.location.href = '/Reports/Download?file=' + response;
+                } else {
+                    SwalAlert("No excel file generated.");
+                }
+                UnblockUI("RatioOfFemaleFireFighters");
+            });
+    }
+
+    function GenerateAlphaListReport() {
+      BlockUI("AlphaListReport");
+      $.post("/HRIS/Reports/GenerateAlphaListReport")
+            .success(function (response) {
+              if (response && response !== "No excel file generated.") {
+                window.location.href = '/Reports/Download?file=' + response;
+              } else {
+                SwalAlert("No excel file generated.");
+              }
+              UnblockUI("AlphaListReport");
+            });
+    }
+
+
+    function GenerateRetiringPersonnelReport() {
+      if (($('#ddlYearMonth').val() === null || $('#ddlYearMonth').val() === '')) {
+        SwalAlert('Choose type for generating report!');
+      }
+      else if ($('#ddlYearMonth').val() === "Month" && $('#ddlRetiringMonth').val() === "") {
+        SwalAlert('Choose month for generating report!');
+            }
+        else {
+        BlockUI("RetiringPersonnelReport");
+        $.post("/HRIS/Reports/GenerateRetiringPersonnelReport?type=" +
+                 $('#ddlYearMonth').val() +
+                  "&month=" +
+                  $('#ddlRetiringMonth').val())
+              .success(function (response) {
+                if (response && response !== "No excel file generated.") {
+                  window.location.href = '/Reports/Download?file=' + response;
+                } else {
+                  SwalAlert("No excel file generated.");
+                }
+
+                UnblockUI("RetiringPersonnelReport");
+              });
+      }
+    }
+
+    function GeneratePersonnelPerRegionReport() {
+      if (($('#ddlPersonnelPerRegion').val() === null || $('#ddlPersonnelPerRegion').val() === '')) {
+        SwalAlert('Choose region for generating report!');
+      }
+      else {
+        BlockUI("PersonnelPerRegionReport");
+        $.post("/HRIS/Reports/GeneratePersonnelPerRegionReport?region=" +
+                 $('#ddlPersonnelPerRegion').val())
+              .success(function (response) {
+                if (response && response !== "No excel file generated.") {
+                  window.location.href = '/Reports/Download?file=' + response;
+                } else {
+                  SwalAlert("No excel file generated.");
+                }
+
+                UnblockUI("PersonnelPerRegionReport");
+              });
+      }
+    }
+
+    function GeneratePersonnelPerProvinceReport() {
+      if (($('#ddlPersonnelByProvRegion').val() === null || $('#ddlPersonnelByProvRegion').val() === '' ||  $('#ddlPersonnelByProvRegion').val() === "0") ||
+        ($('#ddlPersonnelPerProvince').val() === null || $('#ddlPersonnelPerProvince').val() === '' ||  $('#ddlPersonnelPerProvince').val() === "0")) {
+        SwalAlert('All fields are required for generating report!');
+      }
+      else {
+        BlockUI("PersonnelPerProvinceReport");
+        $.post("/HRIS/Reports/GeneratePersonnelPerProvinceReport?province=" +
+                 $('#ddlPersonnelPerProvince').val())
+              .success(function (response) {
+                if (response && response !== "No excel file generated.") {
+                  window.location.href = '/Reports/Download?file=' + response;
+                } else {
+                  SwalAlert("No excel file generated.");
+                }
+
+                UnblockUI("PersonnelPerProvinceReport");
+              });
+      }
+    }
+
+    function GeneratePersonnelPerStationReport() {
+      if (($('#ddlRegion').val() === null || $('#ddlRegion').val() === '' ||  $('#ddlRegion').val() === "0") ||
+        ($('#ddlUnit').val() === null || $('#ddlUnit').val() === '' ||  $('#ddlUnit').val() === "0") || 
+        ($('#ddlMunicipality').val() === null || $('#ddlMunicipality').val() === '' ||  $('#ddlMunicipality').val() === "0")|| 
+        ($('#ddlProvince').val() === null || $('#ddlProvince').val() === '' ||  $('#ddlProvince').val() === "0")) {
+        SwalAlert('All fields are required for generating report!');
+      }
+      else {
+        BlockUI("PersonnelPerStationReport");
+        $.post("/HRIS/Reports/GeneratePersonnelPerStationReport?station=" +
+                 $('#ddlUnit').val())
+              .success(function (response) {
+                if (response && response !== "No excel file generated.") {
+                  window.location.href = '/Reports/Download?file=' + response;
+                } else {
+                  SwalAlert("No excel file generated.");
+                }
+
+                UnblockUI("PersonnelPerStationReport");
+              });
+      }
+    }
+</script>
+
+@*@Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")*@
+@*@Html.Partial("~/Views/Shared/formcontrols/CustomSelect.cshtml")*@

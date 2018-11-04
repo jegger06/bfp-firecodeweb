@@ -1,0 +1,172 @@
+﻿@using EBFP.Helper;
+@using EBFP.BL.Helper;
+
+@{
+    ViewBag.Title = "Personnel";
+    Layout = "";
+    @*if (!(PageSecurity.HasAccess(PageArea.Inventory_Personnel_CanViewAll)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }*@
+}
+@{
+    var sMunicipalityId = string.IsNullOrWhiteSpace(Request.QueryString["sMunicipalityId"]) ? "0" : Request.QueryString["sMunicipalityId"].Decrypt();
+    var encryptedMunicipalityId = string.IsNullOrWhiteSpace(sMunicipalityId) ? "0".Encrypt() : sMunicipalityId.Encrypt();
+}
+<style>
+    .tbl-Dashboard th, .tbl-Dashboard td {
+        border: 1px solid gray;
+        padding: 5px 10px 5px 10px;
+        text-align: center;
+        font-size: 15px
+    }
+    .tbl-Dashboard th {
+        font-weight: bold;
+        font-size: 16px
+    }
+    .tbl-Dashboard {
+        width: 100%
+    }
+</style>
+
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="row row-in">
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-danger"></i>
+                            <h5 class="text-muted vb">Officers</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h4 class="counter text-right m-t-15 text-danger" id="officers">0</h4>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="50" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-megna"></i>
+                            <h5 class="text-muted vb">Non Officers</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h4 class="counter text-right m-t-15 text-megna" id="nonOfficers">0</h4>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-megna" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="50" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-primary"></i>
+                            <h5 class="text-muted vb">Non Uniform</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h4 class="counter text-right m-t-15 text-primary" id="nonUniform">0</h4>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="50" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="row row-in">
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-danger"></i>
+                            <h5 class="text-muted vb">Admin</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h4 class="counter text-right m-t-15 text-danger" id="admin">0</h4>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="50" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-megna"></i>
+                            <h5 class="text-muted vb">Operations</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h4 class="counter text-right m-t-15 text-megna" id="operations">0</h4>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-megna" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="50" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <div class="white-box">
+        <span id="totalRecords">&nbsp;</span>
+        <div class="block1" style="position: static; zoom: 1;">
+
+            <div class="table-responsive">
+                <table id="tblPersonnel" class="table table-striped table-bordered nowrap">
+                    <thead>
+                        <tr>
+                            <th class="all" style="width:80px">Rank</th>
+                            <th class="all">Name</th>
+                            <th>Present Designation</th>
+                            <th style="width:200px !important">Specific Designation</th>
+                            <th>Contact Number</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var decryptedMunicipalityId =  @Html.Raw(Json.Encode(sMunicipalityId));
+</script>
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+<script src="@Url.Content("~/Scripts/Areas/Inventory/personnel.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")

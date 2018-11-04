@@ -1,0 +1,71 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                IV. Civil Service Eligibility
+                <div class="pull-left">
+                   <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+          <div style="overflow: hidden !important; padding: 10px !important">
+            <button type="button" id="NewCivilServiceEligibility" name="NewCivilServiceEligibility" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit UserViewing"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+          <fieldset>
+          <div class="divTable">
+            <div class="divTableHeading">
+              <div class="divTableRow">
+                <div class="divTableHead  text-center">CAREER SERVICE/ RA 1080 (BOARD/ BAR)<br/>UNDER SPECIAL LAWS/ CES/ CSEE
+                </div>
+                <div class="divTableHead text-center">RATING</div>
+                <div class="divTableHead text-center">DATE OF EXAMINATION /<br/> CONFERMENT  <font style="color: red; font-style: italic">(mm/dd/yyyy)</font>
+                </div>
+                <div class="divTableHead text-center">PLACE OF EXAMINATION / CONFERMENT</div>
+                <div class="divTableHead text-center">
+                  LICENSE (if applicable)
+                  <table style="width: 100%;">
+                    <tr>
+                      <td style="font-weight: 200 !important; color: white !important; width: 50%">NUMBER</td>
+                      <td style="font-weight: 200 !important; color: white !important; width: 50%">DATE OF RELEASE</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="divTableHead text-center">&nbsp;</div>
+              </div>
+            </div>
+            <div class="divTableBody" id="CivilServiceEligibility">
+              @if (@Model.CivilServiceEligibilities != null)
+              {
+                for (int i = 0; i < @Model.CivilServiceEligibilities.Count(); i++)
+                {
+                  @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/CivilServiceEligibility/Editor.cshtml", @Model.CivilServiceEligibilities[i])
+                }
+              }
+            </div>
+
+          </div>
+            </fieldset>
+            <div style="overflow:hidden !important; padding:10px !important">
+              &nbsp;
+            </div>
+
+            <script type="text/javascript">
+              $(document).ready(function () {
+                var formCtr = 1;
+                $('.mydatepicker, #datepicker').datepicker();
+                $("#NewCivilServiceEligibility").click(function () {
+                  $.ajax({
+                    async: false,
+                    url: '/HRIS/Employee/CivilServiceEligibilityEditor'
+                  }).success(function (partialView) {
+                    $(partialView).appendTo("#CivilServiceEligibility");
+                    $('.mydatepicker, #datepicker').datepicker();
+                  });
+                });
+              });
+            </script>
+</div>
+    </div>
+</div> 

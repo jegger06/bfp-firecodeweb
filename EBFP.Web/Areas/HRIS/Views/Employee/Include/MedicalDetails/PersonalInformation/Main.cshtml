@@ -1,0 +1,214 @@
+﻿@model EBFP.BL.HumanResources.EmployeeMedicalModel
+@using EBFP.BL.Helper
+
+<style>
+   /*input[readonly] {
+     background-color: white !important;
+    }
+   select[readonly] option, select[readonly] optgroup {
+        display: none;
+    }*/
+</style>
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                I. Personal Information
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Account Number</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_Number, new {@class = "form-control", @readonly="readonly"})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Surname</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_LastName, new {@class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">First name</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_FirstName, new {@class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Middle Name</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_MiddleName, new {@class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Name Extension</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_SuffixName, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Date of Birth</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_BirthDate, "{0:MM/dd/yyyy}", new {@class = "form-control", @placeholder = "mm/dd/yyyy", @readonly = "readonly" })
+                                        <span class="input-group-addon" ><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Age</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_Age, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Sex</label>
+                                <div class="col-md-6">
+                                    <div class="radio-list">
+                                        @foreach (var item in Selections.Genders)
+                                        {
+                                            <div class="col-sm-6">
+                                                <label class="radio-inline">
+                                                    <div class="radio radio-info">
+                                                        @Html.RadioButtonFor(a => a.MedicalEmployeeInfo.Emp_Gender, item.Value, new {id = "Gender_" + item.Value, @onclick="return false;", @readonly = "readonly" })
+                                                        <label for="Gender_@item.Value" style="font-weight: 100 !important">@item.Text</label>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Civil Status</label>
+                                <div class="col-md-6">
+
+                                    @foreach (var item in Selections.CivilStatus)
+                                    {  <div class="col-sm-6">
+                                        <div class="radio-inline">
+                                            <div class="radio radio-info">
+                                                @Html.RadioButtonFor(a => a.MedicalEmployeeInfo.Emp_CivilStatus, item.Value, new { id = "CivilStatus_" + item.Value, @onclick = "return false;", @readonly = "readonly" })
+                                                <label for="CivilStatus_@item.Value" style="font-weight:100 !important">@item.Text</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_CivilStatus_Other, new { @id= "Emp_CivilStatus_Other", @class = "form-control", @placeholder = "specify", @readonly = "readonly" })
+                                </div>
+
+                                <script type="text/javascript">
+                                    $(document).ready(function () {
+                                        $('#Emp_CivilStatus_Other').hide();
+                                        Emp_CivilStatus_Other(@Model.MedicalEmployeeInfo.Emp_CivilStatus);
+                                        $('input:radio[id*="CivilStatus_"]').change(function () {
+                                            Emp_CivilStatus_Other($(this).val());
+                                        });
+                                    });
+
+                                    function Emp_CivilStatus_Other(status) {
+                                        if (status == '6') {
+                                            $('#Emp_CivilStatus_Other').show();
+                                        }
+                                        else
+                                            $('#Emp_CivilStatus_Other').hide();
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Allergies</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_Allergies, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Blood Type</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_BloodType, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Religion</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_Religion, new { @class = "form-control"})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Rank / Position</label>
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(model => model.MedicalEmployeeInfo.Emp_Curr_Rank, Selections.Ranks, " --- Please Select---", new { @class = "form-control select2", @readonly = "readonly" })
+                                    @*@Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_Curr_Rank, new {@class = "form-control", @readonly = "readonly"})*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Unit Assignment</label>
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(model => model.MedicalEmployeeInfo.Emp_Curr_Unit, Selections.Units, " --- Please Select---", new { @class = "form-control select2", @readonly = "readonly" })
+                                    @*@Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_Curr_Unit, new {@class = "form-control", @readonly = "readonly"})*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Designation</label>
+                                <div class="col-md-6">
+                                   @Html.DropDownListFor(model => Model.MedicalEmployeeInfo.Emp_Curr_JobFunc, Selections.JobFunctions, " --- Please Select---", new { @class = "form-control select2", @readonly = "readonly" })
+                                    @*@Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_Curr_Unit, new {@class = "form-control", @readonly = "readonly"})*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Contact No.</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_MobileNumber, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Home Address</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_Residential_Address, new {@class = "form-control", @readonly = "readonly"})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Citizenship</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalEmployeeInfo.Emp_Citizenship, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Emp_CivilStatus_Other').hide();
+        Emp_CivilStatus_Other(@Model.MedicalEmployeeInfo.Emp_CivilStatus);
+        $('input:radio[id*="CivilStatus_"]').change(function () {
+            Emp_CivilStatus_Other($(this).val());
+        });
+    });
+
+    function Emp_CivilStatus_Other(status) {
+        if (status == '6') {
+            $('#Emp_CivilStatus_Other').show();
+        }
+        else
+            $('#Emp_CivilStatus_Other').hide();
+    }
+</script>

@@ -1,0 +1,174 @@
+﻿@using EBFP.Web.Areas.Account.Models
+@model User
+
+<!DOCTYPE html>
+<!-- saved from url=(0075)http://demo.themeineed.com/free-dashboard-template/klorofil/page-login.html -->
+
+<html lang="en" class="fullscreen-bg">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Login | Fire Code Revenue</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11">
+  @*<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">*@
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <!-- CSS -->
+  <link href="~/Content/bootstrap/eliteadmin/css/style.css" rel="stylesheet" />
+  <link href="@Url.Content("~/content/login/bootstrap.min.css")" rel="stylesheet">
+  <link href="@Url.Content("~/content/login/icon-sets.css")" rel="stylesheet">
+  <link href="@Url.Content("~/content/login/main.min.css")" rel="stylesheet">
+  <link href="@Url.Content("~/content/login/demo.css")" rel="stylesheet">
+  <link href="@Url.Content("~/content/login/font.css")" rel="stylesheet">
+  <script src="~/Content/datatable/jquery-1.12.3.js"></script>
+  <!-- ICONS -->
+  <link rel="apple-touch-icon" sizes="76x76" href="http://demo.themeineed.com/free-dashboard-template/klorofil/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="http://demo.themeineed.com/free-dashboard-template/klorofil/assets/img/favicon.png">
+
+  <script src="/content/bootstrap/eliteadmin/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+    <link href="/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet">
+  <script src="/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+
+  <script src="/content/bootstrap/eliteadmin/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- Menu Plugin JavaScript -->
+  <script src="/content/bootstrap/eliteadmin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+  <!--slimscroll JavaScript -->
+  <script src="/content/bootstrap/eliteadmin/js/jquery.slimscroll.js"></script>
+  <!--Wave Effects -->
+  <script src="/content/bootstrap/eliteadmin/js/waves.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script src="/content/bootstrap/eliteadmin/js/custom.min.js"></script>
+
+
+</head>
+<body>
+  <!-- WRAPPER -->
+  <div id="wrapper">
+    <div class="vertical-align-wrap">
+      <div class="vertical-align-middle">
+        <div class="auth-box ">
+          <div class="left" style="background: rgba(000, 000, 000, .6);">
+            <div class="content">
+              <div class="logo text-center">
+                <img src="~/Content/Login/assets/img/logo-dark.png" alt="EBFP" style="width: 140%">
+              </div>
+
+              <div id="divLogin">
+                @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                {
+                  @Html.AntiForgeryToken()
+                  @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                  <div class="form-group">
+                    <label for="signup-email" class="control-label sr-only">Email</label>
+                    @Html.TextBoxFor(m => m.Username, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.Username, "", new {@class = "text-danger"})
+                  </div>
+                  <div class="form-group">
+                    <label for="signup-password" class="control-label sr-only">Password</label>
+                    @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.Password, "", new {@class = "text-danger"})
+
+                  </div>
+                  <table class="form-group clearfix">
+                    <tr>
+                      <td style="padding-left: 27px !important">
+                        <label class="fancy-checkbox element-left" style="text-align: left">
+                          @*<input type="checkbox">
+                          <span style="color: white !important">Remember me</span>*@
+                        </label>
+                      </td>
+                      <td style="padding-left: 115px !important">
+                        <label class="fancy-checkbox element-left" style="text-align: right">
+                          <i class="fa fa-lock" style="color: white; margin-right: 2px"></i>
+                          <a class="note-more" data-toggle="collapse" id="employer-collapse" data-target="#divForgotPassword" style="color: white !important; font-size: 14px; font-weight: 300">
+                            <span id="more">Forgot Password?</span>&nbsp;
+                          </a>
+                        </label>
+                      </td>
+                    </tr>
+                  </table>
+                  <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+                }
+              </div>
+              <div id="divForgotPassword" style="display:none">
+                  <div>
+                    <div >
+                      <h3  style="color: white">Recover Password</h3>
+                    </div>
+                    <div class="modal-body">
+                      <p style="color: white !important">Enter your Username and instructions will be sent to your Email!</p>
+                      &nbsp;&nbsp;
+                      <input id="txtFPUsername" name="txtFPUsername" class="form-control"  type="text" placeholder="Username" />
+                    </div>
+                    <div class="modal-footer">
+                      <button id="btnReset" type="button" onclick="SubmitRequest()" class="btn btn-primary btn-lg btn-block">RESET</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="overlay"></div>
+            <div class="content text">
+              <h1 class="heading">Fire Code Revenue</h1>
+              <p>Copyright 2018</p>          
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#employer-collapse").click(function () {
+      $("#divLogin").hide();
+      $("#divForgotPassword").css("display", "block");
+      $("#employer-notes").slideUp(300);
+
+      $("#employer-collapse").find('i').toggleClass('fa-chevron-down fa-chevron-up');
+    });
+  });
+
+  function SwalAlert(msg) {
+    swal("Ooops..", msg, "error");
+  }
+
+  function SubmitRequest() {
+    var username = $('#txtFPUsername').val();
+    if (username === "" || username == null) {
+      SwalAlert("Username is required");
+    } else {
+      $('#btnReset').attr('disabled', true);
+      $.ajax({
+        url: "/Account/ForgotPassword?username=" + username,
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+          if (response.message === "Success") {   
+            swal({
+              title: "Success!",
+              text: "Instructions successfully sent to your email. The request will expire after 24 hours.",
+              type: "success"
+            },
+            function () {
+              location.reload();
+            });
+          } else {
+            SwalAlert(response.message);
+            $('#btnReset').attr('disabled', false);
+          }        
+        },
+        error: function (data) {
+          SwalAlert(data.message);
+          $('#btnReset').attr('disabled', false);
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>

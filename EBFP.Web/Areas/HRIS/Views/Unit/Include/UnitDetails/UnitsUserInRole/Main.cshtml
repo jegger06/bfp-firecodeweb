@@ -1,0 +1,68 @@
+﻿@model EBFP.BL.HumanResources.UnitModel
+@using EBFP.BL.Helper
+@using EBFP.Helper
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        II.  UNITS USER IN ROLE
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      @if (PageSecurity.HasAccess(PageArea.HRIS_Unit_Modify))
+      {
+          <div style="overflow: hidden !important; padding: 10px !important">
+            <button type="button" id="NewTrainingProgram" name="NewTrainingProgram" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 UserAccessCanEdit"><i class="fa fa-plus"></i> Add New</button>
+          </div>
+      }
+      <div class="divTable">
+        <div class="divTableHeading">
+          <div class="divTableRow">
+            <div class="divTableHead text-center">Name</div>
+            <div class="divTableHead text-center">Assessor</div>
+
+            <div class="divTableHead text-center">Collector</div>
+            <div class="divTableHead text-center">Plan Evaluator</div>
+            <div class="divTableHead text-center">Encoder</div>
+              <div class="divTableHead text-center">Inspector</div>
+            <div class="divTableHead text-center">Release</div>
+
+            <div class="divTableHead text-center">&nbsp;</div>
+          </div>
+        </div>
+        <div class="divTableBody" id="UserInRole">
+          @if (@Model.UnitUserInRoleModel != null)
+          {
+            for (int i = 0; i < @Model.UnitUserInRoleModel.Count(); i++)
+            {
+                  @Html.Partial("~/Areas/HRIS/Views/Unit/Include/UnitDetails/UnitsUserInRole/Editor.cshtml", @Model.UnitUserInRoleModel[i])
+            }
+          }
+        </div>
+
+      </div>
+      <div style="overflow: hidden !important; padding: 10px !important">
+        &nbsp;
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          var formCtr = 1;
+          //$('.mydatepicker, #datepicker').datepicker();
+          $("#NewTrainingProgram").click(function() {
+            $.ajax({
+              async: false,
+              url: '/HRIS/Unit/UserInRoleEditor?unitId=' + @Html.Raw(Json.Encode(Model.Unit_Id))
+              }).success(function(partialView) {
+                $(partialView).appendTo("#UserInRole");
+                //$('.mydatepicker, #datepicker').datepicker();
+              });
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+</div>

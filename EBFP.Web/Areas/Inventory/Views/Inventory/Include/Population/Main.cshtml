@@ -1,0 +1,57 @@
+﻿@model EBFP.BL.HumanResources.MunicipalityModel
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+              Population Summary
+                <div class="pull-left">
+                    <i class="ti-minus"></i>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper expand collapse in" aria-expanded="true">
+
+            <div style="padding:10px !important">
+                <button type="button" id="AddNewPopulation" name="AddNewPopulation" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-plus"></i> Add New</button>
+            </div>
+            <div class="divTable" >
+                <div class="divTableHeading">
+                    <div class="divTableRow">
+                        <div class="divTableHead  text-center">YEAR</div>
+                        <div class="divTableHead text-center">Count</div>
+                        <div class="divTableHead text-center">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="divTableBody" id="NewPopulation">
+                    @if (@Model.PopulationList != null)
+                    {
+                        for (int i = 0; i < @Model.PopulationList.Count(); i++)
+                        {
+                            Model.PopulationList[i].count = i;
+                            @Html.Partial("~/Areas/Inventory/Views/Inventory/Include/Population/Editor.cshtml", @Model.PopulationList[i])
+                        }
+                    }
+                </div>
+
+            </div>
+            <div style="overflow:hidden !important; padding:10px !important">
+                &nbsp;
+            </div>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var formCtr = 1;
+                    $("#AddNewPopulation").click(function () {
+                        $.ajax({
+                            async: false,
+                            url: '/Inventory/PopulationEditor'
+                        }).success(function (partialView) {
+                            $(partialView).appendTo("#NewPopulation");
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
+

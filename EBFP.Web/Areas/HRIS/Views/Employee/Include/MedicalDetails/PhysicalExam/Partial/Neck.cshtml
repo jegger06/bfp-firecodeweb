@@ -1,0 +1,97 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neck.PE_Supple_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">Supple Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neck.PE_No_Cervical_Adenopathy, new { @class = "form-control" })
+        <label class="control-label chk-label">No Cervical Adenopathy</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neck.PE_Thyroid_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">Thyroid Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neck.PE_Thyromegaly, new { @class = "form-control" })
+        <label class="control-label chk-label">Thyromegaly</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neck.PE_Nodules_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Nodules Present</label>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="chk-group">
+                @Html.CheckBoxFor(model => model.Neck.PE_JVP_Absent, new { @class = "form-control" })
+                <label class="control-label chk-label">JVP Absent</label>
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="chk-group">
+                @Html.CheckBoxFor(model => model.Neck.PE_JVD_Present, new { @class = "form-control" })
+                <label class="control-label chk-label">JVD Present : </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-sm-4" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neck.PE_JVD_Present_Location, 1, new { id = "PE_JVD_Present_Location-1" })
+                @Html.Label("PE_JVD_Present_Location-1", "Right")
+            </div>
+        </div>
+        <div class="col-sm-4" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neck.PE_JVD_Present_Location, 2, new { id = "PE_JVD_Present_Location-2" })
+                @Html.Label("PE_JVD_Present_Location-2", "Left")
+            </div>
+        </div>
+        <div class="col-sm-4" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neck.PE_JVD_Present_Location, 3, new { id = "PE_JVD_Present_Location-3" })
+                @Html.Label("PE_JVD_Present_Location-3", "Bilateral")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Neck.PE_CarotidBruit_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Carotid Bruit(s) Present : </label>
+    </div>
+    <div class="col-md-4">
+        <div class="col-sm-4" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neck.PE_CarotidBruit_Present_Location, 1, new { id = "PE_CarotidBruit_Present_Location-1" })
+                @Html.Label("PE_CarotidBruit_Present_Location-1", "Right")
+            </div>
+        </div>
+        <div class="col-sm-4" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neck.PE_CarotidBruit_Present_Location, 2, new { id = "PE_CarotidBruit_Present_Location-2" })
+                @Html.Label("PE_CarotidBruit_Present_Location-2", "Left")
+            </div>
+        </div>
+        <div class="col-sm-4" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Neck.PE_CarotidBruit_Present_Location, 3, new { id = "PE_CarotidBruit_Present_Location-3" })
+                @Html.Label("PE_CarotidBruit_Present_Location-3", "Bilateral")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-3">
+        <label class="control-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Neck.PE_Neck_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

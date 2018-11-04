@@ -1,0 +1,876 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@{
+    ViewBag.Title = "Supplies Inventory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_Supplies_CanViewAll) || PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+
+<style>
+    td.details-control {
+        background: url('../../../../Content/images/datatable/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+    tr.shown td.details-control {
+         background: url('../../../../Content/images/datatable/details_close.png') no-repeat center center;
+    }
+</style>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          Search Filter (Click to expand)
+          <div class="pull-left">
+            <i class="ti-minus"></i>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body">
+          <div role="form" class="row">
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">Article Name</label>
+                <input type="text" id="txtArticleCode" class="form-control" />
+              </div>
+            </div>
+              <div class="col-sm-4 col-md-2">
+                  <div class="form-group">
+                      <label class="control-label">Supplies Description</label>
+                      <input type="text" id="txtDescription" name="txtMunicipality" class="form-control"/>
+                  </div>
+              </div>
+              <div class="col-sm-4 col-md-2">
+                  <div class="form-group">
+                      <div style="padding-top:10px">
+                          <input type="checkbox" id="chkWithOnHand" name="chkWithOnHand" />
+                          <label class="control-label">With On Hand</label>
+                      </div>
+                  </div>
+              </div>
+            <div class="col-sm-4 col-md-2">
+              <div class="form-group">
+                <label class="control-label">&nbsp;</label>
+                <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            @if (PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify))
+            {
+                <p>
+                    <a href="#" onclick="return setInfo('', '0', '', '', '', '', '', '')" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+                        <i class="fa fa-plus-circle"></i> Create New
+                    </a>
+                </p>
+            }
+
+            <span id="totalRecords">&nbsp;</span>
+            <div class="block1" style="position: static; zoom: 1;">
+
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped table-bordered nowrap">
+                        <thead>
+                        <tr>
+                            <th class="all"></th>
+                            <th class="all">Article</th>
+                            <th class="all">Description</th>
+                            <th class="all">Stock #</th>
+                            <th class="all">Unit</th>
+                            <th class="all">Value</th>
+                            <th class="all">Qty</th>
+                            <th class="all">On Hand</th>
+                            <th class="all">Total Amount</th>
+                            <th class="all">Supply Out</th>
+                            <th class="all">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="details-control"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+<!-- Typehead CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<!-- Typehead Plugin JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script> 
+<script>
+  var isSearch = false;
+  var myTable = null;
+  var myChildTable = null;
+  var sID = "";
+  var sIOD = "";
+  $(document).ready(function() {
+    LoadTable();
+
+    $('#btnSave').click(function () {
+      SaveDetails();
+    });
+
+    $('#btnOutSave').click(function () {
+        SaveOutDetails();
+    });
+
+    $('#btnClose').click(function () {
+      $("#responsive-modal").modal('hide');
+    });
+
+    $('#btnOutClose').click(function () {
+        $("#responsive-childModal").modal('hide');
+    });
+  });
+
+  function format() {
+        var childTable =
+                        '<table id="myChildTable" class="table table-striped table-bordered nowrap">' +
+                            '<thead>' +
+                            '<tr>' +
+                            '<th>Date</th>' +
+                            '<th>Quantity</th>' +
+                            '<th>Employee</th>' +
+                            '<th>Remarks</th>' +
+                            '<th>Action</th>' +
+                            '</tr>' +
+                            '</thead>' +
+                            '<tbody>' +
+                            '<td></td>' +
+                            '<td></td>' +
+                            '<td></td>' +
+                            '<td></td>' +
+                            '<td></td>'+
+                            '</tbody>' +
+                            '</table>';
+        return childTable;
+
+    };
+
+  function formatChild(id) {
+        myChildTable = $('#myChildTable').DataTable({
+            order: [[0, "asc"]],
+            serverSide: true,
+            deferRender: true,
+            pageLength: 50,
+            processing: true,
+            responsive: true,
+            searching: false,
+            ajax: {
+                url: '@Url.Action("GetSuppliesOutInventory", "SuppliesInventory")',
+                type: 'POST',
+                data: function (d) {
+                    d.gridInfo = SetChildDatatableParams(id);
+                }
+            }, "initComplete": function (settings, json) {
+            },
+            "columns": [
+                   {
+                       "name": "SIO_OutDate",
+                       "searchable": true,
+                       "sortable": true,
+                       "render": function (data, type, full, meta) {
+                           return formatDate(full.SIO_OutDate);
+                       }
+                   },
+                {
+                    "name": "SIO_QuantityOut",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.SIO_QuantityOut;
+                    }
+                }
+                 ,
+                {
+                    "name": "SIO_Emp_Name ",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.SIO_Emp_Name;
+                    }
+                },
+                {
+                    "name": "SIO_Remarks",
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, full, meta) {
+                        return full.SIO_Remarks;
+                    }
+                },
+      {
+          "name": "Action",
+          "searchable": false,
+          "sortable": false,
+          "width": "200px",
+          "render": function (data, type, full, meta) {
+              return GetChildActionTemplate(full.SIO_Id, full.sSIO_Id, full.SI_Id, full.SIO_OutDate, full.SIO_QuantityOut, full.SIO_Emp_Id, full.SIO_Remarks, full.SIO_Emp_Name);
+          }
+
+      }
+            ]
+        })
+    .on('preXhr.dt', function () {
+        $('div.block1').block({
+            message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+          , css: {
+              border: '1px solid #fff !important'
+          }
+        });
+    })
+    .on('xhr.dt', function (data, settings) {
+        console.log(data);
+        $('div.block1').unblock();
+    });
+
+    }
+
+
+  function LoadTable() {
+    $('div.block1').block({
+      message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+   , css: {
+     border: '1px solid #fff !important'
+   }
+    });
+
+    myTable = $('#myTable').DataTable({
+      order: [[0, "asc"]],
+      serverSide: true,
+      deferRender: true,
+      pageLength: 50,
+      processing: true,
+      responsive: true,
+      searching: false,
+      ajax: {
+        url: '@Url.Action("GetSuppliesInventory", "SuppliesInventory")',
+                  type: 'POST',
+                  data: function(d) {
+                      d.gridInfo = SetDatatableParams()
+                  }
+              },
+              "initComplete": function(settings, json) {
+              },
+              "columns": [
+                  {
+                      "class": "details-control",
+                      "name": "SI_Art_Name",
+                      "searchable": false,
+                      "sortable": false,
+                      "width": "15px",
+                      "render": function(data, type, full, meta) {
+                          return "";
+                      }
+                  },
+                  {
+                      "name": "SI_Art_Name",
+                      "searchable": true,
+                      "sortable": true,
+                      "render": function(data, type, full, meta) {
+                          return full.SI_Art_Name;
+                      }
+                  },
+                  {
+                      "name": "SI_Description",
+                      "searchable": true,
+                      "sortable": true,
+                      "render": function(data, type, full, meta) {
+                          return full.SI_Description;
+                      }
+                  },
+                  {
+                      "name": "SI_StockNumber",
+                      "searchable": true,
+                      "sortable": true,
+                      "render": function(data, type, full, meta) {
+                          return full.SI_StockNumber;
+                      }
+                  },
+                  {
+                      "name": "SI_UnitOfMeasure",
+                      "searchable": true,
+                      "sortable": true,
+                      "render": function(data, type, full, meta) {
+                          return full.SI_UnitOfMeasure;
+                      }
+                  },
+                  {
+                      "name": "SI_UnitValue",
+                      "searchable": true,
+                      "sortable": true,
+                      "render": function(data, type, full, meta) {
+                          return full.SI_UnitValue;
+                      }
+                  },
+                  {
+                      "name": "SI_Quantity",
+                      "searchable": true,
+                      "sortable": true,
+                      "render": function(data, type, full, meta) {
+                          return full.SI_Quantity;
+                      }
+                  },
+                  {
+                      "name": "SI_OnHand",
+                      "searchable": true,
+                      "sortable": true,
+                      "render": function(data, type, full, meta) {
+                          return full.SI_OnHand;
+                      }
+                  },
+                  {
+                      "name": "SI_TotalAmount",
+                      "searchable": true,
+                      "sortable": true,
+                      "render": function(data, type, full, meta) {
+                          return full.SI_TotalAmount;
+                      }
+                  },
+                  {
+                      "name": "SupplyOut",
+                      "searchable": false,
+                      "sortable": false,
+                      "render": function(data, type, full, meta) {
+                          return GetAddOutActionTemplate(full.SI_Id, full.SI_OnHand);
+                      }
+
+                  },
+                  {
+                      "name": "Action",
+                      "searchable": false,
+                      "sortable": false,
+                      "width": "200px",
+                      "render": function(data, type, full, meta) {
+                          return GetActionTemplate(full.SI_Id, full.sSI_Id, full.SI_Art_Id, full.SI_Description, full.SI_StockNumber, full.SI_UnitOfMeasure, full.SI_UnitValue, full.SI_Quantity, full.SI_DateAcquired);
+                      }
+
+                  }
+              ]
+          })
+          .on('preXhr.dt', function() {
+              $('div.block1').block({
+                  message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>',
+                  css: {
+                      border: '1px solid #fff !important'
+                  }
+              });
+          })
+          .on('xhr.dt', function(data, settings) {
+              console.log(data);
+              $('div.block1').unblock();
+              //$("#myTable_length #totalGridResult").remove();
+              //if (settings.json && settings.json.recordsFiltered >= 0) {
+              //  $('#myTable_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+              //}
+          });
+
+
+      // Add event listener for opening and closing details
+      $('#myTable tbody').on('click', 'td.details-control', function() {
+
+          var tr = $(this).closest('tr');
+          var row = myTable.row(tr);
+
+          if (row.child.isShown()) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          } else {
+              //Close open row
+              var openTr = $('.shown');
+              var openRow = myTable.row(openTr);
+              if (openRow.child.isShown()) {
+                  openRow.child.hide();
+                  openTr.removeClass('shown');
+              }
+
+              // Open this row
+              row.child(format()).show();
+              tr.addClass('shown');
+
+              formatChild(row.data().SI_Id);
+          }
+
+
+      });
+  }
+
+
+  function SetDatatableParams() {
+      var datatable = $('#myTable').DataTable();
+      var datatableInfo = datatable.page.info();
+      var columns = datatable.settings().init().columns;
+      var order = datatable.order();
+      var sortIndex = order[0][0];
+      var sortOrder = order[0][1];
+      datatableInfo.sortOrder = sortOrder;
+      datatableInfo.sortColumnName = columns[sortIndex].name;
+
+      var searchSuppliesInventory = {
+          SI_Art_Name: $("#txtArticleCode").val().trim(),
+          SI_Description: $("#txtDescription").val().trim(),
+          SI_WithOnHand: $("#chkWithOnHand").is(":checked")
+      };
+
+      datatableInfo.searchSuppliesInventory = searchSuppliesInventory;
+      return datatableInfo;
+  }
+
+
+  function SetChildDatatableParams(id) {
+      var datatable = $('#myChildTable').DataTable();
+      var datatableInfo = datatable.page.info();
+      var columns = datatable.settings().init().columns;
+      var order = datatable.order();
+      var sortIndex = order[0][0];
+      var sortOrder = order[0][1];
+      datatableInfo.sortOrder = sortOrder;
+      datatableInfo.sortColumnName = columns[sortIndex].name;
+      datatableInfo.idValue = Number(id);
+
+      //var searchSuppliesInventory = {
+      //    SI_Art_Name: $("#txtArticleCode").val().trim(),
+      //    SI_Description: $("#txtDescription").val().trim(),
+      //    SI_WithOnHand: $("#chkWithOnHand").is(":checked")
+      //};
+
+      //datatableInfo.searchSuppliesInventory = searchSuppliesInventory;
+      return datatableInfo;
+  }
+
+  function AjaxError(x, e) {
+      if (x.status === 500) {
+          swal("Error", x.statusText, "error");
+      }
+  }
+
+  function GetSuccess(data) {
+      alert(data);
+      $('#mydiv').html(data);
+  }
+
+  function DeleteConfirm(event) {
+      @if (PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify))
+      {
+          <text>
+      swal({
+          title: "Are you sure?",
+          text: "You will not be able to recover deleted item!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "No, cancel plx!",
+          closeOnConfirm: false,
+          closeOnCancel: false
+      }, function(isConfirm) {
+          if (isConfirm) {
+              swal("Deleted!", "Item has been deleted.", "success");
+              $.get(event, function(data, status) {
+                  myTable.ajax.reload();
+              });
+          } else {
+              swal("Cancelled", "Item delete has been cancelled", "error");
+          }
+      });
+      </text>
+      }
+      else
+      {
+          <text>
+      swal("Unauthorized", "You are not allowed to do this action.", "error");
+      </text>
+      }
+  }
+
+  function GetAddOutActionTemplate(si_Id, onHand) {
+      var concat = "";
+      @if (PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify))
+      {
+          <text>
+              if (onHand > 0) {
+                  concat += "<a href=\"#\" onclick=\"setChildInfo(0," + si_Id + ",'','0','0','', '');\" class=\"btn btn-success pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-plus\">";
+                  concat += ' Add';
+                  concat += '</a>';
+              }
+           </text>
+      }
+      return concat;
+  }
+
+
+  function GetActionTemplate(id, sId, artCode, desc, stockNo, unit, value, qty, dateAcquired) {
+      var concat = "";
+        @if (PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify))
+        {
+              <text>
+              concat += '<a href="#" onclick="return DeleteConfirm(\'@Url.Action("Delete", "SuppliesInventory")?sId=' + sId + '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+              concat += ' Delete';
+              </text>
+         }
+         @if (PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify) || PageSecurity.HasAccess(PageArea.Inventory_Supplies_ViewDetails))
+         {
+              <text>
+              concat += "<a href=\"#\" onclick=\"setInfo('" + id + "','" + artCode + "','" + desc + "','" + stockNo + "','" + unit + "','" + value + "','" + qty + "','" + dateAcquired + "');\" class=\"btn btn-success pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil\">";
+              concat += ' Details';
+              concat += '</a>';
+              </text>
+          }
+      return concat;
+    }
+
+    function GetChildActionTemplate(id, sId, suppliesId, outDate, qty, empId, remarks, empName) {
+        var concat = "";
+        @if (PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify))
+        {
+            <text>
+                concat += '<a href="#" onclick="return DeleteConfirm(\'@Url.Action("DeleteOut", "SuppliesInventory")?sId=' + sId + '\');"   alt="alert" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-trash-o">';
+        concat += ' Delete';
+        </text>
+    }
+         @if (PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify) || PageSecurity.HasAccess(PageArea.Inventory_Supplies_ViewDetails))
+         {
+             <text>
+                concat += "<a href=\"#\" onclick=\"setChildInfo('" + id + "','" + suppliesId + "','" + outDate + "','" + qty + "','" + empId + "','" + remarks + "','" + empName + "');\" class=\"btn btn-success pull-right m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil\">";
+                concat += ' Details';
+                concat += '</a>';
+            </text>
+        }
+        return concat;
+    }
+
+  function FilterSearch() {
+      isSearch = true;
+      myTable.ajax.reload();
+  }
+
+
+  function setInfo(id, artCode, desc, stockNo, unit, value, qty, dateAcquired) {
+      sID = id;
+      $("#ArtCode").select2({
+          dropdownParent: $("#responsive-modal")
+      });
+
+      $(".modal-content #ArtCode").val(Number(artCode)).trigger("change");
+      $('.modal-content #Desc').val(desc);
+      $('.modal-content #StockNo').val(stockNo);
+      $('.modal-content #Unit').val(unit);
+      $('.modal-content #Value').val(value);
+      $('.modal-content #Quantity').val(qty);
+      if (dateAcquired !== null && dateAcquired !== "" && dateAcquired !== "null")
+          $('.modal-content #dateAcquired').val(formatDate(dateAcquired));
+      else
+          $('.modal-content #dateAcquired').val("");
+
+      $("#responsive-modal").modal();
+
+  }
+
+  function setChildInfo(id, suppliesId, outDate, outQty, outEmployee, outRemarks, empName) {
+      sIOD = id;
+      sID = suppliesId;
+
+      if (Number(outEmployee) > 0) {
+          var $newOption = $("<option></option>").val(outEmployee).text(empName);
+          $("#outEmployee").append($newOption).trigger('change');
+      }
+
+      $("#outEmployee").select2({
+          dropdownParent: $("#responsive-childModal"),
+          ajax: {
+              url: '/Employee/SelectionAutoComplete',
+              dataType: 'json',
+              delay: 250,
+              data: function (params) {
+                  return {
+                      search: params.term // search term
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data.data
+                  };
+              },
+              cache: true
+
+          },
+          minimumInputLength: 3
+      });
+
+      $('.modal-content #outQuantity').val(Number(outQty));
+      $(".modal-content #outEmployee").val(Number(outEmployee)).trigger("change");
+      $('.modal-content #outRemarks').val(outRemarks);
+      if (outDate !== null && outDate !== "" && outDate !== "null")
+          $('.modal-content #outDate').val(formatDate(outDate));
+      else
+          $('.modal-content #outDate').val("");
+
+      $("#responsive-childModal").modal();
+
+  }
+
+  function SaveDetails() {
+      var model = {
+          SI_Id: sID,
+          SI_Art_Id: $('.modal-content #ArtCode').val(),
+          SI_Description: $('.modal-content #Desc').val(),
+          SI_StockNumber: $('.modal-content #StockNo').val(),
+          SI_UnitOfMeasure: $('.modal-content #Unit').val(),
+          SI_UnitValue: $('.modal-content #Value').val(),
+          SI_Quantity: $('.modal-content #Quantity').val(),
+          SI_DateAcquired: $('.modal-content #dateAcquired').val()
+      };
+      $.ajax({
+          type: "POST",
+          url: '@Url.Action("SuppliesInventoryDetails", "SuppliesInventory")',
+      async: true,
+      cache: false,
+      data: JSON.stringify(model),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function (response) {
+        if (response.message === "success") {
+            $('.modal-content #ArtCode').val("");
+            $('.modal-content #Desc').val("");
+            $('.modal-content #StockNo').val("");
+            $('.modal-content #Unit').val("");
+            $('.modal-content #Value').val("");
+            $('.modal-content #Quantity').val("");
+            $('.modal-content #dateAcquired').val("");
+
+          $("#responsive-modal").modal('hide');
+          swal("Saved!", "Item has been saved.", "success");
+          myTable.ajax.reload();
+        } else {
+          swal("Error!", response.message, "error");
+        }
+      },
+      error: function (data) {
+        $("#responsive-modal").modal('hide');
+      }
+    });
+  }
+
+
+    function SaveOutDetails() {
+        var model = {
+            SI_Id: sID,
+            SIO_Id: sIOD,
+            SIO_Emp_Id: $('.modal-content #outEmployee').val(),
+            SIO_QuantityOut: $('.modal-content #outQuantity').val(),
+            SIO_Remarks: $('.modal-content #outRemarks').val(),
+            SIO_OutDate: $('.modal-content #outDate').val()
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SuppliesOutInventoryDetails", "SuppliesInventory")',
+            async: true,
+            cache: false,
+            data: JSON.stringify(model),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.message === "success") {
+
+                    $('.modal-content #outQuantity').val("");
+                    $(".modal-content #outEmployee").val("");
+                    $('.modal-content #outRemarks').val("");
+                    $('.modal-content #outDate').val("");
+
+                    $("#responsive-childModal").modal('hide');
+                    swal("Saved!", "Item has been saved.", "success");
+                    myTable.ajax.reload();
+                } else {
+                    swal("Error!", response.message, "error");
+                }
+            },
+            error: function (data) {
+                $("#responsive-childModal").modal('hide');
+            }
+        });
+    }
+</script>
+
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+<div id="responsive-modal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none; overflow: hidden">
+    <div class="modal-dialog">
+        <div class="modal-content" id="editSuppliesInContent" style="height: 500px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">Supplies Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Article Code</label>
+                                    <div class="col-xs-6">
+                                        <select id="ArtCode" name="ArtCode" class="form-control" style="width: 285px">
+                                            <option value="0">--Please Select--</option>
+                                            @foreach (var item in Selections.Articles)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Supplies Description</label>
+                                    <div class="col-xs-6">
+                                        <input class="form-control text-box single-line" id="Desc" name="Desc" type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Stock #</label>
+                                    <div class="col-xs-6">
+                                        <input class="form-control text-box single-line" id="StockNo" name="StockNo" type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Unit of Measurement</label>
+                                    <div class="col-xs-6">
+                                        <input class="form-control text-box single-line" id="Unit" name="Unit" type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Unit Value</label>
+                                    <div class="col-xs-6">
+                                        <input class="form-control text-box single-line" id="Value" name="Value" type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Quantity</label>
+                                    <div class="col-xs-6">
+                                        <input class="form-control text-box single-line" id="Quantity" name="Quantity" type="number"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Date Acquired</label>
+                                    <div class="col-xs-6">
+                                        <input class="form-control mydatepicker" format="{0:MM/dd/yyyy}" id="dateAcquired" name="dateAcquired" placeholder="mm/dd/yyyy"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-rounded waves-effect waves-light m-r-10 pull-right" id="btnClose">Cancel</button>
+                @if (PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify))
+                {
+                    <button class="btn btn-success btn-rounded waves-effect waves-light m-r-10 pull-right" id="btnSave">Save</button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="responsive-childModal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none; overflow:hidden">
+    <div class="modal-dialog">
+        <div class="modal-content" id="editSuppliesOutInContent" style="height: 380px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel2">Supplies Out Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Date</label>
+                                    <div class="col-xs-6">
+                                        <input class="form-control mydatepicker" format="{0:MM/dd/yyyy}" id="outDate" name="outDate" placeholder="mm/dd/yyyy"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Quantity</label>
+                                    <div class="col-xs-6">
+                                        <input class="form-control text-box single-line" id="outQuantity" name="outQuantity" type="number"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Employee</label>
+                                    <div class="col-xs-6">
+                                        <select id="outEmployee" name="outEmployee" class="form-control" style="width: 285px">
+                                            <option value="0">--Please Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Remarks</label>
+                                    <div class="col-xs-6">
+                                        <textarea rows="4" cols="50" class="form-control" id="outRemarks" name="outRemarks"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-rounded waves-effect waves-light m-r-10 pull-right" id="btnOutClose">Cancel</button>
+                @if (PageSecurity.HasAccess(PageArea.Inventory_Supplies_Modify))
+                {
+                    <button class="btn btn-success btn-rounded waves-effect waves-light m-r-10 pull-right" id="btnOutSave">Save</button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

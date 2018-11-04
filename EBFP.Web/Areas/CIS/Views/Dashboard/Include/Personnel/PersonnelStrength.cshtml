@@ -1,0 +1,359 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        Personnel Strength Summary
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12">
+              <div class="row row-in">
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-danger"></i>
+                      <h5 class="text-muted vb">Total DBM-Authorized Officer</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-danger" id="totalDBMOfficer">0</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-megna"></i>
+                      <h5 class="text-muted vb">Total Actual Strength Officer</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-megna" id="totalActualOfficer">0</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-primary"></i>
+                      <h5 class="text-muted vb">Total Variance Officer</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-primary" id="totalVarianceOfficer">0</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12">
+              <div class="row row-in">
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-danger"></i>
+                      <h5 class="text-muted vb">Total DBM-Authorized Non Officer</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-danger" id="totalDBMNonOfficer">0</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-megna"></i>
+                      <h5 class="text-muted vb">Total Actual Strength Non Officer</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-megna" id="totalActualNonOfficer">0</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-primary"></i>
+                      <h5 class="text-muted vb">Total Variance Non Officer</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-primary" id="totalVarianceNonOfficer">0</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12">
+              <div class="row row-in">
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-danger"></i>
+                      <h5 class="text-muted vb">Total DBM-Authorize Unifomed Personnel</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-danger" id="totalDBMUnifomedPersonnel">0</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-megna"></i>
+                      <h5 class="text-muted vb">Total Actual Strength Unifomed Personnel</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-megna" id="totalActualUnifomedPersonnel">0</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-primary"></i>
+                      <h5 class="text-muted vb"> Total Variance Unifomed Personnel</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-primary" id="totalVarianceUnifomedPersonnel">0</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12">
+              <div class="row row-in">
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-danger"></i>
+                      <h5 class="text-muted vb">Total DBM-Authorize Non Unifomed Personnel</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-danger" id="totalDBMNonUnifomedPersonnel">0</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-megna"></i>
+                      <h5 class="text-muted vb">Total Actual Strength Non Unifomed Personnel</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-megna" id="totalActualNonUnifomedPersonnel">0</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                  <div class="col-in row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <i class="ti-bar-chart text-primary"></i>
+                      <h5 class="text-muted vb"> Total Variance Non Unifomed Personnel</h5>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                      <h4 class="counter text-right m-t-15 text-primary" id="totalVarianceNonUnifomedPersonnel">0</h4>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="white-box" style="">
+            <div style="font-weight: bold;font-size:15px">
+              PERSONNEL STRENGTH PER REGION
+            </div>
+            <div>
+              <table cellpadding="1" class="tbl-Dashboard">
+                <tr>
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                  {
+                      <th>PROVINCE</th>
+                  }
+                  else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                      <th>STATION</th>
+                  }
+                  else
+                  {
+                      <th>REGION</th>
+                  }
+                  <th>OFFICER RANKS</th>
+                  <th>NON-OFFICER RANKS</th>
+                  <th>NON-UNIFORMED PERSONNEL</th>
+                  <th>TOTAL NR OF PERSONNEL</th>
+
+                  <th>ACTUAL NR OF FIRE TRUCKS</th>
+                  <th>IDEAL NR OF PERSONNEL (Based on actual number  of fire trucks)</th>
+                  <th>ADDITIONAL MANPOWER REQUIREMENT</th>
+                  <th>PERSONNEL ASSIGNED IN ADMIN</th>
+                  <th>PERSONNEL ASSIGNED IN OPERATIONS</th>
+
+                </tr>
+                <tr ng-repeat="item in PersonnelPerRegion">
+                  @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                  {
+                      <td class="tbl-RowTitle">{{item.Province}}</td>
+                  }
+                  else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                  {
+                      <td class="tbl-RowTitle">{{item.Unit}}</td>
+                  }
+                  else
+                  {
+                      <td class="tbl-RowTitle">{{item.Region}}</td>
+                  }
+                  @*<td class="tbl-RowTitle">{{item.Region}}</td>*@
+                  <td>{{item.OfficerRanks | number}}</td>
+                  <td>{{item.NonOfficerRanks | number}}</td>
+                  <td>{{item.NonUniformedPersonnel | number}}</td>
+                  <td>{{item.TotalPersonnel | number}}</td>
+                  <td>{{item.ActualFireTrucks | number}}</td>
+                  <td>{{item.IdealPersonnel | number}}</td>
+                  <td>{{item.AdditionalManpower}}</td>
+                  <td>{{item.AdminPersonnel | number}}</td>
+                  <td>{{item.OperationPersonnel | number}}</td>
+                </tr>
+                <tr>
+                  <th>TOTAL</th>
+                  <th>{{PersonnelPerRegion | sumByKey:'OfficerRanks' | number}}</th>
+                  <th>{{PersonnelPerRegion | sumByKey:'NonOfficerRanks' | number}}</th>
+                  <th>{{PersonnelPerRegion | sumByKey:'NonUniformedPersonnel' | number}}</th>
+                  <th>{{PersonnelPerRegion | sumByKey:'TotalPersonnel' | number}}</th>
+                  <th>{{PersonnelPerRegion | sumByKey:'ActualFireTrucks' | number}}</th>
+                  <th>{{PersonnelPerRegion | sumByKey:'IdealPersonnel' | number}}</th>
+                  <th>{{PersonnelPerRegion | sumByKey:'AdditionalManpower' | number}}</th>
+                  <th>{{PersonnelPerRegion | sumByKey:'AdminPersonnel' | number}}</th>
+                  <th>{{PersonnelPerRegion | sumByKey:'OperationPersonnel' | number}}</th>
+                </tr>
+              </table>
+              *Note: Detached Service (DS) to NFTI/DS-PNPA, IATF and PPSC
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12">
+            <div style="height: 490px !important">
+
+              <div class="box-title">
+                <div class="row row-in">
+                  <h5>Personnel Strength</h5>
+                  <h5 class="pull-right"><i class="fa fa-circle m-r-5" style="color: #cc0000;"></i>Officer Ranks</h5>
+                  <h5 class="pull-right"><i class="fa fa-circle m-r-5" style="color: #e6e600;"></i>Non-Uniformed Personnel</h5>
+                  <h5 class="pull-right"><i class="fa fa-circle m-r-5" style="color: #0000cc;"></i>Non-Officer Ranks</h5>
+                </div>
+              </div>
+              <div id="personnestrength-pie"></div>
+            </div>
+          </div>
+        </div>
+
+        @*ACTUAL VS. AUTHORIZED STRENGTH*@
+        <div class="row">
+          <div class="col-lg-6 col-sm-12">
+            <div class="white-box" style="height: 450px !important">
+              <div style="font-weight: bold">
+                ACTUAL VS. AUTHORIZED STRENGTH (OFFICER RANKS)
+              </div>
+              <div class="box-title">
+                <h5 class="pull-right">
+                  <i class="fa fa-circle m-r-5" style="color: #03a9f3;"></i>DBM-AUTHORIZED
+                  <i class="fa fa-circle m-r-5" style="color: #87CEFA;"></i>ACTUAL STRENGTH
+                  <i class="fa fa-circle m-r-5" style="color: #0000CC;"></i>VARIANCE
+                </h5>
+              </div>
+              <div id="officerRank" style="height: 372px;"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-sm-12">
+            <div class="white-box" style="height: 450px !important">
+              <div style="font-weight: bold">
+                ACTUAL VS. AUTHORIZED STRENGTH (NON-OFFICER RANKS)
+              </div>
+              <div class="box-title">
+                <h5 class="pull-right">
+                  <i class="fa fa-circle m-r-5" style="color: #03a9f3;"></i>DBM-AUTHORIZED
+                  <i class="fa fa-circle m-r-5" style="color: #87CEFA;"></i>ACTUAL STRENGTH
+                  <i class="fa fa-circle m-r-5" style="color: #0000CC;"></i>VARIANCE
+                </h5>
+              </div>
+              <div id="nonOfficerRank" style="height: 372px;"></div>
+            </div>
+          </div>
+        </div>
+
+        @*PERSONNEL STRENGTH NATIONWIDE*@
+        <div class="row">
+          <div class="col-lg-6 col-xs-6">
+            <div class="white-box" style="height: 150px !important">
+              <div style="font-weight: bold">
+                PERSONNEL STRENGTH NATIONWIDE
+              </div>
+              <div style="height: 372px;">
+                <table cellpadding="1" class="tbl-Dashboard">
+                  <tr>
+                    <th>OFFICERS</th>
+                    <th>NORs</th>
+                    <th>NUPs</th>
+                    <th>TOTAL</th>
+                  </tr>
+                  <tr>
+                    <td>{{OfficerRanks | number}}</td>
+                    <td>{{NonOfficerRanks | number}}</td>
+                    <td>{{NonUniformedPersonnel | number}}</td>
+                    <td>{{TotalPersonnel | number}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xs-6">
+            <div class="white-box" style="height: 150px !important">
+              <div style="font-weight: bold">
+                JOB FUNCTION DISTRIBUTION OF UNIFORMED PERSONNEL
+              </div>
+              <div style="height: 372px;">
+                <table cellpadding="1" class="tbl-Dashboard">
+                  <tr>
+                    <th colspan="4">UNIFORMED PERSONNEL</th>
+                    <th rowspan="2">TOTAL</th>
+                  </tr>
+                  <tr>
+                    <th>ADMIN</th>
+                    <th>%</th>
+                    <th>OPERATIONS</th>
+                    <th>%</th>
+                  </tr>
+                  <tr>
+                    <td>{{NUPAdminPersonnel | number}}</td>
+                    <td>{{NUPAdminPersonnelPercent | number}}%</td>
+                    <td>{{NUPOperationPersonnel | number}}</td>
+                    <td>{{NUPOperationPersonnelPercent | number}}%</td>
+                    <td>{{Total | number}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

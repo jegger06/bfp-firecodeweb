@@ -1,0 +1,691 @@
+﻿@model EBFP.BL.HumanResources.PhysicalExamModel
+@using EBFP.BL.Helper
+@using EBFP.Helper
+
+@{
+    ViewBag.Title = "Physical Exam Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ bool Viewing = SiteAccess.Viewing(Convert.ToString(Request["AccessType"]).Decrypt());}
+<script src="~/Content/bootstrap/eliteadmin/js/validator.js"></script>
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+}))
+{
+    <fieldset id="PhysicalExamDetails">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(a => Model.PatientInformation.sPE_Id)
+        @Html.HiddenFor(a => Model.PatientInformation.PE_Id)
+        @Html.HiddenFor(a => Model.PatientInformation.Emp_Id)
+    <style>
+      #divCheck input[type='checkbox'] {
+        width: 15px !important;
+        height: 15px !important;
+        float: left;
+      }
+
+      #tblPhysicalExam td:first-child {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      #tblPhysicalExam td:first-child + td {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .ti-minus, .ti-plus {
+        font-weight: bold !important;
+        font-size: 20px !important;
+        color: white !important;
+      }
+
+      .ti-plus:before {
+        content: "\e65f" !important;
+      }
+
+      .ti-minus:before {
+        content: "\e65c";
+      }
+
+      .form-horizontal .control-label {
+        text-align: left !important;
+      }
+
+      .affix {
+        top: 10px;
+        width: 100%;
+        z-index: 9999 !important;
+      }
+
+      .navbar {
+        margin-bottom: 0px;
+      }
+
+      .affix ~ .container-fluid {
+        padding-top: 10px !important;
+        position: relative;
+        top: 50px !important;
+      }
+    </style>
+      @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_ViewDetails_Medical_Modify) && !Viewing)
+      {
+          <div class="row">
+            <div class="col-sm-12" data-spy="affix" data-offset-top="197">
+              <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10 "><i class="fa fa-check "></i> Submit</button>
+
+              <br /><br />
+            </div>
+          </div>
+      }
+        
+        <div class="col-sm-12">
+            <div class="panel panel-info">
+                <a href="#" data-perform="panel-collapse">
+                    <div class="panel-heading">
+                        I. Physical Exam
+                        <div class="pull-left">
+                            <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                        </div>
+                    </div>
+                </a>
+                <div class="panel-wrapper collapse in" aria-expanded="true">
+                    <div class="panel-body">
+                        <div>
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Date of Service</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    @Html.TextBoxFor(model => model.PatientInformation.PE_Service_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                                    <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Patient Name:</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_Patient_Name, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Health Plan:</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_Health_Plan, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-9 control-label">&nbsp;</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="font-weight: bold; text-decoration: underline">
+                                                PROGRESS NOTE
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Allergies:</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_Allergies, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Height</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_Height, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Sex</label>
+                                            <div class="col-md-6">
+                                                @foreach (var item in Selections.Genders)
+                                                {
+                                                    <div class="col-sm-6" style="padding-left: 0 !important">
+                                                        <div class="radio radio-info">
+                                                            @Html.RadioButtonFor(a => a.PatientInformation.PE_Sex, item.Value, new { id = "Gender_" + item.Value })
+                                                            <label for="Gender_@item.Value" style="font-weight: 100 !important">@item.Text</label>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">HR</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_HR, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Oxygen Status</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    @Html.TextBoxFor(model => model.PatientInformation.PE_Oxygen_Status, new { @class = "form-control" })
+                                                    <span class="input-group-addon">% Oxygen</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Home Oxygen Use</label>
+                                            <div class="col-md-6">
+                                                <div class="col-sm-6" style="padding-left: 0 !important">
+                                                    <div class="radio radio-info">
+                                                        @Html.RadioButtonFor(e => e.PatientInformation.PE_Oxygen_Use, true, new { id = "PE_Oxygen_Use-true" })
+                                                        @Html.Label("PE_Oxygen_Use-true", "Yes")
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6" style="padding-left: 0 !important">
+                                                    <div class="radio radio-info">
+                                                        @Html.RadioButtonFor(e => e.PatientInformation.PE_Oxygen_Use, false, new { id = "PE_Oxygen_Use-false" })
+                                                        @Html.Label("PE_Oxygen_Use-false", "No")
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*RIGHT*@
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Member ID:</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_Member_Id, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">DOB:</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_DOB, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Provider Name:</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_Provider_Name, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-9 control-label">&nbsp;</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-9 control-label">&nbsp;</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">BMI</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_BMI, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Weight</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_Weight, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">RR</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_RR, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">BP</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.PatientInformation.PE_BP, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Wheelchair Dependent</label>
+                                            <div class="col-md-6">
+                                                <div class="col-sm-6" style="padding-left: 0 !important">
+                                                    <div class="radio radio-info">
+                                                        @Html.RadioButtonFor(e => e.PatientInformation.PE_WheelChair_Dependent, true, new { id = "PE_WheelChair_Dependent-true" })
+                                                        @Html.Label("PE_WheelChair_Dependent-true", "Yes")
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6" style="padding-left: 0 !important">
+                                                    <div class="radio radio-info">
+                                                        @Html.RadioButtonFor(e => e.PatientInformation.PE_WheelChair_Dependent, false, new { id = "PE_WheelChair_Dependent-false" })
+                                                        @Html.Label("PE_WheelChair_Dependent-false", "No")
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Chief Complaint</label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.PatientInformation.PE_Chief_Complaint, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">History of Present Illness</label>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.PatientInformation.PE_History_Present_Illness, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+                            <div>
+                                <label style="font-weight: bold; text-decoration: underline">
+                                    PATIENT HISTORY:
+                                </label>
+                            </div>
+                            <br />
+
+                            <div id="divCheck">
+                                <table class="tbl">
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            <label class="control-label">Family History</label>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                @Html.CheckBoxFor(model => model.FamilyHistory.PE_Fam_History_NonContributory, new { @class = "form-control" })
+                                                <label style="padding-top: 3px" class="control-label chk-label">Family History is Non-contributory</label>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <label class="col-md-3 control-label chk-label">Family History Positive for : </label>
+                                                    <div class="col-md-1">
+                                                        @Html.CheckBoxFor(model => model.FamilyHistory.PE_Fam_History_Pos_CKD, new { @class = "form-control" })
+                                                        <label class="control-label chk-label">CKD</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.CheckBoxFor(model => model.FamilyHistory.PE_Fam_History_Pos_HeartDisease, new { @class = "form-control" })
+                                                        <label class="control-label chk-label">Heart Disease</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.CheckBoxFor(model => model.FamilyHistory.PE_Fam_History_Pos_Cancer, new { @class = "form-control" })
+                                                        <label class="control-label chk-label">Cancer</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.CheckBoxFor(model => model.FamilyHistory.PE_Fam_History_Pos_Diabetes, new { @class = "form-control" })
+                                                        <label class="control-label chk-label">Diabetes</label>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label class="col-md-3 control-label chk-label">&nbsp;</label>
+                                                    <div class="col-md-1">
+                                                        @Html.CheckBoxFor(model => model.FamilyHistory.PE_Fam_History_Pos_Other, new { @class = "form-control" })
+                                                        <label class="control-label chk-label">Other</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        @Html.TextBoxFor(model => model.FamilyHistory.PE_Fam_History_Pos_Other_Text, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label class="control-label">Past Surgery / </label>
+                                            <label class="control-label">Resolved illness </label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(model => model.FamilyHistory.PE_Past_Surgery, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label class="control-label">Social History</label>
+                                        </td>
+                                        <td>
+                                            <div class="col-md-12">
+                                                <div class="col-md-6">
+                                                    <label class="col-md-4 control-label">Birthplace</label>
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(model => model.FamilyHistory.PE_Social_Birthplace, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-md-4 control-label">Primary Langauge</label>
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(model => model.FamilyHistory.PE_Social_Primary_Language, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="padding-top: 5px;">
+                                                <label class="col-md-1 control-label">Employed</label>
+                                                <div class="col-md-5">
+                                                    <div class="col-sm-3" style="padding-left: 0 !important">
+                                                        <div class="radio radio-info">
+                                                            @Html.RadioButtonFor(e => e.FamilyHistory.PE_Social_Employed, 1, new { id = "PE_Social_Employed-1" })
+                                                            @Html.Label("PE_Social_Employed-1", "Yes")
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="padding-left: 0 !important">
+                                                        <div class="radio radio-info">
+                                                            @Html.RadioButtonFor(e => e.FamilyHistory.PE_Social_Employed, 2, new { id = "PE_Social_Employed-2" })
+                                                            @Html.Label("PE_Social_Employed-2", "No")
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4" style="padding-left: 0 !important">
+                                                        <div class="radio radio-info">
+                                                            @Html.RadioButtonFor(e => e.FamilyHistory.PE_Social_Employed, 3, new { id = "PE_Social_Employed-3" })
+                                                            @Html.Label("PE_Social_Employed-3", "Retired")
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3" style="padding-left: 0 !important">
+                                                        <div class="radio radio-info">
+                                                            @Html.RadioButtonFor(e => e.FamilyHistory.PE_Social_Employed, 4, new { id = "PE_Social_Employed-4" })
+                                                            @Html.Label("PE_Social_Employed-4", "Disabled")
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="col-md-4">
+                                                        Occupation
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(model => model.FamilyHistory.PE_Social_Occupation, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="padding-top: 5px;">
+                                                <label class="col-md-1 control-label">Civil Status</label>
+                                                <div class="col-md-5">
+                                                    <div class="col-sm-3" style="padding-left: 0 !important">
+                                                        <div class="radio radio-info">
+                                                            @Html.RadioButtonFor(e => e.FamilyHistory.PE_Social_CivilStatus, 1, new { id = "PE_Social_CivilStatus-1" })
+                                                            @Html.Label("PE_Social_CivilStatus-1", "Married")
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3" style="padding-left: 0 !important">
+                                                        <div class="radio radio-info">
+                                                            @Html.RadioButtonFor(e => e.FamilyHistory.PE_Social_CivilStatus, 2, new { id = "PE_Social_CivilStatus-2" })
+                                                            @Html.Label("PE_Social_CivilStatus-2", "Divorced")
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3" style="padding-left: 0 !important">
+                                                        <div class="radio radio-info">
+                                                            @Html.RadioButtonFor(e => e.FamilyHistory.PE_Social_CivilStatus, 3, new { id = "PE_Social_CivilStatus-3" })
+                                                            @Html.Label("PE_Social_CivilStatus-3", "Widowed")
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3" style="padding-left: 0 !important">
+                                                        <div class="radio radio-info">
+                                                            @Html.RadioButtonFor(e => e.FamilyHistory.PE_Social_CivilStatus, 4, new { id = "PE_Social_CivilStatus-4" })
+                                                            @Html.Label("PE_Social_CivilStatus-4", "Single")
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="col-md-4">
+                                                        # Children
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(model => model.FamilyHistory.PE_Social_NoOfChildren, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <br />
+                            <div>
+                                <label style="font-weight: bold; text-decoration: underline">
+                                    PHYSICAL EXAMINATION:
+                                </label>
+                            </div>
+                            <br />
+
+
+
+                            <table id="tblPhysicalExam" class="tbl">
+                                <tr>
+                                    <td style="width: 100px;">
+                                        If System deferred, check here
+                                    </td>
+                                    <td colspan="2">
+                                        (Please complete thoroughly each section unless exam component was deferred - All abnormals MUST be documented)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_General_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        GENERAL
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/General.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Head_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        HEAD
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Head.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Eyes_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        EYES
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Eyes.cshtml")
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_ENT_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        ENT
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/ENT.cshtml")
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Neck_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        NECK
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Neck.cshtml")
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Respiratory_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        RESPIRATORY
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Respiratory.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Cardiac_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        CARDIAC
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Cardiac.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Vascular_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        VASCULAR
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Vascular.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Chest_Breast_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        CHEST / BREAST
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Chest.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_GI_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        GI
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/GI.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_GU_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        GU
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/GU.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_GU_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        LYMPH
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Lymph.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Musculoskeletal_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        MUSCULO- SKELETAL
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Musculoskeletal.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Skin_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        SKIN
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Skin.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Psych_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        PSYCH
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Psych.cshtml")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Neuro_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        NUERO
+                                    </td>
+                                    <td>
+                                        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/PhysicalExam/Partial/Neuro.cshtml")
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.Deferred.PE_Misc_Deferred, new { @style = "float:none" })
+                                    </td>
+                                    <td style="width: 100px;">
+                                        MISC
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Misc_Text, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div style="font-weight: bold">LAB RESULTS</div>
+                                        (state specific findings and add diagnosis to assessment / plan)
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Lab_Results, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div style="font-weight: bold">RADIOLOGY RESULTS</div>
+                                        (state specific findings and add diagnosis to assessment / plan)
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.PhysicalExamOtherInfo.PE_Radiology_Results, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        @Html.Partial("~/Areas/HRIS/Views/Employee/Include/MedicalDetails/Diagnosis/Main.cshtml")
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.mydatepicker, #datepicker').datepicker();
+            });
+        </script>
+
+    </fieldset>
+}
+
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")

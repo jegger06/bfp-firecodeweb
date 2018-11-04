@@ -1,0 +1,185 @@
+﻿@using EBFP.Helper;
+@using EBFP.BL.Helper;
+
+@{
+    ViewBag.Title = "Region";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@{
+    string accessType = AccessType.Edit.ToString().Encrypt();
+    //var accessRole = ((AccessRole)AccountHelper.Role);
+}
+ @*<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-info">
+            <a href="#" data-perform="panel-collapse">
+                <div class="panel-heading">
+                    Search Filter (Click to expand)
+                    <div class="pull-left">
+                        <i class="ti-minus"></i>
+                    </div>
+                </div>
+            </a>
+            <div class="panel-wrapper collapse in" aria-expanded="false">
+                <div class="panel-body">
+                    <div role="form" class="row">
+                        <div class="col-sm-4 col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Rank Name</label>
+                                <input type="text" id="txtRankName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-1">
+                            <div class="form-group">
+                                <label class="control-label">&nbsp;</label>
+                                <button type="button" onclick="FilterSearch()" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+
+            <span id="totalRecords">&nbsp;</span>
+            <div class="block1" style="position: static; zoom: 1;">
+
+                <div class="table-responsive">
+                    <table id="tblRegion" class="table table-striped table-bordered nowrap">
+                        <thead>
+                        <tr>
+                            <th class="all">Region</th>
+                            <th class="all">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var isSearch = false;
+    var tblRegion = null;
+    $(document).ready(function () {
+        $('div.block1').block({
+            message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>'
+ , css: {
+     border: '1px solid #fff !important'
+ }
+        });
+
+        tblRegion = $('#tblRegion').DataTable({
+            order : [[ 0, "asc" ]],
+            serverSide: true,
+            deferRender: true,
+            pageLength: 50,
+            processing: true,
+            responsive: true,
+            searching: false,
+            ajax: {
+                url: '@Url.Action("GetRegions", "Region")',
+            type: 'POST',
+            data: function(d) {
+              d.gridInfo = SetDatatableParams()
+            }
+          },
+          "initComplete": function(settings, json) {
+              //$('#tblRegion_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.recordsFiltered.toLocaleString() + " result(s)</span>");
+          },
+          "columns": [
+            {
+                "name": "Reg_Title",
+                "searchable": true,
+                "sortable": true,
+                "render": function (data, type, full, meta) {
+                    return full.Reg_Title;
+                }
+            },
+            {
+              "name": "Action",
+              "searchable": false,
+              "sortable": false,
+              "width": "200px",
+              "render": function(data, type, full, meta) {
+                  return GetActionTemplate(full.sReg_Id);
+              }
+
+            }
+          ]
+        })
+        .on('preXhr.dt', function() {
+          $('div.block1').block({
+            message: '<h3><i class="ace-icon fa fa-spinner fa-spin blue bigger-300"></i> Please Wait...</h3>',
+            css: {
+              border: '1px solid #fff !important'
+            }
+          });
+        })
+        .on('xhr.dt', function(data, settings) {
+          console.log(data);
+          $('div.block1').unblock();
+          if (settings.json && settings.json.recordsFiltered >= 0) {
+              $("#tblRegion_length #totalGridResult").remove();
+              $('#tblRegion_length').append("<span id='totalGridResult'> &nbsp;&nbsp;&nbsp;" + settings.json.recordsFiltered.toLocaleString() + " result(s)</span>");
+          }
+
+        });
+    });
+
+    function SetDatatableParams() {
+        var datatable = $('#tblRegion').DataTable();
+      var datatableInfo = datatable.page.info();
+      var columns = datatable.settings().init().columns;
+      var order = datatable.order();
+      var sortIndex = order[0][0];
+      var sortOrder = order[0][1];
+      datatableInfo.sortOrder = sortOrder;
+      datatableInfo.sortColumnName = columns[sortIndex].name;
+
+      //var searchRankModel = {
+      //  Rank_Title: $("#txtRankName").val(),
+      //  IsSearch: isSearch
+      //};
+
+      //datatableInfo.searchRankModel = searchRankModel;
+      return datatableInfo;
+    }
+
+    function SwalAlert(msg) {
+      swal("Ooops..", msg, "error");
+    }
+
+    function GetActionTemplate(regionId) {
+      var concat = "";
+      concat += '<a href="@Url.Action("RegionDetails", "Region")?sId=' + regionId + '&AccessType=@accessType" class="btn btn-success m-l-20 btn-rounded btn-outline waves-effect waves-light fa fa-pencil">';
+      concat += ' Details';
+      concat += '</a>';
+        return concat;
+    }
+
+
+    function FilterSearch() {
+        isSearch = true;
+        tblRegion.ajax.reload();
+    }
+
+
+</script>
+
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")

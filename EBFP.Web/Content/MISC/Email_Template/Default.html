@@ -1,0 +1,201 @@
+﻿<style type="text/css">
+  td {
+    font-family: arial;
+  }
+
+  .campaign {
+    width: 600px;
+    padding: 60px 0 0 0;
+  }
+
+  .content-section {
+    background-color: #415970;
+  }
+
+  .content-section a, .content-section a:link, .content-section a:hover, .content-section a:visited {
+    color: white;
+  }
+
+  .content-section td {
+    text-align: center;
+    padding: 40px 0 10px;
+  }
+
+  .content-wrapper {
+    background-color: white;
+  }
+
+  .content-wrapper td {
+    padding: 0 25px;
+  }
+
+  .content-wrapper p.content {
+    font-size: 16px;
+    line-height: 22px;
+    color: #838383;
+  }
+
+  td.footer {
+    line-height: 15px;
+    font-size: 11px;
+    padding: 20px 20px 50px 20px;
+    text-align: center;
+    color: white;
+  }
+
+  td.badge {
+    width: 33%;
+    text-align: center;
+    padding: 60px 0px 60px 0px;
+  }
+
+  td.badge.left {
+    padding-left: 30px;
+  }
+
+  td.badge.right {
+    padding-right: 30px;
+  }
+
+  .instructions {
+    ;
+    font-size: 12px;
+    padding: 30px 20px;
+    color: #838383;
+    line-height: 21px;
+  }
+
+  .header {
+    font-size: 22px;
+    text-align: center;
+    padding: 10px 0px 5px 0px;
+  }
+
+  .reminder {
+    font-style: italic;
+    color: #838383;
+    line-height: 18px;
+    font-size: 12px;
+  }
+
+  .social td {
+    text-align: center;
+    border-top: solid 1px #838383;
+    padding-top: 10px;
+  }
+
+  .address td {
+    text-align: center;
+    padding-top: -20px;
+    color: #838383;
+    font-size: 12px;
+    font-weight: bold;
+  }
+</style>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<body style="background-color:#f3f3f4;font-family:arial;">
+
+  <table class="campaign" align="center" cellpadding="0" cellspacing="0" style="width: 600px;padding: 60px 0 0 0;">
+    <tbody>
+      <tr class="content-section" style="background-color: #fff;">
+        <td style="font-family: arial; text-align: center; padding: 10px 0 0 0;">
+        </td>
+      </tr>
+      <tr class="content-section" style="background-color: #415970;">
+        <td style="font-family: arial; text-align: center; padding:20px 0 20px 0;">
+          <div style="width: 100%; font-size: 12px; line-height: 18px; text-align: center; color: #ffffff;">
+            <span style="color: #fff !important;">
+            <!--<i>Helping you get the customer service you deserve.</i>-->
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr class="content-wrapper" style="background-color: white;">
+        <td style="font-family: arial;padding: 0 25px;">
+          <div>
+            <style type="text/css">
+              .blog-content {
+                line-height: 16px !important;
+              }
+
+              .rss-content > p:last-child {
+                font-size: 12px;
+              }
+            </style>
+            <div class="blog-content" style="line-height: 26px;">
+              <!--<p style="margin-bottom:0;color:#898989;text-align:center;">&nbsp;</p>-->
+              <div>&nbsp;</div>
+              <h3>Hello {{Name}},</h3>
+              <!--<div class="rss-content" style="color: #898989; font-size: 14px;">-->
+              <div class="rss-content" style="color: black; font-size: 14px;">
+                <p>
+                  {{emailContent}}
+                  <br /><br />
+                  Regards,<br />
+                  <b>Bureau Of Fire Protection Admin</b> <br />
+                </p>
+                        <!--<p>
+              <br />
+              <b><font style="color:red;">Note:Bureau of Fire Protection Portal
+            </p>-->
+
+              </div>
+              <p>&nbsp;</p>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="content-section" style="background-color: #415970;">
+        <td class="footer" style="font-family: arial;text-align: center;padding: 10px 15px 15px 15px;line-height: 15px;font-size: 11px;color: white;">
+          <div style="padding-top: 10px; width: 100%; font-size: 14px; line-height: 18px; text-align: center; color: #ffffff;">
+            <!--<span style="color: #bbbbbb !important; text-align: center">
+If you have any question or concerns email us at Bureau of Fire Protection Portal
+</span>-->
+            <!--<br>
+            <span style="color: #93cbf9 !important;">Bureau of Fire Protection Portal.net</span>-->
+            <!--<br>
+            <span style="color: #bbbbbb !important;"> © 2018 . All rights reserved.</span>-->
+          </div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+<center>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" id="canspamBarWrapper" style="background-color: #FFFFFF; border-top: 1px solid #E5E5E5;">
+    <tr>
+      <td align="center" valign="top" style="padding-top: 20px; padding-bottom: 20px; font-family: arial;">
+        <table border="0" cellpadding="0" cellspacing="0" id="canspamBar">
+          <tr>
+            <td align="center" valign="top" style="color: #606060; font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 150%; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; text-align: center;">
+              This email was sent to <a href="{{userEmail}}" target="_blank" style="color: #404040 !important;">{{userEmail}}</a>
+              <br>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <style type="text/css">
+    @media only screen and (max-width: 480px) {
+      table[id="canspamBar"] td {
+        font-size: 14px !important;
+      }
+
+      table[id="canspamBar"] td a {
+        display: block !important;
+        margin-top: 10px !important;
+      }
+    }
+  </style>
+</center>
+  <img src="http://scrum.us7.list-manage.com/track/open.php?u=22a762c59fe74ace9ccee784d&id=dbf9400d39&e=0923d39a45" height="1" width="1">
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                Firefighting Capability Summary
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true" >
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="row row-in">
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-danger"></i>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-danger">{{FireFightingCapability | sumByKey:'TotalMunicipalitiesWithBuildingAndFireTrucks' | number}}</h4>
+                                        </div>
+                                        <div class="col-lg-10 col-xs-10">
+                                            <h5 class="text-muted vb">
+                                                <a href="#" style="text-decoration:underline; font-size:16px">{{FireFightingCapability | sumByKey:'TotalCitiesWithBuildingAndFireTrucks' | number}}</a> Cities and
+                                                <a href="#" style="text-decoration:underline; font-size:16px">{{FireFightingCapability | sumByKey:'TotalMunicipalitiesWithBuildingAndFireTrucks' | number}}</a> Municipalities with fire station building and with fire truck/s
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-info"></i>
+                                            <h5 class="text-muted vb">Municipalities With Fire Trucks Only</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-info">{{FireFightingCapability | sumByKey:'MunicipalitiesWithFireTrucksOnly' | number}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-danger"></i>
+                                            <h5 class="text-muted vb">Municipalities Without Fire Trucks</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-danger">{{FireFightingCapability | sumByKey:'MunicipalitiesWithoutFireTrucks' | number}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="row row-in">
+                               
+                                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-megna"></i>
+                                            <h5 class="text-muted vb">Municipalities With Fire Station Building</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-megna">{{FireFightingCapability | sumByKey:'MunicipalitiesWithFireStationBLDGOnly' | number}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-primary"></i>
+                                            <h5 class="text-muted vb">Municipalities Without Fire Trucks And Station</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-primary" >{{FireFightingCapability | sumByKey:'MunicipalitiesWithoutFireTrucksAndStation' | number}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 row-in-br">
+                                    <div class="col-in row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <i class="ti-bar-chart text-info"></i>
+                                            <h5 class="text-muted vb">Municipalities Without Fire Station Building</h5>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <h4 class="counter text-right m-t-15 text-info" >{{FireFightingCapability | sumByKey:'MunicipalitiesWithoutFireStationBLDG' | number}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+              <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                  @Html.Partial("~/Areas/CIS/Views/Dashboard/Include/FireFightingCapability/FireFightingCapabilityDetails.cshtml")
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                  <div class="white-box" style="height: 200px !important">
+                    <div style="font-weight: bold; font-size: 15px;text-align: center">
+                      <div> FIREFIGHTING CAPABILITY</div>
+                      <div>Based on Population</div>
+                    </div>
+                    <div style="height: 372px;">
+                      <table cellpadding="1" class="tbl-Dashboard">
+                        <tr>
+                          <th>PARTICULARS</th>
+                          <th>ACTUAL</th>
+                          <th>IDEAL</th>
+                          <th>SHORTAGE</th>
+                        </tr>
+                        <tr>
+                          <th>Fire Trucks</th>
+                          <th>{{TotalFireTrucks | number}}</th>
+                          <th>{{IdealFireTrucks | number}}</th>
+                          <th>{{IdealFireTrucks - TotalFireTrucks | number}}</th>
+                        </tr>
+                        <tr>
+                          <th>Firefighters</th>
+                          <th>{{OverallTotalPersonnel | number}}</th>
+                          <th>{{TotalFireTrucks * 14 | number}}</th>
+                          <th>{{TotalFireTrucks * 14 - OverallTotalPersonnel | number}}</th>
+                        </tr>
+                      </table>
+                      <div style="font-weight: bold">
+                        Projected Population: {{Populations | number}}
+                      </div>
+                      <div style="font-weight: bold">
+                        Fire Truck to Population Ratio: 1 fire truck for every 28,000 population
+                      </div>
+                      <div style="font-weight: bold">
+                        Firefighter to Fire Truck Ratio: 14 firefighters for every fire truck
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+        </div>
+    </div>
+</div>

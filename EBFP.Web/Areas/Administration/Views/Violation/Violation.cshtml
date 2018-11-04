@@ -1,0 +1,182 @@
+﻿@{
+    ViewBag.Title = "Violations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-info">
+      <a href="#" data-perform="panel-collapse">
+        <div class="panel-heading">
+          Search Filter
+          <div class="pull-left">
+            <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+          </div>
+        </div>
+      </a>
+      <div class="panel-wrapper collapse in" aria-expanded="false">
+        <div class="panel-body">
+          <form>
+            <div role="form" class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">Code</label>
+                  <input type="text" id="code" name="code" class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">Finding / Violation</label>
+                  <input type="text" id="findingViolation" name="findingViolation" class="form-control">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">Occupancy Type</label>
+                  <select id="occupancyType" name="occupancyType" class="form-control">
+                    <option value="" selected="selected">--- Please Select ---</option>
+                   </select>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label class="control-label">&nbsp;</label>
+                  <button type="button" id="btnSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>&nbsp; Search</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <p>
+        <a href="#" class="btn btn-info btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#editViolation">
+          <i class="fa fa-plus-circle"></i> Add New
+        </a>
+      </p>
+
+      <div class="table-responsive">
+        <table id="violationTable" class="table table-striped table-bordered nowrap">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Violation / Finding</th>
+              <th>Grace Period</th>
+              <th>Fine</th>
+              <th>Section</th>
+              <th>Occupancy Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-id="99">
+              <td>0001</td>
+              <td>No Violation</td>
+              <td>N/A</td>
+              <td>0</td>
+              <td>N/A</td>
+              <td>All</td>
+              <td>
+                <a href="#" class="btn btn-primary editViolation" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+              </td>
+            </tr>
+            <tr data-id="76">
+              <td>0002</td>
+              <td>No Violation</td>
+              <td>N/A</td>
+              <td>0</td>
+              <td>N/A</td>
+              <td>All</td>
+              <td>
+                <a href="#" class="btn btn-primary editViolation" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Edit Modal -->
+      <div class="modal fade" id="editViolation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Violations</h4>
+            </div>
+            <div class="modal-body">
+              <form class="addEditViolationForm">
+                <div role="form" class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Code</label>
+                      <input type="text" id="addEditCode" name="addEditCode" class="form-control addEditCode" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Finding Violation</label>
+                      <textarea id="addEditFindingViolation" name="addEditFindingViolation" rows="3" class="form-control addEditFindingViolation"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Section</label>
+                      <input type="text" id="addEditSection" name="addEditSection" class="form-control addEditSection">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Compliance</label>
+                      <input type="text" id="addEditCompliance" name="addEditCompliance" class="form-control addEditCompliance">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Grace Period</label>
+                      <input type="text" id="addEditGracePeriod" name="addEditGracePeriod" class="form-control addEditGracePeriod" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Occupancy Type</label>
+                      <select id="addEditOccupancyType" name="addEditOccupancyType" class="form-control addEditOccupancyType" required>
+                        <option value="" selected="selected">--- Please Select ---</option>
+                        <option value="1">Sample Occupancy Type</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Minimum Fine</label>
+                      <input type="text" id="addEditMinimumFine" name="addEditMinimumFine" class="input-sm form-control addEditMinimumFine" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">Maximum Fine</label>
+                      <input type="text" id="addEditMaximumFine" name="addEditMaximumFine" class="input-sm form-control addEditMaximumFine" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success addEditViolationBtn">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+<script src="@Url.Content("~/scripts/Areas/Administration/violation.js")"></script>

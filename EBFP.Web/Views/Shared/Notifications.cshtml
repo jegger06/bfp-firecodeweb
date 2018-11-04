@@ -1,0 +1,127 @@
+﻿    <!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>  
+@{bool requiredFieldError = false;}
+@{string errorMessage = "";}
+@{string errorReqMessage = "Please fill required fields highlighted in red and try to submit again.";}
+@foreach (ModelState modelState in ViewData.ModelState.Values)
+{
+    foreach (ModelError error in modelState.Errors)
+    {
+        if (error.ErrorMessage.Contains("field is required") && !errorMessage.Contains(errorReqMessage))
+        {
+            errorMessage += errorReqMessage;
+        }
+        else if (!error.ErrorMessage.Contains("field is required"))
+        {
+            errorMessage += error.ErrorMessage;
+        }
+        requiredFieldError = true;
+    }
+}
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/toast-master/css/jquery.toast.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/toast-master/js/jquery.toast.js")"></script>
+
+    <!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>  
+<style>
+    .input-validation-error {
+        border-color: #ff6849 !important;
+    }
+</style>
+
+@if (ViewBag.PageStatus == PageStatus.Success.ToString())
+{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            swal("Success!", "Transaction Successful.", "success");
+            //$.toast({
+            //    heading: 'Good Job!',
+            //    text: 'Operation successful.',
+            //    position: 'top-right',
+            //    loaderBg: '#ff6849',
+            //    icon: 'success',
+            //    hideAfter: 10500,
+            //    stack: 6
+            //});
+        });
+    </script>
+    ViewBag.PageStatus = "";
+}
+else if (ViewBag.PageStatus == PageStatus.Error.ToString())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $.toast({
+                heading: 'Oops..',
+                text: '@ViewBag.ExceptionMessage',
+                position: 'top-right',
+                loaderBg: '#ff6849',
+                icon: 'error',
+                hideAfter: 10500
+
+            });
+        });
+    </script>
+
+    ViewBag.PageStatus = "";
+}
+else if (requiredFieldError)
+{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $.toast({
+                heading: 'Oops..',
+                text: '@errorMessage',
+                position: 'top-right',
+                loaderBg: '#ff6849',
+                icon: 'error',
+                hideAfter: 10500
+
+            });
+
+            $(".input-validation-error:first").focus();
+        });
+    </script>
+}
+
+<script type="text/javascript">
+    //Alerts
+    $(".myadmin-alert .closed").click(function (event) {
+        $(this).parents(".myadmin-alert").fadeToggle(350);
+        return false;
+    });
+    /* Click to close */
+    $(".myadmin-alert-click").click(function (event) {
+        $(this).fadeToggle(350);
+        return false;
+    });
+
+    function DeleteAjaxConfirm(event) {
+
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel plx!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                swal("Deleted!", "Item has been deleted.", "success");
+                $(location).attr('href', event);
+            } else {
+                swal("Cancelled", "Item delete has been cancelled", "error");
+            }
+        });
+
+    }
+</script>

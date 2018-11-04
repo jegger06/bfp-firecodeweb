@@ -1,0 +1,79 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+              Establishment Summary
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+
+                    <div style="font-weight: bold; font-size: 15px;text-align: center">
+                        <div> NUMBER OF ESTABLISHMENTS INSPECTED</div>
+                    </div>
+
+                    <br /><br />
+                    <div>
+                        <table cellpadding="1" class="tbl-Dashboard">
+                            <tr>
+                              @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                              {
+                                  <th>Province</th>
+                              }
+                              else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                              {
+                                  <th>Station</th>
+                              }
+                              else
+                              {
+                                  <th>Region</th>
+                              }
+                                <th>{{InspectedEstablishmentYears[0]}}</th>
+                                <th>{{InspectedEstablishmentYears[1]}}</th>
+                                <th>{{InspectedEstablishmentYears[2]}}</th>
+                                <th>{{InspectedEstablishmentYears[3]}}</th>
+                                <th>{{InspectedEstablishmentYears[4]}}</th>
+                                <th>5 YEAR AVERAGE</th>
+                            </tr>
+                          <tr ng-repeat="item in InspectedEstablishment">
+                            @if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToRegion))
+                            {
+                                <td class="tbl-RowTitle">{{item.ProvinceName}}</td>
+                            }
+                            else if (PageSecurity.HasAccess(PageArea.AllAreas_RestrictToProvince) || PageSecurity.HasAccess(PageArea.AllAreas_RestrictToStation))
+                            {
+                                <td class="tbl-RowTitle">{{item.UnitName}}</td>
+                            }
+                            else
+                            {
+                                <td class="tbl-RowTitle">{{item.RegionName}}</td>
+                            }
+                            @*<td class="tbl-RowTitle">{{item.RegionName}}</td>*@
+                            <td>{{item.Year1 | number:0}}</td>
+                            <td>{{item.Year2 | number:0}}</td>
+                            <td>{{item.Year3 | number:0}}</td>
+                            <td>{{item.Year4 | number:0}}</td>
+                            <td>{{item.Year5 | number:0}}</td>
+                            <td>{{item.Average | number:0}}</td>
+                          </tr>
+                            <tr>
+                                <th>TOTAL</th>
+                                <th>{{InspectedEstablishment | sumByKey:'Year1' | number:0}}</th>
+                                <th>{{InspectedEstablishment | sumByKey:'Year2' | number:0}}</th>
+                                <th>{{InspectedEstablishment | sumByKey:'Year3' | number:0}}</th>
+                                <th>{{InspectedEstablishment | sumByKey:'Year4' | number:0}}</th>
+                                <th>{{InspectedEstablishment | sumByKey:'Year5' | number:0}}</th>
+                                <th>{{InspectedEstablishment | sumByKey:'Average' | number:0}}</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>

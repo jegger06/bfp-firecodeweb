@@ -1,0 +1,187 @@
+﻿@model EBFP.BL.HumanResources.EmployeeMedicalModel
+@using EBFP.BL.Helper
+
+
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                V. Additional Information
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Last Mammogram</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_LastMammogram_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Last Pap</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_LastPap, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Where</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_LastMammogram_Where, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Gyn</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_Gyn, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-6 control-label">Dr Arcenas to perform future paps?</label>
+                                <div class="col-md-3">
+                                    @Html.RadioButtonFor(e => e.MedicalAdditionalInformation.Med_FuturePap, true, new { id = "Med_FuturePap-true" })
+                                    @Html.Label("Med_FuturePap-true", "Yes")
+                                    @Html.RadioButtonFor(e => e.MedicalAdditionalInformation.Med_FuturePap, false, new { id = "Med_FuturePap-false" })
+                                    @Html.Label("Med_FuturePap-false", "No")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Last Colonoscopy</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_LastColonoscopy_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Doctor?</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_LastColonoscopy_Dr, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Approximate date of Last Bloodwork?</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_LastBloodWork_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Tetanus</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_Tetanus_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Flu</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_Flu_Date, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Last Colonoscopy Normal?</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_LastColonoscopy_Normal, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Repeat Date?</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_ReapeatColonoscopy_Date, "{0:MM/dd/yyyy}", new {@class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy"})
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Rectal Exam</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_RectalExam, new {@class = "form-control"})
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Pnuemonia</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_Pnuemonia_Date, "{0:MM/dd/yyyy}", new {@class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy"})
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Hepatitis B Series</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.MedicalAdditionalInformation.Med_Hepatitis_Date, "{0:MM/dd/yyyy}", new {@class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

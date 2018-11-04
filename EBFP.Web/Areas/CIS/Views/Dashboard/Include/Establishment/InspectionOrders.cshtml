@@ -1,0 +1,87 @@
+﻿
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+              Inspection Order
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                
+                    <div style="font-weight: bold; font-size: 15px; text-align: center">
+                        <div> FIRE SAFETY INSPECTION CONDUCTED ON ESTABLISHMENTS</div>
+                        <div>{{CYYear}}</div>
+                    </div>
+                    <br /><br />
+                    <div>
+                        <table cellpadding="1" class="tbl-Dashboard" id="tblx" >
+                            <tr>
+                                <th style="height: 150px">Year</th>
+                                <th><span>Assembly</span></th>
+                                <th><span>Educational</span></th>
+                                <th><span>Health Care</span></th>
+                                <th style="min-width:50px"><span>Detentional &<br/> Correctional</span></th>
+                                <th><span>Residential</span></th>
+                                <th><span>Mercantile</span></th>
+                                <th><span>Business</span></th>
+                                <th><span>Indusrial</span></th>
+                                <th><span>Storage</span></th>
+                                <th><span>Mixed</span></th>
+                                <th><span>Miscellaneous</span></th>
+                                <th>TOTAL</th>
+                            </tr>
+                            <tr ng-repeat="item in FSICEstablishments">
+                                <td class="tbl-RowTitle">{{item.Year}}</td>
+                                <td>{{item.Type1 | number:0}}</td>
+                                <td>{{item.Type2 | number:0}}</td>
+                                <td>{{item.Type3 | number:0}}</td>
+                                <td>{{item.Type4 | number:0}}</td>
+                                <td>{{item.Type11 | number:0}}</td>
+                                <td>{{item.Type5 | number:0}}</td>
+                                <td>{{item.Type6 | number:0}}</td>
+                                <td>{{item.Type7 | number:0}}</td>
+                                <td>{{item.Type8 | number:0}}</td>
+                                <td>{{item.Type9 | number:0}}</td>
+                                <td>{{item.Type10 | number:0}}</td>
+                                <td>{{item.Total | number:0}}</td>
+                            </tr>
+                            <tr>
+                                <th>5 Year Total</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type1' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type2' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type3' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type4' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type11' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type5' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type6' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type7' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type8' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type9' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Type10' | number:0}}</th>
+                                <th>{{FSICEstablishments | sumByKey:'Total' | number:0}}</th>
+                            </tr>
+                            <tr>
+                                <th class="tbl-RowTitle">Annual Average</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type1' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type2' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type3' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type4' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type11' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type5' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type6' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type7' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type8' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type9' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Type10' | number:0}}</th>
+                                <th>{{FSICEstablishments | avgIncidentByKey:'Total' | number:0}}</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

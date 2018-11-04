@@ -1,0 +1,393 @@
+﻿@model EBFP.BL.Inventory.TruckModel
+@using EBFP.BL.Helper;
+@using EBFP.Helper
+@{
+    ViewBag.Title = "Truck Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_Truck_ViewDetails) || PageSecurity.HasAccess(PageArea.Inventory_Truck_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+@{
+    var sMunicipalityId = string.IsNullOrWhiteSpace(Request.QueryString["sMunicipalityId"]) ? "0" : Request.QueryString["sMunicipalityId"].Decrypt();
+}
+<script src="~/Content/bootstrap/eliteadmin/js/validator.js"></script>
+
+@{
+    var imgSrcFront = Model.Truck_FrontView != null ? String.Format("../Content/MISC/Images/{0}/{1}/{2}/{3}", Model.Municipality_Name, Model.Truck_UnitId, "Truck", Model.Truck_FrontView) : "";
+    var imgSrcRear = Model.Truck_RearView != null ? String.Format("../Content/MISC/Images/{0}/{1}/{2}/{3}", Model.Municipality_Name, Model.Truck_UnitId, "Truck", Model.Truck_RearView) : "";
+    var imgSrcLeft = Model.Truck_LeftView != null ? String.Format("../Content/MISC/Images/{0}/{1}/{2}/{3}", Model.Municipality_Name, Model.Truck_UnitId, "Truck", Model.Truck_LeftView) : "";
+    var imgSrcRight = Model.Truck_RightView != null ? String.Format("../Content/MISC/Images/{0}/{1}/{2}/{3}", Model.Municipality_Name,Model.Truck_UnitId, "Truck", Model.Truck_RightView) : "";
+    //var imgSrcFront = Model.Truck_FrontView?.Length > 0 ? String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.Truck_FrontView)) : "";
+    //var imgSrcRear = Model.Truck_RearView?.Length > 0 ? String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.Truck_RearView)) : "";
+    //var imgSrcLeft = Model.Truck_LeftView?.Length > 0 ? String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.Truck_LeftView)) : "";
+    //var imgSrcRight = Model.Truck_RightView?.Length > 0 ? String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.Truck_RightView)) : "";
+}
+
+@using (Html.BeginForm("TruckDetails", "Inventory", FormMethod.Post,
+                    new { enctype = "multipart/form-data" }))
+    {
+@*@using (Ajax.BeginForm(new AjaxOptions()
+{
+  InsertionMode = InsertionMode.Replace,
+}))
+{*@
+    @*<fieldset id="TruckDetails">*@
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(a => Model.sTruck_Id)
+            @Html.HiddenFor(a => Model.Truck_Id)
+            @Html.HiddenFor(a => Model.Unit_StationName)
+            @Html.HiddenFor(a => Model.Truck_FrontView)
+            @Html.HiddenFor(a => Model.Truck_RearView)
+            @Html.HiddenFor(a => Model.Truck_LeftView)
+            @Html.HiddenFor(a => Model.Truck_RightView)
+            <style>
+                .ti-minus, .ti-plus {
+                    font-weight: bold !important;
+                    font-size: 20px !important;
+                    color: white !important;
+                }
+
+                    .ti-plus:before {
+                        content: "\e65f" !important;
+                    }
+
+                    .ti-minus:before {
+                        content: "\e65c";
+                    }
+
+                .form-horizontal .control-label {
+                    text-align: left !important;
+                    padding-left: 15px;
+                }
+
+                .affix {
+                    top: 10px;
+                    width: 100%;
+                    z-index: 9999 !important;
+                }
+
+                .navbar {
+                    margin-bottom: 0px;
+                }
+
+                .affix ~ .container-fluid {
+                    padding-top: 10px !important;
+                    position: relative;
+                    top: 50px !important;
+                }
+                 .partition-border {
+                    border: 1px darkgray solid;
+                    padding: 10px;
+                }
+            </style>
+            <div class="row">
+                <div class="col-sm-12" data-spy="affix" data-offset-top="197">
+                    @if (PageSecurity.HasAccess(PageArea.Inventory_Truck_Modify))
+                    {
+                        <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-check"></i> Submit</button>
+                    }
+                    @if (sMunicipalityId == "0")
+                    {
+                        <a href="@Url.Action("Index", "Inventory")" class="btn btn-danger btn-rounded waves-effect waves-light m-r-10">
+                            <i class="fa fa-mail-reply"></i> Back
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Index", "Inventory", new { sMunicipalityId = sMunicipalityId.Encrypt()})" class="btn btn-danger btn-rounded waves-effect waves-light m-r-10">
+                            <i class="fa fa-mail-reply"></i> Back
+                        </a>
+                    }
+
+                  
+                </div>
+                <br /><br /><br />
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-info">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <br />
+                                    <div class="col-sm-6 col-xs-12 ">
+                                        <div class="form-horizontal partition-border">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Municipality</label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(model => model.Municipality_Name, new { @class = "form-control", @readonly = "readonly", @style = "font-weight:bold;" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Region</label>
+                                                <div class="col-md-8">
+                                                    @{ var Region = Selections.InventoryRegion; }
+                                                    <div>
+                                                        @Html.DropDownListFor(model => Model.Municipality_Reg_Id, Region, " --- Please Select---", new {@class = "form-control", @id = "municipality_Reg_Id", @disabled = "disabled"})
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Province</label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(model => Model.Municipality_Province_Id, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new {id = "municipality_Province_Id", @class = "form-control", @disabled = "disabled"})
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Station Name</label>
+                                                <div class="col-md-8">
+                                                    <div>
+                                                        @Html.DropDownListFor(model => model.Truck_UnitId, new SelectList(Enumerable.Empty<SelectListItem>()), " --- Please Select---", new {@class = "form-control", @id = "truck_UnitId", @required = "required"})
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Sub Station Name</label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(model => Model.Truck_SubStationId, new SelectList(Enumerable.Empty<SelectListItem>(), "Sub_Id", "Sub_Station_Name"), " --- Please Select---", new {id = "truck_SubStationId", @class = "form-control"})
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                        <div class="form-horizontal partition-border">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-12 control-label" style="text-align: center !important;">Truck Details</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Truck Id</label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(model => model.Truck_Id_Code, new {@class = "form-control"})
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Model</label>
+                                                <div class="col-md-8">
+                                                    @{ var TruckModel = Selections.TruckModel; }
+                                                    <div>
+                                                        @Html.DropDownListFor(model => model.Truck_Model, TruckModel, " --- Please Select---", new {@class = "form-control select2", @id = "truck_Model"})
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Owner</label>
+                                                <div class="col-md-8">
+                                                    <div>
+                                                        @Html.DropDownListFor(model => model.Truck_Owner, Truck_Owner.BFP.ToSelectList(), " --- Please Select---", new {@class = "form-control", @id = "truck_Owner"})
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Status</label>
+                                                <div class="col-md-8">
+                                                    <div>
+                                                        @Html.DropDownListFor(model => model.Truck_Status, Truck_Status.BeyondEconomicRepair.ToSelectList(), " --- Please Select---", new {@class = "form-control", @id = "truck_Status"})
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Capability (Gallons)</label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(model => model.Truck_Capacity, new {@class = "form-control", @oninput = "onInputTextNumber(this)" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Type</label>
+                                                <div class="col-md-8">
+                                                    <div>
+                                                        @Html.DropDownListFor(model => model.Truck_Type, TruckType.ChemicalTruck.ToSelectList(), " --- Please Select---", new {@class = "form-control", @id = "truck_Type"})
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-horizontal partition-border">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Plate Number</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.Truck_PlateNumber, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Engine Number</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.Truck_EngineNumber, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Chassis Number</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.Truck_ChassisNumber, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Motor Vehicle Number</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.Truck_MotorVehicleNumber, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Vehicle Code Number</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.Truck_VehicleCodeNumber, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Acquisition Cost</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.sTruck_AcquisitionCost, new {@class = "form-control", @id = "truck_AcquisitionCost", @onblur = "toMoneyFormat(this)" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+
+                                        </div>
+                                        <div class="form-horizontal partition-border">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Manufacture Date (Year)</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.Truck_ManufactureDate, new { @class = "form-control", @id = "truck_ManufactureDate", @oninput = "onInputTextNumber(this)" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Acquisition Date (Year)</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.Truck_AcquisitionDate, new { @class = "form-control", @id = "truck_AcquisitionDate", @oninput = "onInputTextNumber(this)" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Manufacture Age</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.Truck_ManufactureAge, new { @class = "form-control", @readonly = "readonly", @id = "txtManufactureAge" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Acquisition Age</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextBoxFor(model => model.Truck_AcquisitionAge, new { @class = "form-control", @readonly = "readonly", @id = "txtAcquisitionAge" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Remarks</label>
+                                                    <div class="col-md-7">
+                                                        @Html.TextAreaFor(model => model.Truck_Remarks, 4, 55, new { @class = "form-control " })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                        </div>
+
+                                        <div class="form-group">
+                                        </div>
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-6 ">
+                                        <div class="form-horizontal partition-border">
+                                            <div class="form-group">
+                                                <div class="col-md-13">
+                                                    <img id="FView" src="@imgSrcFront" alt="No image uploaded" class="col-md-12" style="height: 154px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-4 control-label"></label>
+                                        <label class="col-md-6 control-label" style="font-weight: bolder">Front Side View</label>
+                                      
+                                        @Html.TextBoxFor(model => model.FrontView, "", new { type = "file", name = "IFView", id = "IFView", accept = "image/*", style = "width: 100%;" })
+
+                                        @*<input accept="image/*" type="file" name="IFView" id="IFView" style="width: 100%;" />*@
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6 ">
+                                        <div class="form-horizontal partition-border">
+                                            <div class="form-group">
+                                                <div class="col-md-13">
+                                                    <img id="RearView" src="@imgSrcRear" alt="No image uploaded" class="col-md-12" style="height: 154px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-4 control-label"></label>
+                                        <label class="col-md-6 control-label" style="font-weight: bolder">Rear Side View</label>
+                                        @Html.TextBoxFor(model => model.RearView, "", new { type = "file", name = "IRearView", id = "IRearView", accept = "image/*", style = "width: 100%;" })
+                                        @*<input accept="image/*" type="file" name="IRearView" id="IRearView" style="width: 100%;" />*@
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6 ">
+                                        <div class="form-horizontal partition-border">
+                                            <div class="form-group">
+                                                <div class="col-md-13">
+                                                    <img id="LView" src="@imgSrcLeft" alt="No image uploaded" class="col-md-12" style="height: 154px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-4 control-label"></label>
+                                        <label class="col-md-6 control-label" style="font-weight: bolder">Left Side View</label>
+                                        @Html.TextBoxFor(model => model.LeftView, "", new { type = "file", name = "ILView", id = "ILView", accept = "image/*", style = "width: 100%;" })
+                                        @*<input accept="image/*" type="file" name="ILView" id="ILView" style="width: 100%;" />*@
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6 ">
+                                        <div class="form-horizontal partition-border">
+                                            <div class="form-group">
+                                                <div class="col-md-13">
+                                                    <img id="RView" src="@imgSrcRight" alt="No image uploaded" class="col-md-12" style="height: 154px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-4 control-label"></label>
+                                        <label class="col-md-6 control-label" style="font-weight: bolder">Right Side View</label>
+                                        @Html.TextBoxFor(model => model.RightView, "", new { type = "file", name = "IRView", id = "IRView", accept = "image/*", style = "width: 100%;" })
+                                        @*<input accept="image/*" type="file" name="IRView" id="IRView" style="width: 100%;" />*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        @*</fieldset>*@
+    }
+@Html.Partial("~/Views/Shared/formcontrols/CustomSelect.cshtml")
+    @Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+    @Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")
+<script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+<script type="text/javascript">
+    var oSelectionDS = new SelectionDS();
+    var paramMunicipalityId =  @Html.Raw(Json.Encode(Model.Municipality_Id));
+    var paramProvinceID = @Html.Raw(Json.Encode(Model.Municipality_Province_Id));
+    var paramSubStationID = @Html.Raw(Json.Encode(Model.Truck_SubStationId));
+    var unitId = @Html.Raw(Json.Encode(Model.Truck_UnitId));
+</script>
+<script src="@Url.Content("~/Scripts/Areas/Inventory/truck.js")"></script>
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>

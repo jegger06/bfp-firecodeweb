@@ -1,0 +1,152 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.HumanResources.RegionModel
+@{
+    ViewBag.Title = "Rank Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var baseLogo64 = Convert.ToBase64String(Model.Reg_Logo != null ? Model.Reg_Logo : new byte[0]);
+    var logoSrc = String.Format("data:image/gif;base64,{0}", baseLogo64);
+    @*if (!(PageSecurity.HasAccess(PageArea.HRIS_Rank_ViewDetails) || PageSecurity.HasAccess(PageArea.HRIS_Rank_Modify)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }*@
+}
+<script src="~/Content/bootstrap/eliteadmin/js/validator.js"></script>
+@using (Html.BeginForm("RegionDetails", "Region", FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    <fieldset id="UnitDetails">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(a => Model.sReg_Id)
+        @Html.HiddenFor(a => Model.Reg_Id)
+        <style>
+            .ti-minus, .ti-plus {
+                font-weight: bold !important;
+                font-size: 20px !important;
+                color: white !important;
+            }
+
+                .ti-plus:before {
+                    content: "\e65f" !important;
+                }
+
+                .ti-minus:before {
+                    content: "\e65c";
+                }
+
+            .form-horizontal .control-label {
+                text-align: left !important;
+            }
+
+            .affix {
+                top: 10px;
+                width: 100%;
+                z-index: 9999 !important;
+            }
+
+            .navbar {
+                margin-bottom: 0px;
+            }
+
+            .affix ~ .container-fluid {
+                padding-top: 10px !important;
+                position: relative;
+                top: 50px !important;
+            }
+        </style>
+        <div class="row">
+            <div class="col-sm-12" data-spy="affix" data-offset-top="197">
+                @*@if (PageSecurity.HasAccess(PageArea.HRIS_Rank_Modify))
+                {*@
+                    <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-check"></i> Submit</button>
+                @*}*@
+                <a href="@Url.Action("Region", "Region")" class="btn btn-danger btn-rounded waves-effect waves-light m-r-10">
+                    <i class="fa fa-mail-reply"></i> Back
+                </a>
+            </div>
+            <br /><br /><br />
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-info">
+                    <a href="#" data-perform="panel-collapse">
+                        <div class="panel-heading">
+                            REGION INFORMATION
+                            <div class="pull-left">
+                                <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="panel-wrapper collapse in" aria-expanded="true">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Region</label>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Reg_Title, new { @maxlength = "50", @class = "form-control",@readonly="readonly"})
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Logo</label>
+                                            <div class="col-md-6">
+                                                <div style="border: 1px darkgray solid; padding: 10px;width: 170px; height: 190px;">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <img id="logo" src="@logoSrc" alt="No image uploaded" style="width: 150px; height: 170px;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="padding-top: 10px;">
+                                                    @Html.TextBoxFor(model => model.RegLogo, "", new { type = "file", name = "LogoRegion", id = "LogoRegion" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>*@
+         
+        </div>
+    </fieldset>
+}
+
+@Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")
+<script type="text/javascript">
+    $("#LogoRegion").change(function () {
+        readURL(this, '#logo', '#LogoRegion');
+    });
+
+    function readURL(input, id, fileId) {
+        debugger;
+        if (input.files && input.files[0]) {
+            if (input.files[0].type && input.files[0].type.toLowerCase().indexOf("png") < 0) {
+                alert("Only PNG file allowed!");
+                $(fileId).val(null);
+                $(id).attr('src', "");
+            }
+            else {
+                if (input.files[0].size > 1000000) {
+                    alert("Image size must not be greater than 1MB!");
+                    $(fileId).val(null);
+                } else {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $(id).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        }
+        else {
+            $(id).attr('src', "");
+        }
+    }
+</script>

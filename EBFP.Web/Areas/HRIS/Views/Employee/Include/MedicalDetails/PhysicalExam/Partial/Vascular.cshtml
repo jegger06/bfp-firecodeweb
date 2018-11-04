@@ -1,0 +1,80 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+<div class="col-md-12 chk-label">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_PedalPulses_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">Pedal Pulses Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_LowerExtremities, new { @class = "form-control" })
+        <label class="control-label chk-label">Lower Extremities :</label>
+    </div>
+    <div class="col-md-5">
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Vascular.PE_Warm_Cool, true, new { id = "PE_Warm_Cool-true" })
+                @Html.Label("PE_Warm_Cool-true", "Warm")
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.Vascular.PE_Warm_Cool, false, new { id = "PE_Warm_Cool-false" })
+                @Html.Label("PE_Warm_Cool-false", "Cool")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_No_Varicosities, new { @class = "form-control" })
+        <label class="control-label chk-label">No Varicosities</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_Venous_Statis_Absent, new { @class = "form-control" })
+        <label class="control-label chk-label">Venous Statis Absent</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_HairLossNoticable, new { @class = "form-control" })
+        <label class="control-label chk-label">Hair Loss Noticable on Lower Extemity</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_No_Cyanosis, new { @class = "form-control" })
+        <label class="control-label chk-label">No Cyanosis</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_No_Ulceration_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">No Ulceration Present</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_No_Edema, new { @class = "form-control" })
+        <label class="control-label chk-label">No Edema</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_No_CalfTenderness, new { @class = "form-control" })
+        <label class="control-label chk-label">No Calf Tenderness</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Vascular.PE_No_Clubbing, new { @class = "form-control" })
+        <label class="control-label chk-label">No Clubbing</label>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="col-md-7 col-sm-9">
+        @Html.CheckBoxFor(model => model.Vascular.PE_Edema_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Edema Present (please describe location, pitting or nonpitting + 1,2,3) :</label>
+    </div>
+    <div class="col-md-5 col-sm-3">
+        @Html.TextBoxFor(model => model.Vascular.PE_Edema_Location, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px;">
+    <div class="col-md-3">
+        <label class="control-label chk-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Vascular.PE_Vascular_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

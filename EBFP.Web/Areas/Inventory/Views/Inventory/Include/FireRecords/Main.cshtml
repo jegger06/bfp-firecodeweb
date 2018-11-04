@@ -1,0 +1,58 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.HumanResources.MunicipalityModel
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-12 control-label" style="text-align: center !important;">Fire Records</label>
+                    @if (PageSecurity.HasAccess(PageArea.Inventory_Municipality_Modify))
+                    {
+                        <button type="button" id="AddNewRecord" name="AddNewRecord" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-plus"></i> Add New</button>
+                    }
+                </div>
+            </div>
+            <div class="divTable">
+                <div class="divTableHeading">
+                    <div class="divTableRow">
+                        <div class="divTableHead  text-center">YEAR</div>
+                        <div class="divTableHead text-center">FIRE INCIDENTS</div>
+                        <div class="divTableHead text-center">INJURIES</div>
+                        <div class="divTableHead text-center">DEATHS</div>
+                        <div class="divTableHead text-center">ESTIMATED DAMAGES<br />(Php)</div>
+                        <div class="divTableHead text-center">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="divTableBody" id="NewRecord">
+                @if (@Model.FireRecordsList != null)
+                {
+                    for (int i = 0; i < @Model.FireRecordsList.Count(); i++)
+                    {
+                        Model.FireRecordsList[i].count = i;
+                        @Html.Partial("~/Areas/Inventory/Views/Inventory/Include/FireRecords/Editor.cshtml", @Model.FireRecordsList[i])
+                    }
+                }
+                </div>
+
+            </div>
+            <div style="overflow:hidden !important; padding:10px !important">
+                &nbsp;
+            </div>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var formCtr = 1;
+                    $("#AddNewRecord").click(function () {
+                        $.ajax({
+                            async: false,
+                            url: '/Inventory/FireRecordEditor'
+                        }).success(function (partialView) {
+                            $(partialView).appendTo("#NewRecord");
+                        });
+                    });
+                });
+            </script> 
+    </div>
+</div>
+

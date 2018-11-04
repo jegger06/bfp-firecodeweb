@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBFP.Web", "EBFP.Web\EBFP.Web.csproj", "{6C506000-00E6-4326-98A8-F47F1F169243}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Business Logic Layer", "2. Business Logic Layer", "{C99E96EC-C644-476F-8594-D73794EEB196}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Data Access Layer", "3. Data Access Layer", "{F56840A9-0C46-426C-A7BB-0A5AF1C34E1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Presentation Layer", "1. Presentation Layer", "{B280E6A7-BEFB-45CE-899B-E225BCC2B8B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBFP.DataAccess", "EBFP.DataAccess\EBFP.DataAccess.csproj", "{53375278-AE83-4246-9DE0-C5DC432017C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBFP.BL", "EBFP.BL\EBFP.BL.csproj", "{C9C6C14E-DB70-47CF-B976-83F29C1A9C18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12CE86B4-E049-4148-ACA7-7B430A8553A3}"
+	ProjectSection(SolutionItems) = preProject
+		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Web API", "4. Web API", "{14B83206-ED38-4D8C-9D48-32D25D6729EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBFP.WebAPI", "EBFP.WebAPI\EBFP.WebAPI.csproj", "{1E608B3D-AD14-4041-AAAC-78714CF010CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C506000-00E6-4326-98A8-F47F1F169243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C506000-00E6-4326-98A8-F47F1F169243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C506000-00E6-4326-98A8-F47F1F169243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C506000-00E6-4326-98A8-F47F1F169243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53375278-AE83-4246-9DE0-C5DC432017C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53375278-AE83-4246-9DE0-C5DC432017C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53375278-AE83-4246-9DE0-C5DC432017C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53375278-AE83-4246-9DE0-C5DC432017C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9C6C14E-DB70-47CF-B976-83F29C1A9C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C6C14E-DB70-47CF-B976-83F29C1A9C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C6C14E-DB70-47CF-B976-83F29C1A9C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C6C14E-DB70-47CF-B976-83F29C1A9C18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E608B3D-AD14-4041-AAAC-78714CF010CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E608B3D-AD14-4041-AAAC-78714CF010CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E608B3D-AD14-4041-AAAC-78714CF010CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E608B3D-AD14-4041-AAAC-78714CF010CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6C506000-00E6-4326-98A8-F47F1F169243} = {B280E6A7-BEFB-45CE-899B-E225BCC2B8B2}
+		{53375278-AE83-4246-9DE0-C5DC432017C3} = {F56840A9-0C46-426C-A7BB-0A5AF1C34E1A}
+		{C9C6C14E-DB70-47CF-B976-83F29C1A9C18} = {C99E96EC-C644-476F-8594-D73794EEB196}
+		{1E608B3D-AD14-4041-AAAC-78714CF010CA} = {14B83206-ED38-4D8C-9D48-32D25D6729EA}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://bfpweb.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = EBFP.BL\\EBFP.BL.csproj
+		SccProjectTopLevelParentUniqueName1 = EBFP.sln
+		SccProjectName1 = EBFP.BL
+		SccLocalPath1 = EBFP.BL
+		SccProjectUniqueName2 = EBFP.DataAccess\\EBFP.DataAccess.csproj
+		SccProjectTopLevelParentUniqueName2 = EBFP.sln
+		SccProjectName2 = EBFP.DataAccess
+		SccLocalPath2 = EBFP.DataAccess
+		SccProjectUniqueName3 = EBFP.Web\\EBFP.Web.csproj
+		SccProjectTopLevelParentUniqueName3 = EBFP.sln
+		SccProjectName3 = EBFP.Web
+		SccLocalPath3 = EBFP.Web
+		SccProjectUniqueName4 = EBFP.WebAPI\\EBFP.WebAPI.csproj
+		SccProjectTopLevelParentUniqueName4 = EBFP.sln
+		SccProjectName4 = EBFP.WebAPI
+		SccLocalPath4 = EBFP.WebAPI
+	EndGlobalSection
+EndGlobal

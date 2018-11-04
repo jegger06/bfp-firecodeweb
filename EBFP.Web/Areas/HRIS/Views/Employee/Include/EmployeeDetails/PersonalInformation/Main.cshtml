@@ -1,0 +1,554 @@
+﻿@model EBFP.BL.HumanResources.EmployeeModel
+@using EBFP.BL.Helper
+@using EBFP.Helper
+@{
+    var base64 = Convert.ToBase64String(Model.Emp_Photo != null ? Model.Emp_Photo : new byte[0]);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    bool Viewing = false;
+    if (Request["AccessType"] != null)
+    {
+      string accessType = Convert.ToString(Request["AccessType"]).Decrypt();
+      Viewing = SiteAccess.Viewing(accessType);
+    }
+
+}
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                I. Personal Information
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div style="border: 1px darkgray solid; padding: 10px; width: 152.28346457px; height: 190.07874016px;">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <img id="ImgEmployee" src="@imgSrc" alt="No image uploaded" style="width: 132.28346457px; height: 170.07874016px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding-top: 10px;">
+                                    @Html.TextBoxFor(model => model.EmployeeImage, "", new { type = "file", name = "ImageEmployee", id = "ImageEmployee" })
+                                    @*<input accept="image/*" type="file" name="ImageEmployee" id="ImageEmployee" style="width: 100%;"/>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal UserAccessCanEdit">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Username <font color="#ff1800">*</font></label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_Username, new { @Id = "Emp_Username", @class = "form-control", @readonly = (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify) != Viewing) })
+                                    @Html.ValidationMessageFor(model => model.Emp_Username, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @if (CurrentUser.RoleName == "MAIN ADMIN")
+                            {
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Current Password</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.user.OldPassword, new { @class = "form-control NormalText", @placeholder = "Password", @readonly = true })
+                                </div>
+                            </div>
+                            }
+                            @if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify) != Viewing)
+                            {
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">New Password</label>
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(model => model.user.NewPassword, new { @class = "form-control NormalText", @placeholder = "New Password" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Confirm Password</label>
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(model => model.user.ConfirmNewPassword, new { @class = "form-control NormalText", @placeholder = "Confirm Password" })
+                                        @Html.ValidationMessageFor(model => model.user.ConfirmNewPassword, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <style>
+                                    .NormalText {
+                                        text-transform: none !important;
+                                    }
+                                </style>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Account Number<font color="#ff1800">*</font></label>
+                                <div class="col-md-6">
+
+                                    @Html.TextBoxFor(model => model.Emp_Number, new { @maxlength = "50", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Emp_Number, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Surname<font color="#ff1800">*</font></label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_LastName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Emp_LastName, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">First name<font color="#ff1800">*</font></label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_FirstName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Emp_FirstName, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Middle Name<font color="#ff1800">*</font></label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_MiddleName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Emp_MiddleName, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Name Extension (eg. sr., jr.)</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_SuffixName, new { @maxlength = "10", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Date of birth</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.Emp_BirthDate, "{0:MM/dd/yyyy}", new { @class = "form-control mydatepicker", @placeholder = "mm/dd/yyyy", @id = "EmpBirthDate" })
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+
+                                    @Html.ValidationMessageFor(model => model.Emp_BirthDate, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Place of birth</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_BirthPlace, new { @class = "form-control "})
+                                    @Html.ValidationMessageFor(model => model.Emp_BirthPlace, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Sex</label>
+                                <div class="col-md-6">
+                                    <div class="radio-list">
+                                        @foreach (var item in Selections.Genders)
+                                        {
+                                            <label class="radio-inline">
+                                                <div class="radio radio-info">
+                                                    @Html.RadioButtonFor(a => a.Emp_Gender, item.Value, new { id = "Gender_" + item.Value })
+                                                    <label for="Gender_@item.Value" style="font-weight: 100 !important">@item.Text</label>
+                                                </div>
+                                            </label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Civil Status</label>
+                                <div class="col-md-6">
+
+                                    @foreach (var item in Selections.CivilStatus)
+                                    {
+                                        <div class="col-sm-6">
+                                            <div class="radio-inline">
+                                                <div class="radio radio-info">
+                                                    @Html.RadioButtonFor(a => a.Emp_CivilStatus, item.Value, new { id = "CivilStatus_" + item.Value })
+                                                    <label for="CivilStatus_@item.Value" style="font-weight: 100 !important">@item.Text</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    @Html.TextBoxFor(model => model.Emp_CivilStatus_Other, new { @class = "form-control", @placeholder = "specify" })
+                                </div>
+
+                                <script type="text/javascript">
+                                  $(document).ready(function() {
+                                    $('#Emp_CivilStatus_Other').hide();
+                                    Emp_CivilStatus_Other(@Model.Emp_CivilStatus);
+                                    $('input:radio[id*="CivilStatus_"]').change(function() {
+                                      Emp_CivilStatus_Other($(this).val());
+                                    });
+                                  });
+
+                                  function Emp_CivilStatus_Other(status) {
+                                    if (status == '6') {
+                                      $('#Emp_CivilStatus_Other').show();
+                                    } else
+                                      $('#Emp_CivilStatus_Other').hide();
+                                  }
+                                </script>
+                            </div>
+
+
+                            @*<div class="form-group">
+                                    <label class="col-md-3 control-label">Citizenship</label>
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(model => model.Emp_Citizenship, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.Emp_Citizenship, "Field is required.", new {@class = "text-danger"})
+                                    </div>
+                                </div>*@
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Citizenship</label>
+                                <div class="col-md-6">
+                                    <div class="radio-list">
+                                        @foreach (var item in Selections.Citizenship)
+                                        {
+                                            <label class="radio-inline">
+                                                <div class="radio radio-info">
+                                                    @Html.RadioButtonFor(a => a.Emp_Citizenship, item.Value, new { id = "Citizenship_" + item.Value })
+                                                    <label for="Citizenship_@item.Value" style="font-weight: 100 !important">@item.Text</label>
+                                                </div>
+                                            </label>
+                                        }
+                                    </div>
+                                    <div id="divDual">
+                                        <div class="radio-list">
+                                            @foreach (var item in Selections.DualCitizenship)
+                                            {
+                                                <label class="radio-inline">
+                                                    <div class="radio radio-info">
+                                                        @Html.RadioButtonFor(a => a.Emp_Citizenship_Dual, item.Value, new { id = "CitizenshipDual_" + item.Value })
+                                                        <label for="CitizenshipDual_@item.Value" style="font-weight: 100 !important">@item.Text</label>
+                                                    </div>
+                                                </label>
+                                            }
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Emp_Citizenship_Country, new { @class = "form-control", @placeholder = "Please indicate country" })
+                                    </div>
+                                    <script type="text/javascript">
+                                      $(document).ready(function() {
+                                        $('#divDual').hide();
+                                        Emp_Citizenship_Country('@Model.Emp_Citizenship');
+                                        $('input:radio[id*="Citizenship_"]').change(function () {
+                                          Emp_Citizenship_Country($(this).val());
+                                        });
+                                      });
+
+                                      function Emp_Citizenship_Country(citizenship) {
+                                        if (citizenship === 'Dual Citizenship') {
+                                          $('#divDual').show();
+                                        } else
+                                          $('#divDual').hide();
+                                      }
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Height (m)</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_Height, new { @maxlength = "50", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Emp_Height, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Weight (kg)</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_Weight, new { @maxlength = "50", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Emp_Weight, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Blood Type</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_BloodType, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Emp_BloodType, "Field is required.", new {@class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">GSIS ID NO.</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_GSISNumber, new { @maxlength = "50", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">PAG-IBIG ID NO.</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_PAGIBIGNumber, new { @maxlength = "50", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">PHILHEALTH NO.</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_PHICNumber, new { @maxlength = "50", @class = "form-control", })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">SSS NO.</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_SSSNumber, new { @maxlength = "50", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">TIN</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_TINNumber, new { @maxlength = "50", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Religion</label>
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(model => Model.Emp_Religion, Selections.Religions, " --- Please Select---", new { @class = "form-control select2", @id = "ddlReligion" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_Religion_Others, new { @class = "form-control", @placeholder = "specify", @id = "txtOtherReligion" })
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+                              $(document).ready(function () {
+                                $('#txtOtherReligion').hide();
+                                Emp_Religion_Others(@Model.Emp_Religion);
+
+                                $("#ddlReligion").change(function () {
+                                  var ID = $(this).val();
+                                  Emp_Religion_Others(ID);
+                                });
+                              });
+
+                              function Emp_Religion_Others(status) {
+                                if (status === '29' || status === 29) {
+                                  $('#txtOtherReligion').show();
+                                } else
+                                  $('#txtOtherReligion').hide();
+                                $('#txtOtherReligion').val(null);
+                              }
+                            </script>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12">
+                        <div style="border: 1px solid lightgray; padding: 15px 10px 15px 10px">
+                            <label class="col-md-12 control-label" style="font-weight: bold">RESIDENTIAL ADDRESS</label>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-md-12 control-label">House/Block/Lot No.</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.Emp_Residential_HouseNo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Emp_Residential_HouseNo, "Field is required.", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-xs-12 control-label">Street</label>
+                                        <div class="col-xs-12">
+                                            @Html.TextBoxFor(model => model.Emp_Residential_Street, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-md-12 control-label">Subdivision/Village</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.Emp_Residential_Village, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-xs-12 control-label">Barangay</label>
+                                        <div class="col-xs-12">
+                                            @Html.TextBoxFor(model => model.Emp_Residential_Barangay, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Emp_Residential_Barangay, "Field is required.", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-md-12 control-label">City/Municipality</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.Emp_Residential_Municipality, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Emp_Residential_Municipality, "Field is required.", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-xs-12 control-label">Province</label>
+                                        <div class="col-xs-12">
+                                            @Html.TextBoxFor(model => model.Emp_Residential_Province, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Emp_Residential_Province, "Field is required.", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-md-12 control-label">Zip Code</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.Emp_Residential_ZipCode, new { @maxlength = "10", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Emp_Residential_ZipCode, "Field is required.", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-xs-12 control-label">Telephone No</label>
+                                        <div class="col-xs-12">
+                                            @Html.TextBoxFor(model => model.Emp_Residential_PhoneNumber, new { @maxlength = "50", @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div style="border: 1px solid lightgray; padding: 15px 10px 15px 10px">
+                            <label class="col-md-12 control-label" style="font-weight: bold">PERMANENT ADDRESS</label>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-md-12 control-label">House/Block/Lot No.</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.Emp_Permanent_HouseNo, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-xs-12 control-label">Street</label>
+                                        <div class="col-xs-12">
+                                            @Html.TextBoxFor(model => model.Emp_Permanent_Street, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-md-12 control-label">Subdivision/Village</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.Emp_Permanent_Village, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-xs-12 control-label">Barangay</label>
+                                        <div class="col-xs-12">
+                                            @Html.TextBoxFor(model => model.Emp_Permanent_Barangay, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-md-12 control-label">City/Municipality</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.Emp_Permanent_Municipality, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-xs-12 control-label">Province</label>
+                                        <div class="col-xs-12">
+                                            @Html.TextBoxFor(model => model.Emp_Permanent_Province, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-md-12 control-label">Zip Code</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(model => model.Emp_Permanent_ZipCode, new { @maxlength = "10", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Emp_Permanent_ZipCode, "Field is required.", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <label class="col-xs-12 control-label">Telephone No</label>
+                                        <div class="col-xs-12">
+                                            @Html.TextBoxFor(model => model.Emp_Permanent_PhoneNumber, new { @maxlength = "50", @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">E-MAIL ADDRESS (if any)</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_EmailAddress, new { @maxlength = "50", @class = "form-control", @style = "text-transform: none" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">CELLPHONE NO. (if any)</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_MobileNumber, new { @maxlength = "50", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">AGENCY EMPLOYEE NO.</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Emp_AgencyEmpNumber, new { @maxlength = "50", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <fieldset id="fieldBFPInfo">
+                @Html.Partial("~/Areas/HRIS/Views/Employee/Include/EmployeeDetails/PersonalInformation/BFPInformation.cshtml")
+            </fieldset>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+  $(document).ready(function () {
+    var accesstype = '@Convert.ToString(Request["AccessType"]).Decrypt()';
+    if (accesstype === "Create") {
+      document.getElementById('Emp_Username').removeAttribute('readonly');
+    }
+  });
+
+  $("#ImageEmployee").change(function () {
+    readURL(this, '#ImgEmployee', '#ImageEmployee');
+  });
+  function readURL(input, id, fileId) {
+    if (input.files && input.files[0]) {
+      if (input.files[0].size > 1000000) {
+        alert("Image size must not be greater than 1MB!");
+        $(fileId).val(null);
+      } else {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $(id).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    else {
+      $(id).attr('src', "");
+    }
+  }
+</script>

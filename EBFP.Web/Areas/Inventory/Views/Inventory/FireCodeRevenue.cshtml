@@ -1,0 +1,242 @@
+﻿@using EBFP.Helper;
+@using EBFP.BL.Helper;
+
+@{
+    ViewBag.Title = "Fire Code Revenue";
+    Layout = "";
+    @*if (!(PageSecurity.HasAccess(PageArea.Inventory_FireCodeRevenue_CanViewAll)))
+        {
+            @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+            return;
+        }*@
+}
+@{
+    var sMunicipalityId = string.IsNullOrWhiteSpace(Request.QueryString["sMunicipalityId"]) ? "0" : Request.QueryString["sMunicipalityId"].Decrypt();
+}
+
+<style>
+    .morris-hover {
+        position: absolute;
+        z-index: 1000;
+    }
+
+        .morris-hover.morris-default-style {
+            border-radius: 10px;
+            padding: 6px;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            border: solid 2px rgba(230, 230, 230, 0.8);
+            font-family: sans-serif;
+            font-size: 12px;
+            text-align: center;
+        }
+
+            .morris-hover.morris-default-style .morris-hover-row-label {
+                font-weight: bold;
+                margin: 0.25em 0;
+            }
+
+            .morris-hover.morris-default-style .morris-hover-point {
+                white-space: nowrap;
+                margin: 0.1em 0;
+            }
+
+    #pie-chart {
+        min-height: 350px;
+    }
+
+    .pieClass {
+        min-height: 350px;
+    }
+
+    ol, ul {
+        padding: 0px !important;
+    }
+
+    #detailsLink {
+        cursor: pointer;
+        cursor: hand;
+        text-decoration: underline;
+        color: red;
+        padding-right: 15px;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .counter-link {
+        cursor: pointer;
+        cursor: hand;
+        text-decoration: underline;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="row row-in">
+                <div class="col-lg-3 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-danger"></i>
+                            <h5 class="text-muted vb">Total Establishment</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <a class=" counter-link text-danger" onclick="openEst(1)" alt="" style="color: #fb9678">
+                                <h4 class="counter text-right m-t-15 text-danger" id="totalEstablishment">0</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 row-in-br  b-r-none">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-megna"></i>
+                            <h5 class="text-muted vb">Compliant</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <a class="counter-link text-danger" onclick="openEst(2)" alt="" style="color: #01c0c8">
+                                <h4 class="counter text-right m-t-15 text-megna" id="compliant">0</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-primary"></i>
+                            <h5 class="text-muted vb">Non Compliant</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <a class="counter-link text-danger" onclick="openEst(3)" alt="" style="color: #ab8ce4">
+                                <h4 class="counter text-right m-t-15 text-primary" id="nonCompliant">0</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-info"></i>
+                            <h5 class="text-info vb">Closure</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <a class="counter-link text-danger" onclick="openEst(4)" alt="" style="color: #03a9f3">
+                                <h4 class="counter text-right m-t-15 text-info" id="closure">0</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-lg-6 col-sm-12">
+        <div class="white-box" style="height: 430px !important">
+            <div class="box-title">TAXES</div>
+            <div id="bar-chart-fees" style="height: 332px;"></div>
+            <div style="text-align: right"> <a onclick="openFCRS()" alt="" id="detailsLink">Click here to view revenue details</a> </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-6 col-sm-12">
+        @*<br/><br/>*@
+        @*Counter*@
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="white-box">
+                <div class="row row-in">
+                    <div class="col-lg-12 col-sm-6 row-in-br">
+                        <div class="col-in row">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <i class="ti-bar-chart text-danger"></i>
+                                <h5 class="text-muted vb">Total Revenue</h5>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6" style="height: 62px">
+                                <h4 class="counter text-right m-t-15 text-danger" id="revenue">0</h4>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 30px">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h5 class="text-muted vb">BFP Share</h5>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h4 class="counter text-right m-t-15 text-danger" id="bfpShare">0</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 30px">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h5 class="text-muted vb">LGU Share</h5>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h4 class="counter text-right m-t-15 text-danger" id="lguShare">0</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="50" style="width: 50%"></div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="row row-in">
+                    <div class="col-lg-12 col-sm-6 row-in-br  b-r-none">
+                        <div class="col-in row">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <i class="ti-bar-chart text-megna"></i>
+                                <h5 class="text-muted vb">Total Deposited</h5>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <h4 class="counter text-right m-t-15 text-megna" id="deposited">0</h4>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-megna" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="50" style="width: 50%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-in">
+                    <div class="col-lg-12 col-sm-6 row-in-br">
+                        <div class="col-in row">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <i class="ti-bar-chart text-primary"></i>
+                                <h5 class="text-muted vb">Total Undeposited</h5>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <h4 class="counter text-right m-t-15 text-primary" id="undeposited">0</h4>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="50" style="width: 50%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<style>
+    ul.chartLables ol {
+        float: left !important;
+        min-width: 185px !important;
+    }
+</style>
+<script>
+    var decryptedMunicipalityId =  @Html.Raw(Json.Encode(sMunicipalityId));
+    var encryptedMunicipalityId =  @Html.Raw(Json.Encode(sMunicipalityId.Encrypt()));
+</script>
+
+<!--Morris JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/raphael/raphael-min.js")"></script>
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/morrisjs/morris.js")"></script>
+<!-- Sparkline chart JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js")"></script>
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js")"></script>
+<!-- Real estate dashboard JavaScript -->
+<script src="@Url.Content("~/Scripts/Areas/Inventory/Dashboard/dashboardFireCodeRevenue.js")"></script>

@@ -1,0 +1,210 @@
+﻿@using EBFP.BL.Helper
+@using EBFP.BL.HumanResources
+@using EBFP.Helper
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!PageSecurity.HasAccess(PageArea.HRIS_Reports_CanViewDashboard))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+      return;
+    }
+}
+
+<style>
+    .morris-hover {
+        position: absolute;
+        z-index: 1000;
+    }
+
+    .morris-hover.morris-default-style {
+            border-radius: 10px;
+            padding: 6px;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            border: solid 2px rgba(230, 230, 230, 0.8);
+            font-family: sans-serif;
+            font-size: 12px;
+            text-align: center;
+        }
+
+    .morris-hover.morris-default-style .morris-hover-row-label {
+                font-weight: bold;
+                margin: 0.25em 0;
+            }
+
+    .morris-hover.morris-default-style .morris-hover-point {
+                white-space: nowrap;
+                margin: 0.1em 0;
+            }
+
+    #pie-chart {
+        min-height: 350px;
+    }
+
+    .pieClass {
+        min-height: 350px;
+    }
+
+    ol, ul {
+        padding: 0px !important;
+    }
+    ul.chartLables ol {
+        float: left !important;
+        min-width: 185px !important;
+    }
+</style>
+@{
+    var searchModel = new EmployeeAppointmentsSearchModel();
+}
+
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="row row-in">
+                <div class="col-lg-3 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-danger"></i>
+                            <h5 class="text-muted vb">Unit</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h4 class="counter text-right m-t-15 text-danger" id="unit">0</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-success"></i>
+                            <h5 class="text-muted vb">Total Strength</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h4 class="counter text-right m-t-15 text-success" id="totalStrength">0</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 row-in-br  b-r-none">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-megna"></i>
+                            <h5 class="text-muted vb">Male</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h4 class="counter text-right m-t-15 text-megna" id="male">0</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-primary"></i>
+                            <h5 class="text-muted vb">Female</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h4 class="counter text-right m-t-15 text-primary" id="female">0</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box" style="height: 430px !important">
+
+            <div class="box-title">
+
+                <h5 class="pull-right">
+                    <i class="fa fa-circle m-r-5" style="color: #03a9f3;"></i>Male
+                    <i class="fa fa-circle m-r-5" style="color: #FFB6C1;"></i>Female
+
+                </h5>
+            </div>
+            <div id="morris-bar-chart" style="height: 372px;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-lg-12 col-sm-12">
+    <div class="white-box" style="height: 490px !important">
+
+      <div class="box-title">
+        <div class="row row-in">
+          <h5>Duty Status</h5>
+        </div>
+      </div>
+      <div id="morris-bar-chart2" style="height: 372px;"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="row row-in">
+                <h5>Employee Appointment</h5>
+            </div>
+            <div class="row row-in">
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-danger"></i>
+                            <h5 class="text-muted vb">Today</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <a onclick="appointmentSearch('today')" style="cursor: pointer;">
+                                <h2 class="counter text-right m-t-15 text-danger" style="text-decoration: underline" id="today">
+                                    0
+                                </h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-success"></i>
+                            <h5 class="text-muted vb">In 3 Days</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <a onclick="appointmentSearch('threeDays')" style="cursor: pointer;">
+                                <h2 class="counter text-right m-t-15 text-success" style="text-decoration: underline" id="threeDays">0</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                    <div class="col-in row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <i class="ti-bar-chart text-megna"></i>
+                            <h5 class="text-muted vb">In One Month</h5>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <a onclick="appointmentSearch('oneMonth')" style="cursor: pointer;">
+                                <h2 class="counter text-right m-t-15 text-megna" style="text-decoration: underline" id="oneMonth">0</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--Morris JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/raphael/raphael-min.js")"></script>
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/morrisjs/morris.js")"></script>
+<!-- Sparkline chart JavaScript -->
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js")"></script>
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js")"></script>
+<!-- Real estate dashboard JavaScript -->
+<script src="@Url.Content("~/Scripts/Areas/HRIS/dashboardHRIS.js")"></script>

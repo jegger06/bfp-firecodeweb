@@ -1,0 +1,137 @@
+﻿@using EBFP.Helper
+@using System.Text.RegularExpressions;
+@using EBFP.BL.Helper
+@model EBFP.BL.Administration.UserRoleModel
+
+@{
+    ViewBag.Title = "User Role Access";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*@{ string accessType = Convert.ToString(Request["AccessType"]);}*@
+<script src="~/Content/bootstrap/eliteadmin/js/validator.js"></script>
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+}))
+{
+    @*@Html.AntiForgeryToken()*@
+    @Html.HiddenFor(a => Model.sRole_ID)
+    @Html.HiddenFor(a => Model.Role_ID)
+    @Html.HiddenFor(a => Model.Role_CreatedBy)
+    @Html.HiddenFor(a => Model.Role_CreatedDate)
+    @Html.HiddenFor(a => Model.Role_ModifiedBy)
+    @Html.HiddenFor(a => Model.Role_ModifiedDate)
+
+   
+    <div class="row">
+        <div class="col-sm-12" data-spy="affix" data-offset-top="197">
+            <div style="float: left" >
+                @*@if (PageSecurity.HasAccess(PageArea.HRIS_EmployeeRoster_Modify))
+                {*@
+                    <button type="submit" onclick="checkDefaultAccess()" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-check"></i> Submit</button>
+                @*}*@
+                <a href="@Url.Action("UserRoles", "Role")" class="btn btn-danger btn-rounded waves-effect waves-light m-r-10">
+                    <i class="fa fa-mail-reply"></i> Back
+                </a>
+            </div>
+            <br /><br /><br />
+        </div>
+    </div>
+    @*<fieldset id="EmployeeDetails">*@
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(a => Model.sRole_ID)
+        <style>
+            .ti-minus, .ti-plus {
+                font-weight: bold !important;
+                font-size: 20px !important;
+                color: white !important;
+            }
+
+                .ti-plus:before {
+                    content: "\e65f" !important;
+                }
+
+                .ti-minus:before {
+                    content: "\e65c";
+                }
+
+            .form-horizontal .control-label {
+                text-align: left !important;
+            }
+
+            .affix {
+                top: 10px;
+                width: 100%;
+                z-index: 9999 !important;
+            }
+
+            .navbar {
+                margin-bottom: 0px;
+            }
+
+            .affix ~ .container-fluid {
+                padding-top: 10px !important;
+                position: relative;
+                top: 50px !important;
+            }
+        </style>
+        <div class="row white-box col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <label class="col-sm-2 control-label">Role Name :</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(model => model.Role_Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Role_Name, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div>
+                                    @Html.CheckBoxFor(model => model.Role_DefaultAccess)
+                                    <label><b>Default Access </b></label>
+                                </div>
+                                <div>
+                                    <label>(this will be use if no role is assigned for user)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <label class="col-sm-2 control-label">Description :</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(model => model.Role_Description, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(model => model.Role_Description, null, new {@class = "text-danger"})
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div>
+                                    @Html.CheckBoxFor(model => model.Role_AllAccess)
+                                    <label><b>Set All Access</b></label>
+                                </div>
+                                <div>
+                                    <label>(this will set all access for this role)</label>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <div class="row">
+                @Html.Partial("~/Areas/Administration/Views/Role/Include/RoleAccess/Main.cshtml")
+            </div>
+        </div>
+
+    @*</fieldset>*@
+}
+
+@Html.Partial("~/Views/Shared/formcontrols/DatePicker.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/StylishTab.cshtml")
+@Html.Partial("~/Views/Shared/formcontrols/TypeHead.cshtml")

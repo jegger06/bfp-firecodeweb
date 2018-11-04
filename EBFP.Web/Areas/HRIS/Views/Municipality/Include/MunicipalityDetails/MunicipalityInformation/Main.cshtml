@@ -1,0 +1,98 @@
+﻿@model EBFP.BL.HumanResources.MunicipalityModel
+@using EBFP.BL.Helper
+
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+                I. Municipality Information
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">NSCB</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.Municipality_NSCB, new { @maxlength = "50", @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.Municipality_NSCB, "Field is required.", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Region</label>
+                                <div class="col-md-6">
+                                    @{ var Region = Selections.InventoryRegion;}
+                                    <div>
+                                        @Html.DropDownListFor(model => Model.Municipality_Reg_Id, Selections.InventoryRegion, " --- Please Select---", new { id = "ddlRegion", @class = "form-control", onchange = "ddlRegionValueChanged(this.value)" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Province</label>
+                                <div class="col-md-6">
+                                    <div>
+                                        @Html.DropDownListFor(model => Model.Municipality_Province_Id, new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new { id = "ddlProvince", @class = "form-control" }) 
+                                    </div>
+                                </div>
+                            </div>
+
+                          <div class="form-group">
+                            <label class="col-md-3 control-label">Municipality</label>
+                            <div class="col-md-6">
+                              @Html.TextBoxFor(model => model.Municipality_Name, new {@class = "form-control"})
+                              @Html.ValidationMessageFor(model => model.Municipality_Name, "Field is required.", new {@class = "text-danger"})
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-md-3 control-label">Type</label>
+                            <div class="col-md-6">
+                              <div class="radio-list">
+                                @foreach (var item in Selections.MunicipalityType)
+                                {
+                                  <label class="radio-inline">
+                                    <div class="radio radio-info">
+                                      @Html.RadioButtonFor(a => a.Municipality_Type, item.Value, new {id = "Municipality_" + item.Value})
+                                      <label for="Municipality_@item.Value" style="font-weight: 100 !important">@item.Text</label>
+                                    </div>
+                                  </label>
+                                }
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-4">                             
+                                @Html.CheckBoxFor(model => model.Municipality_WithBuilding, new {@class = "" }) With Building       
+                            </div>                         
+                                           
+                          </div>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/scripts/areas/common/SelectionDS.js")"></script>
+<script type="text/javascript">
+
+    var oSelectionDS = new SelectionDS();
+    $(document).ready(function() {
+        ddlRegionValueChanged($("#ddlRegion").val(),@Model.Municipality_Province_Id);
+    });
+
+    function ddlRegionValueChanged(regionID,Municipality_Province_Id) {
+        var Municipality = Municipality_Province_Id;  
+        oSelectionDS.ProvinceByRegion("ddlProvince", regionID, Municipality);
+        oSelectionDS.ClearDropdown("ddlMunicipality");
+    }
+</script>
+

@@ -1,0 +1,82 @@
+﻿<style>
+    .rotate-width {
+        min-width: 55px;
+        font-size: 12px;
+    }
+</style>
+<div class="col-sm-12">
+    <div class="panel panel-info">
+        <a href="#" data-perform="panel-collapse">
+            <div class="panel-heading">
+              Fire Prevention
+                <div class="pull-left">
+                    <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </a>
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                
+                <div class="white-box">
+                    <div style="font-weight: bold; font-size: 15px; text-align: center">
+                        <div> FIRE PREVENTION ACTIVITIES</div>
+                        <div>{{CYYear}}</div>
+                    </div>
+                    <br /><br />
+                    <div>
+                        <table cellpadding="1" class="tbl-Dashboard" id="tblx" >
+                            <tr style="font-size: 12px;">
+                                <th style="height: 230px">Year</th>
+                                <th class="rotate-width"><span>Building Plans<br />Reviewed, Processed<br />and Issued  FSEC</span></th>
+                                <th class="rotate-width"><span>FSIC for Occupancy<br />Permit Issued</span></th>
+                                <th class="rotate-width"><span>FSIC for Business/<br />Permit to Operate</span></th>
+                                <th class="rotate-width"><span>Total No. of FSIC Issued</span></th>
+                                <th class="rotate-width"><span>Notice to Comply Issued</span></th>
+                                <th class="rotate-width"><span>Notice to Correct<br />Violation Issued</span></th>
+                                <th class="rotate-width"><span>Abatement Order Issued</span></th>
+                                <th class="rotate-width"><span>Recommended  for<br />Stoppage of<br />Operation & Closure</span></th>
+                                <th class="rotate-width"><span>Amount Of Fire Code<br />Fees Assessed</span></th>
+                            </tr>
+                            <tr ng-repeat="item in FirePrevention">
+                                <td class="tbl-RowTitle">{{item.Year}}</td>
+                                <td>{{item.BuildingPlans | number:0}}</td>
+                                <td>{{item.FSIC_Occupancy | number:0}}</td>
+                                <td>{{item.FSIC_Business_Permit | number:0}}</td>
+                                <td>{{item.FSIC_Total | number:0}}</td>
+                                <td>{{item.NTC | number:0}}</td>
+                                <td>{{item.NTCV | number:0}}</td>
+                                <td>{{item.Abatement | number:0}}</td>
+                                <td>{{item.Closure | number:0}}</td>
+                                <td>{{item.Amount_FireCodeFees_Assessed | number:2}}</td>
+                            </tr>
+                            <tr>
+                                <th>5 Year Total</th>
+                                <th>{{FirePrevention | sumByKey:'BuildingPlans' | number:0}}</th>
+                                <th>{{FirePrevention | sumByKey:'FSIC_Occupancy' | number:0}}</th>
+                                <th>{{FirePrevention | sumByKey:'FSIC_Business_Permit' | number:0}}</th>
+                                <th>{{FirePrevention | sumByKey:'FSIC_Total' | number:0}}</th>
+                                <th>{{FirePrevention | sumByKey:'NTC' | number:0}}</th>
+                                <th>{{FirePrevention | sumByKey:'NTCV' | number:0}}</th>
+                                <th>{{FirePrevention | sumByKey:'Abatement' | number:0}}</th>
+                                <th>{{FirePrevention | sumByKey:'Closure' | number:0}}</th>
+                                <th>{{FirePrevention[0].Total_Amount_FireCodeFees_Assessed | number:2}}</th>
+                            </tr>
+                            <tr>
+                                <th class="tbl-RowTitle">Annual Average</th>
+                                <th>{{FirePrevention | avgIncidentByKey:'BuildingPlans' | number:0}}</th>
+                                <th>{{FirePrevention | avgIncidentByKey:'FSIC_Occupancy' | number:0}}</th>
+                                <th>{{FirePrevention | avgIncidentByKey:'FSIC_Business_Permit' | number:0}}</th>
+                                <th>{{FirePrevention | avgIncidentByKey:'FSIC_Total' | number:0}}</th>
+                                <th>{{FirePrevention | avgIncidentByKey:'NTC' | number:0}}</th>
+                                <th>{{FirePrevention | avgIncidentByKey:'NTCV' | number:0}}</th>
+                                <th>{{FirePrevention | avgIncidentByKey:'Abatement' | number:0}}</th>
+                                <th>{{FirePrevention | avgIncidentByKey:'Closure' | number:0}}</th>
+                                <th>{{FirePrevention | avgIncidentByKey:'Amount_FireCodeFees_Assessed' | number:2}}</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

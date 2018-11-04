@@ -1,0 +1,119 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+
+
+<div class="col-md-12 chk-label">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_CVA_Tenderness, new { @class = "form-control" })
+        <label class="control-label chk-label">CVA Tenderness: Absent Bilaterally</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Suprapubic_Tenderness, new { @class = "form-control" })
+        <label class="control-label chk-label">Suprapubic Tenderness: Absent </label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Urostomy_Present, new { @class = "form-control" })
+        <label class="control-label chk-label">Urostomy Present</label>
+    </div>
+    <div class="col-md-3">
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.GU.PE_Urostomy_Yes_No, true, new { id = "PE_Urostomy_Yes_No-true" })
+                @Html.Label("PE_Urostomy_Yes_No-true", "Yes")
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.GU.PE_Urostomy_Yes_No, false, new { id = "PE_Urostomy_Yes_No-false" })
+                @Html.Label("PE_Urostomy_Yes_No-false", "No")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        <label class="control-label chk-label">Male: </label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Prostate_Exam_Deferred, new { @class = "form-control" })
+        <label class="control-label chk-label">Prostate Exam Deferred</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Prostate_Exam_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">Prostate Exam Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Prostate_Enlargement, new { @class = "form-control" })
+        <label class="control-label chk-label">Prostate Enlargement</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Prostate_Tenderness, new { @class = "form-control" })
+        <label class="control-label chk-label">Tenderness</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Prostate_Nodules, new { @class = "form-control" })
+        <label class="control-label chk-label">Nodules</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        <label class="control-label chk-label">Female: </label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Pelvic_Deferred, new { @class = "form-control" })
+        <label class="control-label chk-label">Pelvic Deferred</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Pelvic_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">Pelvic Normal</label>
+    </div>
+    <div class="chk-group" style="padding-right: 20px;">
+        @Html.CheckBoxFor(model => model.GU.PE_Uterus_Absent, new { @class = "form-control" })
+        <label class="control-label chk-label">Uterus Absent</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Cervix_Absent, new { @class = "form-control" })
+        <label class="control-label chk-label">Cervix Absent</label>
+    </div>
+</div>
+<div class="col-md-12" style="padding-left: 5px">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Kidney_Transplant, new { @class = "form-control" })
+        <label class="control-label chk-label">Kidney Transplant Status: </label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Kidney_Right, new { @class = "form-control" })
+        <label class="control-label chk-label">Right</label>
+    </div>
+    <div class="chk-group" style="padding-right: 20px;">
+        @Html.CheckBoxFor(model => model.GU.PE_Kidney_Left, new { @class = "form-control" })
+        <label class="control-label chk-label">Left</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.GU.PE_Dialysis_Status, new { @class = "form-control" })
+        <label class="control-label chk-label">Dialysis Status</label>
+    </div>
+    <div class="col-md-3">
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.GU.PE_Dialysis_Status_Yes_No, true, new { id = "PE_Dialysis_Status_Yes_No-true" })
+                @Html.Label("PE_Dialysis_Status_Yes_No-true", "Yes")
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0 !important">
+            <div class="radio radio-info">
+                @Html.RadioButtonFor(e => e.GU.PE_Dialysis_Status_Yes_No, false, new { id = "PE_Dialysis_Status_Yes_No-false" })
+                @Html.Label("PE_Dialysis_Status_Yes_No-false", "No")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12" style="padding-top: 5px;">
+    <div class="col-md-3">
+        <label class="control-label chk-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.GU.PE_GU_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

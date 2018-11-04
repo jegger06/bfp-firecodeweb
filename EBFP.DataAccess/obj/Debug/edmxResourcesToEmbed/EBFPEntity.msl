@@ -1,0 +1,2164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EBFPModelStoreContainer" CdmEntityContainer="EBFPEntities">
+    <EntitySetMapping Name="tblAfterFireOperationBreathingApparatusUsed">
+      <EntityTypeMapping TypeName="EBFPModel.tblAfterFireOperationBreathingApparatusUsed">
+        <MappingFragment StoreEntitySet="tblAfterFireOperationBreathingApparatusUsed">
+          <ScalarProperty Name="BAU_LastUpdateDate" ColumnName="BAU_LastUpdateDate" />
+          <ScalarProperty Name="BAU_LastUpdate_Emp_Id" ColumnName="BAU_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="BAU_CreatedDate" ColumnName="BAU_CreatedDate" />
+          <ScalarProperty Name="BAU_Created_Emp_Id" ColumnName="BAU_Created_Emp_Id" />
+          <ScalarProperty Name="BAU_Quantity" ColumnName="BAU_Quantity" />
+          <ScalarProperty Name="BAU_Type" ColumnName="BAU_Type" />
+          <ScalarProperty Name="BAU_Number" ColumnName="BAU_Number" />
+          <ScalarProperty Name="BAU_AFO_Id" ColumnName="BAU_AFO_Id" />
+          <ScalarProperty Name="BAU_Id" ColumnName="BAU_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAfterFireOperationDispatchedVehicles">
+      <EntityTypeMapping TypeName="EBFPModel.tblAfterFireOperationDispatchedVehicles">
+        <MappingFragment StoreEntitySet="tblAfterFireOperationDispatchedVehicles">
+          <ScalarProperty Name="DV_LastUpdateDate" ColumnName="DV_LastUpdateDate" />
+          <ScalarProperty Name="DV_LastUpdate_Emp_Id" ColumnName="DV_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="DV_CreatedDate" ColumnName="DV_CreatedDate" />
+          <ScalarProperty Name="DV_Created_Emp_Id" ColumnName="DV_Created_Emp_Id" />
+          <ScalarProperty Name="DV_GasConsumed" ColumnName="DV_GasConsumed" />
+          <ScalarProperty Name="DV_WaterFilling" ColumnName="DV_WaterFilling" />
+          <ScalarProperty Name="DV_VehicleStationArrival" ColumnName="DV_VehicleStationArrival" />
+          <ScalarProperty Name="DV_VehicleSceneArrival" ColumnName="DV_VehicleSceneArrival" />
+          <ScalarProperty Name="DV_VehicleLeftDate" ColumnName="DV_VehicleLeftDate" />
+          <ScalarProperty Name="DV_VehicleName" ColumnName="DV_VehicleName" />
+          <ScalarProperty Name="DV_AFO_Id" ColumnName="DV_AFO_Id" />
+          <ScalarProperty Name="DV_Id" ColumnName="DV_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAfterFireOperationExtinguishingAgentsUsed">
+      <EntityTypeMapping TypeName="EBFPModel.tblAfterFireOperationExtinguishingAgentsUsed">
+        <MappingFragment StoreEntitySet="tblAfterFireOperationExtinguishingAgentsUsed">
+          <ScalarProperty Name="EAU_LastUpdateDate" ColumnName="EAU_LastUpdateDate" />
+          <ScalarProperty Name="EAU_LastUpdate_Emp_Id" ColumnName="EAU_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="EAU_CreatedDate" ColumnName="EAU_CreatedDate" />
+          <ScalarProperty Name="EAU_Created_Emp_Id" ColumnName="EAU_Created_Emp_Id" />
+          <ScalarProperty Name="EAU_Quantity" ColumnName="EAU_Quantity" />
+          <ScalarProperty Name="EAU_Type" ColumnName="EAU_Type" />
+          <ScalarProperty Name="EAU_Number" ColumnName="EAU_Number" />
+          <ScalarProperty Name="EAU_AFO_Id" ColumnName="EAU_AFO_Id" />
+          <ScalarProperty Name="EAU_Id" ColumnName="EAU_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAfterFireOperationHoseLineUsed">
+      <EntityTypeMapping TypeName="EBFPModel.tblAfterFireOperationHoseLineUsed">
+        <MappingFragment StoreEntitySet="tblAfterFireOperationHoseLineUsed">
+          <ScalarProperty Name="HLU_LastUpdateDate" ColumnName="HLU_LastUpdateDate" />
+          <ScalarProperty Name="HLU_LastUpdate_Emp_Id" ColumnName="HLU_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="HLU_CreatedDate" ColumnName="HLU_CreatedDate" />
+          <ScalarProperty Name="HLU_Created_Emp_Id" ColumnName="HLU_Created_Emp_Id" />
+          <ScalarProperty Name="HLU_Quantity" ColumnName="HLU_Quantity" />
+          <ScalarProperty Name="HLU_Type" ColumnName="HLU_Type" />
+          <ScalarProperty Name="HLU_Number" ColumnName="HLU_Number" />
+          <ScalarProperty Name="HLU_AFO_Id" ColumnName="HLU_AFO_Id" />
+          <ScalarProperty Name="HLU_Id" ColumnName="HLU_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAfterFireOperationOtherToolsUsed">
+      <EntityTypeMapping TypeName="EBFPModel.tblAfterFireOperationOtherToolsUsed">
+        <MappingFragment StoreEntitySet="tblAfterFireOperationOtherToolsUsed">
+          <ScalarProperty Name="OTU_LastUpdateDate" ColumnName="OTU_LastUpdateDate" />
+          <ScalarProperty Name="OTU_LastUpdate_Emp_Id" ColumnName="OTU_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="OTU_CreatedDate" ColumnName="OTU_CreatedDate" />
+          <ScalarProperty Name="OTU_Created_Emp_Id" ColumnName="OTU_Created_Emp_Id" />
+          <ScalarProperty Name="OTU_Description" ColumnName="OTU_Description" />
+          <ScalarProperty Name="OTU_Name" ColumnName="OTU_Name" />
+          <ScalarProperty Name="OTU_AFO_Id" ColumnName="OTU_AFO_Id" />
+          <ScalarProperty Name="OTU_Id" ColumnName="OTU_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAfterFireOperationRopesLadderUsed">
+      <EntityTypeMapping TypeName="EBFPModel.tblAfterFireOperationRopesLadderUsed">
+        <MappingFragment StoreEntitySet="tblAfterFireOperationRopesLadderUsed">
+          <ScalarProperty Name="RLU_LastUpdateDate" ColumnName="RLU_LastUpdateDate" />
+          <ScalarProperty Name="RLU_LastUpdate_Emp_Id" ColumnName="RLU_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="RLU_CreatedDate" ColumnName="RLU_CreatedDate" />
+          <ScalarProperty Name="RLU_Created_Emp_Id" ColumnName="RLU_Created_Emp_Id" />
+          <ScalarProperty Name="RLU_Length" ColumnName="RLU_Length" />
+          <ScalarProperty Name="RLU_Type" ColumnName="RLU_Type" />
+          <ScalarProperty Name="RLU_AFO_Id" ColumnName="RLU_AFO_Id" />
+          <ScalarProperty Name="RLU_Id" ColumnName="RLU_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAfterInspectionReports">
+      <EntityTypeMapping TypeName="EBFPModel.tblAfterInspectionReports">
+        <MappingFragment StoreEntitySet="tblAfterInspectionReports">
+          <ScalarProperty Name="AIR_Inspector_Emp_Id" ColumnName="AIR_Inspector_Emp_Id" />
+          <ScalarProperty Name="AIR_InspectionType_Others" ColumnName="AIR_InspectionType_Others" />
+          <ScalarProperty Name="AIR_InspectionType" ColumnName="AIR_InspectionType" />
+          <ScalarProperty Name="AIR_InspectionDate" ColumnName="AIR_InspectionDate" />
+          <ScalarProperty Name="AIR_IO_Id" ColumnName="AIR_IO_Id" />
+          <ScalarProperty Name="AIR_Id" ColumnName="AIR_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAlarmTypes">
+      <EntityTypeMapping TypeName="EBFPModel.tblAlarmTypes">
+        <MappingFragment StoreEntitySet="tblAlarmTypes">
+          <ScalarProperty Name="AT_LastUpdateDate" ColumnName="AT_LastUpdateDate" />
+          <ScalarProperty Name="AT_LastUpdate_Emp_Id" ColumnName="AT_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="AT_CreatedDate" ColumnName="AT_CreatedDate" />
+          <ScalarProperty Name="AT_Created_Emp_Id" ColumnName="AT_Created_Emp_Id" />
+          <ScalarProperty Name="AT_Description" ColumnName="AT_Description" />
+          <ScalarProperty Name="AT_Code" ColumnName="AT_Code" />
+          <ScalarProperty Name="AT_Id" ColumnName="AT_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblArticles">
+      <EntityTypeMapping TypeName="EBFPModel.tblArticles">
+        <MappingFragment StoreEntitySet="tblArticles">
+          <ScalarProperty Name="Art_LastUpdateDate" ColumnName="Art_LastUpdateDate" />
+          <ScalarProperty Name="Art_LastUpdate_Emp_Id" ColumnName="Art_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="Art_CreatedDate" ColumnName="Art_CreatedDate" />
+          <ScalarProperty Name="Art_Created_Emp_Id" ColumnName="Art_Created_Emp_Id" />
+          <ScalarProperty Name="Art_Name" ColumnName="Art_Name" />
+          <ScalarProperty Name="Art_Code" ColumnName="Art_Code" />
+          <ScalarProperty Name="Art_Id" ColumnName="Art_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAssetInventories">
+      <EntityTypeMapping TypeName="EBFPModel.tblAssetInventories">
+        <MappingFragment StoreEntitySet="tblAssetInventories">
+          <ScalarProperty Name="LA_Emp_Id" ColumnName="LA_Emp_Id" />
+          <ScalarProperty Name="LA_Unit_Id" ColumnName="LA_Unit_Id" />
+          <ScalarProperty Name="LA_Item_Status" ColumnName="LA_Item_Status" />
+          <ScalarProperty Name="LA_Item_Category" ColumnName="LA_Item_Category" />
+          <ScalarProperty Name="LA_Item_Description" ColumnName="LA_Item_Description" />
+          <ScalarProperty Name="LA_Item_Name" ColumnName="LA_Item_Name" />
+          <ScalarProperty Name="LA_Item_Code" ColumnName="LA_Item_Code" />
+          <ScalarProperty Name="LA_Id" ColumnName="LA_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblCourses">
+      <EntityTypeMapping TypeName="EBFPModel.tblCourses">
+        <MappingFragment StoreEntitySet="tblCourses">
+          <ScalarProperty Name="Course_Category" ColumnName="Course_Category" />
+          <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
+          <ScalarProperty Name="Course_Id" ColumnName="Course_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDirectorates">
+      <EntityTypeMapping TypeName="EBFPModel.tblDirectorates">
+        <MappingFragment StoreEntitySet="tblDirectorates">
+          <ScalarProperty Name="Dir_LastUpdateDate" ColumnName="Dir_LastUpdateDate" />
+          <ScalarProperty Name="Dir_LastUpdate_Emp_Id" ColumnName="Dir_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="Dir_CreatedDate" ColumnName="Dir_CreatedDate" />
+          <ScalarProperty Name="Dir_Created_Emp_Id" ColumnName="Dir_Created_Emp_Id" />
+          <ScalarProperty Name="Dir_Name" ColumnName="Dir_Name" />
+          <ScalarProperty Name="Dir_Code" ColumnName="Dir_Code" />
+          <ScalarProperty Name="Dir_Id" ColumnName="Dir_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDutyStatus">
+      <EntityTypeMapping TypeName="EBFPModel.tblDutyStatus">
+        <MappingFragment StoreEntitySet="tblDutyStatus">
+          <ScalarProperty Name="DutyStat_Name" ColumnName="DutyStat_Name" />
+          <ScalarProperty Name="DutyStat_Id" ColumnName="DutyStat_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeChildren">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeChildren">
+        <MappingFragment StoreEntitySet="tblEmployeeChildren">
+          <ScalarProperty Name="EC_Emp_Id" ColumnName="EC_Emp_Id" />
+          <ScalarProperty Name="EC_BirthDate" ColumnName="EC_BirthDate" />
+          <ScalarProperty Name="EC_Gender" ColumnName="EC_Gender" />
+          <ScalarProperty Name="EC_FullName" ColumnName="EC_FullName" />
+          <ScalarProperty Name="EC_Id" ColumnName="EC_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeCivilServiceEligibilities">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeCivilServiceEligibilities">
+        <MappingFragment StoreEntitySet="tblEmployeeCivilServiceEligibilities">
+          <ScalarProperty Name="ECSE_Emp_Id" ColumnName="ECSE_Emp_Id" />
+          <ScalarProperty Name="ECSE_LicReleaseDate" ColumnName="ECSE_LicReleaseDate" />
+          <ScalarProperty Name="ECSE_LicNumber" ColumnName="ECSE_LicNumber" />
+          <ScalarProperty Name="ECSE_ExamPlace" ColumnName="ECSE_ExamPlace" />
+          <ScalarProperty Name="ECSE_ExamDate" ColumnName="ECSE_ExamDate" />
+          <ScalarProperty Name="ECSE_Rating" ColumnName="ECSE_Rating" />
+          <ScalarProperty Name="ECSE_Title" ColumnName="ECSE_Title" />
+          <ScalarProperty Name="ECSE_Id" ColumnName="ECSE_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeDutyStatusUpdates">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeDutyStatusUpdates">
+        <MappingFragment StoreEntitySet="tblEmployeeDutyStatusUpdates">
+          <ScalarProperty Name="EDSU_Create_Emp_Id" ColumnName="EDSU_Create_Emp_Id" />
+          <ScalarProperty Name="EDSU_Create_Date" ColumnName="EDSU_Create_Date" />
+          <ScalarProperty Name="EDSU_Emp_Id" ColumnName="EDSU_Emp_Id" />
+          <ScalarProperty Name="EDSU_DutyStatus_Remarks" ColumnName="EDSU_DutyStatus_Remarks" />
+          <ScalarProperty Name="EDSU_DutyStatus" ColumnName="EDSU_DutyStatus" />
+          <ScalarProperty Name="EDSU_EndDate" ColumnName="EDSU_EndDate" />
+          <ScalarProperty Name="EDSU_StartDate" ColumnName="EDSU_StartDate" />
+          <ScalarProperty Name="EDSU_Id" ColumnName="EDSU_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeEducationalBackground">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeEducationalBackground">
+        <MappingFragment StoreEntitySet="tblEmployeeEducationalBackground">
+          <ScalarProperty Name="EEB_Emp_Id" ColumnName="EEB_Emp_Id" />
+          <ScalarProperty Name="EEB_Awards" ColumnName="EEB_Awards" />
+          <ScalarProperty Name="EEB_EndDate" ColumnName="EEB_EndDate" />
+          <ScalarProperty Name="EEB_StartDate" ColumnName="EEB_StartDate" />
+          <ScalarProperty Name="EEB_HighestLevel" ColumnName="EEB_HighestLevel" />
+          <ScalarProperty Name="EEB_GraduateYear" ColumnName="EEB_GraduateYear" />
+          <ScalarProperty Name="EEB_DegreeCourse" ColumnName="EEB_DegreeCourse" />
+          <ScalarProperty Name="EEB_SchoolName" ColumnName="EEB_SchoolName" />
+          <ScalarProperty Name="EEB_EducType" ColumnName="EEB_EducType" />
+          <ScalarProperty Name="EEB_Id" ColumnName="EEB_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeLeaveRecords">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeLeaveRecords">
+        <MappingFragment StoreEntitySet="tblEmployeeLeaveRecords">
+          <ScalarProperty Name="ELR_ChargeTo" ColumnName="ELR_ChargeTo" />
+          <ScalarProperty Name="ELR_Input_Emp_Id" ColumnName="ELR_Input_Emp_Id" />
+          <ScalarProperty Name="ELR_InputDate" ColumnName="ELR_InputDate" />
+          <ScalarProperty Name="ELR_Remarks" ColumnName="ELR_Remarks" />
+          <ScalarProperty Name="ELR_WithPay" ColumnName="ELR_WithPay" />
+          <ScalarProperty Name="ELR_TotalDays" ColumnName="ELR_TotalDays" />
+          <ScalarProperty Name="ELR_EndDate" ColumnName="ELR_EndDate" />
+          <ScalarProperty Name="ELR_StartDate" ColumnName="ELR_StartDate" />
+          <ScalarProperty Name="ELR_LeaveType" ColumnName="ELR_LeaveType" />
+          <ScalarProperty Name="ELR_Emp_Id" ColumnName="ELR_Emp_Id" />
+          <ScalarProperty Name="ELR_Id" ColumnName="ELR_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeMembershipInAssociationOrganizations">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeMembershipInAssociationOrganizations">
+        <MappingFragment StoreEntitySet="tblEmployeeMembershipInAssociationOrganizations">
+          <ScalarProperty Name="EMIAO_Emp_Id" ColumnName="EMIAO_Emp_Id" />
+          <ScalarProperty Name="EMIAO_Title" ColumnName="EMIAO_Title" />
+          <ScalarProperty Name="EMIAO_Id" ColumnName="EMIAO_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeNonAcademicDistinctions">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeNonAcademicDistinctions">
+        <MappingFragment StoreEntitySet="tblEmployeeNonAcademicDistinctions">
+          <ScalarProperty Name="ENAD_Emp_Id" ColumnName="ENAD_Emp_Id" />
+          <ScalarProperty Name="ENAD_Title" ColumnName="ENAD_Title" />
+          <ScalarProperty Name="ENAD_Id" ColumnName="ENAD_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeOtherInformation">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeOtherInformation">
+        <MappingFragment StoreEntitySet="tblEmployeeOtherInformation">
+          <ScalarProperty Name="EOI_Immigrant_Details" ColumnName="EOI_Immigrant_Details" />
+          <ScalarProperty Name="EOI_Immigrant" ColumnName="EOI_Immigrant" />
+          <ScalarProperty Name="EOI_ResignedGovt_Details" ColumnName="EOI_ResignedGovt_Details" />
+          <ScalarProperty Name="EOI_ResignedGovt" ColumnName="EOI_ResignedGovt" />
+          <ScalarProperty Name="EOI_Charged_CaseStatus" ColumnName="EOI_Charged_CaseStatus" />
+          <ScalarProperty Name="EOI_Charged_DateFiled" ColumnName="EOI_Charged_DateFiled" />
+          <ScalarProperty Name="EOI_Emp_Id" ColumnName="EOI_Emp_Id" />
+          <ScalarProperty Name="EOI_SoloParent_Details" ColumnName="EOI_SoloParent_Details" />
+          <ScalarProperty Name="EOI_SoloParent" ColumnName="EOI_SoloParent" />
+          <ScalarProperty Name="EOI_DiffAbled_Details" ColumnName="EOI_DiffAbled_Details" />
+          <ScalarProperty Name="EOI_DiffAbled" ColumnName="EOI_DiffAbled" />
+          <ScalarProperty Name="EOI_IndigentGroup_Details" ColumnName="EOI_IndigentGroup_Details" />
+          <ScalarProperty Name="EOI_IndigentGroup" ColumnName="EOI_IndigentGroup" />
+          <ScalarProperty Name="EOI_Candidate_Details" ColumnName="EOI_Candidate_Details" />
+          <ScalarProperty Name="EOI_Candidate" ColumnName="EOI_Candidate" />
+          <ScalarProperty Name="EOI_Separated_Details" ColumnName="EOI_Separated_Details" />
+          <ScalarProperty Name="EOI_Separated" ColumnName="EOI_Separated" />
+          <ScalarProperty Name="EOI_Convicted_Details" ColumnName="EOI_Convicted_Details" />
+          <ScalarProperty Name="EOI_Convicted" ColumnName="EOI_Convicted" />
+          <ScalarProperty Name="EOI_AdminOffense_Details" ColumnName="EOI_AdminOffense_Details" />
+          <ScalarProperty Name="EOI_AdminOffense" ColumnName="EOI_AdminOffense" />
+          <ScalarProperty Name="EOI_Charged_Details" ColumnName="EOI_Charged_Details" />
+          <ScalarProperty Name="EOI_Charged" ColumnName="EOI_Charged" />
+          <ScalarProperty Name="EOI_Rel_LocalGovtEmp_Details" ColumnName="EOI_Rel_LocalGovtEmp_Details" />
+          <ScalarProperty Name="EOI_Rel_LocalGovtEmp" ColumnName="EOI_Rel_LocalGovtEmp" />
+          <ScalarProperty Name="EOI_Rel_NatGovtEmp_Details" ColumnName="EOI_Rel_NatGovtEmp_Details" />
+          <ScalarProperty Name="EOI_Rel_NatGovtEmp" ColumnName="EOI_Rel_NatGovtEmp" />
+          <ScalarProperty Name="EOI_Id" ColumnName="EOI_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeReferences">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeReferences">
+        <MappingFragment StoreEntitySet="tblEmployeeReferences">
+          <ScalarProperty Name="ER_Emp_Id" ColumnName="ER_Emp_Id" />
+          <ScalarProperty Name="ER_PhoneNumber" ColumnName="ER_PhoneNumber" />
+          <ScalarProperty Name="ER_Address" ColumnName="ER_Address" />
+          <ScalarProperty Name="ER_FullName" ColumnName="ER_FullName" />
+          <ScalarProperty Name="ER_Id" ColumnName="ER_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeSpecialSkillsHobbies">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeSpecialSkillsHobbies">
+        <MappingFragment StoreEntitySet="tblEmployeeSpecialSkillsHobbies">
+          <ScalarProperty Name="ESSH_Emp_Id" ColumnName="ESSH_Emp_Id" />
+          <ScalarProperty Name="ESSH_Title" ColumnName="ESSH_Title" />
+          <ScalarProperty Name="ESSH_Id" ColumnName="ESSH_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEstablishmentStatus">
+      <EntityTypeMapping TypeName="EBFPModel.tblEstablishmentStatus">
+        <MappingFragment StoreEntitySet="tblEstablishmentStatus">
+          <ScalarProperty Name="ES_StatusName" ColumnName="ES_StatusName" />
+          <ScalarProperty Name="ES_Id" ColumnName="ES_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblFireRecords">
+      <EntityTypeMapping TypeName="EBFPModel.tblFireRecords">
+        <MappingFragment StoreEntitySet="tblFireRecords">
+          <ScalarProperty Name="Fire_Damages" ColumnName="Fire_Damages" />
+          <ScalarProperty Name="Fire_Deaths" ColumnName="Fire_Deaths" />
+          <ScalarProperty Name="Fire_Injuries" ColumnName="Fire_Injuries" />
+          <ScalarProperty Name="Fire_Incidents" ColumnName="Fire_Incidents" />
+          <ScalarProperty Name="Fire_Year" ColumnName="Fire_Year" />
+          <ScalarProperty Name="Fire_Municipality_Id" ColumnName="Fire_Municipality_Id" />
+          <ScalarProperty Name="Fire_Id" ColumnName="Fire_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblFireSuppression">
+      <EntityTypeMapping TypeName="EBFPModel.tblFireSuppression">
+        <MappingFragment StoreEntitySet="tblFireSuppression">
+          <ScalarProperty Name="FS_GeoLat" ColumnName="FS_GeoLat" />
+          <ScalarProperty Name="FS_GeoLong" ColumnName="FS_GeoLong" />
+          <ScalarProperty Name="FS_DateCreated" ColumnName="FS_DateCreated" />
+          <ScalarProperty Name="FS_Remarks" ColumnName="FS_Remarks" />
+          <ScalarProperty Name="FS_MobileNo" ColumnName="FS_MobileNo" />
+          <ScalarProperty Name="FS_ReportedBy" ColumnName="FS_ReportedBy" />
+          <ScalarProperty Name="FS_FilePath" ColumnName="FS_FilePath" />
+          <ScalarProperty Name="FS_Id" ColumnName="FS_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblIncidentStatus">
+      <EntityTypeMapping TypeName="EBFPModel.tblIncidentStatus">
+        <MappingFragment StoreEntitySet="tblIncidentStatus">
+          <ScalarProperty Name="IS_LastUpdateDate" ColumnName="IS_LastUpdateDate" />
+          <ScalarProperty Name="IS_LastUpdate_Emp_Id" ColumnName="IS_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="IS_CreatedDate" ColumnName="IS_CreatedDate" />
+          <ScalarProperty Name="IS_Created_Emp_Id" ColumnName="IS_Created_Emp_Id" />
+          <ScalarProperty Name="IS_Description" ColumnName="IS_Description" />
+          <ScalarProperty Name="IS_Code" ColumnName="IS_Code" />
+          <ScalarProperty Name="IS_Id" ColumnName="IS_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblIndexTypes">
+      <EntityTypeMapping TypeName="EBFPModel.tblIndexTypes">
+        <MappingFragment StoreEntitySet="tblIndexTypes">
+          <ScalarProperty Name="IT_LastUpdateDate" ColumnName="IT_LastUpdateDate" />
+          <ScalarProperty Name="IT_LastUpdate_Emp_Id" ColumnName="IT_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="IT_CreatedDate" ColumnName="IT_CreatedDate" />
+          <ScalarProperty Name="IT_Created_Emp_Id" ColumnName="IT_Created_Emp_Id" />
+          <ScalarProperty Name="IT_Description" ColumnName="IT_Description" />
+          <ScalarProperty Name="IT_Code" ColumnName="IT_Code" />
+          <ScalarProperty Name="IT_Id" ColumnName="IT_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblInspectionOrderActions">
+      <EntityTypeMapping TypeName="EBFPModel.tblInspectionOrderActions">
+        <MappingFragment StoreEntitySet="tblInspectionOrderActions">
+          <ScalarProperty Name="IOA_Est_Status" ColumnName="IOA_Est_Status" />
+          <ScalarProperty Name="IOA_Remark_Id" ColumnName="IOA_Remark_Id" />
+          <ScalarProperty Name="IOA_ActionName" ColumnName="IOA_ActionName" />
+          <ScalarProperty Name="IOA_Id" ColumnName="IOA_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblInspectionOrderInspectors">
+      <EntityTypeMapping TypeName="EBFPModel.tblInspectionOrderInspectors">
+        <MappingFragment StoreEntitySet="tblInspectionOrderInspectors">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="Insp_Unit_Id" ColumnName="Insp_Unit_Id" />
+          <ScalarProperty Name="Insp_Emp_Id" ColumnName="Insp_Emp_Id" />
+          <ScalarProperty Name="Insp_IO_Id" ColumnName="Insp_IO_Id" />
+          <ScalarProperty Name="Ref_Insp_Id" ColumnName="Ref_Insp_Id" />
+          <ScalarProperty Name="Insp_Id" ColumnName="Insp_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblInspectionOrderRemarks">
+      <EntityTypeMapping TypeName="EBFPModel.tblInspectionOrderRemarks">
+        <MappingFragment StoreEntitySet="tblInspectionOrderRemarks">
+          <ScalarProperty Name="IOR_RemarkName" ColumnName="IOR_RemarkName" />
+          <ScalarProperty Name="IOR_Id" ColumnName="IOR_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblInventoryGroups">
+      <EntityTypeMapping TypeName="EBFPModel.tblInventoryGroups">
+        <MappingFragment StoreEntitySet="tblInventoryGroups">
+          <ScalarProperty Name="IG_LastUpdateDate" ColumnName="IG_LastUpdateDate" />
+          <ScalarProperty Name="IG_LastUpdate_Emp_Id" ColumnName="IG_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="IG_CreatedDate" ColumnName="IG_CreatedDate" />
+          <ScalarProperty Name="IG_Created_Emp_Id" ColumnName="IG_Created_Emp_Id" />
+          <ScalarProperty Name="IG_Description" ColumnName="IG_Description" />
+          <ScalarProperty Name="IG_Code" ColumnName="IG_Code" />
+          <ScalarProperty Name="IG_Id" ColumnName="IG_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblJobFunctions">
+      <EntityTypeMapping TypeName="EBFPModel.tblJobFunctions">
+        <MappingFragment StoreEntitySet="tblJobFunctions">
+          <ScalarProperty Name="JobFunc_Name" ColumnName="JobFunc_Name" />
+          <ScalarProperty Name="JobFunc_Code" ColumnName="JobFunc_Code" />
+          <ScalarProperty Name="JobFunc_Id" ColumnName="JobFunc_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLogisticAssets">
+      <EntityTypeMapping TypeName="EBFPModel.tblLogisticAssets">
+        <MappingFragment StoreEntitySet="tblLogisticAssets">
+          <ScalarProperty Name="AI_Emp_Id" ColumnName="AI_Emp_Id" />
+          <ScalarProperty Name="AI_Unit_Id" ColumnName="AI_Unit_Id" />
+          <ScalarProperty Name="AI_Item_Status" ColumnName="AI_Item_Status" />
+          <ScalarProperty Name="AI_Item_Category" ColumnName="AI_Item_Category" />
+          <ScalarProperty Name="AI_Item_Description" ColumnName="AI_Item_Description" />
+          <ScalarProperty Name="AI_Item_Name" ColumnName="AI_Item_Name" />
+          <ScalarProperty Name="AI_Item_Code" ColumnName="AI_Item_Code" />
+          <ScalarProperty Name="AI_Id" ColumnName="AI_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMandatoryTrainings">
+      <EntityTypeMapping TypeName="EBFPModel.tblMandatoryTrainings">
+        <MappingFragment StoreEntitySet="tblMandatoryTrainings">
+          <ScalarProperty Name="Training_Name" ColumnName="Training_Name" />
+          <ScalarProperty Name="Training_Id" ColumnName="Training_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMedical">
+      <EntityTypeMapping TypeName="EBFPModel.tblMedical">
+        <MappingFragment StoreEntitySet="tblMedical">
+          <ScalarProperty Name="Med_Details_Json" ColumnName="Med_Details_Json" />
+          <ScalarProperty Name="Med_CategoryId" ColumnName="Med_CategoryId" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="Med_Id" ColumnName="Med_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNoticeToComply">
+      <EntityTypeMapping TypeName="EBFPModel.tblNoticeToComply">
+        <MappingFragment StoreEntitySet="tblNoticeToComply">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="NTC_Unit_Id" ColumnName="NTC_Unit_Id" />
+          <ScalarProperty Name="NTC_Result_IO_Id" ColumnName="NTC_Result_IO_Id" />
+          <ScalarProperty Name="NTC_Status" ColumnName="NTC_Status" />
+          <ScalarProperty Name="NTC_LastUpdateDate" ColumnName="NTC_LastUpdateDate" />
+          <ScalarProperty Name="NTC_LastUpdate_Emp_Id" ColumnName="NTC_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="NTC_CreatedDate" ColumnName="NTC_CreatedDate" />
+          <ScalarProperty Name="NTC_Created_Emp_Id" ColumnName="NTC_Created_Emp_Id" />
+          <ScalarProperty Name="NTC_Ref_IO_Id" ColumnName="NTC_Ref_IO_Id" />
+          <ScalarProperty Name="NTC_Est_Id" ColumnName="NTC_Est_Id" />
+          <ScalarProperty Name="NTC_IssueDate" ColumnName="NTC_IssueDate" />
+          <ScalarProperty Name="Ref_NTC_Id" ColumnName="Ref_NTC_Id" />
+          <ScalarProperty Name="NTC_Id" ColumnName="NTC_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNoticeToCorrectViolations">
+      <EntityTypeMapping TypeName="EBFPModel.tblNoticeToCorrectViolations">
+        <MappingFragment StoreEntitySet="tblNoticeToCorrectViolations">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="NTCV_Unit_Id" ColumnName="NTCV_Unit_Id" />
+          <ScalarProperty Name="NTCV_Result_IO_Id" ColumnName="NTCV_Result_IO_Id" />
+          <ScalarProperty Name="NTCV_Status" ColumnName="NTCV_Status" />
+          <ScalarProperty Name="NTCV_LastUpdateDate" ColumnName="NTCV_LastUpdateDate" />
+          <ScalarProperty Name="NTCV_LastUpdate_Emp_Id" ColumnName="NTCV_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="NTCV_CreatedDate" ColumnName="NTCV_CreatedDate" />
+          <ScalarProperty Name="NTCV_Created_Emp_Id" ColumnName="NTCV_Created_Emp_Id" />
+          <ScalarProperty Name="NTCV_Ref_IO_Id" ColumnName="NTCV_Ref_IO_Id" />
+          <ScalarProperty Name="NTCV_Est_Id" ColumnName="NTCV_Est_Id" />
+          <ScalarProperty Name="NTCV_IssueDate" ColumnName="NTCV_IssueDate" />
+          <ScalarProperty Name="Ref_NTCV_Id" ColumnName="Ref_NTCV_Id" />
+          <ScalarProperty Name="NTCV_Id" ColumnName="NTCV_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOPSSeries">
+      <EntityTypeMapping TypeName="EBFPModel.tblOPSSeries">
+        <MappingFragment StoreEntitySet="tblOPSSeries">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="OPS_Unit_Id" ColumnName="OPS_Unit_Id" />
+          <ScalarProperty Name="OPS_LastUpdateDate" ColumnName="OPS_LastUpdateDate" />
+          <ScalarProperty Name="OPS_LastUpdate_Emp_Id" ColumnName="OPS_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="OPS_CreatedDate" ColumnName="OPS_CreatedDate" />
+          <ScalarProperty Name="OPS_Created_Emp_Id" ColumnName="OPS_Created_Emp_Id" />
+          <ScalarProperty Name="OPS_EndSeries" ColumnName="OPS_EndSeries" />
+          <ScalarProperty Name="OPS_StartSeries" ColumnName="OPS_StartSeries" />
+          <ScalarProperty Name="OPS_Issue_Date" ColumnName="OPS_Issue_Date" />
+          <ScalarProperty Name="Ref_OPS_Id" ColumnName="Ref_OPS_Id" />
+          <ScalarProperty Name="OPS_Id" ColumnName="OPS_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblORSeries">
+      <EntityTypeMapping TypeName="EBFPModel.tblORSeries">
+        <MappingFragment StoreEntitySet="tblORSeries">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="OR_Unit_Id" ColumnName="OR_Unit_Id" />
+          <ScalarProperty Name="OR_LastUpdateDate" ColumnName="OR_LastUpdateDate" />
+          <ScalarProperty Name="OR_LastUpdate_Emp_Id" ColumnName="OR_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="OR_CreatedDate" ColumnName="OR_CreatedDate" />
+          <ScalarProperty Name="OR_Created_Emp_Id" ColumnName="OR_Created_Emp_Id" />
+          <ScalarProperty Name="OR_EndSeries" ColumnName="OR_EndSeries" />
+          <ScalarProperty Name="OR_StartSeries" ColumnName="OR_StartSeries" />
+          <ScalarProperty Name="OR_Issue_Date" ColumnName="OR_Issue_Date" />
+          <ScalarProperty Name="Ref_OR_Id" ColumnName="Ref_OR_Id" />
+          <ScalarProperty Name="OR_Id" ColumnName="OR_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOtherVehicleModel">
+      <EntityTypeMapping TypeName="EBFPModel.tblOtherVehicleModel">
+        <MappingFragment StoreEntitySet="tblOtherVehicleModel">
+          <ScalarProperty Name="OVM_Name" ColumnName="OVM_Name" />
+          <ScalarProperty Name="OVM_Id" ColumnName="OVM_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOtherVehicles">
+      <EntityTypeMapping TypeName="EBFPModel.tblOtherVehicles">
+        <MappingFragment StoreEntitySet="tblOtherVehicles">
+          <ScalarProperty Name="Vehicle_ModifiedDate" ColumnName="Vehicle_ModifiedDate" />
+          <ScalarProperty Name="Vehicle_ModifiedBy" ColumnName="Vehicle_ModifiedBy" />
+          <ScalarProperty Name="Vehicle_CreatedDate" ColumnName="Vehicle_CreatedDate" />
+          <ScalarProperty Name="Vehicle_CreatedBy" ColumnName="Vehicle_CreatedBy" />
+          <ScalarProperty Name="Vehicle_RightView" ColumnName="Vehicle_RightView" />
+          <ScalarProperty Name="Vehicle_LeftView" ColumnName="Vehicle_LeftView" />
+          <ScalarProperty Name="Vehicle_RearView" ColumnName="Vehicle_RearView" />
+          <ScalarProperty Name="Vehicle_FrontView" ColumnName="Vehicle_FrontView" />
+          <ScalarProperty Name="Vehicle_Remarks" ColumnName="Vehicle_Remarks" />
+          <ScalarProperty Name="Vehicle_AcquisitionDate" ColumnName="Vehicle_AcquisitionDate" />
+          <ScalarProperty Name="Vehicle_ManufactureDate" ColumnName="Vehicle_ManufactureDate" />
+          <ScalarProperty Name="Vehicle_AcquisitionCost" ColumnName="Vehicle_AcquisitionCost" />
+          <ScalarProperty Name="Vehicle_ChasisNumber" ColumnName="Vehicle_ChasisNumber" />
+          <ScalarProperty Name="Vehicle_EngineNumber" ColumnName="Vehicle_EngineNumber" />
+          <ScalarProperty Name="Vehicle_PlateNumber" ColumnName="Vehicle_PlateNumber" />
+          <ScalarProperty Name="Vehicle_Type" ColumnName="Vehicle_Type" />
+          <ScalarProperty Name="Vehicle_Status" ColumnName="Vehicle_Status" />
+          <ScalarProperty Name="Vehicle_Owner" ColumnName="Vehicle_Owner" />
+          <ScalarProperty Name="Vehicle_Model" ColumnName="Vehicle_Model" />
+          <ScalarProperty Name="Vehicle_Id_Code" ColumnName="Vehicle_Id_Code" />
+          <ScalarProperty Name="Vehicle_SubStationId" ColumnName="Vehicle_SubStationId" />
+          <ScalarProperty Name="Vehicle_UnitId" ColumnName="Vehicle_UnitId" />
+          <ScalarProperty Name="Vehicle_Id" ColumnName="Vehicle_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPhysicalExam">
+      <EntityTypeMapping TypeName="EBFPModel.tblPhysicalExam">
+        <MappingFragment StoreEntitySet="tblPhysicalExam">
+          <ScalarProperty Name="PE_Details_Json" ColumnName="PE_Details_Json" />
+          <ScalarProperty Name="PE_CategoryId" ColumnName="PE_CategoryId" />
+          <ScalarProperty Name="PE_Date" ColumnName="PE_Date" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="PE_Id" ColumnName="PE_Id" />
+          <ScalarProperty Name="PE_Auto" ColumnName="PE_Auto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPhysicalInventory">
+      <EntityTypeMapping TypeName="EBFPModel.tblPhysicalInventory">
+        <MappingFragment StoreEntitySet="tblPhysicalInventory">
+          <ScalarProperty Name="PI_IsDeleted" ColumnName="PI_IsDeleted" />
+          <ScalarProperty Name="PI_UPI_Id" ColumnName="PI_UPI_Id" />
+          <ScalarProperty Name="PI_LastUpdateDate" ColumnName="PI_LastUpdateDate" />
+          <ScalarProperty Name="PI_LastUpdate_Emp_Id" ColumnName="PI_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="PI_CreatedDate" ColumnName="PI_CreatedDate" />
+          <ScalarProperty Name="PI_Created_Emp_Id" ColumnName="PI_Created_Emp_Id" />
+          <ScalarProperty Name="PI_Office" ColumnName="PI_Office" />
+          <ScalarProperty Name="PI_Remarks" ColumnName="PI_Remarks" />
+          <ScalarProperty Name="PI_Emp_Id" ColumnName="PI_Emp_Id" />
+          <ScalarProperty Name="PI_ICSNUmber" ColumnName="PI_ICSNUmber" />
+          <ScalarProperty Name="PI_ARENumber" ColumnName="PI_ARENumber" />
+          <ScalarProperty Name="PI_UnitValue" ColumnName="PI_UnitValue" />
+          <ScalarProperty Name="PI_DateAcquired" ColumnName="PI_DateAcquired" />
+          <ScalarProperty Name="PI_UnitOfMeasure" ColumnName="PI_UnitOfMeasure" />
+          <ScalarProperty Name="PI_StockNumber" ColumnName="PI_StockNumber" />
+          <ScalarProperty Name="PI_PropertyNumber" ColumnName="PI_PropertyNumber" />
+          <ScalarProperty Name="PI_Description" ColumnName="PI_Description" />
+          <ScalarProperty Name="PI_Unit_Id" ColumnName="PI_Unit_Id" />
+          <ScalarProperty Name="PI_Art_Id" ColumnName="PI_Art_Id" />
+          <ScalarProperty Name="PI_IG_Id" ColumnName="PI_IG_Id" />
+          <ScalarProperty Name="PI_Dir_Id" ColumnName="PI_Dir_Id" />
+          <ScalarProperty Name="PI_Id" ColumnName="PI_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPopulations">
+      <EntityTypeMapping TypeName="EBFPModel.tblPopulations">
+        <MappingFragment StoreEntitySet="tblPopulations">
+          <ScalarProperty Name="Population_Count" ColumnName="Population_Count" />
+          <ScalarProperty Name="Population_Year" ColumnName="Population_Year" />
+          <ScalarProperty Name="Population_Municipality_Id" ColumnName="Population_Municipality_Id" />
+          <ScalarProperty Name="Population_Id" ColumnName="Population_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblProvinces">
+      <EntityTypeMapping TypeName="EBFPModel.tblProvinces">
+        <MappingFragment StoreEntitySet="tblProvinces">
+          <ScalarProperty Name="Region_Id" ColumnName="Region_Id" />
+          <ScalarProperty Name="Province_Name" ColumnName="Province_Name" />
+          <ScalarProperty Name="Province_Id" ColumnName="Province_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblResidential">
+      <EntityTypeMapping TypeName="EBFPModel.tblResidential">
+        <MappingFragment StoreEntitySet="tblResidential">
+          <ScalarProperty Name="Res_MobileNUmber" ColumnName="Res_MobileNUmber" />
+          <ScalarProperty Name="Res_AuthorizedRepresentative" ColumnName="Res_AuthorizedRepresentative" />
+          <ScalarProperty Name="Res_Address" ColumnName="Res_Address" />
+          <ScalarProperty Name="Res_OwnerName" ColumnName="Res_OwnerName" />
+          <ScalarProperty Name="Res_Id" ColumnName="Res_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRoleAccess">
+      <EntityTypeMapping TypeName="EBFPModel.tblRoleAccess">
+        <MappingFragment StoreEntitySet="tblRoleAccess">
+          <ScalarProperty Name="RA_PageSecurityID" ColumnName="RA_PageSecurityID" />
+          <ScalarProperty Name="RA_Role_ID" ColumnName="RA_Role_ID" />
+          <ScalarProperty Name="RA_ID" ColumnName="RA_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSalaryGrades">
+      <EntityTypeMapping TypeName="EBFPModel.tblSalaryGrades">
+        <MappingFragment StoreEntitySet="tblSalaryGrades">
+          <ScalarProperty Name="SalaryGrade_Name" ColumnName="SalaryGrade_Name" />
+          <ScalarProperty Name="SalaryGrade_Id" ColumnName="SalaryGrade_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSpoiledOR">
+      <EntityTypeMapping TypeName="EBFPModel.tblSpoiledOR">
+        <MappingFragment StoreEntitySet="tblSpoiledOR">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="SOR_Unit_Id" ColumnName="SOR_Unit_Id" />
+          <ScalarProperty Name="SOR_CreatedDate" ColumnName="SOR_CreatedDate" />
+          <ScalarProperty Name="SOR_Created_Emp_Id" ColumnName="SOR_Created_Emp_Id" />
+          <ScalarProperty Name="SOR_Number" ColumnName="SOR_Number" />
+          <ScalarProperty Name="Ref_SOR_Id" ColumnName="Ref_SOR_Id" />
+          <ScalarProperty Name="SOR_Id" ColumnName="SOR_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTruckModel">
+      <EntityTypeMapping TypeName="EBFPModel.tblTruckModel">
+        <MappingFragment StoreEntitySet="tblTruckModel">
+          <ScalarProperty Name="TruckModel_Name" ColumnName="TruckModel_Name" />
+          <ScalarProperty Name="TruckModel_Id" ColumnName="TruckModel_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTrucks">
+      <EntityTypeMapping TypeName="EBFPModel.tblTrucks">
+        <MappingFragment StoreEntitySet="tblTrucks">
+          <ScalarProperty Name="Truck_ModifiedBy" ColumnName="Truck_ModifiedBy" />
+          <ScalarProperty Name="Truck_ModifiedDate" ColumnName="Truck_ModifiedDate" />
+          <ScalarProperty Name="Truck_CreatedBy" ColumnName="Truck_CreatedBy" />
+          <ScalarProperty Name="Truck_DateCreated" ColumnName="Truck_DateCreated" />
+          <ScalarProperty Name="Truck_RightView" ColumnName="Truck_RightView" />
+          <ScalarProperty Name="Truck_LeftView" ColumnName="Truck_LeftView" />
+          <ScalarProperty Name="Truck_RearView" ColumnName="Truck_RearView" />
+          <ScalarProperty Name="Truck_FrontView" ColumnName="Truck_FrontView" />
+          <ScalarProperty Name="Truck_Remarks" ColumnName="Truck_Remarks" />
+          <ScalarProperty Name="Truck_AcquisitionDate" ColumnName="Truck_AcquisitionDate" />
+          <ScalarProperty Name="Truck_ManufactureDate" ColumnName="Truck_ManufactureDate" />
+          <ScalarProperty Name="Truck_AcquisitionCost" ColumnName="Truck_AcquisitionCost" />
+          <ScalarProperty Name="Truck_VehicleCodeNumber" ColumnName="Truck_VehicleCodeNumber" />
+          <ScalarProperty Name="Truck_MotorVehicleNumber" ColumnName="Truck_MotorVehicleNumber" />
+          <ScalarProperty Name="Truck_ChassisNumber" ColumnName="Truck_ChassisNumber" />
+          <ScalarProperty Name="Truck_EngineNumber" ColumnName="Truck_EngineNumber" />
+          <ScalarProperty Name="Truck_PlateNumber" ColumnName="Truck_PlateNumber" />
+          <ScalarProperty Name="Truck_Type" ColumnName="Truck_Type" />
+          <ScalarProperty Name="Truck_Capacity" ColumnName="Truck_Capacity" />
+          <ScalarProperty Name="Truck_Status" ColumnName="Truck_Status" />
+          <ScalarProperty Name="Truck_Owner" ColumnName="Truck_Owner" />
+          <ScalarProperty Name="Truck_Model" ColumnName="Truck_Model" />
+          <ScalarProperty Name="Truck_Id_Code" ColumnName="Truck_Id_Code" />
+          <ScalarProperty Name="Truck_SubStationId" ColumnName="Truck_SubStationId" />
+          <ScalarProperty Name="Truck_UnitId" ColumnName="Truck_UnitId" />
+          <ScalarProperty Name="Truck_Id" ColumnName="Truck_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUnitDeposits">
+      <EntityTypeMapping TypeName="EBFPModel.tblUnitDeposits">
+        <MappingFragment StoreEntitySet="tblUnitDeposits">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="Dep_LastUpdateDate" ColumnName="Dep_LastUpdateDate" />
+          <ScalarProperty Name="Dep_LastUpdate_Emp_Id" ColumnName="Dep_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="Dep_CreatedDate" ColumnName="Dep_CreatedDate" />
+          <ScalarProperty Name="Dep_Created_Emp_Id" ColumnName="Dep_Created_Emp_Id" />
+          <ScalarProperty Name="Dep_Depositor_Emp_Id" ColumnName="Dep_Depositor_Emp_Id" />
+          <ScalarProperty Name="Dep_DepositDate" ColumnName="Dep_DepositDate" />
+          <ScalarProperty Name="Dep_Collection_EndDate" ColumnName="Dep_Collection_EndDate" />
+          <ScalarProperty Name="Dep_Collection_StartDate" ColumnName="Dep_Collection_StartDate" />
+          <ScalarProperty Name="Dep_Bank" ColumnName="Dep_Bank" />
+          <ScalarProperty Name="Dep_Amount" ColumnName="Dep_Amount" />
+          <ScalarProperty Name="Dep_LC_No" ColumnName="Dep_LC_No" />
+          <ScalarProperty Name="Dep_Unit_Id" ColumnName="Dep_Unit_Id" />
+          <ScalarProperty Name="Ref_Dep_Id" ColumnName="Ref_Dep_Id" />
+          <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUnserviceablePhysicalInventory">
+      <EntityTypeMapping TypeName="EBFPModel.tblUnserviceablePhysicalInventory">
+        <MappingFragment StoreEntitySet="tblUnserviceablePhysicalInventory">
+          <ScalarProperty Name="UPI_LastUpdateDate" ColumnName="UPI_LastUpdateDate" />
+          <ScalarProperty Name="UPI_LastUpdate_Emp_Id" ColumnName="UPI_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="UPI_CreatedDate" ColumnName="UPI_CreatedDate" />
+          <ScalarProperty Name="UPI_Created_Emp_Id" ColumnName="UPI_Created_Emp_Id" />
+          <ScalarProperty Name="UPI_ReportingOffice" ColumnName="UPI_ReportingOffice" />
+          <ScalarProperty Name="UPI_WMR" ColumnName="UPI_WMR" />
+          <ScalarProperty Name="UPI_Id" ColumnName="UPI_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUserInRole">
+      <EntityTypeMapping TypeName="EBFPModel.tblUserInRole">
+        <MappingFragment StoreEntitySet="tblUserInRole">
+          <ScalarProperty Name="UIR_EmployeeID" ColumnName="UIR_EmployeeID" />
+          <ScalarProperty Name="UIR_RoleID" ColumnName="UIR_RoleID" />
+          <ScalarProperty Name="UIR_ID" ColumnName="UIR_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblWebPages">
+      <EntityTypeMapping TypeName="EBFPModel.tblWebPages">
+        <MappingFragment StoreEntitySet="tblWebPages">
+          <ScalarProperty Name="ViewFriendlyName" ColumnName="ViewFriendlyName" />
+          <ScalarProperty Name="ViewName" ColumnName="ViewName" />
+          <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="ViewID" ColumnName="ViewID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Membership">
+      <EntityTypeMapping TypeName="EBFPModel.webpages_Membership">
+        <MappingFragment StoreEntitySet="webpages_Membership">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="PasswordDecrypted" ColumnName="PasswordDecrypted" />
+          <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+          <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+          <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_OAuthMembership">
+      <EntityTypeMapping TypeName="EBFPModel.webpages_OAuthMembership">
+        <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+          <ScalarProperty Name="Provider" ColumnName="Provider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Roles">
+      <EntityTypeMapping TypeName="EBFPModel.webpages_Roles">
+        <MappingFragment StoreEntitySet="webpages_Roles">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFirePreventionCounter">
+      <EntityTypeMapping TypeName="EBFPModel.vwFirePreventionCounter">
+        <MappingFragment StoreEntitySet="vwFirePreventionCounter">
+          <ScalarProperty Name="EST_Moderate_Low" ColumnName="EST_Moderate_Low" />
+          <ScalarProperty Name="EST_High" ColumnName="EST_High" />
+          <ScalarProperty Name="EST_TotalCount" ColumnName="EST_TotalCount" />
+          <ScalarProperty Name="IO_RM_RefuseEntryInspection" ColumnName="IO_RM_RefuseEntryInspection" />
+          <ScalarProperty Name="IO_RM_CannotBeLocated" ColumnName="IO_RM_CannotBeLocated" />
+          <ScalarProperty Name="IO_AT_ClosurePendingEvaluation" ColumnName="IO_AT_ClosurePendingEvaluation" />
+          <ScalarProperty Name="IO_AT_IssuedClosureOrder" ColumnName="IO_AT_IssuedClosureOrder" />
+          <ScalarProperty Name="IO_AT_IssuedNTC" ColumnName="IO_AT_IssuedNTC" />
+          <ScalarProperty Name="IO_AT_IssuanceOfNTC" ColumnName="IO_AT_IssuanceOfNTC" />
+          <ScalarProperty Name="IO_AT_IssuedFSIC" ColumnName="IO_AT_IssuedFSIC" />
+          <ScalarProperty Name="IO_AT_IssuanceOfFSIC" ColumnName="IO_AT_IssuanceOfFSIC" />
+          <ScalarProperty Name="IO_Others" ColumnName="IO_Others" />
+          <ScalarProperty Name="IO_ForClosure" ColumnName="IO_ForClosure" />
+          <ScalarProperty Name="IO_ForCompliance" ColumnName="IO_ForCompliance" />
+          <ScalarProperty Name="IO_Complaint" ColumnName="IO_Complaint" />
+          <ScalarProperty Name="IO_TotalCount" ColumnName="IO_TotalCount" />
+          <ScalarProperty Name="KeyCounter" ColumnName="KeyCounter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFireInvestigation">
+      <EntityTypeMapping TypeName="EBFPModel.vwFireInvestigation">
+        <MappingFragment StoreEntitySet="vwFireInvestigation">
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Est_AuthorizedRepresentative" ColumnName="Est_AuthorizedRepresentative" />
+          <ScalarProperty Name="Est_OwnerName" ColumnName="Est_OwnerName" />
+          <ScalarProperty Name="Est_BusinessPermitNumber" ColumnName="Est_BusinessPermitNumber" />
+          <ScalarProperty Name="Est_BusinessTradeName" ColumnName="Est_BusinessTradeName" />
+          <ScalarProperty Name="Est_BusinessAddress" ColumnName="Est_BusinessAddress" />
+          <ScalarProperty Name="Est_BusinessName" ColumnName="Est_BusinessName" />
+          <ScalarProperty Name="FI_LastUpdateDate" ColumnName="FI_LastUpdateDate" />
+          <ScalarProperty Name="FI_LastUpdate_Emp_Id" ColumnName="FI_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="FI_CreatedDate" ColumnName="FI_CreatedDate" />
+          <ScalarProperty Name="FI_Created_Emp_Id" ColumnName="FI_Created_Emp_Id" />
+          <ScalarProperty Name="FI_Disposition" ColumnName="FI_Disposition" />
+          <ScalarProperty Name="FI_Details" ColumnName="FI_Details" />
+          <ScalarProperty Name="FI_TypeIndex" ColumnName="FI_TypeIndex" />
+          <ScalarProperty Name="FI_EstimatedDamage" ColumnName="FI_EstimatedDamage" />
+          <ScalarProperty Name="FI_Injured" ColumnName="FI_Injured" />
+          <ScalarProperty Name="FI_Casualty" ColumnName="FI_Casualty" />
+          <ScalarProperty Name="FI_Status_Fire_Incident" ColumnName="FI_Status_Fire_Incident" />
+          <ScalarProperty Name="FI_FireOrigin" ColumnName="FI_FireOrigin" />
+          <ScalarProperty Name="FI_FireCause" ColumnName="FI_FireCause" />
+          <ScalarProperty Name="FI_Owner_Occupant" ColumnName="FI_Owner_Occupant" />
+          <ScalarProperty Name="FI_Est_Id" ColumnName="FI_Est_Id" />
+          <ScalarProperty Name="FI_Involved_OccupancyType_Description" ColumnName="FI_Involved_OccupancyType_Description" />
+          <ScalarProperty Name="FI_Involved_OccupancyType" ColumnName="FI_Involved_OccupancyType" />
+          <ScalarProperty Name="FI_FireGround_Commander" ColumnName="FI_FireGround_Commander" />
+          <ScalarProperty Name="FI_AlarmType" ColumnName="FI_AlarmType" />
+          <ScalarProperty Name="FI_RespondingUnit_StationArrival" ColumnName="FI_RespondingUnit_StationArrival" />
+          <ScalarProperty Name="FI_FireOutDate" ColumnName="FI_FireOutDate" />
+          <ScalarProperty Name="FI_FirstRespondingUnit_Arrival" ColumnName="FI_FirstRespondingUnit_Arrival" />
+          <ScalarProperty Name="FI_FirstRespondingUnit_Departure" ColumnName="FI_FirstRespondingUnit_Departure" />
+          <ScalarProperty Name="FI_FireStartedDate" ColumnName="FI_FireStartedDate" />
+          <ScalarProperty Name="FI_Informant_Address" ColumnName="FI_Informant_Address" />
+          <ScalarProperty Name="FI_Informant_Number" ColumnName="FI_Informant_Number" />
+          <ScalarProperty Name="FI_Informant_Name" ColumnName="FI_Informant_Name" />
+          <ScalarProperty Name="FI_IncidentReportDate" ColumnName="FI_IncidentReportDate" />
+          <ScalarProperty Name="FI_DTPO" ColumnName="FI_DTPO" />
+          <ScalarProperty Name="FI_Unit_Id" ColumnName="FI_Unit_Id" />
+          <ScalarProperty Name="FI_Id" ColumnName="FI_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSuppliesInventory">
+      <EntityTypeMapping TypeName="EBFPModel.tblSuppliesInventory">
+        <MappingFragment StoreEntitySet="tblSuppliesInventory">
+          <ScalarProperty Name="SI_IsDeleted" ColumnName="SI_IsDeleted" />
+          <ScalarProperty Name="SI_LastUpdateDate" ColumnName="SI_LastUpdateDate" />
+          <ScalarProperty Name="SI_LastUpdate_Emp_Id" ColumnName="SI_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="SI_CreatedDate" ColumnName="SI_CreatedDate" />
+          <ScalarProperty Name="SI_Created_Emp_Id" ColumnName="SI_Created_Emp_Id" />
+          <ScalarProperty Name="SI_Quantity" ColumnName="SI_Quantity" />
+          <ScalarProperty Name="SI_UnitValue" ColumnName="SI_UnitValue" />
+          <ScalarProperty Name="SI_DateAcquired" ColumnName="SI_DateAcquired" />
+          <ScalarProperty Name="SI_UnitOfMeasure" ColumnName="SI_UnitOfMeasure" />
+          <ScalarProperty Name="SI_StockNumber" ColumnName="SI_StockNumber" />
+          <ScalarProperty Name="SI_Description" ColumnName="SI_Description" />
+          <ScalarProperty Name="SI_Unit_Id" ColumnName="SI_Unit_Id" />
+          <ScalarProperty Name="SI_Art_Id" ColumnName="SI_Art_Id" />
+          <ScalarProperty Name="SI_Id" ColumnName="SI_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSuppliesInventoryOut">
+      <EntityTypeMapping TypeName="EBFPModel.tblSuppliesInventoryOut">
+        <MappingFragment StoreEntitySet="tblSuppliesInventoryOut">
+          <ScalarProperty Name="SIO_LastUpdateDate" ColumnName="SIO_LastUpdateDate" />
+          <ScalarProperty Name="SIO_LastUpdate_Emp_Id" ColumnName="SIO_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="SIO_CreatedDate" ColumnName="SIO_CreatedDate" />
+          <ScalarProperty Name="SIO_Created_Emp_Id" ColumnName="SIO_Created_Emp_Id" />
+          <ScalarProperty Name="SIO_Remarks" ColumnName="SIO_Remarks" />
+          <ScalarProperty Name="SIO_Emp_Id" ColumnName="SIO_Emp_Id" />
+          <ScalarProperty Name="SIO_QuantityOut" ColumnName="SIO_QuantityOut" />
+          <ScalarProperty Name="SIO_OutDate" ColumnName="SIO_OutDate" />
+          <ScalarProperty Name="SI_Id" ColumnName="SI_Id" />
+          <ScalarProperty Name="SIO_Id" ColumnName="SIO_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeAppointments">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeAppointments">
+        <MappingFragment StoreEntitySet="tblEmployeeAppointments">
+          <ScalarProperty Name="EA_LastUpdateDate" ColumnName="EA_LastUpdateDate" />
+          <ScalarProperty Name="EA_LastUpdate_Emp_Id" ColumnName="EA_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="EA_CreatedDate" ColumnName="EA_CreatedDate" />
+          <ScalarProperty Name="EA_Created_Emp_Id" ColumnName="EA_Created_Emp_Id" />
+          <ScalarProperty Name="EA_NonRenewalReason" ColumnName="EA_NonRenewalReason" />
+          <ScalarProperty Name="EA_AttestmentDate" ColumnName="EA_AttestmentDate" />
+          <ScalarProperty Name="EA_AttestingAuthorityDesignation" ColumnName="EA_AttestingAuthorityDesignation" />
+          <ScalarProperty Name="EA_AttestingAuthority" ColumnName="EA_AttestingAuthority" />
+          <ScalarProperty Name="EA_AppointmentDate" ColumnName="EA_AppointmentDate" />
+          <ScalarProperty Name="EA_AppointingAuthority" ColumnName="EA_AppointingAuthority" />
+          <ScalarProperty Name="EA_PositionVacatedBy" ColumnName="EA_PositionVacatedBy" />
+          <ScalarProperty Name="EA_AppoitmentNature" ColumnName="EA_AppoitmentNature" />
+          <ScalarProperty Name="EA_ItemNumber" ColumnName="EA_ItemNumber" />
+          <ScalarProperty Name="EA_AppoitmentStatus" ColumnName="EA_AppoitmentStatus" />
+          <ScalarProperty Name="EA_Rank_Id" ColumnName="EA_Rank_Id" />
+          <ScalarProperty Name="EA_Emp_Id" ColumnName="EA_Emp_Id" />
+          <ScalarProperty Name="EA_Id" ColumnName="EA_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAfterFireOperationPersonnelsOnDuty">
+      <EntityTypeMapping TypeName="EBFPModel.tblAfterFireOperationPersonnelsOnDuty">
+        <MappingFragment StoreEntitySet="tblAfterFireOperationPersonnelsOnDuty">
+          <ScalarProperty Name="POD_Remarks" ColumnName="POD_Remarks" />
+          <ScalarProperty Name="POD_InScene" ColumnName="POD_InScene" />
+          <ScalarProperty Name="POD_Emp_Id" ColumnName="POD_Emp_Id" />
+          <ScalarProperty Name="POD_AFO_Id" ColumnName="POD_AFO_Id" />
+          <ScalarProperty Name="POD_Id" ColumnName="POD_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLogs">
+      <EntityTypeMapping TypeName="EBFPModel.tblLogs">
+        <MappingFragment StoreEntitySet="tblLogs">
+          <ScalarProperty Name="Log_Updated_Emp_Id" ColumnName="Log_Updated_Emp_Id" />
+          <ScalarProperty Name="Log_UpdatedDate" ColumnName="Log_UpdatedDate" />
+          <ScalarProperty Name="Log_Remarks" ColumnName="Log_Remarks" />
+          <ScalarProperty Name="Log_Emp_Id" ColumnName="Log_Emp_Id" />
+          <ScalarProperty Name="Log_Id" ColumnName="Log_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFees">
+      <EntityTypeMapping TypeName="EBFPModel.vwFees">
+        <MappingFragment StoreEntitySet="vwFees">
+          <ScalarProperty Name="ForBusinessFee" ColumnName="ForBusinessFee" />
+          <ScalarProperty Name="ForOccupancyFee" ColumnName="ForOccupancyFee" />
+          <ScalarProperty Name="ApplicationType" ColumnName="ApplicationType" />
+          <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
+          <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+          <ScalarProperty Name="FireSafetyInspectionFee" ColumnName="FireSafetyInspectionFee" />
+          <ScalarProperty Name="FireCodeAdminFine" ColumnName="FireCodeAdminFine" />
+          <ScalarProperty Name="InstallationClearanceFee" ColumnName="InstallationClearanceFee" />
+          <ScalarProperty Name="ConveyanceClearanceFee" ColumnName="ConveyanceClearanceFee" />
+          <ScalarProperty Name="StorageClearanceFee" ColumnName="StorageClearanceFee" />
+          <ScalarProperty Name="ProceedsTax" ColumnName="ProceedsTax" />
+          <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
+          <ScalarProperty Name="PremiumTax" ColumnName="PremiumTax" />
+          <ScalarProperty Name="RealtyTax" ColumnName="RealtyTax" />
+          <ScalarProperty Name="ConstructionTax" ColumnName="ConstructionTax" />
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFirePreventionIOCounter">
+      <EntityTypeMapping TypeName="EBFPModel.vwFirePreventionIOCounter">
+        <MappingFragment StoreEntitySet="vwFirePreventionIOCounter">
+          <ScalarProperty Name="IO_AT_IssuedNTC" ColumnName="IO_AT_IssuedNTC" />
+          <ScalarProperty Name="IO_AT_IssuanceOfNTC" ColumnName="IO_AT_IssuanceOfNTC" />
+          <ScalarProperty Name="IO_Unit_Id" ColumnName="IO_Unit_Id" />
+          <ScalarProperty Name="Province_Id" ColumnName="Province_Id" />
+          <ScalarProperty Name="Reg_Id" ColumnName="Reg_Id" />
+          <ScalarProperty Name="IO_Id" ColumnName="IO_Id" />
+          <ScalarProperty Name="IO_RM_RefuseEntryInspection" ColumnName="IO_RM_RefuseEntryInspection" />
+          <ScalarProperty Name="IO_RM_CannotBeLocated" ColumnName="IO_RM_CannotBeLocated" />
+          <ScalarProperty Name="IO_AT_ClosurePendingEvaluation" ColumnName="IO_AT_ClosurePendingEvaluation" />
+          <ScalarProperty Name="IO_AT_IssuedClosureOrder" ColumnName="IO_AT_IssuedClosureOrder" />
+          <ScalarProperty Name="IO_AT_IssuedFSIC" ColumnName="IO_AT_IssuedFSIC" />
+          <ScalarProperty Name="IO_AT_IssuanceOfFSIC" ColumnName="IO_AT_IssuanceOfFSIC" />
+          <ScalarProperty Name="IO_Others" ColumnName="IO_Others" />
+          <ScalarProperty Name="IO_ForClosure" ColumnName="IO_ForClosure" />
+          <ScalarProperty Name="IO_ForCompliance" ColumnName="IO_ForCompliance" />
+          <ScalarProperty Name="IO_Complaint" ColumnName="IO_Complaint" />
+          <ScalarProperty Name="KeyCounter" ColumnName="KeyCounter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFirePreventionEstCounter">
+      <EntityTypeMapping TypeName="EBFPModel.vwFirePreventionEstCounter">
+        <MappingFragment StoreEntitySet="vwFirePreventionEstCounter">
+          <ScalarProperty Name="Est_Unit_Id" ColumnName="Est_Unit_Id" />
+          <ScalarProperty Name="Reg_Id" ColumnName="Reg_Id" />
+          <ScalarProperty Name="Province_Id" ColumnName="Province_Id" />
+          <ScalarProperty Name="EST_Moderate_Low" ColumnName="EST_Moderate_Low" />
+          <ScalarProperty Name="EST_High" ColumnName="EST_High" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFPSSComplianceTable">
+      <EntityTypeMapping TypeName="EBFPModel.vwFPSSComplianceTable">
+        <MappingFragment StoreEntitySet="vwFPSSComplianceTable">
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Compliance" ColumnName="Compliance" />
+          <ScalarProperty Name="Deficiency" ColumnName="Deficiency" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="ComplianceType" ColumnName="ComplianceType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetFees" FunctionName="EBFPModel.Store.GetFees">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EBFPModel.GetFees_Result">
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="ConstructionTax" ColumnName="ConstructionTax" />
+          <ScalarProperty Name="RealtyTax" ColumnName="RealtyTax" />
+          <ScalarProperty Name="PremiumTax" ColumnName="PremiumTax" />
+          <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
+          <ScalarProperty Name="ProceedsTax" ColumnName="ProceedsTax" />
+          <ScalarProperty Name="StorageClearanceFee" ColumnName="StorageClearanceFee" />
+          <ScalarProperty Name="ConveyanceClearanceFee" ColumnName="ConveyanceClearanceFee" />
+          <ScalarProperty Name="InstallationClearanceFee" ColumnName="InstallationClearanceFee" />
+          <ScalarProperty Name="FireCodeAdminFine" ColumnName="FireCodeAdminFine" />
+          <ScalarProperty Name="FireSafetyInspectionFee" ColumnName="FireSafetyInspectionFee" />
+          <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+          <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
+          <ScalarProperty Name="ApplicationType" ColumnName="ApplicationType" />
+          <ScalarProperty Name="ForOccupancyFee" ColumnName="ForOccupancyFee" />
+          <ScalarProperty Name="ForBusinessFee" ColumnName="ForBusinessFee" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tblEligibilities">
+      <EntityTypeMapping TypeName="EBFPModel.tblEligibilities">
+        <MappingFragment StoreEntitySet="tblEligibilities">
+          <ScalarProperty Name="Eligibility_Level" ColumnName="Eligibility_Level" />
+          <ScalarProperty Name="Eligibity_Name" ColumnName="Eligibity_Name" />
+          <ScalarProperty Name="Eligiblity_Id" ColumnName="Eligiblity_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblReligions">
+      <EntityTypeMapping TypeName="EBFPModel.tblReligions">
+        <MappingFragment StoreEntitySet="tblReligions">
+          <ScalarProperty Name="Religion_Name" ColumnName="Religion_Name" />
+          <ScalarProperty Name="Religion_Id" ColumnName="Religion_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUnitSubStation">
+      <EntityTypeMapping TypeName="EBFPModel.tblUnitSubStation">
+        <MappingFragment StoreEntitySet="tblUnitSubStation">
+          <ScalarProperty Name="Sub_WithBuilding" ColumnName="Sub_WithBuilding" />
+          <ScalarProperty Name="Sub_FireMarshall_EmpId" ColumnName="Sub_FireMarshall_EmpId" />
+          <ScalarProperty Name="Sub_Remarks" ColumnName="Sub_Remarks" />
+          <ScalarProperty Name="Sub_ActiviationDate" ColumnName="Sub_ActiviationDate" />
+          <ScalarProperty Name="Sub_NumberStorey" ColumnName="Sub_NumberStorey" />
+          <ScalarProperty Name="Sub_LotArea" ColumnName="Sub_LotArea" />
+          <ScalarProperty Name="Sub_FloorArea" ColumnName="Sub_FloorArea" />
+          <ScalarProperty Name="Sub_LotStatus" ColumnName="Sub_LotStatus" />
+          <ScalarProperty Name="Sub_LotOwner" ColumnName="Sub_LotOwner" />
+          <ScalarProperty Name="Sub_BuildingOwner" ColumnName="Sub_BuildingOwner" />
+          <ScalarProperty Name="Sub_BuildingStatus" ColumnName="Sub_BuildingStatus" />
+          <ScalarProperty Name="Sub_Email" ColumnName="Sub_Email" />
+          <ScalarProperty Name="Sub_CellNumber" ColumnName="Sub_CellNumber" />
+          <ScalarProperty Name="Sub_PhoneNumber" ColumnName="Sub_PhoneNumber" />
+          <ScalarProperty Name="Sub_Coordinate" ColumnName="Sub_Coordinate" />
+          <ScalarProperty Name="Sub_Barangay" ColumnName="Sub_Barangay" />
+          <ScalarProperty Name="Sub_Street" ColumnName="Sub_Street" />
+          <ScalarProperty Name="Sub_Station_Name" ColumnName="Sub_Station_Name" />
+          <ScalarProperty Name="Sub_Station_Code" ColumnName="Sub_Station_Code" />
+          <ScalarProperty Name="Sub_Unit_Id" ColumnName="Sub_Unit_Id" />
+          <ScalarProperty Name="Sub_Id" ColumnName="Sub_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeWorkExperiences">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeWorkExperiences">
+        <MappingFragment StoreEntitySet="tblEmployeeWorkExperiences">
+          <ScalarProperty Name="EWE_Emp_Id" ColumnName="EWE_Emp_Id" />
+          <ScalarProperty Name="EWE_GovtService" ColumnName="EWE_GovtService" />
+          <ScalarProperty Name="EWE_ApptStatus" ColumnName="EWE_ApptStatus" />
+          <ScalarProperty Name="EWE_SalaryGrade" ColumnName="EWE_SalaryGrade" />
+          <ScalarProperty Name="EWE_MonthlySalary" ColumnName="EWE_MonthlySalary" />
+          <ScalarProperty Name="EWE_EndDate" ColumnName="EWE_EndDate" />
+          <ScalarProperty Name="EWE_StartDate" ColumnName="EWE_StartDate" />
+          <ScalarProperty Name="EWE_PositionTitle" ColumnName="EWE_PositionTitle" />
+          <ScalarProperty Name="EWE_CompanyName" ColumnName="EWE_CompanyName" />
+          <ScalarProperty Name="EWE_Id" ColumnName="EWE_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFSECFeesSummary">
+      <EntityTypeMapping TypeName="EBFPModel.vwFSECFeesSummary">
+        <MappingFragment StoreEntitySet="vwFSECFeesSummary">
+          <ScalarProperty Name="Municipality_Id" ColumnName="Municipality_Id" />
+          <ScalarProperty Name="Province_Id" ColumnName="Province_Id" />
+          <ScalarProperty Name="Reg_Id" ColumnName="Reg_Id" />
+          <ScalarProperty Name="Unit_Id" ColumnName="Unit_Id" />
+          <ScalarProperty Name="FSEC_Status" ColumnName="FSEC_Status" />
+          <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+          <ScalarProperty Name="ConstructionTax" ColumnName="ConstructionTax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFSICFeesSummary">
+      <EntityTypeMapping TypeName="EBFPModel.vwFSICFeesSummary">
+        <MappingFragment StoreEntitySet="vwFSICFeesSummary">
+          <ScalarProperty Name="Municipality_Id" ColumnName="Municipality_Id" />
+          <ScalarProperty Name="Province_Id" ColumnName="Province_Id" />
+          <ScalarProperty Name="Reg_Id" ColumnName="Reg_Id" />
+          <ScalarProperty Name="Unit_Id" ColumnName="Unit_Id" />
+          <ScalarProperty Name="FSIC_Status" ColumnName="FSIC_Status" />
+          <ScalarProperty Name="FSIC_ApplicationType" ColumnName="FSIC_ApplicationType" />
+          <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+          <ScalarProperty Name="FireCodeAdminFine" ColumnName="FireCodeAdminFine" />
+          <ScalarProperty Name="InstallationClearanceFee" ColumnName="InstallationClearanceFee" />
+          <ScalarProperty Name="ConveyanceClearanceFee" ColumnName="ConveyanceClearanceFee" />
+          <ScalarProperty Name="StorageClearanceFee" ColumnName="StorageClearanceFee" />
+          <ScalarProperty Name="FireSafetyInspectionFee" ColumnName="FireSafetyInspectionFee" />
+          <ScalarProperty Name="ProceedsTax" ColumnName="ProceedsTax" />
+          <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
+          <ScalarProperty Name="PremiumTax" ColumnName="PremiumTax" />
+          <ScalarProperty Name="RealtyTax" ColumnName="RealtyTax" />
+          <ScalarProperty Name="ConstructionTax" ColumnName="ConstructionTax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwOtherFeesSummary">
+      <EntityTypeMapping TypeName="EBFPModel.vwOtherFeesSummary">
+        <MappingFragment StoreEntitySet="vwOtherFeesSummary">
+          <ScalarProperty Name="Municipality_Id" ColumnName="Municipality_Id" />
+          <ScalarProperty Name="Province_Id" ColumnName="Province_Id" />
+          <ScalarProperty Name="Reg_Id" ColumnName="Reg_Id" />
+          <ScalarProperty Name="Unit_Id" ColumnName="Unit_Id" />
+          <ScalarProperty Name="OF_Status" ColumnName="OF_Status" />
+          <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAfterFireOperations">
+      <EntityTypeMapping TypeName="EBFPModel.tblAfterFireOperations">
+        <MappingFragment StoreEntitySet="tblAfterFireOperations">
+          <ScalarProperty Name="AFO_LastUpdateDate" ColumnName="AFO_LastUpdateDate" />
+          <ScalarProperty Name="AFO_LastUpdate_Emp_Id" ColumnName="AFO_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="AFO_CreatedDate" ColumnName="AFO_CreatedDate" />
+          <ScalarProperty Name="AFO_Created_Emp_Id" ColumnName="AFO_Created_Emp_Id" />
+          <ScalarProperty Name="AFO_ObservationsRecommendations" ColumnName="AFO_ObservationsRecommendations" />
+          <ScalarProperty Name="AFO_ProblemsEncountered" ColumnName="AFO_ProblemsEncountered" />
+          <ScalarProperty Name="AFO_FireOperationStory" ColumnName="AFO_FireOperationStory" />
+          <ScalarProperty Name="AFO_Instruction" ColumnName="AFO_Instruction" />
+          <ScalarProperty Name="AFO_LastServiceDate" ColumnName="AFO_LastServiceDate" />
+          <ScalarProperty Name="AFO_ServiceBy" ColumnName="AFO_ServiceBy" />
+          <ScalarProperty Name="AFO_DistanceTravelled" ColumnName="AFO_DistanceTravelled" />
+          <ScalarProperty Name="AFO_StructureGeneralDescription" ColumnName="AFO_StructureGeneralDescription" />
+          <ScalarProperty Name="AFO_Motives" ColumnName="AFO_Motives" />
+          <ScalarProperty Name="AFO_Classification" ColumnName="AFO_Classification" />
+          <ScalarProperty Name="AFO_Classification_Remarks" ColumnName="AFO_Classification_Remarks" />
+          <ScalarProperty Name="AFO_AlarmReceived_Remarks" ColumnName="AFO_AlarmReceived_Remarks" />
+          <ScalarProperty Name="AFO_AlarmReceived_Officer" ColumnName="AFO_AlarmReceived_Officer" />
+          <ScalarProperty Name="AFO_Informant_Address" ColumnName="AFO_Informant_Address" />
+          <ScalarProperty Name="AFO_Informant_Name" ColumnName="AFO_Informant_Name" />
+          <ScalarProperty Name="AFO_AlarmReceived_Address" ColumnName="AFO_AlarmReceived_Address" />
+          <ScalarProperty Name="AFO_AlarmReceived_Date" ColumnName="AFO_AlarmReceived_Date" />
+          <ScalarProperty Name="AFO_FireIncident_Address" ColumnName="AFO_FireIncident_Address" />
+          <ScalarProperty Name="AFO_FireIncident_Date" ColumnName="AFO_FireIncident_Date" />
+          <ScalarProperty Name="AFO_Unit_Id" ColumnName="AFO_Unit_Id" />
+          <ScalarProperty Name="AFO_FI_Id" ColumnName="AFO_FI_Id" />
+          <ScalarProperty Name="AFO_Id" ColumnName="AFO_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblFireInvestigations">
+      <EntityTypeMapping TypeName="EBFPModel.tblFireInvestigations">
+        <MappingFragment StoreEntitySet="tblFireInvestigations">
+          <ScalarProperty Name="FI_Est_Id" ColumnName="FI_Est_Id" />
+          <ScalarProperty Name="FI_Establishment" ColumnName="FI_Establishment" />
+          <ScalarProperty Name="FI_LastUpdateDate" ColumnName="FI_LastUpdateDate" />
+          <ScalarProperty Name="FI_LastUpdate_Emp_Id" ColumnName="FI_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="FI_CreatedDate" ColumnName="FI_CreatedDate" />
+          <ScalarProperty Name="FI_Created_Emp_Id" ColumnName="FI_Created_Emp_Id" />
+          <ScalarProperty Name="FI_Disposition" ColumnName="FI_Disposition" />
+          <ScalarProperty Name="FI_Details" ColumnName="FI_Details" />
+          <ScalarProperty Name="FI_TypeIndex" ColumnName="FI_TypeIndex" />
+          <ScalarProperty Name="FI_EstimatedDamage" ColumnName="FI_EstimatedDamage" />
+          <ScalarProperty Name="FI_Injured" ColumnName="FI_Injured" />
+          <ScalarProperty Name="FI_Casualty" ColumnName="FI_Casualty" />
+          <ScalarProperty Name="FI_Status_Fire_Incident" ColumnName="FI_Status_Fire_Incident" />
+          <ScalarProperty Name="FI_FireOrigin" ColumnName="FI_FireOrigin" />
+          <ScalarProperty Name="FI_FireCause" ColumnName="FI_FireCause" />
+          <ScalarProperty Name="FI_Owner_Occupant" ColumnName="FI_Owner_Occupant" />
+          <ScalarProperty Name="FI_Involved_OccupancyType_Description" ColumnName="FI_Involved_OccupancyType_Description" />
+          <ScalarProperty Name="FI_Involved_OccupancyType" ColumnName="FI_Involved_OccupancyType" />
+          <ScalarProperty Name="FI_FireGround_Commander" ColumnName="FI_FireGround_Commander" />
+          <ScalarProperty Name="FI_AlarmType" ColumnName="FI_AlarmType" />
+          <ScalarProperty Name="FI_RespondingUnit_StationArrival" ColumnName="FI_RespondingUnit_StationArrival" />
+          <ScalarProperty Name="FI_FireOutDate" ColumnName="FI_FireOutDate" />
+          <ScalarProperty Name="FI_FirstRespondingUnit_Arrival" ColumnName="FI_FirstRespondingUnit_Arrival" />
+          <ScalarProperty Name="FI_FirstRespondingUnit_Departure" ColumnName="FI_FirstRespondingUnit_Departure" />
+          <ScalarProperty Name="FI_FireStartedDate" ColumnName="FI_FireStartedDate" />
+          <ScalarProperty Name="FI_Informant_Address" ColumnName="FI_Informant_Address" />
+          <ScalarProperty Name="FI_Informant_Number" ColumnName="FI_Informant_Number" />
+          <ScalarProperty Name="FI_Informant_Name" ColumnName="FI_Informant_Name" />
+          <ScalarProperty Name="FI_IncidentReportDate" ColumnName="FI_IncidentReportDate" />
+          <ScalarProperty Name="FI_DTPO" ColumnName="FI_DTPO" />
+          <ScalarProperty Name="FI_Unit_Id" ColumnName="FI_Unit_Id" />
+          <ScalarProperty Name="FI_Id" ColumnName="FI_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblCityMunicipality">
+      <EntityTypeMapping TypeName="EBFPModel.tblCityMunicipality">
+        <MappingFragment StoreEntitySet="tblCityMunicipality">
+          <ScalarProperty Name="Municipality_FireNozzle25_ServiceableForReplacement" ColumnName="Municipality_FireNozzle25_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_FireNozzle25_Serviceable" ColumnName="Municipality_FireNozzle25_Serviceable" />
+          <ScalarProperty Name="Municipality_FireNozzle15_ServiceableForReplacement" ColumnName="Municipality_FireNozzle15_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_FireNozzle15_Serviceable" ColumnName="Municipality_FireNozzle15_Serviceable" />
+          <ScalarProperty Name="Municipality_FireHose25_ServiceableForReplacement" ColumnName="Municipality_FireHose25_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_FireHose25_Serviceable" ColumnName="Municipality_FireHose25_Serviceable" />
+          <ScalarProperty Name="Municipality_FireHose15_ServiceableForReplacement" ColumnName="Municipality_FireHose15_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_FireHose15_Serviceable" ColumnName="Municipality_FireHose15_Serviceable" />
+          <ScalarProperty Name="Municipality_Helmet_ServiceableForReplacement" ColumnName="Municipality_Helmet_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_Helmet_Serviceable" ColumnName="Municipality_Helmet_Serviceable" />
+          <ScalarProperty Name="Municipality_Gloves_ServiceableForReplacement" ColumnName="Municipality_Gloves_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_Gloves_Serviceable" ColumnName="Municipality_Gloves_Serviceable" />
+          <ScalarProperty Name="Municipality_Boots_ServiceableForReplacement" ColumnName="Municipality_Boots_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_Boots_Serviceable" ColumnName="Municipality_Boots_Serviceable" />
+          <ScalarProperty Name="Municipality_Trouser_ServiceableForReplacement" ColumnName="Municipality_Trouser_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_Trouser_Serviceable" ColumnName="Municipality_Trouser_Serviceable" />
+          <ScalarProperty Name="Municipality_FireCoat_ServiceableForReplacement" ColumnName="Municipality_FireCoat_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_FireCoat_Serviceable" ColumnName="Municipality_FireCoat_Serviceable" />
+          <ScalarProperty Name="Municipality_SCBA_ServiceableForReplacement" ColumnName="Municipality_SCBA_ServiceableForReplacement" />
+          <ScalarProperty Name="Municipality_SCBA_Serviceable" ColumnName="Municipality_SCBA_Serviceable" />
+          <ScalarProperty Name="Municipality_WithBuilding" ColumnName="Municipality_WithBuilding" />
+          <ScalarProperty Name="Municipality_Type" ColumnName="Municipality_Type" />
+          <ScalarProperty Name="Municipality_Hydrant_UnderRepair" ColumnName="Municipality_Hydrant_UnderRepair" />
+          <ScalarProperty Name="Municipality_Hydrant_NonFunctional" ColumnName="Municipality_Hydrant_NonFunctional" />
+          <ScalarProperty Name="Municipality_Hydrant_Functional" ColumnName="Municipality_Hydrant_Functional" />
+          <ScalarProperty Name="Municipality_NUP" ColumnName="Municipality_NUP" />
+          <ScalarProperty Name="Municipality_UPersonnel" ColumnName="Municipality_UPersonnel" />
+          <ScalarProperty Name="Municipality_FO1" ColumnName="Municipality_FO1" />
+          <ScalarProperty Name="Municipality_FO2" ColumnName="Municipality_FO2" />
+          <ScalarProperty Name="Municipality_FO3" ColumnName="Municipality_FO3" />
+          <ScalarProperty Name="Municipality_SFO1" ColumnName="Municipality_SFO1" />
+          <ScalarProperty Name="Municipality_SFO2" ColumnName="Municipality_SFO2" />
+          <ScalarProperty Name="Municipality_SFO3" ColumnName="Municipality_SFO3" />
+          <ScalarProperty Name="Municipality_SFO4" ColumnName="Municipality_SFO4" />
+          <ScalarProperty Name="Municipality_INSP" ColumnName="Municipality_INSP" />
+          <ScalarProperty Name="Municipality_SINSP" ColumnName="Municipality_SINSP" />
+          <ScalarProperty Name="Municipality_CINSP" ColumnName="Municipality_CINSP" />
+          <ScalarProperty Name="Municipality_SUPT" ColumnName="Municipality_SUPT" />
+          <ScalarProperty Name="Municipality_SSUPT" ColumnName="Municipality_SSUPT" />
+          <ScalarProperty Name="Municipality_CSUPT" ColumnName="Municipality_CSUPT" />
+          <ScalarProperty Name="Municipality_Barangays" ColumnName="Municipality_Barangays" />
+          <ScalarProperty Name="Municipality_Rural" ColumnName="Municipality_Rural" />
+          <ScalarProperty Name="Municipality_Urban" ColumnName="Municipality_Urban" />
+          <ScalarProperty Name="Municipality_FireFightingCapability" ColumnName="Municipality_FireFightingCapability" />
+          <ScalarProperty Name="Municipality_IncomeClass" ColumnName="Municipality_IncomeClass" />
+          <ScalarProperty Name="Municipality_PopulationDensity" ColumnName="Municipality_PopulationDensity" />
+          <ScalarProperty Name="Municipality_LandArea" ColumnName="Municipality_LandArea" />
+          <ScalarProperty Name="Municipality_Classification" ColumnName="Municipality_Classification" />
+          <ScalarProperty Name="Municipality_Name" ColumnName="Municipality_Name" />
+          <ScalarProperty Name="Municipality_NSCB" ColumnName="Municipality_NSCB" />
+          <ScalarProperty Name="Municipality_Province_Id" ColumnName="Municipality_Province_Id" />
+          <ScalarProperty Name="Municipality_Id" ColumnName="Municipality_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNonCommercialEstablishments">
+      <EntityTypeMapping TypeName="EBFPModel.tblNonCommercialEstablishments">
+        <MappingFragment StoreEntitySet="tblNonCommercialEstablishments">
+          <ScalarProperty Name="NCE_NatureOfConstruction" ColumnName="NCE_NatureOfConstruction" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="NCE_LastUpdateDate" ColumnName="NCE_LastUpdateDate" />
+          <ScalarProperty Name="NCE_LastUpdate_Emp_Id" ColumnName="NCE_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="NCE_CreatedDate" ColumnName="NCE_CreatedDate" />
+          <ScalarProperty Name="NCE_Created_Emp_Id" ColumnName="NCE_Created_Emp_Id" />
+          <ScalarProperty Name="NCE_Unit_Id" ColumnName="NCE_Unit_Id" />
+          <ScalarProperty Name="NCE_ContactNumber" ColumnName="NCE_ContactNumber" />
+          <ScalarProperty Name="NCE_AuthorizedRepresentative" ColumnName="NCE_AuthorizedRepresentative" />
+          <ScalarProperty Name="NCE_ConstructionAddress" ColumnName="NCE_ConstructionAddress" />
+          <ScalarProperty Name="NCE_OwnerName" ColumnName="NCE_OwnerName" />
+          <ScalarProperty Name="Ref_NCE_Id" ColumnName="Ref_NCE_Id" />
+          <ScalarProperty Name="NCE_Id" ColumnName="NCE_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUnitsUserInRole">
+      <EntityTypeMapping TypeName="EBFPModel.tblUnitsUserInRole">
+        <MappingFragment StoreEntitySet="tblUnitsUserInRole">
+          <ScalarProperty Name="Unit_UIR_PlanEvaluator" ColumnName="Unit_UIR_PlanEvaluator" />
+          <ScalarProperty Name="Unit_UIR_Inspector" ColumnName="Unit_UIR_Inspector" />
+          <ScalarProperty Name="Unit_UIR_Admin" ColumnName="Unit_UIR_Admin" />
+          <ScalarProperty Name="Unit_UIR_Release" ColumnName="Unit_UIR_Release" />
+          <ScalarProperty Name="Unit_UIR_Encoder" ColumnName="Unit_UIR_Encoder" />
+          <ScalarProperty Name="Unit_UIR_Collector" ColumnName="Unit_UIR_Collector" />
+          <ScalarProperty Name="Unit_UIR_Assessor" ColumnName="Unit_UIR_Assessor" />
+          <ScalarProperty Name="Unit_UIR_Emp_Id" ColumnName="Unit_UIR_Emp_Id" />
+          <ScalarProperty Name="Unit_UIR_Unit_Id" ColumnName="Unit_UIR_Unit_Id" />
+          <ScalarProperty Name="Unit_UIR_ID" ColumnName="Unit_UIR_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUserRoles">
+      <EntityTypeMapping TypeName="EBFPModel.tblUserRoles">
+        <MappingFragment StoreEntitySet="tblUserRoles">
+          <ScalarProperty Name="Role_DefaultAccess" ColumnName="Role_DefaultAccess" />
+          <ScalarProperty Name="Role_ModifiedDate" ColumnName="Role_ModifiedDate" />
+          <ScalarProperty Name="Role_ModifiedBy" ColumnName="Role_ModifiedBy" />
+          <ScalarProperty Name="Role_CreatedDate" ColumnName="Role_CreatedDate" />
+          <ScalarProperty Name="Role_CreatedBy" ColumnName="Role_CreatedBy" />
+          <ScalarProperty Name="Role_Description" ColumnName="Role_Description" />
+          <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblInspectionOrders">
+      <EntityTypeMapping TypeName="EBFPModel.tblInspectionOrders">
+        <MappingFragment StoreEntitySet="tblInspectionOrders">
+          <ScalarProperty Name="IO_Approval_AIR_ChiefFSES_Emp_Id" ColumnName="IO_Approval_AIR_ChiefFSES_Emp_Id" />
+          <ScalarProperty Name="IO_Approval_AIR_Marshall_Emp_Id" ColumnName="IO_Approval_AIR_Marshall_Emp_Id" />
+          <ScalarProperty Name="IO_ApprovalChiefFSES_Emp_Id" ColumnName="IO_ApprovalChiefFSES_Emp_Id" />
+          <ScalarProperty Name="IO_ApprovalMarshall_Emp_Id" ColumnName="IO_ApprovalMarshall_Emp_Id" />
+          <ScalarProperty Name="IO_AIR_Ext" ColumnName="IO_AIR_Ext" />
+          <ScalarProperty Name="IO_AIR" ColumnName="IO_AIR" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="IO_Unit_Id" ColumnName="IO_Unit_Id" />
+          <ScalarProperty Name="IO_LastUpdateDate" ColumnName="IO_LastUpdateDate" />
+          <ScalarProperty Name="IO_LastUpdate_Emp_Id" ColumnName="IO_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="IO_CreatedDate" ColumnName="IO_CreatedDate" />
+          <ScalarProperty Name="IO_Created_Emp_Id" ColumnName="IO_Created_Emp_Id" />
+          <ScalarProperty Name="IO_Status" ColumnName="IO_Status" />
+          <ScalarProperty Name="IO_Est_Details_String" ColumnName="IO_Est_Details_String" />
+          <ScalarProperty Name="IO_ActionTakenDate" ColumnName="IO_ActionTakenDate" />
+          <ScalarProperty Name="IO_ActionTaken" ColumnName="IO_ActionTaken" />
+          <ScalarProperty Name="IO_Remarks_Others" ColumnName="IO_Remarks_Others" />
+          <ScalarProperty Name="IO_Remarks" ColumnName="IO_Remarks" />
+          <ScalarProperty Name="IO_Findings" ColumnName="IO_Findings" />
+          <ScalarProperty Name="IO_Est_OccupancyType" ColumnName="IO_Est_OccupancyType" />
+          <ScalarProperty Name="IO_Est_EstablishmentStatus" ColumnName="IO_Est_EstablishmentStatus" />
+          <ScalarProperty Name="IO_Est_HazardType" ColumnName="IO_Est_HazardType" />
+          <ScalarProperty Name="IO_Est_RegistrationStatus" ColumnName="IO_Est_RegistrationStatus" />
+          <ScalarProperty Name="IO_Est_Id" ColumnName="IO_Est_Id" />
+          <ScalarProperty Name="IO_InspectionDate" ColumnName="IO_InspectionDate" />
+          <ScalarProperty Name="IO_InspectionType" ColumnName="IO_InspectionType" />
+          <ScalarProperty Name="IO_ApprovalDate" ColumnName="IO_ApprovalDate" />
+          <ScalarProperty Name="IO_Approval_Emp_Id" ColumnName="IO_Approval_Emp_Id" />
+          <ScalarProperty Name="IO_IssueDate" ColumnName="IO_IssueDate" />
+          <ScalarProperty Name="IO_Number" ColumnName="IO_Number" />
+          <ScalarProperty Name="Ref_IO_Id" ColumnName="Ref_IO_Id" />
+          <ScalarProperty Name="IO_Id" ColumnName="IO_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblBPLOPayments">
+      <EntityTypeMapping TypeName="EBFPModel.tblBPLOPayments">
+        <MappingFragment StoreEntitySet="tblBPLOPayments">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="BPLOP_Unit_Id" ColumnName="BPLOP_Unit_Id" />
+          <ScalarProperty Name="BPLOP_BasisOfAmountPaid" ColumnName="BPLOP_BasisOfAmountPaid" />
+          <ScalarProperty Name="BPLOP_CreatedDate" ColumnName="BPLOP_CreatedDate" />
+          <ScalarProperty Name="BPLOP_Created_Emp_Id" ColumnName="BPLOP_Created_Emp_Id" />
+          <ScalarProperty Name="BPLOP_PayDate" ColumnName="BPLOP_PayDate" />
+          <ScalarProperty Name="BPLOP_PayAmount" ColumnName="BPLOP_PayAmount" />
+          <ScalarProperty Name="BPLOP_App_Id" ColumnName="BPLOP_App_Id" />
+          <ScalarProperty Name="Ref_BPLOP_Id" ColumnName="Ref_BPLOP_Id" />
+          <ScalarProperty Name="BPLOP_Id" ColumnName="BPLOP_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeVoluntaryWorks">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeVoluntaryWorks">
+        <MappingFragment StoreEntitySet="tblEmployeeVoluntaryWorks">
+          <ScalarProperty Name="EVW_Emp_Id" ColumnName="EVW_Emp_Id" />
+          <ScalarProperty Name="EVW_PosNatureWork" ColumnName="EVW_PosNatureWork" />
+          <ScalarProperty Name="EVW_Hours" ColumnName="EVW_Hours" />
+          <ScalarProperty Name="EVW_EndDate" ColumnName="EVW_EndDate" />
+          <ScalarProperty Name="EVW_StartDate" ColumnName="EVW_StartDate" />
+          <ScalarProperty Name="EVW_OrgName" ColumnName="EVW_OrgName" />
+          <ScalarProperty Name="EVW_Id" ColumnName="EVW_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeSpecifyDesignation">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeSpecifyDesignation">
+        <MappingFragment StoreEntitySet="tblEmployeeSpecifyDesignation">
+          <ScalarProperty Name="SpecifyDesig_Emp_Id" ColumnName="SpecifyDesig_Emp_Id" />
+          <ScalarProperty Name="SpecifyDesig_Title" ColumnName="SpecifyDesig_Title" />
+          <ScalarProperty Name="SpecifyDesig_Id" ColumnName="SpecifyDesig_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFeesByYearAndRegion">
+      <EntityTypeMapping TypeName="EBFPModel.vwFeesByYearAndRegion">
+        <MappingFragment StoreEntitySet="vwFeesByYearAndRegion">
+          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="Province" ColumnName="Province" />
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+          <ScalarProperty Name="Collected_Date" ColumnName="Collected_Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployees">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployees">
+        <MappingFragment StoreEntitySet="tblEmployees">
+          <ScalarProperty Name="Emp_CheckedDate" ColumnName="Emp_CheckedDate" />
+          <ScalarProperty Name="Emp_CheckedBy" ColumnName="Emp_CheckedBy" />
+          <ScalarProperty Name="Emp_IsChecked" ColumnName="Emp_IsChecked" />
+          <ScalarProperty Name="Emp_AppointmentStatus_DO_BO_RO" ColumnName="Emp_AppointmentStatus_DO_BO_RO" />
+          <ScalarProperty Name="Emp_PresentAsgmt_DO_BO_RO" ColumnName="Emp_PresentAsgmt_DO_BO_RO" />
+          <ScalarProperty Name="Emp_SubStation_Id" ColumnName="Emp_SubStation_Id" />
+          <ScalarProperty Name="Emp_Atm_Number" ColumnName="Emp_Atm_Number" />
+          <ScalarProperty Name="Emp_Tax_Code" ColumnName="Emp_Tax_Code" />
+          <ScalarProperty Name="Emp_BP_Number" ColumnName="Emp_BP_Number" />
+          <ScalarProperty Name="Emp_DES" ColumnName="Emp_DES" />
+          <ScalarProperty Name="Emp_Eligibility_Type" ColumnName="Emp_Eligibility_Type" />
+          <ScalarProperty Name="Emp_MACourse" ColumnName="Emp_MACourse" />
+          <ScalarProperty Name="Emp_Religion_Others" ColumnName="Emp_Religion_Others" />
+          <ScalarProperty Name="Emp_Religion" ColumnName="Emp_Religion" />
+          <ScalarProperty Name="Emp_Photo" ColumnName="Emp_Photo" />
+          <ScalarProperty Name="Emp_AccessRole" ColumnName="Emp_AccessRole" />
+          <ScalarProperty Name="LocalDB_Emp_Id" ColumnName="LocalDB_Emp_Id" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="Emp_IsDeleted" ColumnName="Emp_IsDeleted" />
+          <ScalarProperty Name="Emp_Remarks" ColumnName="Emp_Remarks" />
+          <ScalarProperty Name="Emp_CivilStatus_Other" ColumnName="Emp_CivilStatus_Other" />
+          <ScalarProperty Name="Emp_Username" ColumnName="Emp_Username" />
+          <ScalarProperty Name="Emp_Curr_Salary" ColumnName="Emp_Curr_Salary" />
+          <ScalarProperty Name="Emp_Curr_SalaryGrade" ColumnName="Emp_Curr_SalaryGrade" />
+          <ScalarProperty Name="Emp_Curr_Eligibility" ColumnName="Emp_Curr_Eligibility" />
+          <ScalarProperty Name="Emp_Curr_Unit" ColumnName="Emp_Curr_Unit" />
+          <ScalarProperty Name="Emp_Curr_Rank" ColumnName="Emp_Curr_Rank" />
+          <ScalarProperty Name="Emp_Curr_PosDesignationTitle" ColumnName="Emp_Curr_PosDesignationTitle" />
+          <ScalarProperty Name="Emp_Curr_JobFunc" ColumnName="Emp_Curr_JobFunc" />
+          <ScalarProperty Name="Emp_Curr_ApptStatus" ColumnName="Emp_Curr_ApptStatus" />
+          <ScalarProperty Name="Emp_DutyStatus" ColumnName="Emp_DutyStatus" />
+          <ScalarProperty Name="Emp_HighestMandatoryTraining" ColumnName="Emp_HighestMandatoryTraining" />
+          <ScalarProperty Name="Emp_HighestEducAttainment" ColumnName="Emp_HighestEducAttainment" />
+          <ScalarProperty Name="Emp_EducCourse" ColumnName="Emp_EducCourse" />
+          <ScalarProperty Name="Emp_LastTrainingDate" ColumnName="Emp_LastTrainingDate" />
+          <ScalarProperty Name="Emp_AssumedOfficerDate" ColumnName="Emp_AssumedOfficerDate" />
+          <ScalarProperty Name="Emp_LastPromotionDate_Permanent" ColumnName="Emp_LastPromotionDate_Permanent" />
+          <ScalarProperty Name="Emp_LastPromotionDate_Temp" ColumnName="Emp_LastPromotionDate_Temp" />
+          <ScalarProperty Name="Emp_Service_GovtStartDate" ColumnName="Emp_Service_GovtStartDate" />
+          <ScalarProperty Name="Emp_Service_UniformGovtStartDate" ColumnName="Emp_Service_UniformGovtStartDate" />
+          <ScalarProperty Name="Emp_Service_StartDate" ColumnName="Emp_Service_StartDate" />
+          <ScalarProperty Name="Emp_Retired_Date" ColumnName="Emp_Retired_Date" />
+          <ScalarProperty Name="Emp_BadgeNumber" ColumnName="Emp_BadgeNumber" />
+          <ScalarProperty Name="Emp_ItemNumber" ColumnName="Emp_ItemNumber" />
+          <ScalarProperty Name="Emp_Mother_LastName" ColumnName="Emp_Mother_LastName" />
+          <ScalarProperty Name="Emp_Mother_MiddleName" ColumnName="Emp_Mother_MiddleName" />
+          <ScalarProperty Name="Emp_Mother_FirstName" ColumnName="Emp_Mother_FirstName" />
+          <ScalarProperty Name="Emp_Mother_MaidenName" ColumnName="Emp_Mother_MaidenName" />
+          <ScalarProperty Name="Emp_Father_SuffixName" ColumnName="Emp_Father_SuffixName" />
+          <ScalarProperty Name="Emp_Father_LastName" ColumnName="Emp_Father_LastName" />
+          <ScalarProperty Name="Emp_Father_MiddleName" ColumnName="Emp_Father_MiddleName" />
+          <ScalarProperty Name="Emp_Father_FirstName" ColumnName="Emp_Father_FirstName" />
+          <ScalarProperty Name="Emp_Spouse_EmpBusPhoneNumber" ColumnName="Emp_Spouse_EmpBusPhoneNumber" />
+          <ScalarProperty Name="Emp_Spouse_EmpBusAddress" ColumnName="Emp_Spouse_EmpBusAddress" />
+          <ScalarProperty Name="Emp_Spouse_EmpBusName" ColumnName="Emp_Spouse_EmpBusName" />
+          <ScalarProperty Name="Emp_Spouse_Occupation" ColumnName="Emp_Spouse_Occupation" />
+          <ScalarProperty Name="Emp_Spouse_SuffixName" ColumnName="Emp_Spouse_SuffixName" />
+          <ScalarProperty Name="Emp_Spouse_LastName" ColumnName="Emp_Spouse_LastName" />
+          <ScalarProperty Name="Emp_Spouse_MiddleName" ColumnName="Emp_Spouse_MiddleName" />
+          <ScalarProperty Name="Emp_Spouse_FirstName" ColumnName="Emp_Spouse_FirstName" />
+          <ScalarProperty Name="Emp_TINNumber" ColumnName="Emp_TINNumber" />
+          <ScalarProperty Name="Emp_AgencyEmpNumber" ColumnName="Emp_AgencyEmpNumber" />
+          <ScalarProperty Name="Emp_MobileNumber" ColumnName="Emp_MobileNumber" />
+          <ScalarProperty Name="Emp_EmailAddress" ColumnName="Emp_EmailAddress" />
+          <ScalarProperty Name="Emp_Permanent_PhoneNumber" ColumnName="Emp_Permanent_PhoneNumber" />
+          <ScalarProperty Name="Emp_Permanent_ZipCode" ColumnName="Emp_Permanent_ZipCode" />
+          <ScalarProperty Name="Emp_Permanent_Province" ColumnName="Emp_Permanent_Province" />
+          <ScalarProperty Name="Emp_Permanent_Municipality" ColumnName="Emp_Permanent_Municipality" />
+          <ScalarProperty Name="Emp_Permanent_Barangay" ColumnName="Emp_Permanent_Barangay" />
+          <ScalarProperty Name="Emp_Permanent_Village" ColumnName="Emp_Permanent_Village" />
+          <ScalarProperty Name="Emp_Permanent_Street" ColumnName="Emp_Permanent_Street" />
+          <ScalarProperty Name="Emp_Permanent_HouseNo" ColumnName="Emp_Permanent_HouseNo" />
+          <ScalarProperty Name="Emp_Permanent_Address" ColumnName="Emp_Permanent_Address" />
+          <ScalarProperty Name="Emp_Residential_PhoneNumber" ColumnName="Emp_Residential_PhoneNumber" />
+          <ScalarProperty Name="Emp_Residential_ZipCode" ColumnName="Emp_Residential_ZipCode" />
+          <ScalarProperty Name="Emp_Residential_Province" ColumnName="Emp_Residential_Province" />
+          <ScalarProperty Name="Emp_Residential_Municipality" ColumnName="Emp_Residential_Municipality" />
+          <ScalarProperty Name="Emp_Residential_Barangay" ColumnName="Emp_Residential_Barangay" />
+          <ScalarProperty Name="Emp_Residential_Village" ColumnName="Emp_Residential_Village" />
+          <ScalarProperty Name="Emp_Residential_Street" ColumnName="Emp_Residential_Street" />
+          <ScalarProperty Name="Emp_Residential_HouseNo" ColumnName="Emp_Residential_HouseNo" />
+          <ScalarProperty Name="Emp_Residential_Address" ColumnName="Emp_Residential_Address" />
+          <ScalarProperty Name="Emp_SSSNumber" ColumnName="Emp_SSSNumber" />
+          <ScalarProperty Name="Emp_PHICNumber" ColumnName="Emp_PHICNumber" />
+          <ScalarProperty Name="Emp_PAGIBIGNumber" ColumnName="Emp_PAGIBIGNumber" />
+          <ScalarProperty Name="Emp_GSISNumber" ColumnName="Emp_GSISNumber" />
+          <ScalarProperty Name="Emp_BloodType" ColumnName="Emp_BloodType" />
+          <ScalarProperty Name="Emp_Weight" ColumnName="Emp_Weight" />
+          <ScalarProperty Name="Emp_Height" ColumnName="Emp_Height" />
+          <ScalarProperty Name="Emp_Citizenship_Country" ColumnName="Emp_Citizenship_Country" />
+          <ScalarProperty Name="Emp_Citizenship_Dual" ColumnName="Emp_Citizenship_Dual" />
+          <ScalarProperty Name="Emp_Citizenship" ColumnName="Emp_Citizenship" />
+          <ScalarProperty Name="Emp_CivilStatus" ColumnName="Emp_CivilStatus" />
+          <ScalarProperty Name="Emp_Gender" ColumnName="Emp_Gender" />
+          <ScalarProperty Name="Emp_BirthPlace" ColumnName="Emp_BirthPlace" />
+          <ScalarProperty Name="Emp_BirthDate" ColumnName="Emp_BirthDate" />
+          <ScalarProperty Name="Emp_SuffixName" ColumnName="Emp_SuffixName" />
+          <ScalarProperty Name="Emp_LastName" ColumnName="Emp_LastName" />
+          <ScalarProperty Name="Emp_MiddleName" ColumnName="Emp_MiddleName" />
+          <ScalarProperty Name="Emp_FirstName" ColumnName="Emp_FirstName" />
+          <ScalarProperty Name="Emp_Number" ColumnName="Emp_Number" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwUsersInRole">
+      <EntityTypeMapping TypeName="EBFPModel.vwUsersInRole">
+        <MappingFragment StoreEntitySet="vwUsersInRole">
+          <ScalarProperty Name="Unit_StationName" ColumnName="Unit_StationName" />
+          <ScalarProperty Name="Province_Name" ColumnName="Province_Name" />
+          <ScalarProperty Name="Reg_Title" ColumnName="Reg_Title" />
+          <ScalarProperty Name="Rank_Name" ColumnName="Rank_Name" />
+          <ScalarProperty Name="Emp_Number" ColumnName="Emp_Number" />
+          <ScalarProperty Name="Province_Id" ColumnName="Province_Id" />
+          <ScalarProperty Name="Reg_Id" ColumnName="Reg_Id" />
+          <ScalarProperty Name="Emp_Curr_Unit" ColumnName="Emp_Curr_Unit" />
+          <ScalarProperty Name="UIR_RoleID" ColumnName="UIR_RoleID" />
+          <ScalarProperty Name="UIR_ID" ColumnName="UIR_ID" />
+          <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+          <ScalarProperty Name="Emp_DutyStatus" ColumnName="Emp_DutyStatus" />
+          <ScalarProperty Name="Emp_LastName" ColumnName="Emp_LastName" />
+          <ScalarProperty Name="Emp_MiddleName" ColumnName="Emp_MiddleName" />
+          <ScalarProperty Name="Emp_FirstName" ColumnName="Emp_FirstName" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSpoiledOPS">
+      <EntityTypeMapping TypeName="EBFPModel.tblSpoiledOPS">
+        <MappingFragment StoreEntitySet="tblSpoiledOPS">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="SOPS_Unit_Id" ColumnName="SOPS_Unit_Id" />
+          <ScalarProperty Name="SOPS_CreatedDate" ColumnName="SOPS_CreatedDate" />
+          <ScalarProperty Name="SOPS_Created_Emp_Id" ColumnName="SOPS_Created_Emp_Id" />
+          <ScalarProperty Name="SOPS_Number" ColumnName="SOPS_Number" />
+          <ScalarProperty Name="Ref_SOPS_Id" ColumnName="Ref_SOPS_Id" />
+          <ScalarProperty Name="SOPS_Id" ColumnName="SOPS_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOtherFees">
+      <EntityTypeMapping TypeName="EBFPModel.tblOtherFees">
+        <MappingFragment StoreEntitySet="tblOtherFees">
+          <ScalarProperty Name="OF_IsApproveMarshal" ColumnName="OF_IsApproveMarshal" />
+          <ScalarProperty Name="OF_IsApproveChiefFSES" ColumnName="OF_IsApproveChiefFSES" />
+          <ScalarProperty Name="OF_Marshal_Remarks" ColumnName="OF_Marshal_Remarks" />
+          <ScalarProperty Name="OF_Marshal_Emp_Id" ColumnName="OF_Marshal_Emp_Id" />
+          <ScalarProperty Name="OF_Marshal_Date" ColumnName="OF_Marshal_Date" />
+          <ScalarProperty Name="OF_ChiefFSES_Remarks" ColumnName="OF_ChiefFSES_Remarks" />
+          <ScalarProperty Name="OF_ChiefFSES_Emp_Id" ColumnName="OF_ChiefFSES_Emp_Id" />
+          <ScalarProperty Name="OF_ChiefFSES_Date" ColumnName="OF_ChiefFSES_Date" />
+          <ScalarProperty Name="OF_ClaimStub_Number" ColumnName="OF_ClaimStub_Number" />
+          <ScalarProperty Name="OF_Number" ColumnName="OF_Number" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="OF_Unit_Id" ColumnName="OF_Unit_Id" />
+          <ScalarProperty Name="Ref_OF_Id" ColumnName="Ref_OF_Id" />
+          <ScalarProperty Name="OF_Issue_No" ColumnName="OF_Issue_No" />
+          <ScalarProperty Name="OF_Issue_Date" ColumnName="OF_Issue_Date" />
+          <ScalarProperty Name="OF_Released_Date" ColumnName="OF_Released_Date" />
+          <ScalarProperty Name="OF_Released_Emp_Id" ColumnName="OF_Released_Emp_Id" />
+          <ScalarProperty Name="OF_ForReleased_Date" ColumnName="OF_ForReleased_Date" />
+          <ScalarProperty Name="OF_ForReleasing_Emp_Id" ColumnName="OF_ForReleasing_Emp_Id" />
+          <ScalarProperty Name="OF_Collected_Date" ColumnName="OF_Collected_Date" />
+          <ScalarProperty Name="OF_Collector_Emp_Id" ColumnName="OF_Collector_Emp_Id" />
+          <ScalarProperty Name="OF_Assesed_Date" ColumnName="OF_Assesed_Date" />
+          <ScalarProperty Name="OF_Assesor_Emp_Id" ColumnName="OF_Assesor_Emp_Id" />
+          <ScalarProperty Name="OF_Evaluated_Date" ColumnName="OF_Evaluated_Date" />
+          <ScalarProperty Name="OF_Evaluator_Emp_Id" ColumnName="OF_Evaluator_Emp_Id" />
+          <ScalarProperty Name="OF_Remarks" ColumnName="OF_Remarks" />
+          <ScalarProperty Name="OF_Status" ColumnName="OF_Status" />
+          <ScalarProperty Name="OF_Fee" ColumnName="OF_Fee" />
+          <ScalarProperty Name="OF_CollectionType" ColumnName="OF_CollectionType" />
+          <ScalarProperty Name="OF_OPS_Number" ColumnName="OF_OPS_Number" />
+          <ScalarProperty Name="OF_Est_Id" ColumnName="OF_Est_Id" />
+          <ScalarProperty Name="OF_EstablishmentType" ColumnName="OF_EstablishmentType" />
+          <ScalarProperty Name="OF_ApplicationDate" ColumnName="OF_ApplicationDate" />
+          <ScalarProperty Name="OF_Id" ColumnName="OF_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFireCodeRevenue">
+      <EntityTypeMapping TypeName="EBFPModel.vwFireCodeRevenue">
+        <MappingFragment StoreEntitySet="vwFireCodeRevenue">
+          <ScalarProperty Name="Application_Type" ColumnName="Application_Type" />
+          <ScalarProperty Name="OR_Number" ColumnName="OR_Number" />
+          <ScalarProperty Name="OPS_Number" ColumnName="OPS_Number" />
+          <ScalarProperty Name="OR_Date" ColumnName="OR_Date" />
+          <ScalarProperty Name="ApplicationTypeName" ColumnName="ApplicationTypeName" />
+          <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+          <ScalarProperty Name="FireCodeAdminFine" ColumnName="FireCodeAdminFine" />
+          <ScalarProperty Name="InstallationClearanceFee" ColumnName="InstallationClearanceFee" />
+          <ScalarProperty Name="ConveyanceClearanceFee" ColumnName="ConveyanceClearanceFee" />
+          <ScalarProperty Name="StorageClearanceFee" ColumnName="StorageClearanceFee" />
+          <ScalarProperty Name="FireSafetyInspectionFee" ColumnName="FireSafetyInspectionFee" />
+          <ScalarProperty Name="ProceedsTax" ColumnName="ProceedsTax" />
+          <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
+          <ScalarProperty Name="PremiumTax" ColumnName="PremiumTax" />
+          <ScalarProperty Name="RealtyTax" ColumnName="RealtyTax" />
+          <ScalarProperty Name="ConstructionTax" ColumnName="ConstructionTax" />
+          <ScalarProperty Name="Est_BusinessName" ColumnName="Est_BusinessName" />
+          <ScalarProperty Name="Reg_Id" ColumnName="Reg_Id" />
+          <ScalarProperty Name="Province_Id" ColumnName="Province_Id" />
+          <ScalarProperty Name="Municipality_Id" ColumnName="Municipality_Id" />
+          <ScalarProperty Name="Unit_Id" ColumnName="Unit_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRanks">
+      <EntityTypeMapping TypeName="EBFPModel.tblRanks">
+        <MappingFragment StoreEntitySet="tblRanks">
+          <ScalarProperty Name="Rank_UpdatedDate" ColumnName="Rank_UpdatedDate" />
+          <ScalarProperty Name="Rank_UpdatedBy" ColumnName="Rank_UpdatedBy" />
+          <ScalarProperty Name="Rank_CreatedDate" ColumnName="Rank_CreatedDate" />
+          <ScalarProperty Name="Rank_CreatedBy" ColumnName="Rank_CreatedBy" />
+          <ScalarProperty Name="Rank_DBM_Authorized" ColumnName="Rank_DBM_Authorized" />
+          <ScalarProperty Name="Rank_Name" ColumnName="Rank_Name" />
+          <ScalarProperty Name="Rank_Id" ColumnName="Rank_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblInspectionOrderViolations">
+      <EntityTypeMapping TypeName="EBFPModel.tblInspectionOrderViolations">
+        <MappingFragment StoreEntitySet="tblInspectionOrderViolations">
+          <ScalarProperty Name="IOViolation_OV_Id" ColumnName="IOViolation_OV_Id" />
+          <ScalarProperty Name="IOViolation_Created_EmpId" ColumnName="IOViolation_Created_EmpId" />
+          <ScalarProperty Name="IOViolation_CreatedDate" ColumnName="IOViolation_CreatedDate" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="IOViolation_UnitId" ColumnName="IOViolation_UnitId" />
+          <ScalarProperty Name="IOViolation_IO_Id" ColumnName="IOViolation_IO_Id" />
+          <ScalarProperty Name="IOViolation_ViolationId" ColumnName="IOViolation_ViolationId" />
+          <ScalarProperty Name="Ref_IOViolation_Id" ColumnName="Ref_IOViolation_Id" />
+          <ScalarProperty Name="IOViolation_Id" ColumnName="IOViolation_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOtherViolations">
+      <EntityTypeMapping TypeName="EBFPModel.tblOtherViolations">
+        <MappingFragment StoreEntitySet="tblOtherViolations">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="OV_CreatedDate" ColumnName="OV_CreatedDate" />
+          <ScalarProperty Name="OV_Created_EmpId" ColumnName="OV_Created_EmpId" />
+          <ScalarProperty Name="OV_Fine" ColumnName="OV_Fine" />
+          <ScalarProperty Name="OV_Compliance" ColumnName="OV_Compliance" />
+          <ScalarProperty Name="OV_OccupancyType" ColumnName="OV_OccupancyType" />
+          <ScalarProperty Name="OV_Graceperiod" ColumnName="OV_Graceperiod" />
+          <ScalarProperty Name="OV_Section" ColumnName="OV_Section" />
+          <ScalarProperty Name="OV_Desc" ColumnName="OV_Desc" />
+          <ScalarProperty Name="OV_Code" ColumnName="OV_Code" />
+          <ScalarProperty Name="OV_Unit_Id" ColumnName="OV_Unit_Id" />
+          <ScalarProperty Name="Ref_OV_Id" ColumnName="Ref_OV_Id" />
+          <ScalarProperty Name="OV_Id" ColumnName="OV_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUnits">
+      <EntityTypeMapping TypeName="EBFPModel.tblUnits">
+        <MappingFragment StoreEntitySet="tblUnits">
+          <ScalarProperty Name="Unit_ChiefFSES_Signature" ColumnName="Unit_ChiefFSES_Signature" />
+          <ScalarProperty Name="Unit_FireMarshall_Signature" ColumnName="Unit_FireMarshall_Signature" />
+          <ScalarProperty Name="Unit_ChiefFSES_Emp_Id" ColumnName="Unit_ChiefFSES_Emp_Id" />
+          <ScalarProperty Name="Unit_Remarks" ColumnName="Unit_Remarks" />
+          <ScalarProperty Name="Unit_ActivationDate" ColumnName="Unit_ActivationDate" />
+          <ScalarProperty Name="Unit_NumberStorey" ColumnName="Unit_NumberStorey" />
+          <ScalarProperty Name="Unit_LotArea" ColumnName="Unit_LotArea" />
+          <ScalarProperty Name="Unit_FloorArea" ColumnName="Unit_FloorArea" />
+          <ScalarProperty Name="Unit_LotOwner" ColumnName="Unit_LotOwner" />
+          <ScalarProperty Name="Unit_LotStatus" ColumnName="Unit_LotStatus" />
+          <ScalarProperty Name="Unit_BuildingOwner" ColumnName="Unit_BuildingOwner" />
+          <ScalarProperty Name="Unit_BuildingStatus" ColumnName="Unit_BuildingStatus" />
+          <ScalarProperty Name="Unit_Email" ColumnName="Unit_Email" />
+          <ScalarProperty Name="Unit_CellphoneNumbers" ColumnName="Unit_CellphoneNumbers" />
+          <ScalarProperty Name="Unit_PhoneNumbers" ColumnName="Unit_PhoneNumbers" />
+          <ScalarProperty Name="Unit_Coordinates" ColumnName="Unit_Coordinates" />
+          <ScalarProperty Name="Unit_Barangays" ColumnName="Unit_Barangays" />
+          <ScalarProperty Name="Unit_Street" ColumnName="Unit_Street" />
+          <ScalarProperty Name="Unit_Category" ColumnName="Unit_Category" />
+          <ScalarProperty Name="Unit_Municipality_Id" ColumnName="Unit_Municipality_Id" />
+          <ScalarProperty Name="Unit_FireMarshall_Emp_Id" ColumnName="Unit_FireMarshall_Emp_Id" />
+          <ScalarProperty Name="Unit_ProvDistrict" ColumnName="Unit_ProvDistrict" />
+          <ScalarProperty Name="Unit_Description" ColumnName="Unit_Description" />
+          <ScalarProperty Name="Unit_PhoneNumber" ColumnName="Unit_PhoneNumber" />
+          <ScalarProperty Name="Unit_Address" ColumnName="Unit_Address" />
+          <ScalarProperty Name="Unit_StationName" ColumnName="Unit_StationName" />
+          <ScalarProperty Name="Unit_Code" ColumnName="Unit_Code" />
+          <ScalarProperty Name="Unit_Id" ColumnName="Unit_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblFSICApplication">
+      <EntityTypeMapping TypeName="EBFPModel.tblFSICApplication">
+        <MappingFragment StoreEntitySet="tblFSICApplication">
+          <ScalarProperty Name="FSIC_BusinessType" ColumnName="FSIC_BusinessType" />
+          <ScalarProperty Name="FSIC_ClaimStub_Number" ColumnName="FSIC_ClaimStub_Number" />
+          <ScalarProperty Name="FSIC_Number" ColumnName="FSIC_Number" />
+          <ScalarProperty Name="FSIC_AIR_Approve_ChiefFSES_Date" ColumnName="FSIC_AIR_Approve_ChiefFSES_Date" />
+          <ScalarProperty Name="FSIC_AIR_Approve_Marshall_Date" ColumnName="FSIC_AIR_Approve_Marshall_Date" />
+          <ScalarProperty Name="FSIC_Approve_ChiefFSES_Date" ColumnName="FSIC_Approve_ChiefFSES_Date" />
+          <ScalarProperty Name="FSIC_Approve_Marshall_Date" ColumnName="FSIC_Approve_Marshall_Date" />
+          <ScalarProperty Name="FSIC_AIR_IsApproveMarshall" ColumnName="FSIC_AIR_IsApproveMarshall" />
+          <ScalarProperty Name="FSIC_AIR_IsApproveChiefFSES" ColumnName="FSIC_AIR_IsApproveChiefFSES" />
+          <ScalarProperty Name="FSIC_IsApproveMarshall" ColumnName="FSIC_IsApproveMarshall" />
+          <ScalarProperty Name="FSIC_IsApproveChiefFSES" ColumnName="FSIC_IsApproveChiefFSES" />
+          <ScalarProperty Name="FSIC_AIR_Marshall_Date" ColumnName="FSIC_AIR_Marshall_Date" />
+          <ScalarProperty Name="FSIC_AIR_ChiefFSES_Date" ColumnName="FSIC_AIR_ChiefFSES_Date" />
+          <ScalarProperty Name="FSIC_AIR_Marshall_Emp_Id" ColumnName="FSIC_AIR_Marshall_Emp_Id" />
+          <ScalarProperty Name="FSIC_AIR_ChiefFSES_Emp_Id" ColumnName="FSIC_AIR_ChiefFSES_Emp_Id" />
+          <ScalarProperty Name="FSIC_Marshall_Date" ColumnName="FSIC_Marshall_Date" />
+          <ScalarProperty Name="FSIC_ChiefFSES_Date" ColumnName="FSIC_ChiefFSES_Date" />
+          <ScalarProperty Name="FSIC_Marshall_Emp_Id" ColumnName="FSIC_Marshall_Emp_Id" />
+          <ScalarProperty Name="FSIC_ChiefFSES_Emp_Id" ColumnName="FSIC_ChiefFSES_Emp_Id" />
+          <ScalarProperty Name="FSIC_Unit_Id" ColumnName="FSIC_Unit_Id" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="Ref_FSIC_App_Id" ColumnName="Ref_FSIC_App_Id" />
+          <ScalarProperty Name="FSIC_OPS_Number" ColumnName="FSIC_OPS_Number" />
+          <ScalarProperty Name="FSIC_Issue_No" ColumnName="FSIC_Issue_No" />
+          <ScalarProperty Name="FSIC_Issue_Date" ColumnName="FSIC_Issue_Date" />
+          <ScalarProperty Name="FSIC_Released_Date" ColumnName="FSIC_Released_Date" />
+          <ScalarProperty Name="FSIC_Released_Emp_Id" ColumnName="FSIC_Released_Emp_Id" />
+          <ScalarProperty Name="FSIC_ForReleased_Date" ColumnName="FSIC_ForReleased_Date" />
+          <ScalarProperty Name="FSIC_ForReleasing_Emp_Id" ColumnName="FSIC_ForReleasing_Emp_Id" />
+          <ScalarProperty Name="FSIC_Collected_Date" ColumnName="FSIC_Collected_Date" />
+          <ScalarProperty Name="FSIC_Collector_Emp_Id" ColumnName="FSIC_Collector_Emp_Id" />
+          <ScalarProperty Name="FSIC_Assesed_Date" ColumnName="FSIC_Assesed_Date" />
+          <ScalarProperty Name="FSIC_Assesor_Emp_Id" ColumnName="FSIC_Assesor_Emp_Id" />
+          <ScalarProperty Name="FSIC_Evaluated_Date" ColumnName="FSIC_Evaluated_Date" />
+          <ScalarProperty Name="FSIC_Evaluator_Emp_Id" ColumnName="FSIC_Evaluator_Emp_Id" />
+          <ScalarProperty Name="FSIC_Remarks" ColumnName="FSIC_Remarks" />
+          <ScalarProperty Name="FSIC_Status" ColumnName="FSIC_Status" />
+          <ScalarProperty Name="FSIC_OtherFee" ColumnName="FSIC_OtherFee" />
+          <ScalarProperty Name="FSIC_FireCodeAdminFine" ColumnName="FSIC_FireCodeAdminFine" />
+          <ScalarProperty Name="FSIC_InstallationClearanceFee" ColumnName="FSIC_InstallationClearanceFee" />
+          <ScalarProperty Name="FSIC_ConveyanceClearanceFee" ColumnName="FSIC_ConveyanceClearanceFee" />
+          <ScalarProperty Name="FSIC_StorageClearanceFee" ColumnName="FSIC_StorageClearanceFee" />
+          <ScalarProperty Name="FSIC_FireSafetyInspectionFee" ColumnName="FSIC_FireSafetyInspectionFee" />
+          <ScalarProperty Name="FSIC_ProceedsTax" ColumnName="FSIC_ProceedsTax" />
+          <ScalarProperty Name="FSIC_SalesTax" ColumnName="FSIC_SalesTax" />
+          <ScalarProperty Name="FSIC_PremiumTax" ColumnName="FSIC_PremiumTax" />
+          <ScalarProperty Name="FSIC_RealtyTax" ColumnName="FSIC_RealtyTax" />
+          <ScalarProperty Name="FSIC_ConstructionTax" ColumnName="FSIC_ConstructionTax" />
+          <ScalarProperty Name="FSIC_Requirement10" ColumnName="FSIC_Requirement10" />
+          <ScalarProperty Name="FSIC_Requirement9" ColumnName="FSIC_Requirement9" />
+          <ScalarProperty Name="FSIC_Requirement8" ColumnName="FSIC_Requirement8" />
+          <ScalarProperty Name="FSIC_Requirement7" ColumnName="FSIC_Requirement7" />
+          <ScalarProperty Name="FSIC_Requirement6" ColumnName="FSIC_Requirement6" />
+          <ScalarProperty Name="FSIC_Requirement5" ColumnName="FSIC_Requirement5" />
+          <ScalarProperty Name="FSIC_Requirement4" ColumnName="FSIC_Requirement4" />
+          <ScalarProperty Name="FSIC_Requirement3" ColumnName="FSIC_Requirement3" />
+          <ScalarProperty Name="FSIC_Requirement2" ColumnName="FSIC_Requirement2" />
+          <ScalarProperty Name="FSIC_Requirement1" ColumnName="FSIC_Requirement1" />
+          <ScalarProperty Name="FSIC_Est_Id" ColumnName="FSIC_Est_Id" />
+          <ScalarProperty Name="FSIC_BillingNumber" ColumnName="FSIC_BillingNumber" />
+          <ScalarProperty Name="FSIC_TaxYear" ColumnName="FSIC_TaxYear" />
+          <ScalarProperty Name="FSIC_ApplicationSubType" ColumnName="FSIC_ApplicationSubType" />
+          <ScalarProperty Name="FSIC_ApplicationType" ColumnName="FSIC_ApplicationType" />
+          <ScalarProperty Name="FSIC_ApplicationDate" ColumnName="FSIC_ApplicationDate" />
+          <ScalarProperty Name="FSIC_App_Id" ColumnName="FSIC_App_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNoticeToComplyDeficiencies">
+      <EntityTypeMapping TypeName="EBFPModel.tblNoticeToComplyDeficiencies">
+        <MappingFragment StoreEntitySet="tblNoticeToComplyDeficiencies">
+          <ScalarProperty Name="NTCD_Fine" ColumnName="NTCD_Fine" />
+          <ScalarProperty Name="NTCD_Unit_Id" ColumnName="NTCD_Unit_Id" />
+          <ScalarProperty Name="NTCD_Remarks" ColumnName="NTCD_Remarks" />
+          <ScalarProperty Name="NTCD_Complied" ColumnName="NTCD_Complied" />
+          <ScalarProperty Name="NTCD_GracePeriod" ColumnName="NTCD_GracePeriod" />
+          <ScalarProperty Name="NTCD_Compliance" ColumnName="NTCD_Compliance" />
+          <ScalarProperty Name="NTCD_Deficiency" ColumnName="NTCD_Deficiency" />
+          <ScalarProperty Name="NTCD_NTC_Id" ColumnName="NTCD_NTC_Id" />
+          <ScalarProperty Name="Ref_NTCD_Id" ColumnName="Ref_NTCD_Id" />
+          <ScalarProperty Name="NTCD_Id" ColumnName="NTCD_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNoticeToCorrectViolationDeficiencies">
+      <EntityTypeMapping TypeName="EBFPModel.tblNoticeToCorrectViolationDeficiencies">
+        <MappingFragment StoreEntitySet="tblNoticeToCorrectViolationDeficiencies">
+          <ScalarProperty Name="NTCVD_Fine" ColumnName="NTCVD_Fine" />
+          <ScalarProperty Name="NTCVD_Unit_Id" ColumnName="NTCVD_Unit_Id" />
+          <ScalarProperty Name="NTCVD_Remarks" ColumnName="NTCVD_Remarks" />
+          <ScalarProperty Name="NTCVD_Complied" ColumnName="NTCVD_Complied" />
+          <ScalarProperty Name="NTCVD_GracePeriod" ColumnName="NTCVD_GracePeriod" />
+          <ScalarProperty Name="NTCVD_Compliance" ColumnName="NTCVD_Compliance" />
+          <ScalarProperty Name="NTCVD_Deficiency" ColumnName="NTCVD_Deficiency" />
+          <ScalarProperty Name="NTCVD_NTCV_Id" ColumnName="NTCVD_NTCV_Id" />
+          <ScalarProperty Name="Ref_NTCVD_Id" ColumnName="Ref_NTCVD_Id" />
+          <ScalarProperty Name="NTCVD_Id" ColumnName="NTCVD_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEstablishments">
+      <EntityTypeMapping TypeName="EBFPModel.tblEstablishments">
+        <MappingFragment StoreEntitySet="tblEstablishments">
+          <ScalarProperty Name="Est_IsPEZA" ColumnName="Est_IsPEZA" />
+          <ScalarProperty Name="Est_ExpiryDate" ColumnName="Est_ExpiryDate" />
+          <ScalarProperty Name="Est_BuildingType" ColumnName="Est_BuildingType" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="Est_AuthorizedRepresentative" ColumnName="Est_AuthorizedRepresentative" />
+          <ScalarProperty Name="Est_LastUpdateDate" ColumnName="Est_LastUpdateDate" />
+          <ScalarProperty Name="Est_LastUpdate_Emp_Id" ColumnName="Est_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="Est_CreatedDate" ColumnName="Est_CreatedDate" />
+          <ScalarProperty Name="Est_Created_Emp_Id" ColumnName="Est_Created_Emp_Id" />
+          <ScalarProperty Name="Est_Unit_Id" ColumnName="Est_Unit_Id" />
+          <ScalarProperty Name="Est_EstablishmentStatus" ColumnName="Est_EstablishmentStatus" />
+          <ScalarProperty Name="Est_HazardType" ColumnName="Est_HazardType" />
+          <ScalarProperty Name="Est_RegistrationStatus" ColumnName="Est_RegistrationStatus" />
+          <ScalarProperty Name="Est_OccupantsEmployeeNumber" ColumnName="Est_OccupantsEmployeeNumber" />
+          <ScalarProperty Name="Est_TotalFloorArea" ColumnName="Est_TotalFloorArea" />
+          <ScalarProperty Name="Est_FloorArea" ColumnName="Est_FloorArea" />
+          <ScalarProperty Name="Est_NumberOfFloor" ColumnName="Est_NumberOfFloor" />
+          <ScalarProperty Name="Est_LandArea" ColumnName="Est_LandArea" />
+          <ScalarProperty Name="Est_OwnershipType" ColumnName="Est_OwnershipType" />
+          <ScalarProperty Name="Est_OccupancyType" ColumnName="Est_OccupancyType" />
+          <ScalarProperty Name="Est_MobileNumber" ColumnName="Est_MobileNumber" />
+          <ScalarProperty Name="Est_PhoneFaxNumber" ColumnName="Est_PhoneFaxNumber" />
+          <ScalarProperty Name="Est_OwnerName" ColumnName="Est_OwnerName" />
+          <ScalarProperty Name="Est_BuildingConstruction" ColumnName="Est_BuildingConstruction" />
+          <ScalarProperty Name="Est_BusinessAddress" ColumnName="Est_BusinessAddress" />
+          <ScalarProperty Name="Est_NatureOfBusiness" ColumnName="Est_NatureOfBusiness" />
+          <ScalarProperty Name="Est_BusinessPermitNumber" ColumnName="Est_BusinessPermitNumber" />
+          <ScalarProperty Name="Est_BusinessTradeName" ColumnName="Est_BusinessTradeName" />
+          <ScalarProperty Name="Est_BusinessName" ColumnName="Est_BusinessName" />
+          <ScalarProperty Name="Est_MP_Number" ColumnName="Est_MP_Number" />
+          <ScalarProperty Name="Ref_Est_Id" ColumnName="Ref_Est_Id" />
+          <ScalarProperty Name="Est_Id" ColumnName="Est_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAbatementOrder">
+      <EntityTypeMapping TypeName="EBFPModel.tblAbatementOrder">
+        <MappingFragment StoreEntitySet="tblAbatementOrder">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="AO_Unit_Id" ColumnName="AO_Unit_Id" />
+          <ScalarProperty Name="AO_Result_IO_Id" ColumnName="AO_Result_IO_Id" />
+          <ScalarProperty Name="AO_Status" ColumnName="AO_Status" />
+          <ScalarProperty Name="AO_LastUpdateDate" ColumnName="AO_LastUpdateDate" />
+          <ScalarProperty Name="AO_LastUpdate_Emp_Id" ColumnName="AO_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="AO_CreatedDate" ColumnName="AO_CreatedDate" />
+          <ScalarProperty Name="AO_Created_Emp_Id" ColumnName="AO_Created_Emp_Id" />
+          <ScalarProperty Name="AO_Ref_IO_Id" ColumnName="AO_Ref_IO_Id" />
+          <ScalarProperty Name="AO_Est_Id" ColumnName="AO_Est_Id" />
+          <ScalarProperty Name="AO_IssueDate" ColumnName="AO_IssueDate" />
+          <ScalarProperty Name="Ref_AO_Id" ColumnName="Ref_AO_Id" />
+          <ScalarProperty Name="AO_Id" ColumnName="AO_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAbatementOrderDeficiencies">
+      <EntityTypeMapping TypeName="EBFPModel.tblAbatementOrderDeficiencies">
+        <MappingFragment StoreEntitySet="tblAbatementOrderDeficiencies">
+          <ScalarProperty Name="AOD_Fine" ColumnName="AOD_Fine" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="AOD_Unit_Id" ColumnName="AOD_Unit_Id" />
+          <ScalarProperty Name="AOD_Remarks" ColumnName="AOD_Remarks" />
+          <ScalarProperty Name="AOD_Complied" ColumnName="AOD_Complied" />
+          <ScalarProperty Name="AOD_GracePeriod" ColumnName="AOD_GracePeriod" />
+          <ScalarProperty Name="AOD_Compliance" ColumnName="AOD_Compliance" />
+          <ScalarProperty Name="AOD_Deficiency" ColumnName="AOD_Deficiency" />
+          <ScalarProperty Name="AOD_AO_Id" ColumnName="AOD_AO_Id" />
+          <ScalarProperty Name="Ref_AOD_Id" ColumnName="Ref_AOD_Id" />
+          <ScalarProperty Name="AOD_Id" ColumnName="AOD_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblClosureOrder">
+      <EntityTypeMapping TypeName="EBFPModel.tblClosureOrder">
+        <MappingFragment StoreEntitySet="tblClosureOrder">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="CO_Unit_Id" ColumnName="CO_Unit_Id" />
+          <ScalarProperty Name="CO_Result_IO_Id" ColumnName="CO_Result_IO_Id" />
+          <ScalarProperty Name="CO_Status" ColumnName="CO_Status" />
+          <ScalarProperty Name="CO_LastUpdateDate" ColumnName="CO_LastUpdateDate" />
+          <ScalarProperty Name="CO_LastUpdate_Emp_Id" ColumnName="CO_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="CO_CreatedDate" ColumnName="CO_CreatedDate" />
+          <ScalarProperty Name="CO_Created_Emp_Id" ColumnName="CO_Created_Emp_Id" />
+          <ScalarProperty Name="CO_Ref_IO_Id" ColumnName="CO_Ref_IO_Id" />
+          <ScalarProperty Name="CO_Est_Id" ColumnName="CO_Est_Id" />
+          <ScalarProperty Name="CO_IssueDate" ColumnName="CO_IssueDate" />
+          <ScalarProperty Name="Ref_CO_Id" ColumnName="Ref_CO_Id" />
+          <ScalarProperty Name="CO_Id" ColumnName="CO_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblClosureOrderDeficiencies">
+      <EntityTypeMapping TypeName="EBFPModel.tblClosureOrderDeficiencies">
+        <MappingFragment StoreEntitySet="tblClosureOrderDeficiencies">
+          <ScalarProperty Name="COD_Fine" ColumnName="COD_Fine" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="COD_Unit_Id" ColumnName="COD_Unit_Id" />
+          <ScalarProperty Name="COD_Remarks" ColumnName="COD_Remarks" />
+          <ScalarProperty Name="COD_Complied" ColumnName="COD_Complied" />
+          <ScalarProperty Name="COD_GracePeriod" ColumnName="COD_GracePeriod" />
+          <ScalarProperty Name="COD_Compliance" ColumnName="COD_Compliance" />
+          <ScalarProperty Name="COD_Deficiency" ColumnName="COD_Deficiency" />
+          <ScalarProperty Name="COD_CO_Id" ColumnName="COD_CO_Id" />
+          <ScalarProperty Name="Ref_COD_Id" ColumnName="Ref_COD_Id" />
+          <ScalarProperty Name="COD_Id" ColumnName="COD_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRegions">
+      <EntityTypeMapping TypeName="EBFPModel.tblRegions">
+        <MappingFragment StoreEntitySet="tblRegions">
+          <ScalarProperty Name="Reg_Logo" ColumnName="Reg_Logo" />
+          <ScalarProperty Name="Reg_Description" ColumnName="Reg_Description" />
+          <ScalarProperty Name="Reg_Title" ColumnName="Reg_Title" />
+          <ScalarProperty Name="Reg_Id" ColumnName="Reg_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblViolations">
+      <EntityTypeMapping TypeName="EBFPModel.tblViolations">
+        <MappingFragment StoreEntitySet="tblViolations">
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="Violation_Fine2" ColumnName="Violation_Fine2" />
+          <ScalarProperty Name="Violation_CreatedDate" ColumnName="Violation_CreatedDate" />
+          <ScalarProperty Name="Violation_Created_EmpId" ColumnName="Violation_Created_EmpId" />
+          <ScalarProperty Name="Violation_Fine" ColumnName="Violation_Fine" />
+          <ScalarProperty Name="Violation_Compliance" ColumnName="Violation_Compliance" />
+          <ScalarProperty Name="Violation_OccupancyType" ColumnName="Violation_OccupancyType" />
+          <ScalarProperty Name="Violation_Graceperiod" ColumnName="Violation_Graceperiod" />
+          <ScalarProperty Name="Violation_Section" ColumnName="Violation_Section" />
+          <ScalarProperty Name="Violation_Desc" ColumnName="Violation_Desc" />
+          <ScalarProperty Name="Violation_Code" ColumnName="Violation_Code" />
+          <ScalarProperty Name="Auto_Violation_Id" ColumnName="Auto_Violation_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblFSECApplication">
+      <EntityTypeMapping TypeName="EBFPModel.tblFSECApplication">
+        <MappingFragment StoreEntitySet="tblFSECApplication">
+          <ScalarProperty Name="FSEC_ValueOfBuilding" ColumnName="FSEC_ValueOfBuilding" />
+          <ScalarProperty Name="FSEC_BPS8" ColumnName="FSEC_BPS8" />
+          <ScalarProperty Name="FSEC_BPS7" ColumnName="FSEC_BPS7" />
+          <ScalarProperty Name="FSEC_BPS6" ColumnName="FSEC_BPS6" />
+          <ScalarProperty Name="FSEC_BPS5" ColumnName="FSEC_BPS5" />
+          <ScalarProperty Name="FSEC_BPS4" ColumnName="FSEC_BPS4" />
+          <ScalarProperty Name="FSEC_BPS3" ColumnName="FSEC_BPS3" />
+          <ScalarProperty Name="FSEC_BPS2" ColumnName="FSEC_BPS2" />
+          <ScalarProperty Name="FSEC_BPS1" ColumnName="FSEC_BPS1" />
+          <ScalarProperty Name="FSEC_IsManual" ColumnName="FSEC_IsManual" />
+          <ScalarProperty Name="FSEC_ClaimStub_Number" ColumnName="FSEC_ClaimStub_Number" />
+          <ScalarProperty Name="FSEC_Disapproval_Number" ColumnName="FSEC_Disapproval_Number" />
+          <ScalarProperty Name="FSEC_Number" ColumnName="FSEC_Number" />
+          <ScalarProperty Name="FSEC_IsApproveMarshall" ColumnName="FSEC_IsApproveMarshall" />
+          <ScalarProperty Name="FSEC_IsApproveChiefFSES" ColumnName="FSEC_IsApproveChiefFSES" />
+          <ScalarProperty Name="FSEC_IsApprovePlanEvaluated" ColumnName="FSEC_IsApprovePlanEvaluated" />
+          <ScalarProperty Name="FSEC_Marshall_Remarks" ColumnName="FSEC_Marshall_Remarks" />
+          <ScalarProperty Name="FSEC_Marshall_Emp_Id" ColumnName="FSEC_Marshall_Emp_Id" />
+          <ScalarProperty Name="FSEC_Mashall_Date" ColumnName="FSEC_Mashall_Date" />
+          <ScalarProperty Name="FSEC_ChiefFSES_Remarks" ColumnName="FSEC_ChiefFSES_Remarks" />
+          <ScalarProperty Name="FSEC_ChiefFSES_Emp_Id" ColumnName="FSEC_ChiefFSES_Emp_Id" />
+          <ScalarProperty Name="FSEC_ChiefFSES_Date" ColumnName="FSEC_ChiefFSES_Date" />
+          <ScalarProperty Name="FSEC_PlanEvaluation_Remarks" ColumnName="FSEC_PlanEvaluation_Remarks" />
+          <ScalarProperty Name="FSEC_PlanEvaluator_Emp_Id" ColumnName="FSEC_PlanEvaluator_Emp_Id" />
+          <ScalarProperty Name="FSEC_PlanEvaluated_Date" ColumnName="FSEC_PlanEvaluated_Date" />
+          <ScalarProperty Name="FSEC_Unit_Id" ColumnName="FSEC_Unit_Id" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="Ref_FSEC_App_Id" ColumnName="Ref_FSEC_App_Id" />
+          <ScalarProperty Name="FSEC_OPS_Number" ColumnName="FSEC_OPS_Number" />
+          <ScalarProperty Name="FSEC_Released_Date" ColumnName="FSEC_Released_Date" />
+          <ScalarProperty Name="FSEC_ForReleased_Date" ColumnName="FSEC_ForReleased_Date" />
+          <ScalarProperty Name="FSEC_Collected_Date" ColumnName="FSEC_Collected_Date" />
+          <ScalarProperty Name="FSEC_Assesed_Date" ColumnName="FSEC_Assesed_Date" />
+          <ScalarProperty Name="FSEC_Evaluated_Date" ColumnName="FSEC_Evaluated_Date" />
+          <ScalarProperty Name="FSEC_Released_Emp_Id" ColumnName="FSEC_Released_Emp_Id" />
+          <ScalarProperty Name="FSEC_ForReleasing_Emp_Id" ColumnName="FSEC_ForReleasing_Emp_Id" />
+          <ScalarProperty Name="FSEC_Collector_Emp_Id" ColumnName="FSEC_Collector_Emp_Id" />
+          <ScalarProperty Name="FSEC_Assesor_Emp_Id" ColumnName="FSEC_Assesor_Emp_Id" />
+          <ScalarProperty Name="FSEC_Evaluator_Emp_Id" ColumnName="FSEC_Evaluator_Emp_Id" />
+          <ScalarProperty Name="FSEC_OtherFee" ColumnName="FSEC_OtherFee" />
+          <ScalarProperty Name="FSEC_HotWorkClearance" ColumnName="FSEC_HotWorkClearance" />
+          <ScalarProperty Name="FSEC_InstallationClearance" ColumnName="FSEC_InstallationClearance" />
+          <ScalarProperty Name="FSEC_ConstructionTax" ColumnName="FSEC_ConstructionTax" />
+          <ScalarProperty Name="FSEC_Remarks" ColumnName="FSEC_Remarks" />
+          <ScalarProperty Name="FSEC_Status" ColumnName="FSEC_Status" />
+          <ScalarProperty Name="FSEC_MechanicalBOM" ColumnName="FSEC_MechanicalBOM" />
+          <ScalarProperty Name="FSEC_MechanicalPlans" ColumnName="FSEC_MechanicalPlans" />
+          <ScalarProperty Name="FSEC_MechanicalPermit" ColumnName="FSEC_MechanicalPermit" />
+          <ScalarProperty Name="FSEC_TotalConnectedLoad" ColumnName="FSEC_TotalConnectedLoad" />
+          <ScalarProperty Name="FSEC_ElectricalBOM" ColumnName="FSEC_ElectricalBOM" />
+          <ScalarProperty Name="FSEC_ElectricalPlans" ColumnName="FSEC_ElectricalPlans" />
+          <ScalarProperty Name="FSEC_ElectricalPermit" ColumnName="FSEC_ElectricalPermit" />
+          <ScalarProperty Name="FSEC_LocationClearance" ColumnName="FSEC_LocationClearance" />
+          <ScalarProperty Name="FSEC_BOM" ColumnName="FSEC_BOM" />
+          <ScalarProperty Name="FSEC_Specification" ColumnName="FSEC_Specification" />
+          <ScalarProperty Name="FSEC_BuildingPlans" ColumnName="FSEC_BuildingPlans" />
+          <ScalarProperty Name="FSEC_Est_Id" ColumnName="FSEC_Est_Id" />
+          <ScalarProperty Name="FSEC_EstablishmentType" ColumnName="FSEC_EstablishmentType" />
+          <ScalarProperty Name="FSEC_ApplicationDate" ColumnName="FSEC_ApplicationDate" />
+          <ScalarProperty Name="FSEC_App_Id" ColumnName="FSEC_App_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeServiceAppointments">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeServiceAppointments">
+        <MappingFragment StoreEntitySet="tblEmployeeServiceAppointments">
+          <ScalarProperty Name="ESA_Authority" ColumnName="ESA_Authority" />
+          <ScalarProperty Name="ESA_OtherRank" ColumnName="ESA_OtherRank" />
+          <ScalarProperty Name="ESA_LeaveWithoutPay" ColumnName="ESA_LeaveWithoutPay" />
+          <ScalarProperty Name="ESA_DutyStatus" ColumnName="ESA_DutyStatus" />
+          <ScalarProperty Name="ESA_Emp_Id" ColumnName="ESA_Emp_Id" />
+          <ScalarProperty Name="ESA_Office_Entity" ColumnName="ESA_Office_Entity" />
+          <ScalarProperty Name="ESA_EndDate" ColumnName="ESA_EndDate" />
+          <ScalarProperty Name="ESA_ApptDate" ColumnName="ESA_ApptDate" />
+          <ScalarProperty Name="ESA_ApptType" ColumnName="ESA_ApptType" />
+          <ScalarProperty Name="ESA_JobFuncSubCategory" ColumnName="ESA_JobFuncSubCategory" />
+          <ScalarProperty Name="ESA_JobFuncCategory" ColumnName="ESA_JobFuncCategory" />
+          <ScalarProperty Name="ESA_SalaryAmt" ColumnName="ESA_SalaryAmt" />
+          <ScalarProperty Name="ESA_SalaryGrade" ColumnName="ESA_SalaryGrade" />
+          <ScalarProperty Name="ESA_Appt_Status" ColumnName="ESA_Appt_Status" />
+          <ScalarProperty Name="ESA_Rank" ColumnName="ESA_Rank" />
+          <ScalarProperty Name="ESA_PosDesignation" ColumnName="ESA_PosDesignation" />
+          <ScalarProperty Name="ESA_Id" ColumnName="ESA_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblApplicationPayments">
+      <EntityTypeMapping TypeName="EBFPModel.tblApplicationPayments">
+        <MappingFragment StoreEntitySet="tblApplicationPayments">
+          <ScalarProperty Name="AP_PaymentRefDate" ColumnName="AP_PaymentRefDate" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="AP_Unit_Id" ColumnName="AP_Unit_Id" />
+          <ScalarProperty Name="AP_PaymentRefBank" ColumnName="AP_PaymentRefBank" />
+          <ScalarProperty Name="AP_PaymentRefNumber" ColumnName="AP_PaymentRefNumber" />
+          <ScalarProperty Name="AP_PaymentMode" ColumnName="AP_PaymentMode" />
+          <ScalarProperty Name="AP_ORAmount" ColumnName="AP_ORAmount" />
+          <ScalarProperty Name="AP_ORNumber" ColumnName="AP_ORNumber" />
+          <ScalarProperty Name="AP_ORDate" ColumnName="AP_ORDate" />
+          <ScalarProperty Name="AP_App_Id" ColumnName="AP_App_Id" />
+          <ScalarProperty Name="AP_ApplicationType" ColumnName="AP_ApplicationType" />
+          <ScalarProperty Name="AP_AmountChange" ColumnName="AP_AmountChange" />
+          <ScalarProperty Name="AP_AmountTendered" ColumnName="AP_AmountTendered" />
+          <ScalarProperty Name="Ref_AP_Id" ColumnName="Ref_AP_Id" />
+          <ScalarProperty Name="AP_Id" ColumnName="AP_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmployeeTrainingPrograms">
+      <EntityTypeMapping TypeName="EBFPModel.tblEmployeeTrainingPrograms">
+        <MappingFragment StoreEntitySet="tblEmployeeTrainingPrograms">
+          <ScalarProperty Name="ETP_Remarks" ColumnName="ETP_Remarks" />
+          <ScalarProperty Name="ETP_LDType_ID" ColumnName="ETP_LDType_ID" />
+          <ScalarProperty Name="ETP_LDType" ColumnName="ETP_LDType" />
+          <ScalarProperty Name="ETP_Emp_Id" ColumnName="ETP_Emp_Id" />
+          <ScalarProperty Name="ETP_CommendOfficer" ColumnName="ETP_CommendOfficer" />
+          <ScalarProperty Name="ETP_Commend" ColumnName="ETP_Commend" />
+          <ScalarProperty Name="ETP_ConductSponsor" ColumnName="ETP_ConductSponsor" />
+          <ScalarProperty Name="ETP_Hours" ColumnName="ETP_Hours" />
+          <ScalarProperty Name="ETP_EndDate" ColumnName="ETP_EndDate" />
+          <ScalarProperty Name="ETP_StartDate" ColumnName="ETP_StartDate" />
+          <ScalarProperty Name="ETP_TrainingTitle" ColumnName="ETP_TrainingTitle" />
+          <ScalarProperty Name="ETP_Id" ColumnName="ETP_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwFeesByRegion">
+      <EntityTypeMapping TypeName="EBFPModel.vwFeesByRegion">
+        <MappingFragment StoreEntitySet="vwFeesByRegion">
+          <ScalarProperty Name="ForBusinessFee" ColumnName="ForBusinessFee" />
+          <ScalarProperty Name="ForOccupancyFee" ColumnName="ForOccupancyFee" />
+          <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+          <ScalarProperty Name="FireSafetyInspectionFee" ColumnName="FireSafetyInspectionFee" />
+          <ScalarProperty Name="FireCodeAdminFine" ColumnName="FireCodeAdminFine" />
+          <ScalarProperty Name="InstallationClearanceFee" ColumnName="InstallationClearanceFee" />
+          <ScalarProperty Name="ConveyanceClearanceFee" ColumnName="ConveyanceClearanceFee" />
+          <ScalarProperty Name="StorageClearanceFee" ColumnName="StorageClearanceFee" />
+          <ScalarProperty Name="ProceedsTax" ColumnName="ProceedsTax" />
+          <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
+          <ScalarProperty Name="PremiumTax" ColumnName="PremiumTax" />
+          <ScalarProperty Name="RealtyTax" ColumnName="RealtyTax" />
+          <ScalarProperty Name="ConstructionTax" ColumnName="ConstructionTax" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOtherClearances">
+      <EntityTypeMapping TypeName="EBFPModel.tblOtherClearances">
+        <MappingFragment StoreEntitySet="tblOtherClearances">
+          <ScalarProperty Name="OC_Remarks" ColumnName="OC_Remarks" />
+          <ScalarProperty Name="IsSynced" ColumnName="IsSynced" />
+          <ScalarProperty Name="OC_ContactNumber" ColumnName="OC_ContactNumber" />
+          <ScalarProperty Name="OC_AuthorizedRepresentative" ColumnName="OC_AuthorizedRepresentative" />
+          <ScalarProperty Name="OC_LastUpdateDate" ColumnName="OC_LastUpdateDate" />
+          <ScalarProperty Name="OC_LastUpdate_Emp_Id" ColumnName="OC_LastUpdate_Emp_Id" />
+          <ScalarProperty Name="OC_CreatedDate" ColumnName="OC_CreatedDate" />
+          <ScalarProperty Name="OC_Created_Emp_Id" ColumnName="OC_Created_Emp_Id" />
+          <ScalarProperty Name="OC_Unit_Id" ColumnName="OC_Unit_Id" />
+          <ScalarProperty Name="OC_FCLS_Constructor" ColumnName="OC_FCLS_Constructor" />
+          <ScalarProperty Name="OC_FCLS_ConstructionAddress" ColumnName="OC_FCLS_ConstructionAddress" />
+          <ScalarProperty Name="OC_Stor_StoredVolume" ColumnName="OC_Stor_StoredVolume" />
+          <ScalarProperty Name="OC_Stor_KindOfLiquid" ColumnName="OC_Stor_KindOfLiquid" />
+          <ScalarProperty Name="OC_Conv_Description" ColumnName="OC_Conv_Description" />
+          <ScalarProperty Name="OC_Conv_Quantity" ColumnName="OC_Conv_Quantity" />
+          <ScalarProperty Name="OC_Conv_TrailerPlateNumber" ColumnName="OC_Conv_TrailerPlateNumber" />
+          <ScalarProperty Name="OC_Conv_TrailerChassisNumber" ColumnName="OC_Conv_TrailerChassisNumber" />
+          <ScalarProperty Name="OC_Conv_LicenseNumber" ColumnName="OC_Conv_LicenseNumber" />
+          <ScalarProperty Name="OC_Conv_DriverName" ColumnName="OC_Conv_DriverName" />
+          <ScalarProperty Name="OC_Conv_ChassisNumber" ColumnName="OC_Conv_ChassisNumber" />
+          <ScalarProperty Name="OC_Conv_PlateNumber" ColumnName="OC_Conv_PlateNumber" />
+          <ScalarProperty Name="OC_Conv_MotorNumber" ColumnName="OC_Conv_MotorNumber" />
+          <ScalarProperty Name="OC_Conv_TypeOfVehicle" ColumnName="OC_Conv_TypeOfVehicle" />
+          <ScalarProperty Name="OC_Elec_ServiceEntranceConductors" ColumnName="OC_Elec_ServiceEntranceConductors" />
+          <ScalarProperty Name="OC_Elec_MainDisconnectingMeans" ColumnName="OC_Elec_MainDisconnectingMeans" />
+          <ScalarProperty Name="OC_Elec_ElectricalEquipment" ColumnName="OC_Elec_ElectricalEquipment" />
+          <ScalarProperty Name="OC_Elec_LightningOutletsNumber" ColumnName="OC_Elec_LightningOutletsNumber" />
+          <ScalarProperty Name="OC_Elec_ProposedLoad" ColumnName="OC_Elec_ProposedLoad" />
+          <ScalarProperty Name="OC_Elec_TypeofService" ColumnName="OC_Elec_TypeofService" />
+          <ScalarProperty Name="OC_Hw_FireWatchmen" ColumnName="OC_Hw_FireWatchmen" />
+          <ScalarProperty Name="OC_Hw_ClearanceDuration" ColumnName="OC_Hw_ClearanceDuration" />
+          <ScalarProperty Name="OC_Hw_PAI" ColumnName="OC_Hw_PAI" />
+          <ScalarProperty Name="OC_Hw_NameofPersons" ColumnName="OC_Hw_NameofPersons" />
+          <ScalarProperty Name="OC_Hw_NatureofJob" ColumnName="OC_Hw_NatureofJob" />
+          <ScalarProperty Name="OC_LPG_DateInstalled" ColumnName="OC_LPG_DateInstalled" />
+          <ScalarProperty Name="OC_LPG_AppliancesInstalled" ColumnName="OC_LPG_AppliancesInstalled" />
+          <ScalarProperty Name="OC_LPG_WaterCapacity" ColumnName="OC_LPG_WaterCapacity" />
+          <ScalarProperty Name="OC_LPG_NumberofUnits" ColumnName="OC_LPG_NumberofUnits" />
+          <ScalarProperty Name="OC_LPG_InstallationName" ColumnName="OC_LPG_InstallationName" />
+          <ScalarProperty Name="OC_Fw_Supervisor" ColumnName="OC_Fw_Supervisor" />
+          <ScalarProperty Name="OC_Fw_Duration" ColumnName="OC_Fw_Duration" />
+          <ScalarProperty Name="OC_OccupancyType" ColumnName="OC_OccupancyType" />
+          <ScalarProperty Name="OC_OperationAddress" ColumnName="OC_OperationAddress" />
+          <ScalarProperty Name="OC_OwnerName" ColumnName="OC_OwnerName" />
+          <ScalarProperty Name="OC_BusinessAddress" ColumnName="OC_BusinessAddress" />
+          <ScalarProperty Name="OC_BusinessName" ColumnName="OC_BusinessName" />
+          <ScalarProperty Name="Ref_OC_Id" ColumnName="Ref_OC_Id" />
+          <ScalarProperty Name="OC_Id" ColumnName="OC_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

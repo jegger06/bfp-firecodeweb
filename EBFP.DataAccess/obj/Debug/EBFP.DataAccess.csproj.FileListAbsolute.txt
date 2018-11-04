@@ -1,0 +1,10 @@
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\bin\Debug\EBFP.DataAccess.dll.config
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\bin\Debug\EBFP.DataAccess.dll
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\bin\Debug\EBFP.DataAccess.pdb
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\bin\Debug\EntityFramework.dll
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\bin\Debug\EntityFramework.xml
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\obj\Debug\EBFP.DataAccess.dll
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\obj\Debug\EBFP.DataAccess.pdb
+D:\Projects\ASP.NET\FireCodeWeb\EBFP.DataAccess\obj\Debug\EBFP.DataAccess.csprojResolveAssemblyReference.cache

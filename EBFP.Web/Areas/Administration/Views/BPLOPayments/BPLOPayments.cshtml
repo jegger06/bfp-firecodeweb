@@ -1,0 +1,94 @@
+﻿
+@using EBFP.BL.Helper
+@using EBFP.Helper
+@model EBFP.BL.Administration.BPLOPaymentsUploadModel
+@{
+    ViewBag.Title = "BPLO Payments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .lbl {
+        border: none !important;
+        background-color: transparent;     
+    }
+</style>
+
+<h2> @ViewBag.Message </h2>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row">
+
+                @using (Html.BeginForm("UploadBPLOPayments", "BPLOPayments", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <form method="POST" action="#" enctype="multipart/form-data">
+                        <div class="col-sm-3 ">
+                            <div class="form-group">
+                                <div class="input-group input-file" name="Fichier1">
+                                    @Html.TextBoxFor(model => model.uploadList, "", new { @class = "form-control", type = "file", name = "Alphalist", id = "Alphalist", @accept = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <button class="btn btn-success btn-rounded waves-effect waves-light m-r-10 pull-left" type="submit" id="btnUpload"><i class="fa fa-upload"></i> Upload</button>
+                                <button type="button" class="btn btn-success" id="btnSubmit">Submit</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <button type="button" onclick="DownloadTemplate()" class="btn btn-info waves-effect waves-light pull-right"><i class="fa fa-print"></i> Download Template</button>
+                            </div>
+                        </div>
+
+                    </form>
+                }
+            </div>
+            
+            @using (Html.BeginForm("SubmitBPLOPayments", "BPLOPayments", null, FormMethod.Post))
+            {
+
+                <button type="submit" class="btn btn-success" style="display:none" id="btnSubmitDummy"></button>
+                    <div class="table-responsive">
+                        <table id="bploPayments" class="table table-striped table-bordered nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Business ID No.</th>
+                                    <th>Business Name</th>
+                                    <th>Trade Name</th>
+                                    <th>Business Address</th>
+                                    <th>Tax Year</th>
+                                    <th>Pay Amount</th>
+                                    <th>Issue Date</th>
+                                    <th>Basic of Amount Paid</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @for (int i = 0; i < Model.paymentList.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Html.HiddenFor(model => Model.paymentList[i].Est_Id) @Html.TextBoxFor(model => Model.paymentList[i].BusinessIdNumber, new { @class="lbl", @readonly="true" })</td>
+                                        <td>@Html.TextBoxFor(model => Model.paymentList[i].BusinessName, new { @class="lbl", @readonly="true" })</td>
+                                        <td>@Html.TextBoxFor(model => Model.paymentList[i].TradeName, new { @class="lbl", @readonly="true" })</td>
+                                        <td>@Html.TextBoxFor(model => Model.paymentList[i].BusinessAddress, new { @class="lbl", @readonly="true" })</td>
+                                        <td>@Html.TextBoxFor(model => Model.paymentList[i].TaxYear, new { @class="lbl", @readonly="true" })</td>
+                                        <td>@Html.TextBoxFor(model => Model.paymentList[i].Amount, new { @class="lbl", @readonly="true" })</td>
+                                        <td>@Html.TextBoxFor(model => Model.paymentList[i].IssueDate, new { @class="lbl", @readonly="true" })</td>
+                                        <td>@Html.TextBoxFor(model => Model.paymentList[i].BasisOfAmountPaid, new { @class="lbl", @readonly="true" })</td>
+                                        <td>@Html.TextBoxFor(model => Model.paymentList[i].Remarks, new { @class="lbl", @readonly="true" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
+<script src="@Url.Content("~/scripts/Areas/Administration/bploPayments.js")"></script>

@@ -1,0 +1,66 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+<div class="col-md-12">
+    <div class="col-md-3">
+        General Appearance :
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.General.PE_Gen_Appearance_WellNourished, new { @class = "form-control" })
+        <label class="control-label chk-label">Well Nourished</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.General.PE_Gen_Appearance_WellDeveloped, new { @class = "form-control" })
+        <label class="control-label chk-label">Well Developed</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.General.PE_Gen_Appearance_Other, new { @class = "form-control" })
+        <label style="float: left" class="control-label chk-label">Other</label>
+    </div>
+    <div class="chk-group">
+        @Html.TextBoxFor(model => model.General.PE_Gen_Appearance_Other_Text, new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.General.PE_Gen_Alert, new { @class = "form-control" })
+        <label class="control-label chk-label">Alert</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.General.PE_Gen_Anxiuos, new { @class = "form-control" })
+        <label class="control-label chk-label">Anxious</label>
+    </div>
+    <div class="chk-group">
+        <label class="control-label chk-label">(Level of Distress) : </label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.General.PE_LD_NoAcuteDistress, new { @class = "form-control" })
+        <label class="control-label chk-label">No Acute Distress</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.General.PE_LD_Mild, new { @class = "form-control" })
+        <label class="control-label chk-label">Mild</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.General.PE_LD_Moderate, new { @class = "form-control" })
+        <label class="control-label chk-label">Moderate</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.General.PE_LD_Severe, new { @class = "form-control" })
+        <label class="control-label chk-label">Severe</label>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-1">
+        <label class="control-label chk-label">Race : </label>
+    </div>
+    <div class="col-md-4">
+        @Html.TextBoxFor(model => model.General.PE_Race, new { @class = "form-control" })
+    </div>
+    <div class="col-md-2">
+        <label class="control-label">Abnormal Findings : </label>
+    </div>
+    <div class="col-md-5">
+        @Html.TextBoxFor(model => model.General.PE_Gen_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

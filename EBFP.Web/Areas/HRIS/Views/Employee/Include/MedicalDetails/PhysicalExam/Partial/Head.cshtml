@@ -1,0 +1,25 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        @Html.CheckBoxFor(model => model.Head.PE_FacialFeaturesSymmetric, new { @class = "form-control" })
+        <label class="control-label chk-label">Facial Features Symmetric :</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Head.PE_SkullNormocephalic, new { @class = "form-control" })
+        <label class="control-label chk-label">Skull Normocephalic</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.Head.PE_HairScalpNormal, new { @class = "form-control" })
+        <label class="control-label chk-label">Hair and Skulp Normal</label>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-3">
+        <label class="control-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.Head.PE_Head_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

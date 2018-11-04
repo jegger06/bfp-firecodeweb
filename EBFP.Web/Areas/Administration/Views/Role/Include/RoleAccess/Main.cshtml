@@ -1,0 +1,62 @@
+﻿@using EBFP.BL.Helper
+@model EBFP.BL.Administration.UserRoleModel
+<div class="col-sm-12">
+  <div class="panel panel-info">
+    <a href="#" data-perform="panel-collapse">
+      <div class="panel-heading">
+        Role Access
+        <div class="pull-left">
+          <a href="#" data-perform="panel-collapse"><i class="ti-minus"></i>&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </a>
+    <div class="panel-wrapper collapse in" aria-expanded="true">
+      <div style="overflow:hidden !important; padding:10px !important">
+          <button type="button" id="NewRoleAccess" name="NewRoleAccess" class="btn btn-success btn-rounded waves-effect waves-light m-r-10"><i class="fa fa-plus"></i> Add New</button>
+      </div>
+      <div class="divTable">
+        <div class="divTableHeading">
+          <div class="divTableRow">
+            <div class="divTableHead text-center">Access</div>
+            <div class="divTableHead text-center">&nbsp;</div>
+          </div>
+        </div>
+        <div class="divTableBody" id="Access">
+          @if (@Model.RoleAccessList != null)
+          {
+              var RoleAccess= Model.RoleAccessList.OrderBy(a => a.RA_PageSecurityID).ToList();
+
+              for (int i = 0; i < RoleAccess.Count(); i++)
+              {
+                  @Html.Partial("~/Areas/Administration/Views/Role/Include/RoleAccess/Editor.cshtml", RoleAccess[i])
+              }
+          }
+        </div>
+
+      </div>
+        <div style="overflow: hidden !important; padding: 10px !important">
+            &nbsp;
+        </div>
+        
+        <script type="text/javascript">
+        $(document).ready(function () {
+            var formCtr = 1;
+           // $(".select2").select2();
+          $("#NewRoleAccess").click(function () {
+            $.ajax({
+              async: false,
+              url: '/Admin/Role/RoleAccessEditor'
+            }).success(function (partialView) {
+                $(partialView).appendTo("#Access");
+                $(".select2").select2();
+            });
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
+<script src="@Url.Content("~/Scripts/Areas/Common/helper.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/CustomSelect.cshtml")
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.css")" id="theme" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/select2/select2.full.js")"></script>

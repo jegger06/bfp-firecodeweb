@@ -1,0 +1,52 @@
+﻿
+@model EBFP.BL.HumanResources.PhysicalExamModel
+
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.ENT.PE_ENT_Inspection_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">ENT Inspection Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.ENT.PE_Throat_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">Throat Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.ENT.PE_MucusMembranes_PinkMoist, new { @class = "form-control" })
+        <label class="control-label chk-label">Mucus Membranes Pink and Moist</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.ENT.PE_NasalSeptum_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">Nasal Septrum Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.ENT.PE_TMs_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">TM's Normal</label>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.ENT.PE_AuditoryCanal_Normal, new { @class = "form-control" })
+        <label class="control-label chk-label">Auditory Canal Normal</label>
+    </div>
+    <div class="chk-group">
+        @Html.CheckBoxFor(model => model.ENT.PE_HearingGrosslyIntact, new { @class = "form-control" })
+        <label class="control-label chk-label">Hearing Grossly Intact</label>
+    </div>
+    <div class="col-md-7">
+        <div class="col-md-6" style="padding-left: 3px;">
+            @Html.CheckBoxFor(model => model.ENT.PE_SinusTenderness, new { @class = "form-control" })
+            <label class="control-label chk-label">Sinus Tenderness (Location :)</label>
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => model.ENT.PE_SinusTenderness_Location, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-3">
+        <label class="control-label">Abnormal Exam Findings : </label>
+    </div>
+    <div class="col-md-9">
+        @Html.TextBoxFor(model => model.ENT.PE_ENT_Abnormal_Findings, new { @class = "form-control" })
+    </div>
+</div>

@@ -1,0 +1,153 @@
+﻿@using EBFP.Helper;
+@using EBFP.BL.Helper;
+
+@{
+    ViewBag.Title = "SubStation";
+    Layout = "";
+    if (!(PageSecurity.HasAccess(PageArea.Inventory_SubStation_CanViewAll)))
+    {
+        @Html.Partial("~/Views/Shared/Forbidden.cshtml")
+        return;
+    }
+}
+@{
+    var sMunicipalityId = string.IsNullOrWhiteSpace(Request.QueryString["sMunicipalityId"]) ? "0" : Request.QueryString["sMunicipalityId"].Decrypt();
+    var encryptedMunicipalityId = string.IsNullOrWhiteSpace(sMunicipalityId) ? "0".Encrypt() : sMunicipalityId.Encrypt();
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div role="form" class="row">
+            <div class="col-sm-4 col-md-2" style="display: none">
+                <div class="form-group">
+                    <label class="control-label">Sub-Station ID</label>
+                    <input type="text" id="txtSubStationId" class="form-control" />
+                </div>
+            </div>
+            @*<div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Region</label>
+                        @Html.DropDownList("Region", Selections.Region, " --- Please Select---", new { @id = "ddlSearchRegion", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Province</label>
+                        @Html.DropDownList("Province", new SelectList(Enumerable.Empty<SelectListItem>(), "Province_Id", "Province_Name"), " --- Please Select---", new {id = "ddlSearchProvince", @class = "form-control"})
+                    </div>
+                </div>*@
+            <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Unit (Station)</label>
+                    @Html.DropDownList("Unit", Selections.SearchStationName, " --- Please Select---", new { id = "ddlSubSearchUnit", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Sub-Station Name</label>
+                    <input type="text" id="txtSubStationName" class="form-control" />
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Building Status</label>
+                    @Html.DropDownList("BuildingStatus", BuildingStatus.Attached.ToSelectList(), " --- Please Select---", new { id = "ddlBuildingStatus", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Building Owner</label>
+                    @Html.DropDownList("BuildingOwner", BuildingOwner.BFP.ToSelectList(), " --- Please Select---", new { id = "ddlBuildingOwner", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Lot Owner</label>
+                    @Html.DropDownList("LotOwner", LotOwner.BFP.ToSelectList(), " --- Please Select---", new { id = "ddlLotOwner", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Lot Status</label>
+                    @Html.DropDownList("LotStatus", LotStatus.Donated.ToSelectList(), " --- Please Select---", new { id = "ddlLotStatus", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <div class="form-group">
+                    <label class="control-label">&nbsp;</label>
+                    <button type="button" onclick="FilterSubStationSearch()" id="btnSubStationSearch" class="btn btn-inverse btn-block form-control"><i class="fa fa-search"></i>Search</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-sm-12">
+                <div>
+                    <p>
+                        @if (PageSecurity.HasAccess(PageArea.Inventory_SubStation_Modify))
+                        {
+                            if (sMunicipalityId == "0")
+                            {
+                                <a style="color: White" href="@Url.Action("SubStationDetails", "Inventory", new {sId = 0.ToString().Encrypt()})" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+                                    <i class="fa fa-plus-circle"></i> Create New
+                                </a>
+                            }
+                            else
+                            {
+                                <a style="color: White" href="@Url.Action("SubStationDetails", "Inventory", new {sId = 0.ToString().Encrypt(), sMunicipalityId = sMunicipalityId.Encrypt()})" class="btn btn-success btn-rounded waves-effect waves-light m-r-10">
+                                    <i class="fa fa-plus-circle"></i> Create New
+                                </a>
+                            }
+                        }
+                    </p>
+
+                    <span id="totalRecords">&nbsp;</span>
+                    <div class="block3" style="position: static; zoom: 1;">
+
+                        <div class="table-responsive">
+                            <table id="tblSubStation" class="table table-striped table-bordered nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="all">Unit</th>
+                                        @*<th class="all">Sub Station ID</th>*@
+                                        <th class="all">Sub Station Name</th>
+                                        <th>Building Status</th>
+                                        <th>Building Owner</th>
+                                        <th>Lot Owner</th>
+                                        <th>Lot status</th>
+                                        <th class="all">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @*<td></td>*@
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@{string sId = 0.ToString().Encrypt(); }
+<script>
+    var decryptedMunicipalityId =  @Html.Raw(Json.Encode(sMunicipalityId));
+    var paramMunicipalityId =  @Html.Raw(Json.Encode(encryptedMunicipalityId));
+    var hasAccessToModify = @Html.Raw(Json.Encode(PageSecurity.HasAccess(PageArea.Inventory_SubStation_Modify)));
+    var hasAccessToViewDetails = @Html.Raw(Json.Encode(PageSecurity.HasAccess(PageArea.Inventory_SubStation_ViewDetails)));
+</script>
+<!--alerts CSS -->
+<link href="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/bootstrap/eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js")"></script>
+<script src="@Url.Content("~/Scripts/Areas/Inventory/subStationMain.js")"></script>
+@Html.Partial("~/Views/Shared/formcontrols/DataTable.cshtml")
